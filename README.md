@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+![waving](https://capsule-render.vercel.app/api?type=waving&height=180&text=Photo-Pie&fontSize=50&fontAlign=50&color=02343F&fontColor=F0EDCC)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Photo-Pie(Front-End) README
 
-## Available Scripts
+> **Photo-Pie Project**  
+> 서로 다른 공간에 있지만 그 순간을 함께 남겨둘 수 있다면 ?
+> 포토 파이에서 일상을 나누는 즐거움을 경험해보세요 !
+> Different spaces, same memory.
+> Experience the joy of sharing your daily moments with Photo Pie.
 
-In the project directory, you can run:
+-   [[Notion: Photo-Pie Project]](https://www.notion.so/yjuu/2-e2370506d53d45df9a48424f42dc996b)
+-   [[Front-End Repository]](https://github.com/photopieproject/FE)
+-   [[Back-End Repository]](https://github.com/photopieproject/BE)
+<!-- - [[프로젝트 시연영상 보러가기]](https://www.youtube.com/watch?v=5vryOylmYbc) -->
 
-### `npm start`
+## Develop Period
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2022년 12월 30일 ~ 2023년 2월 10일
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<p>
 
-### `npm test`
+## Photo-Pie Team
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### `Frontend`
 
-### `npm run build`
+[![최삐삐](https://img.shields.io/badge/최삐삐-004c8c.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/front-chan)
+[![햅삐-졍](https://img.shields.io/badge/햅삐★졍-ff4081.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/wjddms0501)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### `Backend`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[![연듀곤듀](https://img.shields.io/badge/연듀곤듀-aeea00.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/OhYeonJu)
+[![크리스탈황](https://img.shields.io/badge/Crystal_황-bbdefb.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/Hwangbambi)
+[![레모나킴](https://img.shields.io/badge/레모나킴-ffd54f.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/010me)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### `Designer`
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[![미쉘킴](https://img.shields.io/badge/Kim_미쉘-e6ceff.svg?style=for-the-badge&logo=Pixabay&logoColor=black)](https://www.behance.net/jiwontheone)
