@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Span from "../button/Span";
 import Swal from "sweetalert2";
-import { GiPieSlice } from "react-icons/gi";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -12,7 +11,6 @@ const Header = () => {
         <StDiv nav_main>
             <div>
                 <Span nav_logo onClick={() => navigate("/")}>
-                    {/* <GiPieSlice /> */}
                     Photo-Pie
                 </Span>
             </div>
