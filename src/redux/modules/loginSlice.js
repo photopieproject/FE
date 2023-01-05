@@ -9,12 +9,14 @@ export const __checkUserId = async (userId) => {
     console.log("data: ", data);
     if (data.data.statusCode === 200) {
       // alert(data.data.msg);
-      Swal.fire("Success", data.data.msg, "succees");
+      Swal.fire("Success", data.data.statusMsg, "success");
+    } else if (data.data.statusCode === 400) {
+      Swal.fire("Error", data.data.statusMsg, "error");
     }
     return data;
   } catch (error) {
     console.log(error);
-    Swal.fire("Error", "이미 사용중인 아이디입니다", "error");
+    // Swal.fire("Error", "이미 사용중인 아이디입니다", "error");
     // Swal.fire("Error", error.response.data.msg, "error");
     // alert(error);
     // useSweet(1000, "error", error.response.data.msg);
@@ -37,11 +39,12 @@ export const __postSignup = async (post) => {
     const data = await apis.postSignup(post);
     // console.log("post: ", post);
     // console.log("data: ", data);
-    Swal.fire("Success", data.data.msg, "succees");
+    Swal.fire("Success", data.data.msg, "success");
     // alert("회원가입 성공!");
     return data;
   } catch (error) {
-    Swal.fire("Error", error.response.data.msg, "error");
+    Swal.fire("Error", error.response.data.statusMsg, "error");
+    console.log(error.response.data.statusMsg);
     // alert("error", error.response.data.msg);
   }
 };

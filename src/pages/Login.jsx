@@ -20,7 +20,6 @@ const Login = () => {
         if (res.data.statusCode === 200) {
           alert("로그인 성공!");
         }
-        console.log(res.headers.authorization);
         localStorage.setItem("id", res.headers.authorization);
         localStorage.setItem("userId", res.data.userId);
         navigate("/");
