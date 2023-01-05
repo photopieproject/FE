@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { __postSignup } from "../redux/modules/loginSlice";
+import { __postSignup, __checkUserId } from "../redux/modules/loginSlice";
 import { useInput } from "../lib/utils/useInput";
 
 const SignUp = () => {
@@ -20,7 +20,7 @@ const SignUp = () => {
       passwordCheck,
     })
       .then((res) => {
-        // console.log("signup res: ", res);
+        console.log("signup res: ", res);
         // alert(res.data.msg);
         localStorage.setItem("id", res.headers.authorization);
         navigate("/login");
@@ -30,12 +30,16 @@ const SignUp = () => {
       });
   };
 
+  const checkUserIdHandler = (userId) => {
+    __checkUserId(userId);
+  };
+
   return (
     <div>
       <StDiv SingUpBox>
         <StDiv SingUp>회원가입</StDiv>
         <StDiv IDPWBox>
-          <form onSubmit={onSubmitSignup}>
+          <div>
             <StDiv IdPw>
               ID
               <br />
@@ -47,7 +51,9 @@ const SignUp = () => {
                 onChange={setUserId}
                 placeholder="5~10자 영문 소문자, 숫자"
               />
-              <StBtn IdCheckBtn>중복체크</StBtn>
+              <StBtn IdCheckBtn onClick={() => checkUserIdHandler(userId)}>
+                중복체크
+              </StBtn>
             </StDiv>
 
             <StDiv IdPw>
@@ -88,11 +94,13 @@ const SignUp = () => {
                 placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
               />
             </StDiv>
-          </form>
+          </div>
         </StDiv>
 
         <StDiv LoginBtnBox>
-          <StBtn LoginBtn>회원가입</StBtn>
+          <StBtn LoginBtn onClick={onSubmitSignup}>
+            회원가입
+          </StBtn>
         </StDiv>
         <StDiv SignUpGoBox>
           계정이 이미 있으신가요?
