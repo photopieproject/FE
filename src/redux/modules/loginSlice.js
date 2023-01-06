@@ -12,8 +12,10 @@ export const __checkUserId = async (userId) => {
       Swal.fire("Success", data.data.statusMsg, "success");
     } else if (data.data.statusCode === 400) {
       Swal.fire("Error", data.data.statusMsg, "error");
+    } else {
+      alert("사용 불가한 아이디입니다.");
     }
-    return data;
+    return data.data.statusCode;
   } catch (error) {
     console.log(error);
     // Swal.fire("Error", "이미 사용중인 아이디입니다", "error");

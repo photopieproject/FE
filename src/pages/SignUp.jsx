@@ -2,12 +2,16 @@ import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { __postSignup, __checkUserId } from "../redux/modules/loginSlice";
 import { useInput } from "../lib/utils/useInput";
+import { useState } from "react";
+import { data } from "jquery";
 
 const SignUp = () => {
   const [userId, setUserId] = useInput();
   const [nickname, setNickName] = useInput();
   const [password, setPassword] = useInput();
   const [passwordCheck, setPasswordCheck] = useInput();
+  const [checkUserId, setCheckUserId] = useState();
+  const [checkP, setCheckP] = useState();
 
   const navigate = useNavigate();
 
@@ -31,7 +35,16 @@ const SignUp = () => {
   };
 
   const checkUserIdHandler = (userId) => {
-    __checkUserId(userId);
+    __checkUserId(userId).then((res) => {
+      console.log(res);
+      if (res === 200) {
+        setCheckUserId(true);
+        setCheckP("사용 가능한 ID입니다");
+      } else if (res === 400) {
+        setCheckUserId(false);
+        setCheckP("이미 사용중인 ID입니다");
+      }
+    });
   };
 
   return (
@@ -48,12 +61,19 @@ const SignUp = () => {
                 type="text"
                 id="userId"
                 value={userId}
+                disabled={checkUserId}
                 onChange={setUserId}
                 placeholder="5~10자 영문 소문자, 숫자"
               />
-              <StBtn IdCheckBtn onClick={() => checkUserIdHandler(userId)}>
+              <StBtn
+                IdCheckBtn
+                disabled={checkUserId}
+                checkUserId={checkUserId}
+                onClick={() => checkUserIdHandler(userId)}
+              >
                 중복체크
               </StBtn>
+              <StP>{checkP}</StP>
             </StDiv>
 
             <StDiv IdPw>
@@ -170,11 +190,13 @@ ${(props) =>
     `}
 `;
 
-// const StP = styled.p`
-//   margin: 0;
-//   font-size: 13px;
-//   color: gray;
-// `;
+const StP = styled.p`
+  margin: 0;
+  font-size: 13px;
+  font-weight: lighter;
+  margin-top: 5px;
+  color: gray;
+`;
 
 const StInput = styled.input`
   ${(props) =>
@@ -231,12 +253,17 @@ const StBtn = styled.button`
       height: 35px;
       border-radius: 10px;
       margin: 0 0 0 20px;
-      background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3);
+      /* background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3); */
       background-size: 200%;
       border: none;
       transition: 500ms;
-      color: white;
+      /* color: white; */
       font-weight: bold;
+      background: ${({ checkUserId }) =>
+        checkUserId
+          ? "#d9d9d9"
+          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
+      color: ${({ checkUserId }) => (checkUserId ? "#706fd3" : "white")};
       &:hover {
         cursor: pointer;
         background-position: right;
