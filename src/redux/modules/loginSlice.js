@@ -7,14 +7,14 @@ export const __checkUserId = async (userId) => {
     const data = await apis.checkUserId(userId);
     console.log("userId: ", userId);
     console.log("data: ", data);
-    if (data.data.statusCode === 200) {
-      // alert(data.data.msg);
-      Swal.fire("Success", data.data.statusMsg, "success");
-    } else if (data.data.statusCode === 400) {
-      Swal.fire("Error", data.data.statusMsg, "error");
-    } else {
-      alert("사용 불가한 아이디입니다.");
-    }
+    // if (data.data.statusCode === 200) {
+    //   // alert(data.data.msg);
+    //   Swal.fire("Success", data.data.statusMsg, "success");
+    // } else if (data.data.statusCode === 400) {
+    //   Swal.fire("Error", data.data.statusMsg, "error");
+    // } else {
+    //   alert("사용 불가한 아이디입니다.");
+    // }
     return data.data.statusCode;
   } catch (error) {
     console.log(error);
