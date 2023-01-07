@@ -2,7 +2,7 @@ import axios from "axios";
 
 // 기본 URL
 const instance = axios.create({
-  baseURL: "http://13.124.85.30",
+  baseURL: "https://api.photo-pie.shop",
   header: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
@@ -12,7 +12,7 @@ const instance = axios.create({
 
 // baseURL
 export const baseURL = axios.create({
-  baseURL: "http://13.124.85.30",
+  baseURL: "https://api.photo-pie.shop",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
@@ -21,7 +21,7 @@ export const baseURL = axios.create({
 });
 
 export const kakaoLogin = axios.create({
-  baseURL: "http://13.124.85.30",
+  baseURL: "https://api.photo-pie.shop",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
