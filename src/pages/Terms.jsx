@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const Terms = () => {
   return (
     <div>
-      <StDiv TermsBox>
+      <div className="TermsBox">
         <StP TermsTitle>이용약관</StP>
         <br />
         <p>
@@ -214,26 +214,26 @@ const Terms = () => {
           <br />
           <br />이 약관은 "사이트 개설일" 부터 시행합니다.
         </p>
-      </StDiv>
+      </div>
     </div>
   );
 };
 
-const StDiv = styled.div`
-  ${(props) =>
-    props.TermsBox &&
-    css`
-      width: 800px;
-      height: 500px;
-      overflow: scroll;
-      ::-webkit-scrollbar {
-        width: 13px;
-        height: 15%; /* 스크롤바의 길이 */
-        background: #706fd3; /* 스크롤바의 색상 */
-        border-radius: 10px;
-      }
-    `}
-`;
+// const StDiv = styled.div`
+//   ${(props) =>
+//     props.TermsBox &&
+//     css`
+//       width: 800px;
+//       height: 500px;
+//       overflow: scroll;
+//       ::-webkit-scrollbar {
+//         width: 13px;
+//         height: 15%; /* 스크롤바의 길이 */
+//         background: #706fd3; /* 스크롤바의 색상 */
+//         border-radius: 10px;
+//       }
+//     `}
+// `;
 
 const StP = styled.p`
   ${(props) =>

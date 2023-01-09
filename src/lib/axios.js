@@ -46,6 +46,6 @@ export const apis = {
     postSignup: (signup) => instance.post("/user/signup", signup),
     checkUserId: (userId) => instance.get(`/user/id-check/${userId}`),
     //   checkNickname: (nickname) => instance.get(`/user/nicknamecheck/${nickname}`),
-
+    checkOkConfirm: () => instance.post("/user/smsmessage"),
     kakaoLogin: (code) => kakaoLogin.get(`/user/kakao/callback?code=${code}`),
 };

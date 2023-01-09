@@ -50,3 +50,14 @@ export const __postSignup = async (post) => {
     // alert("error", error.response.data.msg);
   }
 };
+
+export const __checkOkConfirm = async (get) => {
+  try {
+    const data = await apis.checkOkConfirm(get);
+    Swal.fire("Success", data.data.msg, "success");
+    return data;
+  } catch (error) {
+    Swal.fire("Error", error.response.data.statusMsg, "error");
+    console.log(error.response.data.statusMsg);
+  }
+};

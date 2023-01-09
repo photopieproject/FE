@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const Private = () => {
   return (
     <div>
-      <StDiv PrivateBox>
+      <div className="PrivateBox">
         <StP PrivateTitle>개인정보처리방침</StP>
         <br />
         <p>
@@ -216,26 +216,26 @@ const Private = () => {
           제13조(개인정보 처리방침 시행 및 변경) 이 개인정보 처리방침은 20XX. X.
           X부터 적용됩니다.
         </p>
-      </StDiv>
+      </div>
     </div>
   );
 };
 
-const StDiv = styled.div`
-  ${(props) =>
-    props.PrivateBox &&
-    css`
-      width: 800px;
-      height: 500px;
-      overflow: scroll;
-      ::-webkit-scrollbar {
-        width: 13px;
-        height: 15%; /* 스크롤바의 길이 */
-        background: #706fd3; /* 스크롤바의 색상 */
-        border-radius: 10px;
-      }
-    `}
-`;
+// const StDiv = styled.div`
+//   ${(props) =>
+//     props.PrivateBox &&
+//     css`
+//       width: 800px;
+//       height: 500px;
+//       overflow: scroll;
+//       ::-webkit-scrollbar {
+//         width: 13px;
+//         height: 15%; /* 스크롤바의 길이 */
+//         background: #706fd3; /* 스크롤바의 색상 */
+//         border-radius: 10px;
+//       }
+//     `}
+// `;
 
 const StP = styled.p`
   ${(props) =>

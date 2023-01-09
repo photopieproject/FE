@@ -154,7 +154,7 @@ const StDiv = styled.div`
   ${(props) =>
     props.SingUpBox &&
     css`
-      width: 400px;
+      width: 500px;
       height: 600px;
       border: 1px solid black;
       color: black;
