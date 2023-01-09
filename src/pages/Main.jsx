@@ -71,7 +71,7 @@ const Main = () => {
                     <StDiv MainMiddleCardBox>
                         <StDiv MainMiddleCardPlace>
                             <StDiv MainMiddleCardImg></StDiv>
-                            <StP MainMiddleCardP>
+                            <StDiv MainMiddleCardP>
                                 <StP MainMiddleCardPTitle>방 만들기</StP>
                                 <StDiv MainMiddleCardPSub>
                                     <StP MainMiddleCardPSubP>
@@ -81,7 +81,7 @@ const Main = () => {
                                         방을 만들어보세요
                                     </StP>
                                 </StDiv>
-                            </StP>
+                            </StDiv>
                         </StDiv>
                         <StDiv MainMiddleCardPlace>
                             <StDiv MainMiddleCardImg></StDiv>
