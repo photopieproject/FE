@@ -1,7 +1,6 @@
 import html2canvas from "html2canvas";
 import $ from "jquery";
 import styled, { css } from "styled-components";
-import { GiCctvCamera } from "react-icons/gi";
 import { IoCameraSharp } from "react-icons/io5";
 
 const PhotoShoot = () => {
@@ -52,13 +51,11 @@ const PhotoShoot = () => {
     // }
 
     return (
-        <>
-            <GiCctvCamera size={100} style={{ marginLeft: "-950px" }} />
-            <StDiv photo_shoot>
-                <StDiv capture_area id="capture_area">
-                    <StH3>Photo-Pie</StH3>
-                    <StDiv picture_box id="picture-box">
-                        {/* <StDiv picture id="myStream">
+        <StDiv photo_shoot>
+            <StDiv capture_area id="capture_area">
+                <StH3>Photo-Pie</StH3>
+                <StDiv picture_box id="picture-box">
+                    {/* <StDiv picture id="myStream">
                             <video
                                 id="myFace"
                                 autoPlay
@@ -72,36 +69,35 @@ const PhotoShoot = () => {
                                 <option value="device">Choose Camera</option>
                             </select>
                         </StDiv> */}
-                        <StDiv picture>picture_1</StDiv>
-                        <StDiv picture>picture_2</StDiv>
-                        <StDiv picture>picture_3</StDiv>
-                        <StDiv picture>picture_4</StDiv>
-                    </StDiv>
-                </StDiv>
-                <StDiv down_btn>
-                    <button
-                        style={{
-                            backgroundColor: "#ebe7e1",
-                            fontWeight: "bold",
-                            fontSize: "15px",
-                            width: "200px",
-                            height: "35px",
-                            boxShadow: "7px 7px 0px 1px gray",
-                            cursor: "pointer",
-                            border: 0,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            gap: "5px",
-                        }}
-                        id="download"
-                    >
-                        <IoCameraSharp size={20} />
-                        촬영하기
-                    </button>
+                    <StDiv picture>picture_1</StDiv>
+                    <StDiv picture>picture_2</StDiv>
+                    <StDiv picture>picture_3</StDiv>
+                    <StDiv picture>picture_4</StDiv>
                 </StDiv>
             </StDiv>
-        </>
+            <StDiv down_btn>
+                <button
+                    style={{
+                        backgroundColor: "#ebe7e1",
+                        fontWeight: "bold",
+                        fontSize: "15px",
+                        width: "200px",
+                        height: "35px",
+                        boxShadow: "7px 7px 0px 1px gray",
+                        cursor: "pointer",
+                        border: 0,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: "5px",
+                    }}
+                    id="download"
+                >
+                    <IoCameraSharp size={20} />
+                    촬영하기
+                </button>
+            </StDiv>
+        </StDiv>
     );
 };
 
