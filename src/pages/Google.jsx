@@ -5,12 +5,12 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 // 리다이렉트될 화면
-const Kakao = () => {
+const Google = () => {
     const navigate = useNavigate();
     // 인가코드
     let code = new URL(window.location.href).searchParams.get("code");
 
-    apis.kakaoLogin(code)
+    apis.googleLogin(code)
         .then((res) => {
             console.log(res); // 토큰이 넘어올 것임
             if (res.data.statusCode === 200) {
@@ -19,8 +19,8 @@ const Kakao = () => {
                 localStorage.setItem("Authorization", ACCESS_TOKEN); //예시로 로컬에 저장함
                 // localStorage.setItem("nickname", res.data.data); //예시로 로컬에 저장함
                 Swal.fire(
-                    res.data.msg,
-                    "카카오 로그인을 성공했습니다!",
+                    res.data.statusMsg,
+                    "구글 로그인을 성공했습니다!",
                     "success"
                 );
                 // alert(res.data.msg);
@@ -32,7 +32,7 @@ const Kakao = () => {
                 console.log("소셜로그인 에러", err);
                 Swal.fire(
                     "로그인 실패",
-                    "카카오 로그인에 실패했습니다!",
+                    "구글 로그인에 실패했습니다!",
                     "error"
                 );
                 // window.alert("로그인에 실패하였습니다.");
@@ -51,4 +51,4 @@ const Kakao = () => {
     );
 };
 
-export default Kakao;
+export default Google;

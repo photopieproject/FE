@@ -20,7 +20,7 @@ export const baseURL = axios.create({
     },
 });
 
-export const kakaoLogin = axios.create({
+export const socialLogin = axios.create({
     baseURL: "https://photo-pie.shop",
     headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -47,5 +47,7 @@ export const apis = {
     checkUserId: (userId) => instance.get(`/user/id-check/${userId}`),
     //   checkNickname: (nickname) => instance.get(`/user/nicknamecheck/${nickname}`),
     checkOkConfirm: () => instance.post("/user/smsmessage"),
-    kakaoLogin: (code) => kakaoLogin.get(`/user/kakao/callback?code=${code}`),
+    kakaoLogin: (code) => socialLogin.get(`/user/kakao/callback?code=${code}`),
+    googleLogin: (code) =>
+        socialLogin.get(`/user/google/callback?code=${code}`),
 };
