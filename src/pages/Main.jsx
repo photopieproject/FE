@@ -15,10 +15,28 @@ const Main = () => {
             START
             <AiOutlineArrowRight />
           </StBtn>
-          <div>
-            <StDiv MainTopWindow1></StDiv>
-            <StDiv MainTopWindow2></StDiv>
-          </div>
+          <StDiv MainTopImgBox>
+            <StImg
+              SinyoungBack1
+              alt="SinyoungBack"
+              src="/image/SinyoungBack.jpg"
+            />
+            <StImg
+              SinyoungBack2
+              alt="SinyoungBack"
+              src="/image/SinyoungBack.jpg"
+            />
+            <StImg
+              SinyoungBack3
+              alt="SinyoungBack"
+              src="/image/SinyoungBack.jpg"
+            />
+            <StImg
+              SinyoungBack4
+              alt="SinyoungBack"
+              src="/image/SinyoungBack.jpg"
+            />
+          </StDiv>
         </StDiv>
         <StDiv MainLine>
           <StDiv MainLine1>PHOTO-PIE DIFFERENT SPACES SAME MEMORY</StDiv>
@@ -135,24 +153,6 @@ const StDiv = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-    `}
-  
-  ${(props) =>
-    props.MainTopWindow1 &&
-    css`
-      width: 400px;
-      height: 200px;
-      margin-top: 50px;
-      border-radius: 200px 200px 0 0;
-      background-color: white;
-    `}
-
-  ${(props) =>
-    props.MainTopWindow2 &&
-    css`
-      width: 400px;
-      height: 400px;
-      background-color: white;
     `}
 
 ${(props) =>
@@ -404,6 +404,37 @@ const StP = styled.p`
       display: flex;
       font-size: 30px;
       margin: 0px;
+    `}
+`;
+
+const StImg = styled.img`
+  ${(props) =>
+    props.SinyoungBack1 &&
+    css`
+      width: 300px;
+      height: 450px;
+      margin: 50px 0px;
+    `}
+  ${(props) =>
+    props.SinyoungBack2 &&
+    css`
+      width: 300px;
+      height: 450px;
+      margin: 0px 0px -50px -150px;
+    `}
+  ${(props) =>
+    props.SinyoungBack3 &&
+    css`
+      width: 300px;
+      height: 450px;
+      margin: 0px 0px -150px -150px;
+    `}
+  ${(props) =>
+    props.SinyoungBack4 &&
+    css`
+      width: 300px;
+      height: 450px;
+      margin: 0px 0px -100px -100px;
     `}
 `;
 export default Main;
