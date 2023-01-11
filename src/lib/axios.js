@@ -47,7 +47,12 @@ export const apis = {
     checkUserId: (userId) => instance.get(`/user/id-check/${userId}`),
     //   checkNickname: (nickname) => instance.get(`/user/nicknamecheck/${nickname}`),
     checkOkConfirm: () => instance.post("/user/smsmessage"),
+
+    // 소셜 로그인 관련
     kakaoLogin: (code) => socialLogin.get(`/user/kakao/callback?code=${code}`),
     googleLogin: (code) =>
         socialLogin.get(`/user/google/callback?code=${code}`),
+
+    // 포토부스 방 관련
+    createRoom: () => baseURL.post(""),
 };
