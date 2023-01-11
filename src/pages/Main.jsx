@@ -177,7 +177,10 @@ const StDiv = styled.div`
       align-items: center;
       justify-content: flex-start;
       margin-bottom: 30px;
-      /* border: 1px solid black; */
+      :focus {
+        /* outline: none; */
+        border: none;
+      }
     `}
   ${(props) =>
     props.MainTopContents &&

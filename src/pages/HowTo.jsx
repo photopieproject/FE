@@ -1,5 +1,5 @@
 const HowTo = () => {
-  return <div>How tO page</div>;
+  return <div>How to page</div>;
 };
 
 export default HowTo;

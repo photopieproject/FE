@@ -115,7 +115,7 @@
 //     css`
 //       width: 80px;
 //       height: 30px;
-//       border-radius: 8px;
+//       -radius: 8px;
 //       margin: 10px 0 10px 10px;
 //       background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3);
 //       background-size: 200%;
