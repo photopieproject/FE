@@ -36,11 +36,11 @@ const Router = () => {
                     <Route path="private" element={<Private />} />
                     <Route path="marketing" element={<Marketing />} />
                     <Route
-                        path="/api/user/kakao/callback"
+                        path="/user/kakao/callback"
                         element={<Kakao />}
                     ></Route>
                     <Route
-                        path="/api/user/google/callback"
+                        path="/user/google/callback"
                         element={<Google />}
                     ></Route>
                 </Routes>

@@ -15,9 +15,10 @@ const Kakao = () => {
         .then((res) => {
             console.log(res); // 토큰이 넘어올 것임
             if (res.data.statusCode === 200) {
-                const ACCESS_TOKEN = res.headers.authorization;
+                // const ACCESS_TOKEN = res.headers.authorization;
+                const TOKEN = res.headers.authorization;
 
-                localStorage.setItem("Authorization", ACCESS_TOKEN); //예시로 로컬에 저장함
+                localStorage.setItem("Authorization", TOKEN); //예시로 로컬에 저장함
                 // localStorage.setItem("nickname", res.data.data); //예시로 로컬에 저장함
                 Swal.fire(
                     res.data.msg,
