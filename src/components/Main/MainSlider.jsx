@@ -52,6 +52,10 @@ const StImg = styled.img`
   ${(props) =>
     props.SinyoungBack_2 &&
     css`
+      :focus {
+        outline: none;
+        border: none;
+      }
       width: 100%;
       height: 100%;
     `}
