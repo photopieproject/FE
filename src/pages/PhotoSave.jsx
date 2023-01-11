@@ -32,58 +32,56 @@ const PhotoSave = () => {
     });
 
     return (
-        <StDiv photo_shoot>
-            <StDiv capture_area id="capture_area">
-                <StH3>Photo-Pie</StH3>
-                <StDiv picture_box id="picture-box">
-                    <StDiv picture className="picture">
-                        picture_1
-                    </StDiv>
-                    <StDiv picture className="picture">
-                        picture_2
-                    </StDiv>
-                    <StDiv picture className="picture">
-                        picture_3
-                    </StDiv>
-                    <StDiv picture className="picture">
-                        picture_4
+        <>
+            {/* <input type="radio" id="mono" />
+            <label htmlFor="mono">흑백</label>
+            <input type="radio" id="color" />
+            <label htmlFor="color">뽀샤시</label> */}
+            <StDiv photo_shoot>
+                <StDiv capture_area id="capture_area">
+                    <StH3>Photo-Pie</StH3>
+                    <StDiv picture_box id="picture-box">
+                        <StDiv picture1></StDiv>
+                        <StDiv picture2></StDiv>
+                        <StDiv picture3></StDiv>
+                        <StDiv picture4></StDiv>
                     </StDiv>
                 </StDiv>
-            </StDiv>
-            <StDiv down_btn>
-                <StDiv qrcode_box>
-                    <StImg src="/image/qrcode.png" alt="QR Code" />
-                    <Span qrcode>
-                        <MdQrCode2 size={25} />
-                        QR Code
-                    </Span>
+                <StDiv down_btn>
+                    <StDiv qrcode_box>
+                        <StImg qrimg src="/image/qrcode.png" alt="QR Code" />
+                        <Span qrcode>
+                            <MdQrCode2 size={25} />
+                            QR Code
+                        </Span>
+                    </StDiv>
+                    <Button down>
+                        <RiKakaoTalkFill size={25} />
+                        카카오톡 전송하기
+                    </Button>
+                    <button
+                        style={{
+                            backgroundColor: "#ebe7e1",
+                            fontWeight: "bold",
+                            fontSize: "15px",
+                            width: "200px",
+                            height: "35px",
+                            boxShadow: "7px 7px 0px 1px gray",
+                            cursor: "pointer",
+                            border: 0,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            gap: "5px",
+                        }}
+                        id="download"
+                    >
+                        <MdCloudDownload size={22} />
+                        PC에 다운로드하기
+                    </button>
                 </StDiv>
-                <Button down>
-                    <RiKakaoTalkFill size={25} />
-                    카카오톡 전송하기
-                </Button>
-                <button
-                    style={{
-                        backgroundColor: "#ebe7e1",
-                        fontWeight: "bold",
-                        fontSize: "15px",
-                        width: "200px",
-                        height: "35px",
-                        boxShadow: "7px 7px 0px 1px gray",
-                        cursor: "pointer",
-                        border: 0,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "5px",
-                    }}
-                    id="download"
-                >
-                    <MdCloudDownload size={22} />
-                    PC에 다운로드하기
-                </button>
             </StDiv>
-        </StDiv>
+        </>
     );
 };
 
@@ -112,13 +110,52 @@ const StDiv = styled.div`
             justify-content: center;
         `}
     ${(props) =>
-        props.picture &&
+        props.picture1 &&
         css`
             background-color: white;
             width: 200px;
             height: 300px;
             text-align: center;
             line-height: 300px;
+            background-image: url("/image/2-8.jpg");
+            background-position: center;
+            background-size: cover;
+        `}
+    ${(props) =>
+        props.picture2 &&
+        css`
+            background-color: white;
+            width: 200px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            background-image: url("/image/2-6.jpg");
+            background-position: center;
+            background-size: cover;
+        `}
+    ${(props) =>
+        props.picture3 &&
+        css`
+            background-color: white;
+            width: 200px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            background-image: url("/image/2-7.jpg");
+            background-position: center;
+            background-size: cover;
+        `}
+    ${(props) =>
+        props.picture4 &&
+        css`
+            background-color: white;
+            width: 200px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            background-image: url("/image/2-5.jpg");
+            background-position: center;
+            background-size: cover;
         `}
         ${(props) =>
         props.down_btn &&
@@ -138,9 +175,13 @@ const StDiv = styled.div`
 `;
 
 const StImg = styled.img`
-    width: 200px;
-    height: 200px;
-    border: 1px solid gray;
+    ${(props) =>
+        props.qrimg &&
+        css`
+            width: 200px;
+            height: 200px;
+            border: 1px solid gray;
+        `}
 `;
 
 const StH3 = styled.h3`
