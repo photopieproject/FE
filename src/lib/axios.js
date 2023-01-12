@@ -54,5 +54,6 @@ export const apis = {
         socialLogin.get(`/user/google/callback?code=${code}`),
 
     // 포토부스 방 관련
-    createRoom: () => baseURL.post(""),
+    createRoom: () => baseURL.post("/photo/room"),
+    getPhotoRoom: (roomCode) => baseURL.get(`/photo/room/${roomCode}`),
 };
