@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import MainSlider from "../components/Main/MainSlider";
-
+import FraimSlider1 from "../components/Main/FrameSlider1";
+import FraimSlider2 from "../components/Main/FrameSlider2";
 // import { useNavigate } from "react-router-dom";
 
 const Main = () => {
@@ -12,16 +13,18 @@ const Main = () => {
       <StDiv MainBox>
         <StDiv MainTop>
           <StDiv MainTopContents>
-            <StP MainTopTitleP>SHARE YOUR MOMENT</StP>
-            <StP MainTopSubP>일상을 나누다. 순간을 공유하다.</StP>
-            <StBtn MainTopStartBtn>
-              START
-              <AiOutlineArrowRight />
-            </StBtn>
+            <StDiv MainSliderBox>
+              <MainSlider />
+              {/* <StBtn MainTopStartBtn>
+                  START
+                  <AiOutlineArrowRight />
+                </StBtn>
+              </MainSlider> */}
+            </StDiv>
+            {/* <StP MainTopTitleP>SHARE YOUR MOMENT</StP>
+            <StP MainTopSubP>일상을 나누다. 순간을 공유하다.</StP> */}
           </StDiv>
-          <StDiv MainSliderBox>
-            <MainSlider />
-          </StDiv>
+
           {/* <StDiv MainTopImgBox>
             <StImg
               SinyoungBack_2
@@ -54,7 +57,7 @@ const Main = () => {
           <StDiv MainLine1>PHOTO-PIE DIFFERENT SPACES SAME MEMORY</StDiv>
           <StDiv MainLine2>PHOTO-PIE DIFFERENT SPACES SAME MEMORY</StDiv>
         </StDiv>
-        <StDiv MainAbout>
+        {/* <StDiv MainAbout>
           <StDiv MainAboutImg>IMAGE</StDiv>
           <StDiv MainAboutTextBox>
             <StP MainAboutTextP>
@@ -70,8 +73,8 @@ const Main = () => {
             </StP>
             <StP MainAboutTextP>WITH PHOTO PIE !</StP>
           </StDiv>
-        </StDiv>
-        <StDiv MainMiddle>
+        </StDiv> */}
+        {/* <StDiv MainMiddle>
           <StDiv MainMiddleTextBox>
             <StP MainMiddleText>A PIECE OF PIE FOR EVERYONE</StP>
           </StDiv>
@@ -118,26 +121,28 @@ const Main = () => {
             자세히 알아보기
             <AiOutlineArrowRight />
           </StBtn>
-        </StDiv>
-        <StDiv MainFrames>
+        </StDiv> */}
+        {/* <StDiv MainFrames>
           <StDiv MainFramesTitle>
-            <StP MainFramesTitleP>PHOTO FRAMES</StP>
+            <StP MainFramesTitleP style={{ margin: "10px" }}>
+              PHOTO FRAMES
+            </StP>
           </StDiv>
           <StDiv MainFramesCardContainer>
             <StDiv MainFramesBox>
               <StDiv MainFramesPBox>
                 <StP MainFramesP>Solid Colors</StP>
               </StDiv>
-              <StDiv MainFramesCard></StDiv>
+              <FraimSlider1 />
             </StDiv>
             <StDiv MainFramesBox>
               <StDiv MainFramesPBox>
                 <StP MainFramesP>Color Gradients</StP>
               </StDiv>
-              <StDiv MainFramesCard></StDiv>
+              <FraimSlider2 />
             </StDiv>
           </StDiv>
-        </StDiv>
+        </StDiv> */}
       </StDiv>
     </div>
   );
@@ -147,8 +152,8 @@ const StDiv = styled.div`
   ${(props) =>
     props.MainBox &&
     css`
-      width: 1440px;
-      height: 100%;
+      width: 100vw;
+      height: 100vh - 100px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -159,7 +164,7 @@ const StDiv = styled.div`
     props.MainTop &&
     css`
       width: 100%;
-      height: 1000px;
+      height: 100vh - 100px;
       background-color: gray;
       display: flex;
       flex-direction: column;
@@ -171,7 +176,7 @@ const StDiv = styled.div`
     props.MainSliderBox &&
     css`
       width: 100%;
-      height: 100%;
+      height: 100vh - 100px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -183,7 +188,7 @@ const StDiv = styled.div`
     props.MainTopContents &&
     css`
       width: 100%;
-      height: 1000px;
+      height: 100vh - 100px;
       background-color: gray;
       display: flex;
       flex-direction: column;
@@ -297,7 +302,7 @@ ${(props) =>
     props.MainFrames &&
     css`
       width: 100%;
-      height: 2000px;
+      height: 900px;
       background-color: #dadada;
       padding-bottom: 160px;
       display: flex;
@@ -312,14 +317,14 @@ ${(props) =>
       font-weight: bold;
       display: flex;
       justify-content: center;
-      margin: 20px;
+      margin: 0px;
     `}
 
     ${(props) =>
     props.MainFramesCardContainer &&
     css`
       width: 95%;
-      height: 1600px;
+      height: 800px;
       border: 1px solid black;
       background-color: gray;
       display: flex;
@@ -333,7 +338,7 @@ ${(props) =>
     props.MainFramesBox &&
     css`
       width: 95%;
-      height: 600px;
+      height: 350px;
       border: 1px solid black;
       background-color: #cecece;
       display: flex;
