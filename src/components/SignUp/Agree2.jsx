@@ -4,8 +4,7 @@ import styled, { css } from "styled-components";
 import Terms from "../../pages/Terms";
 import Registration from "./Registration";
 import Private from "../../pages/Private";
-import { __checkOkConfirm, __SMSSend } from "../../redux/modules/loginSlice";
-import { useDispatch } from "react-redux";
+import { __SMSSend } from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
 
 function Agree2() {
@@ -14,19 +13,20 @@ function Agree2() {
   const [useCheck, setUseCheck] = useState(false);
   const [marketingCheck, setMarketingCheck] = useState(false);
   const [privacyCheck, setPrivacyCheck] = useState(false);
-  const [disabled, setDisabled] = useState(true);
+  const [nextDisabled, setNextDisabled] = useState(true);
+  const [msgDisabled, setMsgDisabled] = useState(false);
+  const [pnDisabled, setPnDisabled] = useState(false);
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
   const navigate = useNavigate();
   const outside = useRef();
-  const [okConfirm, setOkConfirm] = useState(false);
-  const [okConfirmP, setOkConfirmP] = useState(false);
   const [phoneNum, setPhoneNum] = useInput();
   const [confirmNumber, setConfirmNumber] = useInput();
   const [codeNumber, setCodeNumber] = useState();
   const [checkP, setCheckP] = useState();
-
+  const [showInput, setShowInput] = useState(false);
+  const [okConfirm, setOkConfirm] = useState(false);
   console.log(codeNumber);
 
   const allBtnEvent = () => {
@@ -77,6 +77,14 @@ function Agree2() {
     }
   };
 
+  // const okConfirmBtnEvent = () => {
+  //   if (okConfirm === false) {
+  //     setOkConfirm(true);
+  //   } else {
+  //     setOkConfirm(false);
+  //   }
+  // };
+
   useEffect(() => {
     if (
       ageCheck === true &&
@@ -91,69 +99,45 @@ function Agree2() {
   }, [ageCheck, privacyCheck, useCheck, marketingCheck]);
 
   useEffect(() => {
-    if (ageCheck === true && privacyCheck === true && useCheck === true) {
-      setDisabled(!disabled);
+    if (
+      ageCheck === true &&
+      privacyCheck === true &&
+      useCheck === true &&
+      okConfirm === true
+    ) {
+      setNextDisabled(!nextDisabled);
     } else {
-      setDisabled(true);
+      setNextDisabled(true);
     }
-  }, [ageCheck, privacyCheck, useCheck]);
+  }, [ageCheck, privacyCheck, useCheck, okConfirm]);
 
   const sendMessageHandler = (phoneNum) => {
     __SMSSend(phoneNum)
       .then((res) => {
         setCodeNumber(res.data.data);
+        setPnDisabled(true);
+        setShowInput(true);
         console.log(res.data.data);
       })
       .catch((error) => console.log(error));
     // dispatch(__SMSSend(Number(message)));
     // console.log(message);
+    // if(res === 200){
+    //   setShowInput()
+    // }
   };
 
   const MessageConfirmHandler = () => {
     if (codeNumber === confirmNumber) {
       setCheckP("인증되었습니다.");
+      setOkConfirm(true);
+      setMsgDisabled(true);
     } else if (codeNumber !== confirmNumber) {
       setCheckP("인증번호를 확인해주세요.");
+      setOkConfirm(false);
+      setMsgDisabled(false);
     }
   };
-
-  //인증번호 맞는지 안맞는지 확인, userId고치기★
-  // const checkOkConfirmHandler = (userId) => {
-  //   __checkOkConfirm(userId).then((res) => {
-  //     if (res === 200) {
-  //       setOkConfirm(true);
-  //       setOkConfirmP("인증되었습니다.");
-  //     } else if (res === 400) {
-  //       setOkConfirm(false);
-  //       setOkConfirmP("인증번호를 확인해주세요.");
-  //     }
-  //   });
-  // };
-  //
-  //
-  //   useEffect(
-  //     (checkbutton) => {
-  //       if (ageCheck == true && privacyCheck == true && useCheck == true) {
-  //         setDisabled(true);
-  //       } else {
-  //         setDisabled(false);
-  //       }
-  //     },
-  //     [ageCheck, privacyCheck, useCheck]
-  //   );
-
-  // function agreeCheck(e) {
-  //   if (ageCheck === true && privacyCheck === true && useCheck === true) {
-  //     e.checkButton.disabled = true;
-  //   } else {
-  //     e.checkButton.disabled = false;
-  //   }
-  // }
-
-  // const ConfirmTogle = () => {
-  //   if (SMSBtn === false) {
-  //   }
-  // };
 
   return (
     <div>
@@ -288,28 +272,46 @@ function Agree2() {
               placeholder="'-' 없이 기입해주세요"
               onChange={setPhoneNum}
               value={phoneNum}
+              disabled={pnDisabled}
+              pnDisabled={pnDisabled}
             ></StInput>
-            <StBtn SMSBtn onClick={() => sendMessageHandler(phoneNum)}>
+            <StBtn
+              PnBtn
+              disabled={pnDisabled}
+              pnDisabled={pnDisabled}
+              onClick={() => sendMessageHandler(phoneNum)}
+            >
               전송
             </StBtn>
           </div>
-          <div>
-            <StInput
-              SMSInput
-              placeholder="숫자 6자리"
-              onChange={setConfirmNumber}
-              value={confirmNumber}
-            ></StInput>
-            <StBtn SMSBtn onClick={MessageConfirmHandler}>
-              인증
-            </StBtn>
-          </div>
+          {showInput && (
+            <StDiv ShowInputBox>
+              <StInput
+                SMSInput
+                placeholder="숫자 6자리"
+                onChange={setConfirmNumber}
+                value={confirmNumber}
+                disabled={msgDisabled}
+                msgDisabled={msgDisabled}
+              ></StInput>
+              <StBtn
+                SMSBtn
+                onClick={MessageConfirmHandler}
+                disabled={msgDisabled}
+                msgDisabled={msgDisabled}
+              >
+                인증
+              </StBtn>
+            </StDiv>
+          )}
           <StP OkConfirmP>{checkP}</StP>
+
           <StBtn
             NextGoBtn
             onClick={() => navigate(<Registration />)}
             // onClick={() => navigate("/signup")}
-            disabled={disabled}
+            disabled={nextDisabled}
+            nextDisabled={nextDisabled}
             type="button"
             name="checkbutton"
             value=""
@@ -452,22 +454,7 @@ const StDiv = styled.div`
       color: #706fd3;
     `}
 `;
-const StButton = styled.button`
-  margin-top: 40px;
-  margin-bottom: 10px;
-  width: 380px;
-  height: 48px;
-  border: 0;
-  font-size: 18px;
-  border-radius: 4px;
-  background-color: #b5b5b5;
-  font-family: georgia;
-  color: white;
-  cursor: pointer;
-  &:disabled {
-    background-color: #ddd8d8;
-  }
-`;
+
 const StBtn = styled.button`
   ${(props) =>
     props.NextGoBtn &&
@@ -476,11 +463,11 @@ const StBtn = styled.button`
       height: 40px;
       border-radius: 15px;
       margin: 10px auto;
-      background: ${({ disabled }) =>
-        disabled
+      background: ${({ nextDisabled }) =>
+        nextDisabled
           ? "#d9d9d9"
           : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
-      color: ${({ disabled }) => (disabled ? "#706fd3" : "white")};
+      color: ${({ nextDisabled }) => (nextDisabled ? "#706fd3" : "white")};
       /* background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3);
       color: white; */
       background-size: 200%;
@@ -515,17 +502,43 @@ const StBtn = styled.button`
     `}
 
     ${(props) =>
+    props.PnBtn &&
+    css`
+      width: 50px;
+      height: 30px;
+      border-radius: 10px;
+      margin: 10px auto;
+      background: ${({ pnDisabled }) =>
+        pnDisabled
+          ? "#d9d9d9"
+          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
+      color: ${({ pnDisabled }) => (pnDisabled ? "#706fd3" : "white")};
+      background-size: 200%;
+      transition: 500ms;
+      border: none;
+      font-weight: bold;
+      font-size: 14px;
+      &:hover {
+        cursor: pointer;
+        background-position: right;
+        /* font-size: 15px; */
+      }
+    `}
+    ${(props) =>
     props.SMSBtn &&
     css`
       width: 50px;
       height: 30px;
       border-radius: 10px;
       margin: 10px auto;
-      background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3);
+      background: ${({ msgDisabled }) =>
+        msgDisabled
+          ? "#d9d9d9"
+          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
+      color: ${({ msgDisabled }) => (msgDisabled ? "#706fd3" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;
-      color: white;
       font-weight: bold;
       font-size: 14px;
       &:hover {
@@ -558,16 +571,6 @@ const StBtn = styled.button`
     `}
 `;
 
-const StContainer = styled.form`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-  background-size: cover;
-`;
-
 const StCenterBox = styled.div`
   /* width: 400px;
   height: 850px; */
@@ -587,24 +590,6 @@ const AllAgree = styled.div`
   align-items: center;
 `;
 
-const StSignBox = styled.div`
-  letter-spacing: -0.1em;
-  width: 400px;
-  height: 80px;
-  font-size: 45px;
-  margin-bottom: 30px;
-  margin-top: 50px;
-  display: flex;
-  padding-top: 0px;
-  border-bottom: 6px solid #dcdcdc;
-  justify-content: center;
-`;
-const StSmaillBox = styled.div`
-  width: 400px;
-  height: 200px;
-  padding-left: 10px;
-  margin-top: 20px;
-`;
 const Stlabel = styled.label`
   font-size: 17px;
   font-weight: bold;
