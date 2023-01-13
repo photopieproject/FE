@@ -68,8 +68,10 @@ const Login = () => {
                 <a href="https://kauth.kakao.com/oauth/authorize?client_id=fe65192e7b1e6f392649c07eb62021aa&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/kakao/callback&response_type=code">
                     <StBtn LoginBtnKakao>Kakao 로그인</StBtn>
                 </a>
+                {/* <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile&https://www.googleapis.com/auth/userinfo.email&response_type=code"> */}
                 <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&response_type=code&scope=profile">
                     <StBtn LoginBtnGoogle>Google 로그인</StBtn>
+                    {/* `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_BASEURL}oauth/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code`; */}
                 </a>
                 <StDiv SignUpGoBox>
                     계정이 없으신가요?

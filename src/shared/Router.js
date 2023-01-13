@@ -27,7 +27,7 @@ const Router = () => {
                     <Route path="login" element={<Login />} />
                     <Route path="signup" element={<SignUp />} />
                     <Route path="roomopen" element={<RoomOpen />} />
-                    <Route path="roomwaiting" element={<RoomWaiting />} />
+                    <Route path="roomwaiting/:id" element={<RoomWaiting />} />
                     <Route path="frame" element={<Frame />} />
                     <Route path="photoshoot" element={<PhotoShoot />} />
                     <Route path="loading" element={<Loading />} />
