@@ -8,12 +8,25 @@ import {
 } from "react-icons/bs";
 import Button from "../components/button/Button";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const RoomWaiting = () => {
     // let localVideo = document.getElementById("localVideo");
     // let remoteVideo = document.getElementById("remoteVideo");
 
     const navigate = useNavigate();
+    const rooms = useSelector((state) => state.videos.videoRooms);
+    // const rooms = useSelector((state) => state.videos.videoRooms.data);
+    console.log("rooms: ", rooms);
+
+    const copyClipBoard = async (roomCode) => {
+        try {
+            await navigator.clipboard.writeText(roomCode);
+            alert("클립보드에 링크가 복사되었습니다");
+        } catch (e) {
+            alert("복사에 실패하였습니다");
+        }
+    };
 
     return (
         <div>
@@ -21,9 +34,13 @@ const RoomWaiting = () => {
                 {/* <video id="localVideo" autoPlay width="480px"></video>
                 <video id="remoteVideo" autoPlay width="480px"></video> */}
                 <StDiv room_info>
-                    <h2>Room Name</h2>
+                    <h2>Room Name: {rooms.roomName}</h2>
                     <p>
-                        Room Code: 20302 <BiCopy />
+                        Room Code: {rooms.roomCode}{" "}
+                        <BiCopy
+                            onClick={() => copyClipBoard(rooms.roomCode)}
+                            style={{ cursor: "pointer" }}
+                        />
                     </p>
                 </StDiv>
                 <StDiv capture_area id="capture_area">
