@@ -61,3 +61,15 @@ export const __checkOkConfirm = async (get) => {
     console.log(error.response.data.statusMsg);
   }
 };
+
+export const __SMSSend = async (post) => {
+  try {
+    const data = await apis.smsSend(post);
+    Swal.fire("Success", data.data.msg, "success");
+    console.log(data);
+    return data;
+  } catch (error) {
+    Swal.fire("Error", error.response.data.statusMsg, "error");
+    console.log(error.response.data.statusMsg);
+  }
+};

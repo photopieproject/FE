@@ -4,7 +4,9 @@ import styled, { css } from "styled-components";
 import Terms from "../../pages/Terms";
 import Registration from "./Registration";
 import Private from "../../pages/Private";
-import { __checkOkConfirm } from "../../redux/modules/loginSlice";
+import { __checkOkConfirm, __SMSSend } from "../../redux/modules/loginSlice";
+import { useDispatch } from "react-redux";
+import { useInput } from "../../lib/utils/useInput";
 
 function Agree2() {
   const [allCheck, setAllCheck] = useState(false);
@@ -20,6 +22,13 @@ function Agree2() {
   const outside = useRef();
   const [okConfirm, setOkConfirm] = useState(false);
   const [okConfirmP, setOkConfirmP] = useState(false);
+  const [phoneNum, setPhoneNum] = useInput();
+  const [confirmNumber, setConfirmNumber] = useInput();
+  const [codeNumber, setCodeNumber] = useState();
+  const [checkP, setCheckP] = useState();
+
+  console.log(codeNumber);
+
   const allBtnEvent = () => {
     if (allCheck === false) {
       setAllCheck(true);
@@ -88,6 +97,25 @@ function Agree2() {
       setDisabled(true);
     }
   }, [ageCheck, privacyCheck, useCheck]);
+
+  const sendMessageHandler = (phoneNum) => {
+    __SMSSend(phoneNum)
+      .then((res) => {
+        setCodeNumber(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch((error) => console.log(error));
+    // dispatch(__SMSSend(Number(message)));
+    // console.log(message);
+  };
+
+  const MessageConfirmHandler = () => {
+    if (codeNumber === confirmNumber) {
+      setCheckP("인증되었습니다.");
+    } else if (codeNumber !== confirmNumber) {
+      setCheckP("인증번호를 확인해주세요.");
+    }
+  };
 
   //인증번호 맞는지 안맞는지 확인, userId고치기★
   // const checkOkConfirmHandler = (userId) => {
@@ -254,19 +282,29 @@ function Agree2() {
         <StDiv SMSSend>
           <StP SMSMsg>SMS 문자 인증</StP>
           <div>
-            <StInput SMSInput placeholder="'-' 없이 기입해주세요"></StInput>
-            <StBtn
-              SMSBtn
-              // onClick={() => checkOkConfirmHandler(userId)}
-            >
+            <StInput
+              SMSInput
+              type="text"
+              placeholder="'-' 없이 기입해주세요"
+              onChange={setPhoneNum}
+              value={phoneNum}
+            ></StInput>
+            <StBtn SMSBtn onClick={() => sendMessageHandler(phoneNum)}>
               전송
             </StBtn>
           </div>
           <div>
-            <StInput SMSInput placeholder="숫자 6자리"></StInput>
-            <StBtn SMSBtn>인증</StBtn>
+            <StInput
+              SMSInput
+              placeholder="숫자 6자리"
+              onChange={setConfirmNumber}
+              value={confirmNumber}
+            ></StInput>
+            <StBtn SMSBtn onClick={MessageConfirmHandler}>
+              인증
+            </StBtn>
           </div>
-          <StP OkConfirmP>인증되었습니다.</StP>
+          <StP OkConfirmP>{checkP}</StP>
           <StBtn
             NextGoBtn
             onClick={() => navigate(<Registration />)}
