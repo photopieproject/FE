@@ -6,7 +6,7 @@ const Terms = () => {
       <div className="TermsBox">
         <StP TermsTitle>이용약관</StP>
         <br />
-        <p>
+        <div>
           <StP TermsTitle>제1조 목적</StP>
           <br />
           본 이용약관은 “주식회사 Photo-Pie”(이하 "사이트")의 서비스의
@@ -213,7 +213,7 @@ const Terms = () => {
           부칙
           <br />
           <br />이 약관은 "사이트 개설일" 부터 시행합니다.
-        </p>
+        </div>
       </div>
     </div>
   );
