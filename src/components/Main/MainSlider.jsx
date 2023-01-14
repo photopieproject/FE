@@ -157,7 +157,7 @@ const StBtn = styled.button`
     css`
       position: absolute;
       top: 190px;
-      /* left: 50px; */
+      /* right: 50px; */
       width: 250px;
       height: 50px;
       background-color: white;

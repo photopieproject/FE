@@ -6,7 +6,7 @@ const Private = () => {
       <div className="PrivateBox">
         <StP PrivateTitle>개인정보처리방침</StP>
         <br />
-        <p>
+        <div>
           주식회사 Photo-Pie(이하 ‘회사’라 한다)는 개인정보 보호법 제30조에 따라
           정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게
           처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리지침을
@@ -215,7 +215,7 @@ const Private = () => {
           <br />
           제13조(개인정보 처리방침 시행 및 변경) 이 개인정보 처리방침은 20XX. X.
           X부터 적용됩니다.
-        </p>
+        </div>
       </div>
     </div>
   );

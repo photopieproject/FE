@@ -376,6 +376,7 @@ const StBtn = styled.button`
   ${(props) =>
     props.MainTopStartBtn &&
     css`
+      margin-top: 200px;
       width: 250px;
       height: 50px;
       background-color: white;

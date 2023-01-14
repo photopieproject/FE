@@ -7,7 +7,7 @@ import Private from "../../pages/Private";
 import { __SMSSend } from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
 
-function Agree2() {
+function Agree2({ setShow }) {
   const [allCheck, setAllCheck] = useState(false);
   const [ageCheck, setAgeCheck] = useState(false);
   const [useCheck, setUseCheck] = useState(false);
@@ -138,6 +138,18 @@ function Agree2() {
       setMsgDisabled(false);
     }
   };
+
+  // const agree = document.getElementById("agree");
+  // const registrate = document.getElementById("registrate");
+
+  // registrate.hidden = true;
+
+  // async function nextStep() {
+  //   agree.hidden = true;
+  //   registrate.hidden = false;
+  // }
+
+  //삼항연산자
 
   return (
     <div>
@@ -308,7 +320,7 @@ function Agree2() {
 
           <StBtn
             NextGoBtn
-            onClick={() => navigate(<Registration />)}
+            onClick={() => setShow(true)}
             // onClick={() => navigate("/signup")}
             disabled={nextDisabled}
             nextDisabled={nextDisabled}
