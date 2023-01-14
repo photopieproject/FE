@@ -56,5 +56,6 @@ export const apis = {
 
     // 포토부스 방 관련
     createRoom: (roomName) => baseURL.post("/photo/room", roomName),
-    enterPhotoRoom: (roomCode) => baseURL.get(`/photo/room/${roomCode}`),
+    enterPhotoRoom: (roomCode) =>
+        baseURL.post("/photo/room/roomCode", roomCode),
 };
