@@ -13,22 +13,23 @@ const RoomOpen = () => {
     const [roomName, setRoomName] = useInput();
     const [roomCode, setRoomCode] = useInput();
 
-    const createRoomSubmit = (e) => {
-        e.preventDefault();
+    const createRoomSubmit = () => {
         dispatch(__createRoom({ roomName }))
             .then((res) => {
                 console.log(res);
                 if (res.payload.statusCode === 200) {
                     Swal.fire("Success", res.payload.statusMsg, "success");
-                    navigate(`/roomwaiting/${res.payload.data.roomCode}`);
+                    navigate("/roomwaiting");
                 }
             })
-            .catch((error) => console.log(error));
+            .catch((err) => console.log(err));
     };
 
-    const enterRoomSubmit = (roomCode) => {
-        dispatch(__enterPhotoRoom(roomCode));
-        navigate(`/roomwaiting/${roomCode}`);
+    const enterRoomSubmit = () => {
+        dispatch(__enterPhotoRoom({ roomCode }))
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        navigate("/roomwaiting");
     };
 
     return (
@@ -56,10 +57,7 @@ const RoomOpen = () => {
                             value={roomCode}
                             onChange={setRoomCode}
                         />
-                        <Button
-                            room_btn
-                            onClick={() => enterRoomSubmit(roomCode)}
-                        >
+                        <Button room_btn onClick={enterRoomSubmit}>
                             방 입장하기
                         </Button>
                     </StDiv>
