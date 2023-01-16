@@ -11,6 +11,7 @@ const Registration = () => {
   const [passwordCheck, setPasswordCheck] = useInput();
   const [checkUserId, setCheckUserId] = useState(false);
   const [checkP, setCheckP] = useState();
+  const [registDisabled, setRegistDisabled] = useState(true);
 
   const navigate = useNavigate();
 
@@ -56,13 +57,23 @@ const Registration = () => {
         if (res === 200) {
           setCheckUserId(true);
           setCheckP("사용 가능한 ID입니다");
+          setRegistDisabled(false);
         } else if (res === 400) {
           setCheckUserId(false);
           setCheckP("이미 사용중인 ID입니다");
+          setRegistDisabled(true);
         }
       }
     });
   };
+
+  // useEffect(() => {
+  //   if (checkUserId === true) {
+  //     setRegistDisabled(true);
+  //   } else {
+  //     setRegistDisabled(!registDisabled);
+  //   }
+  // }, [checkUserId]);
 
   return (
     <div>
@@ -135,7 +146,12 @@ const Registration = () => {
         </StDiv>
 
         <StDiv LoginBtnBox>
-          <StBtn LoginBtn onClick={onSubmitSignup}>
+          <StBtn
+            LoginBtn
+            disabled={registDisabled}
+            registDisabled={registDisabled}
+            onClick={onSubmitSignup}
+          >
             회원가입
           </StBtn>
         </StDiv>
@@ -293,11 +309,14 @@ const StBtn = styled.button`
       height: 40px;
       border-radius: 15px;
       margin: 10px auto;
-      background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3);
+      background: ${({ registDisabled }) =>
+        registDisabled
+          ? "#d9d9d9"
+          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
+      color: ${({ registDisabled }) => (registDisabled ? "#706fd3" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;
-      color: white;
       font-weight: bold;
       &:hover {
         cursor: pointer;

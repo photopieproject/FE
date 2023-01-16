@@ -77,14 +77,6 @@ function Agree2({ setShow }) {
     }
   };
 
-  // const okConfirmBtnEvent = () => {
-  //   if (okConfirm === false) {
-  //     setOkConfirm(true);
-  //   } else {
-  //     setOkConfirm(false);
-  //   }
-  // };
-
   useEffect(() => {
     if (
       ageCheck === true &&
@@ -138,16 +130,6 @@ function Agree2({ setShow }) {
       setMsgDisabled(false);
     }
   };
-
-  // const agree = document.getElementById("agree");
-  // const registrate = document.getElementById("registrate");
-
-  // registrate.hidden = true;
-
-  // async function nextStep() {
-  //   agree.hidden = true;
-  //   registrate.hidden = false;
-  // }
 
   //삼항연산자
 
