@@ -27,9 +27,16 @@ const RoomOpen = () => {
 
     const enterRoomSubmit = () => {
         dispatch(__enterPhotoRoom({ roomCode }))
-            .then((res) => console.log(res))
+            .then((res) => {
+                console.log(res);
+                if (res.payload.statusCode === 200) {
+                    Swal.fire("Success", res.payload.statusMsg, "success");
+                    navigate("/roomwaiting");
+                } else if (res.payload.statusCode === 400) {
+                    Swal.fire("Error", res.payload.statusMsg, "error");
+                }
+            })
             .catch((err) => console.log(err));
-        navigate("/roomwaiting");
     };
 
     return (
