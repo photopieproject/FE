@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../lib/axios";
+import Swal from "sweetalert2";
 
 const initialState = {
     videoRooms: [],
@@ -35,7 +36,11 @@ export const __enterPhotoRoom = createAsyncThunk(
             console.log("enterPhotoRoom: ", data);
             return thunkAPI.fulfillWithValue(data.data); // 필요한 최소한의 정보만 넣어줘야함
         } catch (err) {
-            console.log(err);
+            console.log(err.response);
+            if (err.response.data.statusCode === 400) {
+                Swal.fire("Error", err.response.data.statusMsg, "error");
+                console.log(err.response.data.statusMsg);
+            }
             return thunkAPI.rejectWithValue(err.error.message);
         }
     }
@@ -54,13 +59,13 @@ export const videoSlice = createSlice({
             state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
             state.videoRooms = action.payload.data;
             // state.videoRooms = [...state.videoRooms, action.payload];
-            console.log("action.payload: ", action.payload);
+            // console.log("action.payload: ", action.payload);
             // console.log("state.posts: ", state.posts);
         },
         [__createRoom.rejected]: (state, action) => {
             state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
             state.error = action.payload;
-            console.log(action.payload);
+            // console.log(action.payload);
             // catch 된 error 객체를 state.error에 넣습니다.
         },
 
@@ -71,13 +76,13 @@ export const videoSlice = createSlice({
         [__enterPhotoRoom.fulfilled]: (state, action) => {
             state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
             state.videoRooms = action.payload.data;
-            console.log("action.payload: ", action.payload);
+            // console.log("action.payload: ", action.payload);
             // console.log("state.posts: ", state.posts);
         },
         [__enterPhotoRoom.rejected]: (state, action) => {
             state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
             state.error = action.payload;
-            console.log(action.payload);
+            // console.log(action.payload);
             // catch 된 error 객체를 state.error에 넣습니다.
         },
     },
