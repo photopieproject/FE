@@ -19,7 +19,7 @@ function Agree2({ setShow }) {
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const outside = useRef();
   const [phoneNum, setPhoneNum] = useInput();
   const [confirmNumber, setConfirmNumber] = useInput();
