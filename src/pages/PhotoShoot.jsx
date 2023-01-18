@@ -3,27 +3,121 @@ import $ from "jquery";
 import styled, { css } from "styled-components";
 import { IoCameraSharp } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { __takePhoto } from "../redux/modules/photoSlice";
+import { useParams } from "react-router-dom";
 
 const PhotoShoot = () => {
-    const [photo, setPhoto] = useState({
-        roomCode: "",
-        photoNum: "",
-    });
-    const [cap_Photo, setCap_Photo] = useState("");
-    let form = new FormData();
+    const dispatch = useDispatch();
+    const { roomId } = useParams();
+    // const rooms = useSelector((state) => state);
+    console.log("roomId:", roomId);
 
-    const shootPhoto = (e) => {
-        console.log(e.target.files);
-        const file = e.target.files[0];
-        setPhoto(file);
-        // let form = new FormData();
-        form.append("file", file);
-        console.log(form);
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            setCap_Photo(reader.result);
-        };
+    // const imgRef = useRef();
+    // const [post, setPost] = useState();
+
+    // const onChangeImage_1 = (event) => {
+    //   const file = event.target.files[0];
+    //   setPhoto_one(file);
+
+    //   const reader = new FileReader();
+    //   // const file = imgRef.current.files[0];
+    //   console.log(file);
+    //   reader.readAsDataURL(file);
+    //   reader.onloadend = () => {
+    //     // const image = reader.result;
+    //     setPost({
+    //       ...post,
+    //       imageUrl: reader.result,
+    //     });
+    //   };
+    // };
+
+    // 유튜브 비디오
+    // const onChangeVideo = (event) => {
+    //   const file = event.target.files[0];
+    //   setVideoFile(file);
+    //   const reader = new FileReader();
+    //   // const file = imgRef.current.files[0];
+    //   console.log(file);
+    //   reader.readAsDataURL(file);
+    //   reader.onloadend = () => {
+    //     // const image = reader.result;
+    //     setPost({
+    //       ...post,
+    //       videoUrl: reader.result,
+    //     });
+    //   };
+    // };
+
+    // console.log(imageUrl);
+    const [photo_one, setPhoto_one] = useState("");
+    const [photo_two, setPhoto_two] = useState("");
+    const [photo_three, setPhoto_three] = useState("");
+    const [photo_four, setPhoto_four] = useState("");
+
+    const onSubmitHandler_1 = () => {
+        console.log(photo_one);
+
+        const formdata = new FormData();
+        formdata.append("image", photo_one);
+
+        console.log(formdata);
+        console.log(typeof formdata);
+
+        dispatch(__takePhoto({ roomId, formdata }));
+
+        for (const pair of formdata) {
+            console.log(pair[0] + ", " + pair[1]);
+        }
+    };
+
+    const onSubmitHandler_2 = () => {
+        console.log(photo_two);
+
+        const formdata = new FormData();
+        formdata.append("image", photo_two);
+
+        console.log(formdata);
+        console.log(typeof formdata);
+
+        // dispatch(__takePhoto(formdata));
+
+        for (const pair of formdata) {
+            console.log(pair[0] + ", " + pair[1]);
+        }
+    };
+
+    const onSubmitHandler_3 = () => {
+        console.log(photo_three);
+
+        const formdata = new FormData();
+        formdata.append("image", photo_three);
+
+        console.log(formdata);
+        console.log(typeof formdata);
+
+        // dispatch(__takePhoto(formdata));
+
+        for (const pair of formdata) {
+            console.log(pair[0] + ", " + pair[1]);
+        }
+    };
+
+    const onSubmitHandler_4 = () => {
+        console.log(photo_four);
+
+        const formdata = new FormData();
+        formdata.append("image", photo_four);
+
+        console.log(formdata);
+        console.log(typeof formdata);
+
+        // dispatch(__takePhoto(formdata));
+
+        for (const pair of formdata) {
+            console.log(pair[0] + ", " + pair[1]);
+        }
     };
 
     console.log("Capture Start");
@@ -31,22 +125,23 @@ const PhotoShoot = () => {
     $(function () {
         $("#pic_btn1").on("click", () => {
             html2canvas(document.querySelector("#picture_1")).then((canvas) => {
-                saveAs(canvas.toDataURL("image/jpg"), "picture_1.jpg");
+                saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
+                // 사진을 저장함과 동시에 state에 넣어주기...
             });
         });
         $("#pic_btn2").on("click", () => {
             html2canvas(document.querySelector("#picture_2")).then((canvas) => {
-                saveAs(canvas.toDataURL("image/jpg"), "picture_2.jpg");
+                saveAs(canvas.toDataURL("image/jpg"), "photo_two.jpg");
             });
         });
         $("#pic_btn3").on("click", () => {
             html2canvas(document.querySelector("#picture_3")).then((canvas) => {
-                saveAs(canvas.toDataURL("image/jpg"), "picture_3.jpg");
+                saveAs(canvas.toDataURL("image/jpg"), "photo_three.jpg");
             });
         });
         $("#pic_btn4").on("click", () => {
             html2canvas(document.querySelector("#picture_4")).then((canvas) => {
-                saveAs(canvas.toDataURL("image/jpg"), "picture_4.jpg");
+                saveAs(canvas.toDataURL("image/jpg"), "photo_four.jpg");
             });
         });
         $("#download").on("click", () => {
@@ -67,11 +162,26 @@ const PhotoShoot = () => {
             } else {
                 window.open(uri);
             }
+
+            // $.ajax({
+            //   type: "post",
+            //   data: {
+            //     photo_one: photo_one,
+            //   },
+            //   dataType: "multipart/form-data",
+            //   url: `https://photo-pie.shop/api/photo/room/${roomId}/shoot`,
+            //   success: function (data) {
+            //     console.log(data);
+            //   },
+            //   error: function (a, b, c) {
+            //     alert("error");
+            //   },
+            // });
         }
     });
 
-    const [muted, setMuted] = useState(false);
-    const [cameraOff, setCameraOff] = useState(false);
+    // const [muted, setMuted] = useState(false);
+    // const [cameraOff, setCameraOff] = useState(false);
 
     const videoRef = useRef(null);
 
@@ -102,19 +212,32 @@ const PhotoShoot = () => {
                             playsInline
                             width={"200px"}
                             height={"300px"}
-                            muted={!muted}
+                            // muted={!muted}
                             // hidden={!cameraOff}
                         />
-                        <button id="pic_btn1"></button>
+
+                        <button
+                            id="pic_btn1"
+                            onClick={() => onSubmitHandler_1()}
+                        ></button>
                     </StDiv>
                     <StDiv picture id="picture_2">
-                        picture_2<button id="pic_btn2">친구1</button>
+                        picture_2
+                        <button id="pic_btn2" onClick={() => onSubmitHandler_2}>
+                            친구1
+                        </button>
                     </StDiv>
                     <StDiv picture id="picture_3">
-                        picture_3<button id="pic_btn2">친구2</button>
+                        picture_3
+                        <button id="pic_btn2" onClick={() => onSubmitHandler_3}>
+                            친구2
+                        </button>
                     </StDiv>
                     <StDiv picture id="picture_4">
-                        picture_4<button id="pic_btn2">친구3</button>
+                        picture_4
+                        <button id="pic_btn2" onClick={() => onSubmitHandler_4}>
+                            친구3
+                        </button>
                     </StDiv>
                 </StDiv>
             </StDiv>
