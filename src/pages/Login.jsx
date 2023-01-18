@@ -2,11 +2,17 @@ import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useInput } from "../lib/utils/useInput";
 import { __postLogin } from "../redux/modules/loginSlice";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const navigate = useNavigate();
     const [userId, setUserId] = useInput();
     const [password, setPassword] = useInput();
+
+    const KAKAO_AUTH =
+        "https://kauth.kakao.com/oauth/authorize?client_id=fe65192e7b1e6f392649c07eb62021aa&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/kakao/callback&response_type=code";
+    const GOOGLE_AUTH =
+        "https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&response_type=code&scope=profile";
 
     // LOGIN
     const onSubmitLogin = (e) => {
@@ -18,13 +24,17 @@ const Login = () => {
             .then((res) => {
                 console.log("res: ", res);
                 if (res.data.statusCode === 200) {
-                    alert("로그인 성공!");
+                    // alert("로그인 성공!");
+                    Swal.fire("Success", res.data.statusMsg, "success");
                 }
                 localStorage.setItem("id", res.headers.authorization);
-                localStorage.setItem("userId", res.data.userId);
+                // localStorage.setItem("userId", res.data.userId);
                 navigate("/");
             })
-            .catch((error) => alert("ID 또는 Password가 틀립니다"));
+            .catch((error) => {
+                console.log(error);
+                // alert("ID 또는 Password가 틀립니다");
+            });
         // .catch((error) => alert(error.response.data.msg));
     };
 
@@ -65,11 +75,11 @@ const Login = () => {
                     </StDiv>
                 </form>
 
-                <a href="https://kauth.kakao.com/oauth/authorize?client_id=fe65192e7b1e6f392649c07eb62021aa&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/kakao/callback&response_type=code">
+                <a href={KAKAO_AUTH}>
                     <StBtn LoginBtnKakao>Kakao 로그인</StBtn>
                 </a>
                 {/* <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile&https://www.googleapis.com/auth/userinfo.email&response_type=code"> */}
-                <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&response_type=code&scope=profile">
+                <a href={GOOGLE_AUTH}>
                     <StBtn LoginBtnGoogle>Google 로그인</StBtn>
                     {/* `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_BASEURL}oauth/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code`; */}
                 </a>
