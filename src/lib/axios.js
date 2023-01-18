@@ -58,8 +58,8 @@ export const apis = {
   enterPhotoRoom: (roomCode) => baseURL.post("/photo/room/roomCode", roomCode),
 
   // 사진촬영 관련
-  Shoot_Photo: (photo) =>
-    baseURL.post("/api/photo/room/${roomId}/shoot", photo, {
+  Shoot_Photo: (payload) =>
+    baseURL.post(`/photo/room/${payload.roomId}/shoot`, payload.formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     }),
 };
