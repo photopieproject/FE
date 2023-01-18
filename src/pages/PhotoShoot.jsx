@@ -56,11 +56,26 @@ const PhotoShoot = () => {
     const [photo_three, setPhoto_three] = useState("");
     const [photo_four, setPhoto_four] = useState("");
 
+    const formdata1 = new FormData();
+    formdata1.append("photo_one", photo_one);
+    const formdata2 = new FormData();
+    formdata2.append("photo_two", photo_two);
+    const formdata3 = new FormData();
+    formdata3.append("photo_three", photo_three);
+    const formdata4 = new FormData();
+    formdata4.append("photo_four", photo_four);
+
+    console.log(photo_one);
+
+    const onSubmitHandler = (roomId, formdata) => {
+        dispatch(__takePhoto(+roomId, formdata));
+    };
+
     const onSubmitHandler_1 = () => {
         console.log(photo_one);
 
         const formdata = new FormData();
-        formdata.append("image", photo_one);
+        formdata.append("photo_one", photo_one);
 
         console.log(formdata);
         console.log(typeof formdata);
@@ -76,7 +91,7 @@ const PhotoShoot = () => {
         console.log(photo_two);
 
         const formdata = new FormData();
-        formdata.append("image", photo_two);
+        formdata.append("photo_two", photo_two);
 
         console.log(formdata);
         console.log(typeof formdata);
@@ -92,7 +107,7 @@ const PhotoShoot = () => {
         console.log(photo_three);
 
         const formdata = new FormData();
-        formdata.append("image", photo_three);
+        formdata.append("photo_three", photo_three);
 
         console.log(formdata);
         console.log(typeof formdata);
@@ -108,7 +123,7 @@ const PhotoShoot = () => {
         console.log(photo_four);
 
         const formdata = new FormData();
-        formdata.append("image", photo_four);
+        formdata.append("photo_four", photo_four);
 
         console.log(formdata);
         console.log(typeof formdata);
@@ -125,6 +140,12 @@ const PhotoShoot = () => {
     $(function () {
         $("#pic_btn1").on("click", () => {
             html2canvas(document.querySelector("#picture_1")).then((canvas) => {
+                // 수정할 곳 이미지가 formdata로 안넘어감
+                let photo_one =
+                    (canvas.toDataURL("image/jpg"), "photo_one.jpg");
+                photo_one = photo_one.replace("data:image/jpg;base64,", "");
+                console.log(canvas.toDataURL(photo_one));
+                console.log(photo_one);
                 saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
                 // 사진을 저장함과 동시에 state에 넣어주기...
             });
@@ -163,19 +184,21 @@ const PhotoShoot = () => {
                 window.open(uri);
             }
 
+            dispatch(__takePhoto({ roomId, formdata1 }));
             // $.ajax({
-            //   type: "post",
-            //   data: {
-            //     photo_one: photo_one,
-            //   },
-            //   dataType: "multipart/form-data",
-            //   url: `https://photo-pie.shop/api/photo/room/${roomId}/shoot`,
-            //   success: function (data) {
-            //     console.log(data);
-            //   },
-            //   error: function (a, b, c) {
-            //     alert("error");
-            //   },
+            //     type: "post",
+            //     data: {
+            //         roomId: roomId,
+            //         formdata1: photo_one,
+            //     },
+            //     dataType: "multipart/form-data",
+            //     url: `https://photo-pie.shop/api/photo/room/${roomId}/shoot`,
+            //     success: function (data) {
+            //         console.log(data);
+            //     },
+            //     error: function (a, b, c) {
+            //         alert("error");
+            //     },
             // });
         }
     });
@@ -210,34 +233,20 @@ const PhotoShoot = () => {
                             ref={videoRef}
                             autoPlay
                             playsInline
-                            width={"200px"}
-                            height={"300px"}
+                            // width={"200px"}
+                            // height={"300px"}
                             // muted={!muted}
                             // hidden={!cameraOff}
                         />
-
-                        <button
-                            id="pic_btn1"
-                            onClick={() => onSubmitHandler_1()}
-                        ></button>
                     </StDiv>
                     <StDiv picture id="picture_2">
                         picture_2
-                        <button id="pic_btn2" onClick={() => onSubmitHandler_2}>
-                            친구1
-                        </button>
                     </StDiv>
                     <StDiv picture id="picture_3">
                         picture_3
-                        <button id="pic_btn2" onClick={() => onSubmitHandler_3}>
-                            친구2
-                        </button>
                     </StDiv>
                     <StDiv picture id="picture_4">
                         picture_4
-                        <button id="pic_btn2" onClick={() => onSubmitHandler_4}>
-                            친구3
-                        </button>
                     </StDiv>
                 </StDiv>
             </StDiv>
@@ -261,6 +270,21 @@ const PhotoShoot = () => {
                 >
                     <IoCameraSharp size={20} />
                     촬영하기
+                </button>
+                <button
+                    id="pic_btn1"
+                    // onClick={() => onSubmitHandler(roomId, formdata1)}
+                >
+                    내 촬영하기
+                </button>
+                <button id="pic_btn2" onClick={() => onSubmitHandler_2}>
+                    친구1
+                </button>
+                <button id="pic_btn2" onClick={() => onSubmitHandler_3}>
+                    친구2
+                </button>
+                <button id="pic_btn2" onClick={() => onSubmitHandler_4}>
+                    친구3
                 </button>
             </StDiv>
         </StDiv>
