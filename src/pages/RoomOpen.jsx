@@ -16,19 +16,28 @@ const RoomOpen = () => {
     const createRoomSubmit = () => {
         dispatch(__createRoom({ roomName }))
             .then((res) => {
-                console.log(res);
+                console.log("createRoom res---->", res);
                 if (res.payload.statusCode === 200) {
                     Swal.fire("Success", res.payload.statusMsg, "success");
                     navigate("/roomwaiting");
+                } else if (res.payload.response.data.statusCode === 401) {
+                    Swal.fire(
+                        "토큰이 만료되었습니다",
+                        "다시 로그인해주세요!",
+                        "error"
+                    );
+                    navigate("/login");
                 }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log("createRoom err---->", err.payload.response.data);
+            });
     };
 
     const enterRoomSubmit = () => {
         dispatch(__enterPhotoRoom({ roomCode }))
             .then((res) => {
-                console.log(res);
+                console.log("enterRoom res--->", res);
                 if (res.payload.statusCode === 200) {
                     Swal.fire("Success", res.payload.statusMsg, "success");
                     navigate("/roomwaiting");
@@ -36,7 +45,7 @@ const RoomOpen = () => {
                     Swal.fire("Error", res.payload.statusMsg, "error");
                 }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log("enterRoom err--->", err));
     };
 
     return (

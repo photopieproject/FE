@@ -21,6 +21,13 @@ export const __createRoom = createAsyncThunk(
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
             console.log(err);
+            if (err.response.data.statusCode === 401) {
+                Swal.fire(
+                    "토큰이 만료되었습니다",
+                    "다시 로그인해주세요!",
+                    "error"
+                );
+            }
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -40,6 +47,12 @@ export const __enterPhotoRoom = createAsyncThunk(
             if (err.response.data.statusCode === 400) {
                 Swal.fire("Error", err.response.data.statusMsg, "error");
                 console.log(err.response.data.statusMsg);
+            } else if (err.response.data.statusCode === 401) {
+                Swal.fire(
+                    "토큰이 만료되었습니다",
+                    "다시 로그인해주세요!",
+                    "error"
+                );
             }
             return thunkAPI.rejectWithValue(err.error.message);
         }
