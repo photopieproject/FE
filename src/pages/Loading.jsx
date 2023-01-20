@@ -16,6 +16,7 @@ const Loading = () => {
             <StDiv box>
                 <StDiv loader4></StDiv>
                 <StP>Photo-Pie</StP>
+                <StSpan>PHOTO-PIE...</StSpan>
             </StDiv>
         </StDiv>
     );
@@ -147,4 +148,61 @@ const StP = styled.p`
     }
 `;
 
+const StSpan = styled.span`
+    color: transparent;
+    font-size: 1.4rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "PHOTO_PIE...";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        border-right: 4px solid #17feff;
+        overflow: hidden;
+        color: #17feff;
+        animation: load91371 2s linear infinite;
+    }
+
+    @keyframes load91371 {
+        0%,
+        10%,
+        100% {
+            width: 0;
+        }
+
+        10%,
+        20%,
+        30%,
+        40%,
+        50%,
+        60%,
+        70%,
+        80%,
+        90%,
+        100% {
+            border-right-color: transparent;
+        }
+
+        11%,
+        21%,
+        31%,
+        41%,
+        51%,
+        61%,
+        71%,
+        81%,
+        91% {
+            border-right-color: #17feff;
+        }
+
+        60%,
+        80% {
+            width: 100%;
+        }
+    }
+`;
 export default Loading;
