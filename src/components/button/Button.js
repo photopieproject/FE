@@ -77,36 +77,62 @@ const StButton = styled.button`
         ${(props) =>
         props.start_camera &&
         css`
-            align-items: center;
-            background-color: transparent;
-            color: #000;
-            display: flex;
-            font-family: ui-sans-serif, system-ui, -apple-system, system-ui,
-                "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
-                sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-                "Segoe UI Symbol", "Noto Color Emoji";
-            font-size: 1rem;
-            font-weight: 700;
-            line-height: 1.5;
-            text-decoration: none;
-            text-transform: uppercase;
-            outline: 0;
-            border: 0;
-            padding: 1rem;
+            position: relative;
+            height: 50px;
+            padding: 0 30px;
+            border: 2px solid #000;
+            background-color: #e8e8e8;
+            user-select: none;
+            white-space: nowrap;
+            transition: all 0.05s linear;
+            font-family: inherit;
+            margin: 10px;
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                background: #e8e8e8;
+                transition: all 0.2s linear;
+            }
 
             &::before {
-                background-color: #000;
-                content: "";
-                display: inline-block;
-                height: 1px;
-                margin-right: 10px;
-                transition: all 0.42s cubic-bezier(0.25, 0.8, 0.25, 1);
-                width: 0;
+                width: calc(100% + 6px);
+                height: calc(100% - 16px);
+                top: 8px;
+                left: -3px;
+            }
+
+            &::after {
+                width: calc(100% - 16px);
+                height: calc(100% + 6px);
+                top: -3px;
+                left: 8px;
+            }
+
+            &:hover {
+                cursor: crosshair;
+            }
+
+            &:active {
+                transform: scale(0.95);
             }
 
             &:hover:before {
-                background-color: #000;
-                width: 3rem;
+                height: calc(100% - 32px);
+                top: 16px;
+            }
+
+            &:hover:after {
+                width: calc(100% - 32px);
+                left: 16px;
+            }
+
+            & span {
+                font-size: 15px;
+                z-index: 3;
+                position: relative;
+                font-weight: 600;
             }
         `}
 `;
