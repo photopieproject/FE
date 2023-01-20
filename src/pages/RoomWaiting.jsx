@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { BiCopy } from "react-icons/bi";
 import {
@@ -10,7 +10,6 @@ import {
 import Button from "../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 const RoomWaiting = () => {
     // let localVideo = document.getElementById("localVideo");
