@@ -74,15 +74,16 @@ const Login = () => {
                         <StBtn LoginBtn>ID 로그인</StBtn>
                     </StDiv>
                 </form>
-
-                <a href={KAKAO_AUTH}>
-                    <StBtn LoginBtnKakao>Kakao 로그인</StBtn>
-                </a>
-                {/* <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile&https://www.googleapis.com/auth/userinfo.email&response_type=code"> */}
-                <a href={GOOGLE_AUTH}>
-                    <StBtn LoginBtnGoogle>Google 로그인</StBtn>
-                    {/* `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_BASEURL}oauth/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code`; */}
-                </a>
+                <StDiv social_login>
+                    <a href={KAKAO_AUTH}>
+                        <StBtn LoginBtnKakao>Kakao 로그인</StBtn>
+                    </a>
+                    {/* <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile&https://www.googleapis.com/auth/userinfo.email&response_type=code"> */}
+                    <a href={GOOGLE_AUTH}>
+                        <StBtn LoginBtnGoogle>Google 로그인</StBtn>
+                        {/* `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_BASEURL}oauth/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code`; */}
+                    </a>
+                </StDiv>
                 <StDiv SignUpGoBox>
                     계정이 없으신가요?
                     <StBtn SignUpGoBtn onClick={() => navigate("/signup")}>
@@ -149,7 +150,15 @@ ${(props) =>
             justify-content: center;
             margin-top: 10px;
         `}
+        ${(props) =>
+        props.social_login &&
+        css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `}
 `;
+
 const StInput = styled.input`
     ${(props) =>
         props.LoginInput &&

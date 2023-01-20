@@ -19,9 +19,6 @@ const Header = () => {
                     <Span cate_txt active_txt onClick={() => navigate("/")}>
                         Home
                     </Span>
-                    <Span cate_txt onClick={() => navigate("/howto")}>
-                        HowTo
-                    </Span>
                     <Span cate_txt onClick={() => navigate("/roomopen")}>
                         RoomOpen
                     </Span>

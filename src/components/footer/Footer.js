@@ -100,11 +100,17 @@ const Footer = () => {
                 >
                     <BsYoutube size="25" color="red" />
                 </Button>
-                <div>
-                    <p onClick={() => navigate("/terms")}>이용약관</p>
-                    <p onClick={() => navigate("/private")}>개인정보처리방침</p>
-                    <p onClick={() => navigate("/marketing")}>마케팅</p>
-                </div>
+                <StDiv agree_box>
+                    <StP agree onClick={() => navigate("/terms")}>
+                        이용약관
+                    </StP>
+                    <StP agree onClick={() => navigate("/private")}>
+                        개인정보처리방침
+                    </StP>
+                    <StP agree onClick={() => navigate("/marketing")}>
+                        마케팅
+                    </StP>
+                </StDiv>
             </div>
         </StDiv>
     );
@@ -142,6 +148,11 @@ const StDiv = styled.div`
             gap: 10px;
             align-items: center;
         `}
+        ${(props) =>
+        props.agree_box &&
+        css`
+            margin-top: 30px;
+        `}
 `;
 
 const StP = styled.p`
@@ -155,6 +166,13 @@ const StP = styled.p`
             margin-bottom: 20px;
             font-size: 18px;
             font-weight: bold;
+        `}
+    ${(props) =>
+        props.agree &&
+        css`
+            cursor: pointer;
+            margin: 10px 0;
+            text-align: right;
         `}
 `;
 
