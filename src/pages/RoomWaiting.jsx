@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { BiCopy } from "react-icons/bi";
 import {
@@ -10,6 +10,7 @@ import {
 import Button from "../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { OpenVidu } from "openvidu-browser";
 
 const RoomWaiting = () => {
     // let localVideo = document.getElementById("localVideo");
@@ -19,6 +20,134 @@ const RoomWaiting = () => {
     const rooms = useSelector((state) => state.videos.videoRooms);
     // const rooms = useSelector((state) => state.videos.videoRooms.data);
     console.log("rooms: ", rooms);
+
+    const token = rooms.token;
+    const nickname = rooms.nickname;
+    const sessionId = rooms.sessionId;
+
+    // const [OV, setOV] = useState('')
+    const [session, setSession] = useState("");
+    const [mySessionId, setMySessionId] = useState("");
+    // const [initUserData, setInitUserData] = useState({
+    //     mySessionId: channelId,
+    //     myUserName: userInfo.nickname,
+    // })
+    const [publisher, setPublisher] = useState(null);
+    const [subscribers, setSubscribers] = useState([]);
+    const [isConnect, setIsConnect] = useState(false);
+    const [connectObj, setConnectObj] = useState("");
+    const [otherClose, setOtherClose] = useState(false);
+    const [mainStreamManager, setMainStreamManager] = useState(undefined);
+
+    const sendCloseSignal = () => {
+        session
+            .signal({
+                data: "true",
+                to: [connectObj],
+                type: "close",
+            })
+            .then(() => {
+                console.log("종료시--->", session);
+                leaveSession();
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    const sendContinueSignal = () => {
+        session
+            .signal({
+                data: "true",
+                to: [connectObj],
+                type: "continue",
+            })
+            .then(() => console.log("진행중--->", session))
+            .catch((err) => console.error(err));
+    };
+
+    useEffect(() => {
+        window.addEventListener("beforeunload", onbeforeunload);
+
+        const connectSession = () => {
+            const OV = new OpenVidu();
+
+            let mySession = OV.initSession();
+            setSession(mySession);
+            console.log("세션--->", mySession);
+
+            mySession.on("streamCreated", (event) => {
+                let subscriber = mySession.subscribe(event.stream, undefined);
+                let subscriberList = subscribers;
+                subscriberList.push(subscriber);
+                setSubscribers([...subscribers, ...subscriberList]);
+                console.log("스트림 생성--->", subscribers.length, session);
+
+                setIsConnect(true);
+                // dispatch(getChatInfoDB(sessionId))
+            });
+
+            mySession.on("streamDestroyed", (event) => {
+                setOtherClose(true);
+            });
+
+            // mySession.on('signal:continue', (event) => {
+            // })
+
+            mySession.on("connectionCreated", (event) => {
+                console.log("connect--->", session);
+                setConnectObj(event.connection);
+            });
+
+            mySession
+                .connect(token, { clientData: nickname })
+                .then(async () => {
+                    console.log("connect token");
+                    let devices = await OV.getDevices();
+                    let videoDevices = devices.filter(
+                        (device) => device.kind === "videoinput"
+                    );
+
+                    let publisher = OV.initPublisher(undefined, {
+                        audioSource: undefined,
+                        videoSource: videoDevices[0].deviceId,
+                        publishAudio: true,
+                        publishVideo: { width: 200, height: 300 },
+                        resolution: "200x300",
+                        frameRate: 30,
+                        insertMode: "APPEND",
+                        mirror: false,
+                    });
+
+                    mySession.publish(publisher);
+                    setMainStreamManager(publisher);
+                    setPublisher(publisher);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+
+        connectSession();
+
+        return () => {
+            window.removeEventListener("beforeunload", onbeforeunload);
+            // chatClose()
+        };
+    }, []);
+
+    const leaveSession = () => {
+        session.disconnect();
+
+        setSession(undefined);
+        setSubscribers([]);
+        setMySessionId("");
+        setPublisher(undefined);
+    };
+
+    // const chatClose = () => {
+    //     setCloseSignal();
+    // }
 
     const copyClipBoard = async (roomCode) => {
         try {
