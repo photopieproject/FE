@@ -5,6 +5,7 @@ import frameMint from "../assets/frame_mint.png";
 import framePink from "../assets/frame_pink.png";
 import framePupple from "../assets/frame_pupple.png";
 import frameWhite from "../assets/frame_white.jpeg";
+import frameWhiteV2 from "../assets/frame_white_v2.png";
 import frameBlackV2 from "../assets/frame_black_v2.png";
 import frameGra from "../assets/frame_gra.png";
 import Button from "../components/button/Button";
@@ -29,9 +30,13 @@ const Frame = () => {
             name: "frame_pupple",
             img: framePupple,
         },
+        // {
+        //     name: "frame_white",
+        //     img: frameWhite,
+        // },
         {
-            name: "frame_white",
-            img: frameWhite,
+            name: "frame_white_v2",
+            img: frameWhiteV2,
         },
     ];
 
@@ -65,12 +70,12 @@ const Frame = () => {
                             checked={chooseFrame === `${kind.name}`}
                             onChange={chooseFramehandler}
                         />
-                        <StImg src={kind.img} alt={kind.name} />
-                        {/* {kind.name === "frame_white" ? (
+                        {/* <StImg src={kind.img} alt={kind.name} /> */}
+                        {kind.name === "frame_white" ? (
                             <StImg f_white src={kind.img} alt={kind.name} />
                         ) : (
                             <StImg src={kind.img} alt={kind.name} />
-                        )} */}
+                        )}
                     </label>
                 ))}
             </div>
@@ -91,17 +96,17 @@ const Frame = () => {
                     </label>
                 ))}
             </div>
-            <Button start_camera>촬영 시작하기</Button>
+            <Button start_camera>
+                <span>촬영 시작하기</span>
+            </Button>
         </div>
     );
 };
 
-const StDiv = styled.div`
-    display: flex;
-`;
 const StImg = styled.img`
     width: 250px;
     margin: 5px;
+    cursor: pointer;
     ${(props) =>
         props.f_white &&
         css`
