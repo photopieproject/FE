@@ -6,8 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 import styled, { css } from "styled-components";
 import FraimSlider1 from "./FrameSlider1";
 import FraimSlider2 from "./FrameSlider2";
+import { useNavigate } from "react-router-dom";
 
 export const MainSlider = () => {
+  const navigate = useNavigate();
+
   const settings = {
     dots: true,
     infinite: true,
@@ -15,6 +18,12 @@ export const MainSlider = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrow: false,
+  };
+
+  const noKeyLogin = () => {
+    !localStorage.getItem("id") && !localStorage.getItem("Authorization")
+      ? navigate("/login")
+      : navigate("/roomopen");
   };
 
   return (
@@ -26,7 +35,7 @@ export const MainSlider = () => {
             alt="SinyoungBack3"
             src="/image/SinyoungBack3.jpg"
           />
-          <StBtn MainTopStartBtn>
+          <StBtn MainTopStartBtn onClick={noKeyLogin}>
             START
             <AiOutlineArrowRight />
           </StBtn>
