@@ -77,62 +77,42 @@ const StButton = styled.button`
         ${(props) =>
         props.start_camera &&
         css`
+            display: flex;
+            align-items: center;
+            color: #478ba2;
+            background: none;
+            border: none;
+            padding: 12px 18px;
             position: relative;
-            height: 50px;
-            padding: 0 30px;
-            border: 2px solid #000;
-            background-color: #e8e8e8;
-            user-select: none;
-            white-space: nowrap;
-            transition: all 0.05s linear;
-            font-family: inherit;
-            margin: 10px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-family: monospace;
+            transition: linear 0.3s;
+            margin-top: 30px;
 
-            &::before,
-            &::after {
-                content: "";
-                position: absolute;
-                background: #e8e8e8;
-                transition: all 0.2s linear;
+            &:hover {
+                color: #478ba2;
             }
 
             &::before {
-                width: calc(100% + 6px);
-                height: calc(100% - 16px);
-                top: 8px;
-                left: -3px;
+                content: "";
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%) translateX(calc(100% + 4px));
+                width: 45px;
+                height: 45px;
+                background-color: #eee8dc;
+                border-radius: 50px;
+                transition: transform 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2),
+                    width 0.25s cubic-bezier(0, 0, 0.5, 2);
+                z-index: -1;
             }
 
-            &::after {
-                width: calc(100% - 16px);
-                height: calc(100% + 6px);
-                top: -3px;
-                left: 8px;
-            }
-
-            &:hover {
-                cursor: crosshair;
-            }
-
-            &:active {
-                transform: scale(0.95);
-            }
-
-            &:hover:before {
-                height: calc(100% - 32px);
-                top: 16px;
-            }
-
-            &:hover:after {
-                width: calc(100% - 32px);
-                left: 16px;
-            }
-
-            & span {
-                font-size: 15px;
-                z-index: 3;
-                position: relative;
-                font-weight: 600;
+            &:hover::before {
+                width: 100%;
+                transform: translateY(-50%) translateX(-18px);
+                transition: transform 0.25s cubic-bezier(0, 0, 0.5, 2);
             }
         `}
 `;
