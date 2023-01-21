@@ -4,7 +4,6 @@ import MainSlider from "../components/Main/MainSlider";
 import FraimSlider1 from "../components/Main/FrameSlider1";
 import FraimSlider2 from "../components/Main/FrameSlider2";
 // import { useNavigate } from "react-router-dom";
-
 const Main = () => {
   // const navigate = useNavigate();
 
@@ -157,7 +156,7 @@ const StDiv = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      border: 1px solid black;
+      /* border: 1px solid black; */
     `}
 
   ${(props) =>
@@ -165,7 +164,7 @@ const StDiv = styled.div`
     css`
       width: 100%;
       height: 100vh - 100px;
-      background-color: gray;
+      background-color: #e6ddca;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -189,7 +188,7 @@ const StDiv = styled.div`
     css`
       width: 100%;
       height: 100vh - 100px;
-      background-color: gray;
+      background-color: #eee8dc;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -227,7 +226,7 @@ ${(props) =>
     css`
       width: 100%;
       height: 516px;
-      background-color: #ebe7e1;
+      background-color: #eee8dc;
       display: flex;
       align-items: center;
       flex-direction: row;
