@@ -25,7 +25,7 @@ const Footer = () => {
     return (
         <StDiv footer_box>
             <StDiv copy_box>
-                <StP copy_right>copyright ©️ Photo-Pie</StP>
+                <StP copy_right>copyright ©️ PHOTO-PIE</StP>
                 <div>
                     <Button
                         onClick={() => {
@@ -161,7 +161,7 @@ const StP = styled.p`
     ${(props) =>
         props.copy_right &&
         css`
-            color: #706fd3;
+            color: #5d9a94;
             margin-left: -200px;
             margin-bottom: 20px;
             font-size: 18px;

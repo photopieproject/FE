@@ -1,36 +1,34 @@
 import styled, { css } from "styled-components";
-import { AiOutlineArrowRight } from "react-icons/ai";
+// import { AiOutlineArrowRight } from "react-icons/ai";
 import MainSlider from "../components/Main/MainSlider";
-import FraimSlider1 from "../components/Main/FrameSlider1";
-import FraimSlider2 from "../components/Main/FrameSlider2";
 // import { useNavigate } from "react-router-dom";
 const Main = () => {
-  // const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-  return (
-    <div>
-      <StDiv MainBox>
-        <StDiv MainTop>
-          <StDiv MainTopContents>
-            <StDiv MainSliderBox>
-              <MainSlider />
-              {/* <StBtn MainTopStartBtn>
+    return (
+        <div>
+            <StDiv MainBox>
+                <StDiv MainTop>
+                    <StDiv MainTopContents>
+                        <StDiv MainSliderBox>
+                            <MainSlider />
+                            {/* <StBtn MainTopStartBtn>
                   START
                   <AiOutlineArrowRight />
                 </StBtn>
               </MainSlider> */}
-            </StDiv>
-            {/* <StP MainTopTitleP>SHARE YOUR MOMENT</StP>
+                        </StDiv>
+                        {/* <StP MainTopTitleP>SHARE YOUR MOMENT</StP>
             <StP MainTopSubP>일상을 나누다. 순간을 공유하다.</StP> */}
-          </StDiv>
+                    </StDiv>
 
-          {/* <StDiv MainTopImgBox>
+                    {/* <StDiv MainTopImgBox>
             <StImg
               SinyoungBack_2
               alt="SinyoungBack_2"
               src="/image/SinyoungBack_2.jpg"
             /> */}
-          {/* <StImg
+                    {/* <StImg
               SinyoungBack1
               alt="SinyoungBack"
               src="/image/SinyoungBack.jpg"
@@ -50,13 +48,17 @@ const Main = () => {
               alt="SinyoungBack"
               src="/image/SinyoungBack.jpg"
             /> */}
-          {/* </StDiv> */}
-        </StDiv>
-        <StDiv MainLine>
-          <StDiv MainLine1>PHOTO-PIE DIFFERENT SPACES SAME MEMORY</StDiv>
-          <StDiv MainLine2>PHOTO-PIE DIFFERENT SPACES SAME MEMORY</StDiv>
-        </StDiv>
-        {/* <StDiv MainAbout>
+                    {/* </StDiv> */}
+                </StDiv>
+                <StDiv MainLine>
+                    <StDiv MainLine1>
+                        PHOTO-PIE DIFFERENT SPACES SAME MEMORY
+                    </StDiv>
+                    <StDiv MainLine2>
+                        PHOTO-PIE DIFFERENT SPACES SAME MEMORY
+                    </StDiv>
+                </StDiv>
+                {/* <StDiv MainAbout>
           <StDiv MainAboutImg>IMAGE</StDiv>
           <StDiv MainAboutTextBox>
             <StP MainAboutTextP>
@@ -73,7 +75,7 @@ const Main = () => {
             <StP MainAboutTextP>WITH PHOTO PIE !</StP>
           </StDiv>
         </StDiv> */}
-        {/* <StDiv MainMiddle>
+                {/* <StDiv MainMiddle>
           <StDiv MainMiddleTextBox>
             <StP MainMiddleText>A PIECE OF PIE FOR EVERYONE</StP>
           </StDiv>
@@ -121,7 +123,7 @@ const Main = () => {
             <AiOutlineArrowRight />
           </StBtn>
         </StDiv> */}
-        {/* <StDiv MainFrames>
+                {/* <StDiv MainFrames>
           <StDiv MainFramesTitle>
             <StP MainFramesTitleP style={{ margin: "10px" }}>
               PHOTO FRAMES
@@ -142,38 +144,38 @@ const Main = () => {
             </StDiv>
           </StDiv>
         </StDiv> */}
-      </StDiv>
-    </div>
-  );
+            </StDiv>
+        </div>
+    );
 };
 
 const StDiv = styled.div`
-  ${(props) =>
-    props.MainBox &&
-    css`
-      width: 100vw;
-      height: 100vh - 100px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      /* border: 1px solid black; */
-    `}
+    ${(props) =>
+        props.MainBox &&
+        css`
+            width: 100vw;
+            height: 100vh - 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* border: 1px solid black; */
+        `}
+
+    ${(props) =>
+        props.MainTop &&
+        css`
+            width: 100%;
+            height: 100vh - 100px;
+            background-color: #e6ddca;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        `}
 
   ${(props) =>
-    props.MainTop &&
-    css`
-      width: 100%;
-      height: 100vh - 100px;
-      background-color: #e6ddca;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    `}
-
-  ${(props) =>
-    props.MainSliderBox &&
-    css`
+        props.MainSliderBox &&
+        css`
       width: 100%;
       height: 100vh - 100px;
       display: flex;
@@ -184,324 +186,324 @@ const StDiv = styled.div`
       }
     `}
   ${(props) =>
-    props.MainTopContents &&
-    css`
-      width: 100%;
-      height: 100vh - 100px;
-      background-color: #eee8dc;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    `}
+        props.MainTopContents &&
+        css`
+            width: 100%;
+            height: 100vh - 100px;
+            background-color: #eee8dc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        `}
     
   ${(props) =>
-    props.MainTopImgBox &&
-    css`
-      width: 100%;
-      height: 100%;
-      /* background-color: gray; */
-      /* display: flex;
+        props.MainTopImgBox &&
+        css`
+            width: 100%;
+            height: 100%;
+            /* background-color: gray; */
+            /* display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start; */
-    `}
+        `}
 
 ${(props) =>
-    props.MainLine &&
-    css`
-      width: 100%;
-      height: 35px;
-      background-color: white;
-      font-weight: bold;
-      font-size: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-    `}
+        props.MainLine &&
+        css`
+            width: 100%;
+            height: 35px;
+            background-color: white;
+            font-weight: bold;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        `}
       
       ${(props) =>
-    props.MainAbout &&
-    css`
-      width: 100%;
-      height: 516px;
-      background-color: #eee8dc;
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      justify-content: center;
-      gap: 20px;
-    `}
+        props.MainAbout &&
+        css`
+            width: 100%;
+            height: 516px;
+            background-color: #eee8dc;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+        `}
 
       ${(props) =>
-    props.MainAboutImg &&
-    css`
-      width: 700px;
-      height: 400px;
-      border: 1px solid black;
-    `}
+        props.MainAboutImg &&
+        css`
+            width: 700px;
+            height: 400px;
+            border: 1px solid black;
+        `}
 
     ${(props) =>
-    props.MainAboutTextBox &&
-    css`
-      width: 700px;
-      height: 400px;
-      border: 1px solid black;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    `}
+        props.MainAboutTextBox &&
+        css`
+            width: 700px;
+            height: 400px;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        `}
 
 ${(props) =>
-    props.MainMiddle &&
-    css`
-      width: 100%;
-      height: 1200px;
-      background-color: gray;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    `}
+        props.MainMiddle &&
+        css`
+            width: 100%;
+            height: 1200px;
+            background-color: gray;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        `}
 
 ${(props) =>
-    props.MainMiddleTextBox &&
-    css`
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-    `}
+        props.MainMiddleTextBox &&
+        css`
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        `}
 
 ${(props) =>
-    props.MainMiddleCardBox &&
-    css`
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-    `}
+        props.MainMiddleCardBox &&
+        css`
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        `}
 
 ${(props) =>
-    props.MainMiddleCardImg &&
-    css`
-      width: 400px;
-      height: 500px;
-      background-color: white;
-    `}
+        props.MainMiddleCardImg &&
+        css`
+            width: 400px;
+            height: 500px;
+            background-color: white;
+        `}
 
     ${(props) =>
-    props.MainMiddleCardPSub &&
-    css`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `}
+        props.MainMiddleCardPSub &&
+        css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `}
 
     ${(props) =>
-    props.MainFrames &&
-    css`
-      width: 100%;
-      height: 900px;
-      background-color: #dadada;
-      padding-bottom: 160px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `}
+        props.MainFrames &&
+        css`
+            width: 100%;
+            height: 900px;
+            background-color: #dadada;
+            padding-bottom: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `}
 
       ${(props) =>
-    props.MainFramesTitle &&
-    css`
-      font-size: 60px;
-      font-weight: bold;
-      display: flex;
-      justify-content: center;
-      margin: 0px;
-    `}
+        props.MainFramesTitle &&
+        css`
+            font-size: 60px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            margin: 0px;
+        `}
 
     ${(props) =>
-    props.MainFramesCardContainer &&
-    css`
-      width: 95%;
-      height: 800px;
-      border: 1px solid black;
-      background-color: gray;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 30px;
-    `}
+        props.MainFramesCardContainer &&
+        css`
+            width: 95%;
+            height: 800px;
+            border: 1px solid black;
+            background-color: gray;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        `}
     
     ${(props) =>
-    props.MainFramesBox &&
-    css`
-      width: 95%;
-      height: 350px;
-      border: 1px solid black;
-      background-color: #cecece;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    `}
+        props.MainFramesBox &&
+        css`
+            width: 95%;
+            height: 350px;
+            border: 1px solid black;
+            background-color: #cecece;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        `}
     
     ${(props) =>
-    props.MainFramesCard &&
-    css`
-      width: 95%;
-      height: 550px;
-      border: 1px solid black;
-      background-color: white;
-    `}
+        props.MainFramesCard &&
+        css`
+            width: 95%;
+            height: 550px;
+            border: 1px solid black;
+            background-color: white;
+        `}
     ${(props) =>
-    props.MainFramesPBox &&
-    css`
-      width: 95%;
-      height: 50px;
-      display: flex;
-    `}
+        props.MainFramesPBox &&
+        css`
+            width: 95%;
+            height: 50px;
+            display: flex;
+        `}
     ${(props) =>
-    props.MainMiddleCardP &&
-    css`
-      width: 400px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `}
+        props.MainMiddleCardP &&
+        css`
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `}
 `;
 
-const StBtn = styled.button`
-  ${(props) =>
-    props.MainTopStartBtn &&
-    css`
-      margin-top: 200px;
-      width: 250px;
-      height: 50px;
-      background-color: white;
-      box-shadow: 7px 7px 0px 1px black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      cursor: pointer;
-    `}
+// const StBtn = styled.button`
+//     ${(props) =>
+//         props.MainTopStartBtn &&
+//         css`
+//             margin-top: 200px;
+//             width: 250px;
+//             height: 50px;
+//             background-color: white;
+//             box-shadow: 7px 7px 0px 1px black;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             font-size: 30px;
+//             cursor: pointer;
+//         `}
 
-  ${(props) =>
-    props.MainMiddleGoBtn &&
-    css`
-      width: 350px;
-      height: 50px;
-      background-color: white;
-      box-shadow: 7px 7px 0px 1px black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      margin: 50px 0;
-      cursor: pointer;
-    `}
-`;
-const StP = styled.p`
-  ${(props) =>
-    props.MainTopTitleP &&
-    css`
-      height: 20px;
-      font-size: 60px;
-      font-weight: bold;
-    `}
+//     ${(props) =>
+//         props.MainMiddleGoBtn &&
+//         css`
+//             width: 350px;
+//             height: 50px;
+//             background-color: white;
+//             box-shadow: 7px 7px 0px 1px black;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             font-size: 30px;
+//             margin: 50px 0;
+//             cursor: pointer;
+//         `}
+// `;
+// const StP = styled.p`
+//     ${(props) =>
+//         props.MainTopTitleP &&
+//         css`
+//             height: 20px;
+//             font-size: 60px;
+//             font-weight: bold;
+//         `}
 
-  ${(props) =>
-    props.MainTopSubP &&
-    css`
-      height: 40px;
-      margin-top: 0px;
-      font-size: 20px;
-    `}
- 
- ${(props) =>
-    props.MainAboutTextP &&
-    css`
-      font-weight: bold;
-      font-size: 24px;
-      margin: 0px;
-    `}
+//     ${(props) =>
+//         props.MainTopSubP &&
+//         css`
+//             height: 40px;
+//             margin-top: 0px;
+//             font-size: 20px;
+//         `}
 
-    ${(props) =>
-    props.MainMiddleText &&
-    css`
-      font-size: 60px;
-      font-weight: bold;
-      margin: 0px 0 80px 0;
-    `}
+//  ${(props) =>
+//         props.MainAboutTextP &&
+//         css`
+//             font-weight: bold;
+//             font-size: 24px;
+//             margin: 0px;
+//         `}
 
-    /* ${(props) =>
-    props.MainMiddleCardP &&
-    css`
-      width: 400px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `} */
-   
-   ${(props) =>
-    props.MainMiddleCardPTitle &&
-    css`
-      font-weight: bold;
-      font-size: 30px;
-      margin: 10px 0px;
-    `}
-    
-    ${(props) =>
-    props.MainMiddleCardPSubP &&
-    css`
-      font-size: 25px;
-      margin: 0;
-    `}
-    
-    ${(props) =>
-    props.MainFramesP &&
-    css`
-      display: flex;
-      font-size: 30px;
-      margin: 0px;
-    `}
-`;
+//     ${(props) =>
+//         props.MainMiddleText &&
+//         css`
+//             font-size: 60px;
+//             font-weight: bold;
+//             margin: 0px 0 80px 0;
+//         `}
 
-const StImg = styled.img`
-  ${(props) =>
-    props.SinyoungBack_2 &&
-    css`
-      width: 100%;
-      height: 100%;
-    `}
-  ${(props) =>
-    props.SinyoungBack1 &&
-    css`
-      width: 300px;
-      height: 450px;
-      margin: 50px 0px;
-    `}
-  ${(props) =>
-    props.SinyoungBack2 &&
-    css`
-      width: 300px;
-      height: 450px;
-      margin: 0px 0px -50px -150px;
-    `}
-  ${(props) =>
-    props.SinyoungBack3 &&
-    css`
-      width: 300px;
-      height: 450px;
-      margin: 0px 0px -150px -150px;
-    `}
-  ${(props) =>
-    props.SinyoungBack4 &&
-    css`
-      width: 300px;
-      height: 450px;
-      margin: 0px 0px -100px -100px;
-    `}
-`;
+//     /* ${(props) =>
+//         props.MainMiddleCardP &&
+//         css`
+//             width: 400px;
+//             display: flex;
+//             flex-direction: column;
+//             align-items: center;
+//         `} */
+
+//    ${(props) =>
+//         props.MainMiddleCardPTitle &&
+//         css`
+//             font-weight: bold;
+//             font-size: 30px;
+//             margin: 10px 0px;
+//         `}
+
+//     ${(props) =>
+//         props.MainMiddleCardPSubP &&
+//         css`
+//             font-size: 25px;
+//             margin: 0;
+//         `}
+
+//     ${(props) =>
+//         props.MainFramesP &&
+//         css`
+//             display: flex;
+//             font-size: 30px;
+//             margin: 0px;
+//         `}
+// `;
+
+// const StImg = styled.img`
+//     ${(props) =>
+//         props.SinyoungBack_2 &&
+//         css`
+//             width: 100%;
+//             height: 100%;
+//         `}
+//     ${(props) =>
+//         props.SinyoungBack1 &&
+//         css`
+//             width: 300px;
+//             height: 450px;
+//             margin: 50px 0px;
+//         `}
+//   ${(props) =>
+//         props.SinyoungBack2 &&
+//         css`
+//             width: 300px;
+//             height: 450px;
+//             margin: 0px 0px -50px -150px;
+//         `}
+//   ${(props) =>
+//         props.SinyoungBack3 &&
+//         css`
+//             width: 300px;
+//             height: 450px;
+//             margin: 0px 0px -150px -150px;
+//         `}
+//   ${(props) =>
+//         props.SinyoungBack4 &&
+//         css`
+//             width: 300px;
+//             height: 450px;
+//             margin: 0px 0px -100px -100px;
+//         `}
+// `;
 export default Main;

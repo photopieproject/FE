@@ -1,13 +1,15 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const Loading = () => {
     const navigate = useNavigate();
+    const { roomId } = useParams();
+    console.log(roomId);
 
     useEffect(() => {
         setTimeout(() => {
-            navigate("/photosave");
+            navigate(`/photosave/${roomId}`);
         }, 30000);
     });
 
@@ -15,8 +17,6 @@ const Loading = () => {
         <StDiv container>
             <StDiv box>
                 <StDiv loader4></StDiv>
-                <StP>Photo-Pie</StP>
-                <StSpan>PHOTO-PIE...</StSpan>
             </StDiv>
         </StDiv>
     );
@@ -122,87 +122,4 @@ const StDiv = styled.div`
         `}
 `;
 
-const StP = styled.p`
-    color: #777;
-    font-family: Lato, "Helvetica Neue";
-    font-weight: 300;
-    position: absolute;
-    font-size: 20px;
-    width: 100%;
-    height: 25px;
-    text-align: center;
-    bottom: 0px;
-    margin: 0;
-    top: 160px;
-    background-color: #fff;
-    opacity: 0;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-    &:hover {
-        bottom: 0px;
-        top: 150px;
-        opacity: 1;
-        transition: all 0.2s ease;
-        z-index: 2;
-        cursor: pointer;
-    }
-`;
-
-const StSpan = styled.span`
-    color: transparent;
-    font-size: 1.4rem;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-        content: "PHOTO_PIE...";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0;
-        height: 100%;
-        border-right: 4px solid #17feff;
-        overflow: hidden;
-        color: #17feff;
-        animation: load91371 2s linear infinite;
-    }
-
-    @keyframes load91371 {
-        0%,
-        10%,
-        100% {
-            width: 0;
-        }
-
-        10%,
-        20%,
-        30%,
-        40%,
-        50%,
-        60%,
-        70%,
-        80%,
-        90%,
-        100% {
-            border-right-color: transparent;
-        }
-
-        11%,
-        21%,
-        31%,
-        41%,
-        51%,
-        61%,
-        71%,
-        81%,
-        91% {
-            border-right-color: #17feff;
-        }
-
-        60%,
-        80% {
-            width: 100%;
-        }
-    }
-`;
 export default Loading;
