@@ -4,8 +4,9 @@ import frameBlack from "../assets/frame/frame_black.png";
 import frameMint from "../assets/frame/frame_mint.png";
 import framePink from "../assets/frame/frame_pink.png";
 import framePupple from "../assets/frame/frame_pupple.png";
+import frameWhiteV0 from "../assets/frame/frame_white_v0.png";
 // import frameWhite from "../assets/frame/frame_white.jpeg";
-import frameWhiteV2 from "../assets/frame/frame_white_v2.png";
+// import frameWhiteV2 from "../assets/frame/frame_white_v2.png";
 import frameBlackV2 from "../assets/frame/frame_black_v2.png";
 import frameGraV1 from "../assets/frame/frame_gra_v1.png";
 import frameGraV2 from "../assets/frame/frame_gra_v2.png";
@@ -39,14 +40,18 @@ const Frame = () => {
             name: "frame_pupple",
             img: framePupple,
         },
+        {
+            name: "frame_white_v0",
+            img: frameWhiteV0,
+        },
+        // {
+        //     name: "frame_white_v2",
+        //     img: frameWhiteV2,
+        // },
         // {
         //     name: "frame_white",
         //     img: frameWhite,
         // },
-        {
-            name: "frame_white_v2",
-            img: frameWhiteV2,
-        },
     ];
 
     const patternColorFrame = [
@@ -148,7 +153,10 @@ const Frame = () => {
                     </label>
                 ))}
             </StDiv>
-            <Button start_camera onClick={() => navigate("/photoshoot")}>
+            <Button
+                start_camera
+                onClick={() => navigate(`/photoshoot/${roomId}`)}
+            >
                 촬영 시작하기
             </Button>
         </StDiv>

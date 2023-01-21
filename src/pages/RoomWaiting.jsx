@@ -10,7 +10,8 @@ import {
 import Button from "../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { OpenVidu } from "openvidu-browser";
+import { OpenVidu, StreamManager } from "openvidu-browser";
+import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 
 const RoomWaiting = () => {
     // let localVideo = document.getElementById("localVideo");
@@ -39,32 +40,32 @@ const RoomWaiting = () => {
     const [otherClose, setOtherClose] = useState(false);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
 
-    const sendCloseSignal = () => {
-        session
-            .signal({
-                data: "true",
-                to: [connectObj],
-                type: "close",
-            })
-            .then(() => {
-                console.log("종료시--->", session);
-                leaveSession();
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    };
+    // const sendCloseSignal = () => {
+    //     session
+    //         .signal({
+    //             data: "true",
+    //             to: [connectObj],
+    //             type: "close",
+    //         })
+    //         .then(() => {
+    //             console.log("종료시--->", session);
+    //             leaveSession();
+    //         })
+    //         .catch((err) => {
+    //             console.error(err);
+    //         });
+    // };
 
-    const sendContinueSignal = () => {
-        session
-            .signal({
-                data: "true",
-                to: [connectObj],
-                type: "continue",
-            })
-            .then(() => console.log("진행중--->", session))
-            .catch((err) => console.error(err));
-    };
+    // const sendContinueSignal = () => {
+    //     session
+    //         .signal({
+    //             data: "true",
+    //             to: [connectObj],
+    //             type: "continue",
+    //         })
+    //         .then(() => console.log("진행중--->", session))
+    //         .catch((err) => console.error(err));
+    // };
 
     useEffect(() => {
         window.addEventListener("beforeunload", onbeforeunload);
@@ -82,6 +83,12 @@ const RoomWaiting = () => {
                 subscriberList.push(subscriber);
                 setSubscribers([...subscribers, ...subscriberList]);
                 console.log("스트림 생성--->", subscribers.length, session);
+                console.log(
+                    "sub--->",
+                    subscriber
+                    // subscriber.stream.mediaStream.getVideoTracks()
+                );
+                console.log("sub list--->", subscriberList);
 
                 setIsConnect(true);
                 // dispatch(getChatInfoDB(sessionId))
@@ -194,34 +201,81 @@ const RoomWaiting = () => {
                     <StH3>Photo-Pie</StH3>
                     <StDiv picture_box id="picture-box">
                         <StDiv picture>
-                            <video ref={videoRef} autoPlay playsInline />
+                            {/* {mainStreamManager !== undefined ? (
+                                <div>
+                                    <UserVideoComponent
+                                        streamManager={mainStreamManager}
+                                    />
+                                    <input
+                                        className="btn btn-large btn-success"
+                                        type="button"
+                                        id="buttonSwitchCamera"
+                                        onClick={this.switchCamera}
+                                        value="Switch Camera"
+                                    />
+                                </div>
+                            ) : null} */}
+                            {StreamManager !== undefined ? (
+                                <video
+                                    mainStreamManager={StreamManager}
+                                    ref={videoRef}
+                                    autoPlay
+                                    playsInline
+                                />
+                            ) : null}
                         </StDiv>
                         <StDiv picture>
-                            화상채팅 친구1
-                            <div>
-                                <BsCameraVideoFill color="white" />
-                                (<BsCameraVideoOffFill color="white" />)
-                                <BsFillMicFill color="white" />
-                                (<BsFillMicMuteFill color="white" />)
-                            </div>
+                            {/* {publisher !== undefined ? (
+                                <div
+                                    className="stream-container col-md-6 col-xs-6"
+                                    onClick={() =>
+                                        this.handleMainVideoStream(publisher)
+                                    }
+                                >
+                                    <UserVideoComponent
+                                        streamManager={publisher}
+                                    />
+                                </div>
+                            ) : null}
+                            {subscribers.map((sub, i) => (
+                                <div
+                                    key={i}
+                                    className="stream-container col-md-6 col-xs-6"
+                                    onClick={() =>
+                                        this.handleMainVideoStream(sub)
+                                    }
+                                >
+                                    <UserVideoComponent streamManager={sub} />
+                                </div>
+                            ))} */}
+                            {StreamManager !== undefined ? (
+                                <video
+                                    mainStreamManager={StreamManager}
+                                    ref={videoRef}
+                                    autoPlay
+                                    playsInline
+                                />
+                            ) : null}
                         </StDiv>
                         <StDiv picture>
-                            화상채팅 친구2
-                            <div>
-                                <BsCameraVideoFill color="white" />
-                                (<BsCameraVideoOffFill color="white" />)
-                                <BsFillMicFill color="white" />
-                                (<BsFillMicMuteFill color="white" />)
-                            </div>
+                            {StreamManager !== undefined ? (
+                                <video
+                                    mainStreamManager={StreamManager}
+                                    ref={videoRef}
+                                    autoPlay
+                                    playsInline
+                                />
+                            ) : null}
                         </StDiv>
                         <StDiv picture>
-                            화상채팅 친구3
-                            <div>
-                                <BsCameraVideoFill color="white" />
-                                (<BsCameraVideoOffFill color="white" />)
-                                <BsFillMicFill color="white" />
-                                (<BsFillMicMuteFill color="white" />)
-                            </div>
+                            {StreamManager !== undefined ? (
+                                <video
+                                    mainStreamManager={StreamManager}
+                                    ref={videoRef}
+                                    autoPlay
+                                    playsInline
+                                />
+                            ) : null}
                         </StDiv>
                     </StDiv>
                 </StDiv>
