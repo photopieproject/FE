@@ -20,7 +20,7 @@ const StSpan = styled.span`
     ${(props) =>
         props.nav_logo &&
         css`
-            color: #706fd3;
+            color: #302e2f;
             font-size: 30px;
             font-weight: bold;
             display: flex;
@@ -33,7 +33,7 @@ const StSpan = styled.span`
     ${(props) =>
         props.active_txt &&
         css`
-            color: #706fd3;
+            color: #478ba2;
             font-weight: bold;
         `}
         ${(props) =>

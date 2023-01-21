@@ -1,17 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { BiCopy } from "react-icons/bi";
-import {
-    BsCameraVideoFill,
-    BsCameraVideoOffFill,
-    BsFillMicFill,
-    BsFillMicMuteFill,
-} from "react-icons/bs";
 import Button from "../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { OpenVidu, StreamManager } from "openvidu-browser";
-import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
+// import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 
 const RoomWaiting = () => {
     // let localVideo = document.getElementById("localVideo");
@@ -280,7 +274,10 @@ const RoomWaiting = () => {
                     </StDiv>
                 </StDiv>
                 <StDiv wait_btns>
-                    <Button choose_frame onClick={() => navigate("/frame")}>
+                    <Button
+                        choose_frame
+                        onClick={() => navigate(`/frame/${rooms.id}`)}
+                    >
                         촬영하러 가기
                     </Button>
                 </StDiv>

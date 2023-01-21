@@ -8,36 +8,11 @@ const Header = () => {
     const navigate = useNavigate();
 
     return (
-        <StDiv nav_main>
-            <div>
+        <StDiv>
+            <StDiv nav_main>
                 <Span nav_logo onClick={() => navigate("/")}>
-                    Photo-Pie
+                    <StImg src="/image/logo.png" alt="logo" />
                 </Span>
-            </div>
-            <StDiv nav_category>
-                <StDiv cate_gory>
-                    <Span cate_txt active_txt onClick={() => navigate("/")}>
-                        Home
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/roomopen")}>
-                        RoomOpen
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/roomwaiting")}>
-                        RoomWaiting
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/frame")}>
-                        Frame
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/photoshoot")}>
-                        PhotoShoot
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/loading")}>
-                        Loading
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/photosave")}>
-                        PhotoSave
-                    </Span>
-                </StDiv>
                 <StDiv log_sign>
                     {/* <StSpan onClick={() => navigate("/login")}>로그인</StSpan> */}
                     {/* 토큰이 있으면 로그아웃으로 버튼 변경(누르면 쿠키삭제) / 토큰 없으면 로그인 버튼 */}
@@ -67,6 +42,31 @@ const Header = () => {
                     <Span onClick={() => navigate("/signup")}>회원가입</Span>
                 </StDiv>
             </StDiv>
+            <StDiv nav_category>
+                {/* <StDiv cate_gory>
+                    <Span cate_txt active_txt onClick={() => navigate("/")}>
+                        Home
+                    </Span>
+                    <Span cate_txt onClick={() => navigate("/roomopen")}>
+                        RoomOpen
+                    </Span>
+                    <Span cate_txt onClick={() => navigate("/roomwaiting")}>
+                        RoomWaiting
+                    </Span>
+                    <Span cate_txt onClick={() => navigate("/frame")}>
+                        Frame
+                    </Span>
+                    <Span cate_txt onClick={() => navigate("/photoshoot")}>
+                        PhotoShoot
+                    </Span>
+                    <Span cate_txt onClick={() => navigate("/loading")}>
+                        Loading
+                    </Span>
+                    <Span cate_txt onClick={() => navigate("/photosave")}>
+                        PhotoSave
+                    </Span>
+                </StDiv> */}
+            </StDiv>
         </StDiv>
     );
 };
@@ -76,13 +76,14 @@ const StDiv = styled.div`
         props.nav_main &&
         css`
             max-width: 1200px;
-            width: 95%;
-            height: 65px;
+            /* width: 100%; */
+            height: 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
             margin: 0 auto;
+            /* background-color: #eee8dc; */
         `}
     ${(props) =>
         props.nav_category &&
@@ -103,6 +104,10 @@ const StDiv = styled.div`
             display: flex;
             gap: 15px;
         `}
+`;
+
+const StImg = styled.img`
+    width: 250px;
 `;
 
 export default Header;
