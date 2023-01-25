@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { IoCameraSharp } from "react-icons/io5";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __takePhoto } from "../redux/modules/photoSlice";
+import { __takeFrame, __takePhoto } from "../redux/modules/photoSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import Count from "../components/Count/Count";
 
@@ -15,6 +15,15 @@ const PhotoShoot = () => {
     const [photo_four, setPhoto_four] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const { roomId } = useParams();
+    const rooms = useSelector((state) => state.photos.photoinfo);
+    console.log("roomId:", roomId);
+    console.log("rooms--->", rooms);
+
+    useEffect(() => {
+        dispatch(__takeFrame(roomId));
+    }, [dispatch, roomId]);
 
     // const file = document.querySelector('input[type="file"]').files[0];
 
@@ -38,10 +47,6 @@ const PhotoShoot = () => {
 
     const formdata4 = new FormData();
     formdata4.append("photo_four", photo_four);
-
-    const { roomId } = useParams();
-    // const rooms = useSelector((state) => state);
-    console.log("roomId:", roomId);
 
     // --
     const base64 =
@@ -360,6 +365,7 @@ const PhotoShoot = () => {
     return (
         <StDiv photo_shoot>
             <StDiv capture_area id="capture_area">
+                <img src={rooms.frameUrl} alt="frame url" />
                 <StH3>Photo-Pie</StH3>
                 <StDiv picture_box id="picture-box">
                     <StDiv picture id="picture_1">

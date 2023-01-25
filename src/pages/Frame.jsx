@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import frameBlack from "../assets/frame/frame_black.png";
 import frameMint from "../assets/frame/frame_mint.png";
@@ -14,35 +16,43 @@ import frameGraV3 from "../assets/frame/frame_gra_v3.png";
 import frameGraV4 from "../assets/frame/frame_gra_v4.png";
 import Button from "../components/button/Button";
 import { BsPatchCheckFill } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
+import { __chooseFrame } from "../redux/modules/photoSlice";
 // import checkHeart from "../assets/svg/check-heart.svg";
 
 const Frame = () => {
-    const [chooseFrame, setChooseFrame] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [frameNum, setFrameNum] = useState([]);
     const { roomId } = useParams();
     console.log(roomId);
+    console.log("chooseFrame--->", frameNum);
 
     const oneColorFrame = [
         {
             name: "frame_black",
             img: frameBlack,
+            frameNum: 1,
         },
         {
             name: "frame_mint",
             img: frameMint,
+            frameNum: 2,
         },
         {
             name: "frame_pink",
             img: framePink,
+            frameNum: 3,
         },
         {
             name: "frame_pupple",
             img: framePupple,
+            frameNum: 4,
         },
         {
             name: "frame_white_v0",
             img: frameWhiteV0,
+            frameNum: 5,
         },
         // {
         //     name: "frame_white_v2",
@@ -58,32 +68,52 @@ const Frame = () => {
         {
             name: "frame_black_v2",
             img: frameBlackV2,
+            frameNum: 6,
         },
         {
             name: "frame_gra_v1",
             img: frameGraV1,
+            frameNum: 7,
         },
         {
             name: "frame_gra_v2",
             img: frameGraV2,
+            frameNum: 8,
         },
         {
             name: "frame_gra_v3",
             img: frameGraV3,
+            frameNum: 9,
         },
         {
             name: "frame_gra_v4",
             img: frameGraV4,
+            frameNum: 10,
         },
     ];
 
+    // 오류 수정
+
     const chooseFramehandler = (e) => {
         console.log(`${e.target.value} 선택되었습니다!`);
-        setChooseFrame(e.target.value);
+        setFrameNum(e.target.value);
+        console.log("frameNum--->", frameNum);
     };
+    console.log("change after chooseFrame--->", frameNum);
 
     const chooseFrameCheckBtn = () => {
         console.log(`선택되었습니다!`);
+        dispatch(__chooseFrame({ roomId, frameNum }))
+            .then((res) => {
+                console.log(res);
+                if (res.payload.statusCode === 200) {
+                    alert(res.payload.statusMsg);
+                } else if (res.payload.statusCode === 400) {
+                    alert(res.payload.statusMsg);
+                }
+                navigate(`/photoshoot/${roomId}`);
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
@@ -92,23 +122,26 @@ const Frame = () => {
             <StH3>ONE COLOR</StH3>
             <StDiv frame_set>
                 {oneColorFrame.map((kind) => (
-                    <label htmlFor={kind.name} key={kind.name}>
+                    <label htmlFor={kind.name} key={kind.frameNum}>
                         <StDiv frame_check>
                             <StInput
                                 type="radio"
                                 id={kind.name}
-                                value={kind.name}
-                                checked={chooseFrame === `${kind.name}`}
+                                // value={kind.name}
+                                value={kind.frameNum}
+                                // checked={chooseFrame === `${kind.name}`}
+                                checked={frameNum === `${kind.frameNum}`}
                                 onChange={chooseFramehandler}
-                                onClick={chooseFrameCheckBtn}
+                                // onClick={chooseFrameCheckBtn}
                             />
-                            {/* <StImg src={kind.img} alt={kind.name} /> */}
-                            {kind.name === "frame_white" ? (
+                            <StImg src={kind.img} alt={kind.name} />
+                            {/* {kind.name === "frame_white" ? (
                                 <StImg f_white src={kind.img} alt={kind.name} />
                             ) : (
                                 <StImg src={kind.img} alt={kind.name} />
-                            )}
-                            {chooseFrame === kind.name ? (
+                            )} */}
+                            {/* {chooseFrame === kind.name ? ( */}
+                            {frameNum === kind.frameNum ? (
                                 // <img src={checkHeart} alt="check" />
                                 <BsPatchCheckFill
                                     size={80}
@@ -128,17 +161,17 @@ const Frame = () => {
             <StH3>PATTERN COLOR</StH3>
             <StDiv frame_set>
                 {patternColorFrame.map((kind) => (
-                    <label htmlFor={kind.name} key={kind.name}>
+                    <label htmlFor={kind.name} key={kind.frameNum}>
                         <StDiv frame_check>
                             <StInput
                                 type="radio"
                                 id={kind.name}
-                                value={kind.name}
-                                checked={chooseFrame === `${kind.name}`}
+                                value={kind.frameNum}
+                                checked={frameNum === `${kind.frameNum}`}
                                 onChange={chooseFramehandler}
                             />
                             <StImg src={kind.img} alt={kind.name} />
-                            {chooseFrame === kind.name ? (
+                            {frameNum === kind.frameNum ? (
                                 // <img src={checkHeart} alt="check" />
                                 <BsPatchCheckFill
                                     size={80}
@@ -155,7 +188,7 @@ const Frame = () => {
             </StDiv>
             <Button
                 start_camera
-                onClick={() => navigate(`/photoshoot/${roomId}`)}
+                onClick={() => chooseFrameCheckBtn(roomId, Number(frameNum))}
             >
                 촬영 시작하기
             </Button>
