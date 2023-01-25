@@ -35,38 +35,39 @@ const RoomWaiting = () => {
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
 
     console.log("mainSM --->", mainStreamManager);
+    console.log("session--->", session);
 
     const onbeforeunload = (event) => {
         event.preventDefault();
         leaveSession();
     };
 
-    const sendCloseSignal = () => {
-        session
-            .signal({
-                data: "true",
-                to: [connectObj],
-                type: "close",
-            })
-            .then(() => {
-                console.log("종료시--->", session);
-                leaveSession();
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    };
+    // const sendCloseSignal = () => {
+    //     session
+    //         .signal({
+    //             data: "true",
+    //             to: [connectObj],
+    //             type: "close",
+    //         })
+    //         .then(() => {
+    //             console.log("종료시--->", session);
+    //             leaveSession();
+    //         })
+    //         .catch((err) => {
+    //             console.error(err);
+    //         });
+    // };
 
-    const sendContinueSignal = () => {
-        session
-            .signal({
-                data: "true",
-                to: [connectObj],
-                type: "continue",
-            })
-            .then(() => console.log("진행중--->", session))
-            .catch((err) => console.error(err));
-    };
+    // const sendContinueSignal = () => {
+    //     session
+    //         .signal({
+    //             data: "true",
+    //             to: [connectObj],
+    //             type: "continue",
+    //         })
+    //         .then(() => console.log("진행중--->", session))
+    //         .catch((err) => console.error(err));
+    // };
 
     useEffect(() => {
         window.addEventListener("beforeunload", onbeforeunload);
@@ -99,8 +100,14 @@ const RoomWaiting = () => {
                 setOtherClose(true);
             });
 
-            // mySession.on('signal:continue', (event) => {
-            // })
+            // mySession.on("signal:close", (event) => {
+            //     console.log("시그날:close 세션--->", mySession);
+            //     setOtherClose(true);
+            // });
+
+            // mySession.on("signal:continue", (event) => {
+            //     console.log("시그날:continue--->", mySession);
+            // });
 
             mySession.on("connectionCreated", (event) => {
                 console.log("connect--->", session, mySession);
@@ -121,7 +128,7 @@ const RoomWaiting = () => {
                         videoSource: videoDevices[0].deviceId,
                         publishAudio: true,
                         publishVideo: { width: 200, height: 300 },
-                        resolution: "200x300",
+                        resolution: "640x480",
                         frameRate: 30,
                         insertMode: "APPEND",
                         mirror: false,
@@ -140,7 +147,7 @@ const RoomWaiting = () => {
 
         return () => {
             window.removeEventListener("beforeunload", onbeforeunload);
-            // chatClose()
+            chatClose();
         };
     }, []);
 
@@ -153,9 +160,10 @@ const RoomWaiting = () => {
         setPublisher(undefined);
     };
 
-    // const chatClose = () => {
-    //     setCloseSignal();
-    // }
+    const chatClose = () => {
+        // sendCloseSignal();
+        setTimeout(leaveSession, 500);
+    };
 
     const copyClipBoard = async (roomCode) => {
         try {
