@@ -6,6 +6,7 @@ import Registration from "./Registration";
 import Private from "../../pages/Private";
 import { __SMSSend } from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
+import SmsCount from "../Count/SmsCount";
 
 function Agree2({ setShow }) {
   const [allCheck, setAllCheck] = useState(false);
@@ -296,6 +297,9 @@ function Agree2({ setShow }) {
               >
                 인증
               </StBtn>
+              <StDiv StSmsCount>
+                <SmsCount disabled={msgDisabled} msgDisabled={msgDisabled} />
+              </StDiv>
             </StDiv>
           )}
           <StP OkConfirmP>{checkP}</StP>
@@ -313,7 +317,6 @@ function Agree2({ setShow }) {
             다음
           </StBtn>
         </StDiv>
-        {/* </StContainer> */}
       </StDiv>
     </div>
   );
@@ -326,7 +329,7 @@ const StInput = styled.input`
       width: 200px;
       height: 35px;
       margin-right: 5px;
-      background-color: #dad2ff91;
+      background-color: #f2ebde;
       border: none;
     `}
 `;
@@ -342,7 +345,7 @@ const StP = styled.p`
   ${(props) =>
     props.OkConfirmP &&
     css`
-      font-size: 15px;
+      font-size: 13px;
       color: gray;
       margin: 0 auto;
     `}
@@ -364,7 +367,7 @@ const StDiv = styled.div`
       height: 600px;
       padding: 5px 20px;
       border: 1px solid gray;
-      background-color: #f1eeff;
+      background-color: #faf7f2;
       position: fixed;
       flex-direction: column;
       overflow: scroll;
@@ -373,7 +376,7 @@ const StDiv = styled.div`
       ::-webkit-scrollbar {
         width: 15px;
         height: 15%;
-        background-color: #706fd3;
+        background-color: #7d6945;
         border-radius: 15px;
       }
     `}
@@ -384,7 +387,7 @@ const StDiv = styled.div`
       height: 600px;
       padding: 5px 20px;
       border: 1px solid gray;
-      background-color: #f1eeff;
+      background-color: #faf7f2;
       position: fixed;
       flex-direction: column;
       overflow: scroll;
@@ -393,7 +396,7 @@ const StDiv = styled.div`
       ::-webkit-scrollbar {
         width: 15px;
         height: 15%;
-        background-color: #706fd3;
+        background-color: #7d6945;
         border-radius: 15px;
       }
     `}
@@ -404,7 +407,7 @@ const StDiv = styled.div`
       height: 600px;
       padding: 5px 20px;
       border: 1px solid gray;
-      background-color: #f1eeff;
+      background-color: #faf7f2;
       position: fixed;
       flex-direction: column;
       overflow: scroll;
@@ -413,7 +416,7 @@ const StDiv = styled.div`
       ::-webkit-scrollbar {
         width: 15px;
         height: 15%;
-        background-color: #706fd3;
+        background-color: #7d6945;
         border-radius: 15px;
       }
     `}
@@ -426,8 +429,8 @@ const StDiv = styled.div`
       flex-direction: column;
       justify-content: center;
       margin-top: 10px;
-      border-top: 2px solid #706fd3;
-      border-bottom: 2px solid #706fd3;
+      border-top: 2px solid #7d6945;
+      border-bottom: 2px solid #7d6945;
     `}
       
       ${(props) =>
@@ -445,7 +448,14 @@ const StDiv = styled.div`
       display: flex;
       justify-content: center;
       margin: 30px 0 0px 0;
-      color: #706fd3;
+      color: #7d6945;
+    `}
+
+  ${(props) =>
+    props.StSmsCount &&
+    css`
+      margin: -10px auto -15px auto;
+      font-size: 12px;
     `}
 `;
 
@@ -453,16 +463,18 @@ const StBtn = styled.button`
   ${(props) =>
     props.NextGoBtn &&
     css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 90px;
       height: 40px;
       border-radius: 15px;
-      margin: 10px auto;
       background: ${({ nextDisabled }) =>
         nextDisabled
           ? "#d9d9d9"
-          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
-      color: ${({ nextDisabled }) => (nextDisabled ? "#706fd3" : "white")};
-      /* background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3);
+          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+      color: ${({ nextDisabled }) => (nextDisabled ? "#7d6945" : "white")};
+      /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
       color: white; */
       background-size: 200%;
       transition: 500ms;
@@ -481,7 +493,7 @@ const StBtn = styled.button`
       height: 30px;
       border-radius: 8px;
       margin: 10px 0 10px 10px;
-      background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3);
+      background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
       background-size: 200%;
       transition: 500ms;
       border: none;
@@ -505,8 +517,8 @@ const StBtn = styled.button`
       background: ${({ pnDisabled }) =>
         pnDisabled
           ? "#d9d9d9"
-          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
-      color: ${({ pnDisabled }) => (pnDisabled ? "#706fd3" : "white")};
+          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+      color: ${({ pnDisabled }) => (pnDisabled ? "#7d6945" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;
@@ -528,8 +540,8 @@ const StBtn = styled.button`
       background: ${({ msgDisabled }) =>
         msgDisabled
           ? "#d9d9d9"
-          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
-      color: ${({ msgDisabled }) => (msgDisabled ? "#706fd3" : "white")};
+          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+      color: ${({ msgDisabled }) => (msgDisabled ? "#7d6945" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;
@@ -550,7 +562,7 @@ const StBtn = styled.button`
       height: 30px;
       border-radius: 5px;
       margin: 10px auto;
-      background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3);
+      background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
       background-size: 200%;
       transition: 500ms;
       border: none;

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { __postSignup, __checkUserId } from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
 import { useState } from "react";
@@ -12,6 +12,35 @@ const Registration = () => {
   const [checkUserId, setCheckUserId] = useState(false);
   const [checkP, setCheckP] = useState();
   const [registDisabled, setRegistDisabled] = useState(true);
+  const [PWPtag, setPWPtag] = useState();
+  const [PWConfirm, setPWConfirm] = useState("");
+  const [PWConfirmP, setPWConfirmP] = useState(false);
+
+  function isPassword(asValue) {
+    const regExp =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+    return regExp.test(asValue);
+  }
+
+  const PWChk = () => {
+    if (!isPassword(password)) {
+      setPWPtag(
+        <StPs>영문대문자+소문자/숫자/특수문자를 모두포함한, 8-15자</StPs>
+      );
+    } else {
+      setPWPtag(<StPs2>사용가능한 비밀번호 입니다</StPs2>);
+    }
+  };
+
+  const PWConfirmChk = () => {
+    if (password === PWConfirm) {
+      setPWConfirmP(<StPs2>비밀번호 확인되었습니다.</StPs2>);
+      setRegistDisabled(false);
+    } else {
+      setPWConfirmP(<StPs>비밀번호가 일치하지않습니다</StPs>);
+      setRegistDisabled(true);
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -32,7 +61,11 @@ const Registration = () => {
       userId,
       nickname,
       password,
-      passwordCheck,
+      // passwordCheck,
+      PWConfirm,
+      // params: { phoneNum: "" },
+      // 전역상태
+      // 부모컴포넌트에서 자식컴포넌트 useState
     })
       .then((res) => {
         //서버에서 받아온 부분
@@ -57,23 +90,13 @@ const Registration = () => {
         if (res === 200) {
           setCheckUserId(true);
           setCheckP("사용 가능한 ID입니다");
-          setRegistDisabled(false);
         } else if (res === 400) {
           setCheckUserId(false);
           setCheckP("이미 사용중인 ID입니다");
-          setRegistDisabled(true);
         }
       }
     });
   };
-
-  // useEffect(() => {
-  //   if (checkUserId === true) {
-  //     setRegistDisabled(true);
-  //   } else {
-  //     setRegistDisabled(!registDisabled);
-  //   }
-  // }, [checkUserId]);
 
   return (
     <div>
@@ -123,25 +146,35 @@ const Registration = () => {
                 LoginInput
                 type="password"
                 id="password"
+                onBlur={PWChk}
                 value={password}
                 onChange={setPassword}
                 autoComplete="off"
                 placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
               />
+              <StP>{PWPtag}</StP>
             </StDiv>
             <StDiv IdPw>
               Password Check
               <br />
               <StInput
                 LoginInput
+                onBlur={PWConfirmChk}
                 type="password"
                 id="password"
-                value={passwordCheck}
-                onChange={setPasswordCheck}
+                required
+                // value={passwordCheck}
+                // onChange={setPasswordCheck}
+                value={PWConfirm}
+                onChange={(e) => {
+                  setPWConfirm(e.target.value);
+                }}
                 autoComplete="off"
                 placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
               />
             </StDiv>
+
+            <StP>{PWConfirmP}</StP>
           </div>
         </StDiv>
 
@@ -184,7 +217,7 @@ const StDiv = styled.div`
       display: flex;
       justify-content: center;
       margin: 30px 0 0px 0;
-      color: #706fd3;
+      color: #7d6945;
     `}
 
   ${(props) =>
@@ -201,7 +234,7 @@ const StDiv = styled.div`
       font-size: 15px;
       font-weight: bold;
       color: gray;
-      padding-top: 30px;
+      padding-top: 20px;
     `}
 
   ${(props) =>
@@ -224,11 +257,23 @@ ${(props) =>
 `;
 
 const StP = styled.p`
-  margin: 0;
   font-size: 13px;
   font-weight: lighter;
   margin-top: 5px;
   color: gray;
+  margin-bottom: -10px;
+`;
+
+const StPs = styled.p`
+  margin-top: 7px;
+  font-size: 12px;
+  color: red;
+`;
+
+const StPs2 = styled.p`
+  margin-top: 7px;
+  font-size: 12px;
+  color: limegreen;
 `;
 
 const StInput = styled.input`
@@ -244,7 +289,7 @@ const StInput = styled.input`
       height: 40px;
       &:focus {
         outline: none;
-        border-bottom: solid 4px #a7a5ff;
+        border-bottom: solid 4px #ecdfc8;
       }
     `}
   ${(props) =>
@@ -259,7 +304,7 @@ const StInput = styled.input`
       height: 40px;
       &:focus {
         outline: none;
-        border-bottom: solid 4px #a7a5ff;
+        border-bottom: solid 4px #ecdfc8;
       }
     `}
 `;
@@ -269,7 +314,7 @@ const StBtn = styled.button`
     props.Forgot &&
     css`
       background-color: transparent;
-      color: #706fd3;
+      color: #9f8759;
       border: none;
       margin: 10px 0px 10px 220px;
       font-weight: bold;
@@ -286,7 +331,7 @@ const StBtn = styled.button`
       height: 35px;
       border-radius: 10px;
       margin: 0 0 0 20px;
-      /* background: linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3); */
+      /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945); */
       background-size: 200%;
       border: none;
       transition: 500ms;
@@ -295,8 +340,8 @@ const StBtn = styled.button`
       background: ${({ checkUserId }) =>
         checkUserId
           ? "#d9d9d9"
-          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
-      color: ${({ checkUserId }) => (checkUserId ? "#706fd3" : "white")};
+          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+      color: ${({ checkUserId }) => (checkUserId ? "#7d6945" : "white")};
       &:hover {
         cursor: pointer;
         background-position: right;
@@ -312,8 +357,8 @@ const StBtn = styled.button`
       background: ${({ registDisabled }) =>
         registDisabled
           ? "#d9d9d9"
-          : "linear-gradient(120deg, #706fd3, #b7a7ff, #706fd3)"};
-      color: ${({ registDisabled }) => (registDisabled ? "#706fd3" : "white")};
+          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+      color: ${({ registDisabled }) => (registDisabled ? "#7d6945" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;
@@ -331,7 +376,7 @@ const StBtn = styled.button`
       border: none;
       background-color: transparent;
       font-weight: bold;
-      color: #706fd3;
+      color: #7d6945;
       &:hover {
         cursor: pointer;
         text-decoration: underline;
