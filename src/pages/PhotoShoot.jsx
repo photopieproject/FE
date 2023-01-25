@@ -28,181 +28,54 @@ const PhotoShoot = () => {
   const navigate = useNavigate();
 
   const [photo_one, setPhoto_one] = useState("");
-  const [photo_two, setPhoto_two] = useState("");
-  const [photo_three, setPhoto_three] = useState("");
-  const [photo_four, setPhoto_four] = useState("");
-  const [countDisabled, setCountDisabled] = useState(false);
 
   console.log(photo_one);
 
   const { roomId } = useParams();
   const rooms = useSelector((state) => state.photos.photoinfo);
-  console.log("roomId:", roomId);
-  console.log("rooms--->", rooms);
 
   useEffect(() => {
     dispatch(__takeFrame(roomId));
   }, [dispatch, roomId]);
 
-  const formdata1 = new FormData();
-  // formdata1.append("file", file);
-  // formdata1.append('image',photo_one, "image.jpg");
-  // formdata1.append("roomId", roomId);
-  formdata1.append("photo_one", photo_one);
-
-  //   const formdata2 = new FormData();
-  //   formdata2.append("photo_two", photo_two);
-
-  //   const formdata3 = new FormData();
-  //   formdata3.append("photo_three", photo_three);
-
-  //   const formdata4 = new FormData();
-  //   formdata4.append("photo_four", photo_four);
-
   const onSubmitHandler_1 = () => {
-    // console.log(photo_one);
-
-    // const formdata = new FormData();
-    // formdata.append("photo_one", photo_one);
-
-    console.log(formdata1);
-    console.log(typeof formdata1);
-
-    dispatch(__takePhoto({ roomId, formdata1 }));
-
-    for (const pair of formdata1) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-    // return () => clearTimeout(timerId);
-  };
-
-  const onSubmitHandler_2 = () => {
-    console.log(photo_two);
-
-    const formdata = new FormData();
-    formdata.append("photo_two", photo_two);
-
-    console.log(formdata);
-    console.log(typeof formdata);
-
-    // dispatch(__takePhoto(formdata));
-
-    for (const pair of formdata) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-  };
-
-  const onSubmitHandler_3 = () => {
-    console.log(photo_three);
-
-    const formdata = new FormData();
-    formdata.append("photo_three", photo_three);
-
-    console.log(formdata);
-    console.log(typeof formdata);
-
-    // dispatch(__takePhoto(formdata));
-
-    for (const pair of formdata) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-  };
-
-  const onSubmitHandler_4 = () => {
-    console.log(photo_four);
-
-    const formdata = new FormData();
-    formdata.append("photo_four", photo_four);
-
-    console.log(formdata);
-    console.log(typeof formdata);
-
-    // dispatch(__takePhoto(formdata));
-
-    for (const pair of formdata) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-  };
-
-  console.log("Capture Start");
-
-  // const onSubmitHandler = (roomId, formdata) => {
-  //   dispatch(__takePhoto(roomId, formdata1));
-  // };
-
-  $(function () {
-    $("#pic_btn1").on("click", () => {
-      html2canvas(document.querySelector("#picture_1")).then((canvas) => {
+    //dispatch(__takePhoto({ roomId,  }));
+    html2canvas(document.querySelector("#picture_1"))
+      .then((canvas) => {
         // 수정할 곳 이미지가 formdata로 안넘어감
         let photo_one = (canvas.toDataURL("image/jpg"), "photo_one.jpg");
         photo_one = photo_one.replace("data:image/jpg;base64,", "");
-        console.log(canvas.toDataURL(photo_one));
-        // setPhoto_one(canvas.toDataURL(photo_one));
-        console.log(photo_one);
-        saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
+        //console.log(canvas.toDataURL(photo_one));
+        setPhoto_one(canvas.toDataURL(photo_one));
+
+        //saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
         // 사진을 저장함과 동시에 state에 넣어주기...
+      })
+      .then(() => {
+        const file = dataURLtoFile(photo_one, "photo_one.jpg");
+        console.log(file);
+
+        const formdata = new FormData();
+
+        formdata.append("file", file);
+
+        dispatch(__takePhoto({ roomId, photo_one }));
       });
-    });
+  };
 
-    $("#pic_btn2").on("click", () => {
-      html2canvas(document.querySelector("#picture_2")).then((canvas) => {
-        saveAs(canvas.toDataURL("image/jpg"), "photo_two.jpg");
-      });
-    });
-
-    $("#pic_btn3").on("click", () => {
-      html2canvas(document.querySelector("#picture_3")).then((canvas) => {
-        saveAs(canvas.toDataURL("image/jpg"), "photo_three.jpg");
-      });
-    });
-
-    $("#pic_btn4").on("click", () => {
-      html2canvas(document.querySelector("#picture_4")).then((canvas) => {
-        saveAs(canvas.toDataURL("image/jpg"), "photo_four.jpg");
-      });
-    });
-
-    $("#download").on("click", () => {
-      html2canvas(document.querySelector("#capture_area")).then((canvas) => {
-        saveAs(canvas.toDataURL("image/jpg"), "photo-pie.jpg");
-      });
-    });
-
-    function saveAs(uri, filename) {
-      // timerId = setTimeout(() => {
-      let link = document.createElement("a");
-      if (typeof link.download === "string") {
-        link.href = uri;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        window.open(uri);
-      }
-
-      // dispatch(__takePhoto({ roomId, formdata1 }));
-      // $.ajax({
-      //     type: "post",
-      //     data: {
-      //         roomId: roomId,
-      //         formdata1: photo_one,
-      //     },
-      //     dataType: "multipart/form-data",
-      //     url: `https://photo-pie.shop/api/photo/room/${roomId}/shoot`,
-      //     success: function (data) {
-      //         console.log(data);
-      //     },
-      //     error: function (a, b, c) {
-      //         alert("error");
-      //     },
-      // });
-      console.log(photo_one);
-      //   dispatch(__takePhoto({ roomId, formdata1 }));
-      // base64toFile(photo_one, "photo_one.png");
-      // }, 1000);
+  function saveAs(uri, filename) {
+    // timerId = setTimeout(() => {
+    let link = document.createElement("a");
+    if (typeof link.download === "string") {
+      link.href = uri;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.open(uri);
     }
-  });
+  }
 
   const videoRef = useRef(null);
 
@@ -274,23 +147,15 @@ const PhotoShoot = () => {
         <button
           id="pic_btn1"
           onClick={() => {
-            onSubmitHandler_1(roomId, formdata1);
+            onSubmitHandler_1(roomId);
           }}
           // onClick={ClickCountHandler}
-          disabled={countDisabled}
-          msgDisabled={countDisabled}
+          // disabled={countDisabled}
+          // msgDisabled={countDisabled}
         >
           내 촬영하기
         </button>
-        <button id="pic_btn2" onClick={() => onSubmitHandler_2}>
-          친구1
-        </button>
-        <button id="pic_btn2" onClick={() => onSubmitHandler_3}>
-          친구2
-        </button>
-        <button id="pic_btn2" onClick={() => onSubmitHandler_4}>
-          친구3
-        </button>
+
         <button onClick={() => navigate(`/loading/${roomId}`)}>
           사진 전송하러 가기
         </button>
