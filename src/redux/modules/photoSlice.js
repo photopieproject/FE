@@ -4,11 +4,16 @@ import { apis } from "../../lib/axios";
 const initialState = {
     videoRooms: [],
     videoRoomLists: [],
+    frames: [],
+    sessionId: [],
+    token: [],
     photos: [],
+    photoinfo: [],
     isLoading: true,
     error: null,
 };
 
+// photo 저장 관련
 export const __takePhoto = createAsyncThunk(
     "takePhoto",
     async (payload, thunkAPI) => {
@@ -30,11 +35,44 @@ export const __takePhoto = createAsyncThunk(
     }
 );
 
+// frame 저장 관련
+export const __chooseFrame = createAsyncThunk(
+    "chooseFrame",
+    async (payload, thunkAPI) => {
+        console.log("payload :", payload);
+        try {
+            const data = await apis.chooseFrame(payload);
+            console.log("POST 추가 데이터", data);
+            return thunkAPI.fulfillWithValue(data.data);
+        } catch (err) {
+            console.log(err);
+            return thunkAPI.rejectWithValue(err);
+        }
+    }
+);
+
+// frame 가져오기 관련
+export const __takeFrame = createAsyncThunk(
+    "takeFrame",
+    async (payload, thunkAPI) => {
+        console.log("payload :", payload);
+        try {
+            const data = await apis.takeFrame(payload);
+            console.log("POST 추가 데이터", data);
+            return thunkAPI.fulfillWithValue(data.data);
+        } catch (err) {
+            console.log(err);
+            return thunkAPI.rejectWithValue(err);
+        }
+    }
+);
+
 export const photoSlice = createSlice({
     name: "photo",
     initialState,
     reducers: {},
     extraReducers: {
+        // photo 저장 관련
         [__takePhoto.pending]: (state) => {
             state.isLoading = true;
         },
@@ -46,6 +84,38 @@ export const photoSlice = createSlice({
             console.log("state값", state);
         },
         [__takePhoto.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        // frame 저장 관련
+        [__chooseFrame.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__chooseFrame.fulfilled]: (state, action) => {
+            // 액션으로 받은 값 = payload 추가해준다.
+            state.isLoading = false;
+            state.frames = action.payload;
+            console.log("action-서버값", action.payload);
+            console.log("state값", state);
+        },
+        [__chooseFrame.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        // frame 가져오기 관련
+        [__takeFrame.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__takeFrame.fulfilled]: (state, action) => {
+            // 액션으로 받은 값 = payload 추가해준다.
+            state.isLoading = false;
+            state.photoinfo = action.payload;
+            console.log("action-서버값", action.payload);
+            console.log("state값", state);
+        },
+        [__takeFrame.rejected]: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         },

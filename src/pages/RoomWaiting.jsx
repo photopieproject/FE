@@ -5,7 +5,7 @@ import Button from "../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { OpenVidu, StreamManager } from "openvidu-browser";
-// import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
+import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 
 const RoomWaiting = () => {
     // let localVideo = document.getElementById("localVideo");
@@ -34,6 +34,7 @@ const RoomWaiting = () => {
     const [otherClose, setOtherClose] = useState(false);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
 
+    console.log("mainSM --->", mainStreamManager);
     // const sendCloseSignal = () => {
     //     session
     //         .signal({
@@ -96,7 +97,7 @@ const RoomWaiting = () => {
             // })
 
             mySession.on("connectionCreated", (event) => {
-                console.log("connect--->", session);
+                console.log("connect--->", session, mySession);
                 setConnectObj(event.connection);
             });
 
@@ -159,22 +160,22 @@ const RoomWaiting = () => {
         }
     };
 
-    const videoRef = useRef(null);
+    // const videoRef = useRef(null);
 
-    useEffect(() => {
-        const getUserMedia = async () => {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { width: 200, height: 300 },
-                    audio: true,
-                });
-                videoRef.current.srcObject = stream;
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getUserMedia();
-    }, []);
+    // useEffect(() => {
+    //     const getUserMedia = async () => {
+    //         try {
+    //             const stream = await navigator.mediaDevices.getUserMedia({
+    //                 video: { width: 200, height: 300 },
+    //                 audio: true,
+    //             });
+    //             videoRef.current.srcObject = stream;
+    //         } catch (err) {
+    //             console.log(err);
+    //         }
+    //     };
+    //     getUserMedia();
+    // }, []);
 
     return (
         <div>
@@ -209,14 +210,14 @@ const RoomWaiting = () => {
                                     />
                                 </div>
                             ) : null} */}
-                            {StreamManager !== undefined ? (
+                            {/* {StreamManager !== undefined ? (
                                 <video
                                     mainStreamManager={StreamManager}
                                     ref={videoRef}
                                     autoPlay
                                     playsInline
                                 />
-                            ) : null}
+                            ) : null} */}
                         </StDiv>
                         <StDiv picture>
                             {/* {publisher !== undefined ? (
@@ -226,9 +227,7 @@ const RoomWaiting = () => {
                                         this.handleMainVideoStream(publisher)
                                     }
                                 >
-                                    <UserVideoComponent
-                                        streamManager={publisher}
-                                    />
+                                    <video streamManager={publisher} />
                                 </div>
                             ) : null}
                             {subscribers.map((sub, i) => (
@@ -239,37 +238,37 @@ const RoomWaiting = () => {
                                         this.handleMainVideoStream(sub)
                                     }
                                 >
-                                    <UserVideoComponent streamManager={sub} />
+                                    <video streamManager={sub} />
                                 </div>
                             ))} */}
-                            {StreamManager !== undefined ? (
+                            {/* {StreamManager !== undefined ? (
                                 <video
                                     mainStreamManager={StreamManager}
                                     ref={videoRef}
                                     autoPlay
                                     playsInline
                                 />
-                            ) : null}
+                            ) : null} */}
                         </StDiv>
                         <StDiv picture>
-                            {StreamManager !== undefined ? (
+                            {/* {StreamManager !== undefined ? (
                                 <video
                                     mainStreamManager={StreamManager}
                                     ref={videoRef}
                                     autoPlay
                                     playsInline
                                 />
-                            ) : null}
+                            ) : null} */}
                         </StDiv>
                         <StDiv picture>
-                            {StreamManager !== undefined ? (
+                            {/* {StreamManager !== undefined ? (
                                 <video
                                     mainStreamManager={StreamManager}
                                     ref={videoRef}
                                     autoPlay
                                     playsInline
                                 />
-                            ) : null}
+                            ) : null} */}
                         </StDiv>
                     </StDiv>
                 </StDiv>
@@ -282,6 +281,26 @@ const RoomWaiting = () => {
                     </Button>
                 </StDiv>
             </div>
+            {subscribers.length > 0 ? (
+                <div>
+                    <div>
+                        {publisher !== undefined ? (
+                            <div>
+                                <UserVideoComponent
+                                    streamManager={mainStreamManager}
+                                />
+                                {subscribers.map((sub) => (
+                                    <div>
+                                        <UserVideoComponent
+                                            streamManager={sub}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : null}
+                    </div>
+                </div>
+            ) : null}
         </div>
     );
 };
