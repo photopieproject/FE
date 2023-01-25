@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { BiCopy } from "react-icons/bi";
 import Button from "../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { OpenVidu, StreamManager } from "openvidu-browser";
+import { OpenVidu } from "openvidu-browser";
 import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 
 const RoomWaiting = () => {
@@ -35,32 +35,38 @@ const RoomWaiting = () => {
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
 
     console.log("mainSM --->", mainStreamManager);
-    // const sendCloseSignal = () => {
-    //     session
-    //         .signal({
-    //             data: "true",
-    //             to: [connectObj],
-    //             type: "close",
-    //         })
-    //         .then(() => {
-    //             console.log("종료시--->", session);
-    //             leaveSession();
-    //         })
-    //         .catch((err) => {
-    //             console.error(err);
-    //         });
-    // };
 
-    // const sendContinueSignal = () => {
-    //     session
-    //         .signal({
-    //             data: "true",
-    //             to: [connectObj],
-    //             type: "continue",
-    //         })
-    //         .then(() => console.log("진행중--->", session))
-    //         .catch((err) => console.error(err));
-    // };
+    const onbeforeunload = (event) => {
+        event.preventDefault();
+        leaveSession();
+    };
+
+    const sendCloseSignal = () => {
+        session
+            .signal({
+                data: "true",
+                to: [connectObj],
+                type: "close",
+            })
+            .then(() => {
+                console.log("종료시--->", session);
+                leaveSession();
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    const sendContinueSignal = () => {
+        session
+            .signal({
+                data: "true",
+                to: [connectObj],
+                type: "continue",
+            })
+            .then(() => console.log("진행중--->", session))
+            .catch((err) => console.error(err));
+    };
 
     useEffect(() => {
         window.addEventListener("beforeunload", onbeforeunload);
