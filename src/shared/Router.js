@@ -15,7 +15,7 @@ import Private from "../pages/Private";
 import Terms from "../pages/Terms";
 import Marketing from "../pages/Marketing";
 import Google from "../pages/Google";
-import Test from "../components/OvVideo/Test";
+// import Test from "../components/OvVideo/Test";
 
 const Router = () => {
     return (
@@ -37,7 +37,7 @@ const Router = () => {
                     <Route path="terms" element={<Terms />} />
                     <Route path="private" element={<Private />} />
                     <Route path="marketing" element={<Marketing />} />
-                    <Route path="test" element={<Test />} />
+                    {/* <Route path="test" element={<Test />} /> */}
                     <Route
                         path="api/user/kakao/callback"
                         element={<Kakao />}
