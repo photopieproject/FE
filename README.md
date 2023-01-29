@@ -31,7 +31,3 @@
 [![연듀곤듀](https://img.shields.io/badge/연듀곤듀-aeea00.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/OhYeonJu)
 [![크리스탈황](https://img.shields.io/badge/Crystal_황-bbdefb.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/Hwangbambi)
 [![레모나킴](https://img.shields.io/badge/레모나킴-ffd54f.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/010me)
-
-#### `Designer`
-
-[![미쉘킴](https://img.shields.io/badge/Kim_미쉘-e6ceff.svg?style=for-the-badge&logo=Pixabay&logoColor=black)](https://www.behance.net/jiwontheone)
