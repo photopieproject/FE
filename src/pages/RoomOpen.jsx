@@ -19,8 +19,8 @@ const RoomOpen = () => {
                 console.log("createRoom res---->", res);
                 if (res.payload.statusCode === 200) {
                     Swal.fire("Success", res.payload.statusMsg, "success");
-                    navigate(`/roomwaiting/${res.payload.data.id}`);
-                } else if (res.payload.response.data.statusCode === 401) {
+                    navigate(`/roomwaiting/${res.payload.data1.id}`);
+                } else if (res.payload.data1.statusCode === 401) {
                     Swal.fire(
                         "토큰이 만료되었습니다",
                         "다시 로그인해주세요!",
@@ -41,7 +41,7 @@ const RoomOpen = () => {
                 console.log("enterRoom res--->", res);
                 if (res.payload.statusCode === 200) {
                     Swal.fire("Success", res.payload.statusMsg, "success");
-                    navigate(`/roomwaiting/${res.payload.data.id}`);
+                    navigate(`/roomwaiting/${res.payload.data1.id}`);
                 } else if (res.payload.statusCode === 400) {
                     Swal.fire("Error", res.payload.statusMsg, "error");
                 }

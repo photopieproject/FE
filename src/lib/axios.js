@@ -29,6 +29,15 @@ export const socialLogin = axios.create({
     },
 });
 
+export const photoURL = axios.create({
+    baseURL: "https://photo-pie.shop/api",
+    headers: {
+        "content-type": "multipart/form-data",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+    },
+});
+
 //인스턴스 request header
 baseURL.interceptors.request.use((config) => {
     if (config.headers === undefined) return;
@@ -38,6 +47,16 @@ baseURL.interceptors.request.use((config) => {
     // 혹시 3항 연산자가 안먹히면 수정
     return config;
 });
+
+// //인스턴스 request header
+// photoURL.interceptors.request.use((config) => {
+//     if (config.headers === undefined) return;
+//     const token = localStorage.getItem("id");
+//     const auth = localStorage.getItem("Authorization");
+//     config.headers["Authorization"] = token === null ? `${auth}` : `${token}`;
+//     // 혹시 3항 연산자가 안먹히면 수정
+//     return config;
+// });
 
 // apis
 export const apis = {
@@ -60,10 +79,11 @@ export const apis = {
         baseURL.post("/photo/room/roomCode", roomCode),
 
     // 사진촬영 관련
-    Shoot_Photo: (payload) =>
-        baseURL.post(`/photo/room/${payload.roomId}/shoot`, payload.formdata, {
+    Shoot_Photo: (payload) => {
+        baseURL.post(`/photo/room/${payload.roomId}/shoot`, payload.photo_1, {
             headers: { "Content-Type": "multipart/form-data" },
-        }),
+        });
+    },
     chooseFrame: (payload) =>
         baseURL.put(`/photo/room/${payload.roomId}`, payload.frameNum),
     takeFrame: (roomId) => baseURL.get(`/photo/room/${roomId}`),
