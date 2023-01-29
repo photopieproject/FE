@@ -13,8 +13,10 @@ const RoomWaiting = () => {
 
     const navigate = useNavigate();
     const rooms = useSelector((state) => state.videos.videoRooms);
-    // const rooms = useSelector((state) => state.videos.videoRooms.data);
+    // const rooms = useSelector((state) => state);
+    const roomInfo = useSelector((state) => state);
     console.log("rooms: ", rooms);
+    console.log("roomInfo: ", roomInfo);
 
     const token = rooms.token;
     const nickname = rooms.nickname;
@@ -75,12 +77,15 @@ const RoomWaiting = () => {
         const connectSession = () => {
             const OV = new OpenVidu();
 
-            let mySession = OV.initSession();
-            setSession(mySession);
-            console.log("세션--->", mySession);
+            // let mySession = OV.initSession();
+            let session = OV.initSession();
+            // setSession(mySession);
+            setSession(session);
+            // console.log("세션--->", mySession);
+            console.log("세션--->", session);
 
-            mySession.on("streamCreated", (event) => {
-                let subscriber = mySession.subscribe(event.stream, undefined);
+            session.on("streamCreated", (event) => {
+                let subscriber = session.subscribe(event.stream, undefined);
                 let subscriberList = subscribers;
                 subscriberList.push(subscriber);
                 setSubscribers([...subscribers, ...subscriberList]);
@@ -96,7 +101,7 @@ const RoomWaiting = () => {
                 // dispatch(getChatInfoDB(sessionId))
             });
 
-            mySession.on("streamDestroyed", (event) => {
+            session.on("streamDestroyed", (event) => {
                 setOtherClose(true);
             });
 
@@ -109,12 +114,12 @@ const RoomWaiting = () => {
             //     console.log("시그날:continue--->", mySession);
             // });
 
-            mySession.on("connectionCreated", (event) => {
-                console.log("connect--->", session, mySession);
+            session.on("connectionCreated", (event) => {
+                console.log("connect--->", session);
                 setConnectObj(event.connection);
             });
 
-            mySession
+            session
                 .connect(token, { clientData: nickname })
                 .then(async () => {
                     console.log("connect token");
@@ -128,13 +133,13 @@ const RoomWaiting = () => {
                         videoSource: videoDevices[0].deviceId,
                         publishAudio: true,
                         publishVideo: { width: 200, height: 300 },
-                        resolution: "640x480",
+                        resolution: "200x300",
                         frameRate: 30,
                         insertMode: "APPEND",
                         mirror: false,
                     });
 
-                    mySession.publish(publisher);
+                    session.publish(publisher);
                     setMainStreamManager(publisher);
                     setPublisher(publisher);
                 })
