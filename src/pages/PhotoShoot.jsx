@@ -27,9 +27,9 @@ const PhotoShoot = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [photo_one, setPhoto_one] = useState("");
+  const [photo_1, setPhoto_1] = useState("");
 
-  console.log(photo_one);
+  console.log(photo_1);
 
   const { roomId } = useParams();
   const rooms = useSelector((state) => state.photos.photoinfo);
@@ -43,23 +43,24 @@ const PhotoShoot = () => {
     html2canvas(document.querySelector("#picture_1"))
       .then((canvas) => {
         // 수정할 곳 이미지가 formdata로 안넘어감
-        let photo_one = (canvas.toDataURL("image/jpg"), "photo_one.jpg");
-        photo_one = photo_one.replace("data:image/jpg;base64,", "");
+        let photo_1 = (canvas.toDataURL("image/jpg"), "photo_one.jpg");
+        photo_1 = photo_1.replace("data:image/jpg;base64,", "");
         //console.log(canvas.toDataURL(photo_one));
-        setPhoto_one(canvas.toDataURL(photo_one));
+        setPhoto_1(canvas.toDataURL(photo_1));
 
         //saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
         // 사진을 저장함과 동시에 state에 넣어주기...
       })
       .then(() => {
-        const file = dataURLtoFile(photo_one, "photo_one.jpg");
+        const file = dataURLtoFile(photo_1, "photo_one.jpg");
         console.log(file);
 
         const formdata = new FormData();
+        for (const keyValue of formdata) console.log(keyValue);
 
         formdata.append("file", file);
 
-        dispatch(__takePhoto({ roomId, photo_one }));
+        dispatch(__takePhoto({ roomId, formdata }));
       });
   };
 

@@ -4,9 +4,14 @@ import styled, { css } from "styled-components";
 import Terms from "../../pages/Terms";
 import Registration from "./Registration";
 import Private from "../../pages/Private";
-import { __SMSSend } from "../../redux/modules/loginSlice";
+import {
+  // SMSSends,
+  __SMSSend,
+  // __SMSSends,
+} from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
 import SmsCount from "../Count/SmsCount";
+// import { useDispatch } from "react-redux";
 
 function Agree2({ setShow }) {
   const [allCheck, setAllCheck] = useState(false);
@@ -28,6 +33,7 @@ function Agree2({ setShow }) {
   const [checkP, setCheckP] = useState();
   const [showInput, setShowInput] = useState(false);
   const [okConfirm, setOkConfirm] = useState(false);
+  // const dispatch = useDispatch();
   console.log(codeNumber);
 
   const allBtnEvent = () => {
@@ -111,6 +117,7 @@ function Agree2({ setShow }) {
         setPnDisabled(true);
         setShowInput(true);
         console.log(res.data.data);
+        // dispatch(__SMSSend(phoneNum));
       })
       .catch((error) => console.log(error));
     // dispatch(__SMSSend(Number(message)));

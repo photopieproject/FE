@@ -1,20 +1,40 @@
 import styled, { css } from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
-import { __postSignup, __checkUserId } from "../../redux/modules/loginSlice";
+import { useNavigate } from "react-router-dom";
+import {
+  __postSignup,
+  __checkUserId,
+  // __SMSSend,
+} from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
 import { useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { useEffect } from "react";
 
 const Registration = () => {
   const [userId, setUserId] = useInput();
   const [nickname, setNickName] = useInput();
   const [password, setPassword] = useInput();
-  const [passwordCheck, setPasswordCheck] = useInput();
+  // const [passwordCheck, setPasswordCheck] = useInput();
   const [checkUserId, setCheckUserId] = useState(false);
   const [checkP, setCheckP] = useState();
   const [registDisabled, setRegistDisabled] = useState(true);
   const [PWPtag, setPWPtag] = useState();
   const [PWConfirm, setPWConfirm] = useState("");
   const [PWConfirmP, setPWConfirmP] = useState(false);
+  // const [phoneNumber, setPhoneNumber] = useState();
+
+  // const phoneNum = useSelector((state) => state);
+  // console.log("phoneNum", phoneNum);
+
+  // const dispatch = useDispatch();
+  // console.log(phoneNum);
+
+  // useEffect(() => {
+  //   // dispatch(__SMSSend());
+  //   dispatch(__SMSSend(Number(phoneNum)));
+  // });
+  // console.log(`phoneNum: ${phoneNum}`);
+  // console.log(phoneNum);
 
   function isPassword(asValue) {
     const regExp =
@@ -63,7 +83,7 @@ const Registration = () => {
       password,
       // passwordCheck,
       PWConfirm,
-      // params: { phoneNum: "" },
+      // phoneNum,
       // 전역상태
       // 부모컴포넌트에서 자식컴포넌트 useState
     })
@@ -173,8 +193,13 @@ const Registration = () => {
                 placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
               />
             </StDiv>
-
             <StP>{PWConfirmP}</StP>
+
+            {/* <StDiv IdPw>
+              Phone Number
+              <br />
+              <StInput LoginInput id="phoneNum" placeholder="ex) 01012345678" />
+            </StDiv> */}
           </div>
         </StDiv>
 
