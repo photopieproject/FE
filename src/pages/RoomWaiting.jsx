@@ -83,18 +83,15 @@ const RoomWaiting = () => {
         const connectSession = () => {
             const OV = new OpenVidu();
 
-            // let mySession = OV.initSession();
-            let session = OV.initSession();
-            // setSession(mySession);
-            setSession(session);
-            // console.log("세션--->", mySession);
-            console.log("세션--->", session);
+            let mysession = OV.initSession();
+            setSession(mysession);
+            console.log("세션--->", mysession);
 
-            session.on("streamCreated", (event) => {
-                let subscriber = session.subscribe(event.stream, undefined);
+            mysession.on("streamCreated", (event) => {
+                let subscriber = mysession.subscribe(event.stream, undefined);
                 let subscriberList = subscribers;
                 subscriberList.push(subscriber);
-                setSubscribers([...subscribers, ...subscriberList]);
+                setSubscribers([...subscriberList]);
                 // setSubscribers([...subscribers]);
                 console.log("스트림 생성--->", subscribers.length, session);
                 console.log("sub--->", subscriber);
@@ -105,7 +102,7 @@ const RoomWaiting = () => {
                 // dispatch(getChatInfoDB(sessionId))
             });
 
-            session.on("streamDestroyed", (event) => {
+            mysession.on("streamDestroyed", (event) => {
                 // setOtherClose(true);
                 // deleteSubscriber(event.stream.streamManager);
                 console.log("event --->", event);
@@ -120,12 +117,12 @@ const RoomWaiting = () => {
             //     console.log("시그날:continue--->", mySession);
             // });
 
-            session.on("connectionCreated", (event) => {
-                console.log("connect--->", session);
+            mysession.on("connectionCreated", (event) => {
+                console.log("connect--->", mysession);
                 // setConnectObj(event.connection);
             });
 
-            session
+            mysession
                 .connect(token, { clientData: nickname })
                 .then(async () => {
                     console.log("connect token");
@@ -145,9 +142,12 @@ const RoomWaiting = () => {
                         mirror: false,
                     });
 
-                    session.publish(publisher);
+                    mysession.publish(publisher);
+                    console.log("pub --->", publisher);
                     setMainStreamManager(publisher);
-                    setPublisher(publisher);
+                    console.log("pub SM --->", publisher);
+                    // setPublisher(publisher);
+                    // console.log("set pub --->", publisher);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -212,7 +212,7 @@ const RoomWaiting = () => {
                 <StDiv room_info>
                     <h2>Room Name: {rooms.roomName}</h2>
                     <p>
-                        Room Code: {rooms.roomCode}{" "}
+                        Room Code: {rooms.roomCode}
                         <BiCopy
                             onClick={() => copyClipBoard(rooms.roomCode)}
                             style={{ cursor: "pointer" }}
@@ -221,83 +221,27 @@ const RoomWaiting = () => {
                 </StDiv>
                 <StDiv capture_area id="capture_area">
                     <StH3>Photo-Pie</StH3>
-                    <StDiv picture_box id="picture-box">
-                        <StDiv picture>
-                            {/* {mainStreamManager !== undefined ? (
-                                <div>
+                    {subscribers.length > 0 ? (
+                        <StDiv picture_box id="picture-box">
+                            {publisher !== undefined ? (
+                                <StDiv picture>
                                     <UserVideoComponent
                                         streamManager={mainStreamManager}
                                     />
-                                    <input
-                                        className="btn btn-large btn-success"
-                                        type="button"
-                                        id="buttonSwitchCamera"
-                                        onClick={this.switchCamera}
-                                        value="Switch Camera"
-                                    />
-                                </div>
-                            ) : null} */}
-                            {/* {StreamManager !== undefined ? (
-                                <video
-                                    mainStreamManager={StreamManager}
-                                    ref={videoRef}
-                                    autoPlay
-                                    playsInline
-                                />
-                            ) : null} */}
-                        </StDiv>
-                        <StDiv picture>
-                            {/* {publisher !== undefined ? (
-                                <div
-                                    className="stream-container col-md-6 col-xs-6"
-                                    onClick={() =>
-                                        this.handleMainVideoStream(publisher)
-                                    }
-                                >
-                                    <video streamManager={publisher} />
-                                </div>
+                                </StDiv>
                             ) : null}
-                            {subscribers.map((sub, i) => (
-                                <div
-                                    key={i}
-                                    className="stream-container col-md-6 col-xs-6"
-                                    onClick={() =>
-                                        this.handleMainVideoStream(sub)
-                                    }
-                                >
-                                    <video streamManager={sub} />
-                                </div>
-                            ))} */}
-                            {/* {StreamManager !== undefined ? (
-                                <video
-                                    mainStreamManager={StreamManager}
-                                    ref={videoRef}
-                                    autoPlay
-                                    playsInline
-                                />
-                            ) : null} */}
+                            {subscribers.map((sub, i) => {
+                                console.log(sub);
+                                return (
+                                    <StDiv picture key={i}>
+                                        <UserVideoComponent
+                                            streamManager={sub}
+                                        />
+                                    </StDiv>
+                                );
+                            })}
                         </StDiv>
-                        <StDiv picture>
-                            {/* {StreamManager !== undefined ? (
-                                <video
-                                    mainStreamManager={StreamManager}
-                                    ref={videoRef}
-                                    autoPlay
-                                    playsInline
-                                />
-                            ) : null} */}
-                        </StDiv>
-                        <StDiv picture>
-                            {/* {StreamManager !== undefined ? (
-                                <video
-                                    mainStreamManager={StreamManager}
-                                    ref={videoRef}
-                                    autoPlay
-                                    playsInline
-                                />
-                            ) : null} */}
-                        </StDiv>
-                    </StDiv>
+                    ) : null}
                 </StDiv>
                 <StDiv wait_btns>
                     <Button
@@ -308,42 +252,6 @@ const RoomWaiting = () => {
                     </Button>
                 </StDiv>
             </div>
-            {subscribers.length > 0 ? (
-                <div>
-                    <div>
-                        {publisher !== undefined ? (
-                            <div>
-                                <UserVideoComponent
-                                    streamManager={mainStreamManager}
-                                />
-                                <div>
-                                    <UserVideoComponent
-                                        streamManager={subscribers[0]}
-                                    />
-                                </div>
-                                <div>
-                                    <UserVideoComponent
-                                        streamManager={subscribers[2]}
-                                    />
-                                </div>
-                                <div>
-                                    <UserVideoComponent
-                                        streamManager={subscribers[4]}
-                                    />
-                                </div>
-
-                                {/* {subscribers.map((sub, i) => (
-                                    <div key={i}>
-                                        <UserVideoComponent
-                                            streamManager={sub}
-                                        />
-                                    </div>
-                                ))} */}
-                            </div>
-                        ) : null}
-                    </div>
-                </div>
-            ) : null}
         </div>
     );
 };
@@ -352,7 +260,7 @@ const StDiv = styled.div`
     ${(props) =>
         props.capture_area &&
         css`
-            background-color: rgb(0, 0, 0);
+            background-color: rgb(0, 72, 255);
             width: 500px;
             height: 750px;
             margin-bottom: 20px;
