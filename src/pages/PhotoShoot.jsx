@@ -26,6 +26,7 @@ export function dataURLtoFile(dataurl, filename) {
 const PhotoShoot = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [showCount, setShowCount] = useState(false);
 
     const [photo_one, setPhoto_one] = useState("");
 
@@ -49,7 +50,7 @@ const PhotoShoot = () => {
                 photo_one = photo_one.replace("data:image/jpg;base64,", "");
                 //console.log(canvas.toDataURL(photo_one));
                 setPhoto_one(canvas.toDataURL(photo_one));
-
+                setShowCount(true);
                 //saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
                 // 사진을 저장함과 동시에 state에 넣어주기...
             })
@@ -133,7 +134,11 @@ const PhotoShoot = () => {
                 </StDiv>
             </StDiv>
             <StDiv down_btn>
-                <Count />
+                {showCount && (
+                    <StDiv Count>
+                        <Count />
+                    </StDiv>
+                )}
                 <button
                     style={{
                         backgroundColor: "#ebe7e1",
@@ -159,9 +164,6 @@ const PhotoShoot = () => {
                     onClick={() => {
                         onSubmitHandler_1(roomId);
                     }}
-                    // onClick={ClickCountHandler}
-                    // disabled={countDisabled}
-                    // msgDisabled={countDisabled}
                 >
                     내 촬영하기
                 </button>
@@ -207,7 +209,7 @@ const StDiv = styled.div`
             text-align: center;
             line-height: 300px;
         `}
-        ${(props) =>
+    ${(props) =>
         props.down_btn &&
         css`
             display: flex;
@@ -215,6 +217,13 @@ const StDiv = styled.div`
             align-items: center;
             gap: 10px;
             width: 300px;
+        `}
+    ${(props) =>
+        props.Count &&
+        css`
+            width: 150px;
+            height: 50px;
+            display: flex;
         `}
 `;
 

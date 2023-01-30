@@ -113,10 +113,10 @@ function Agree2({ setShow }) {
   const sendMessageHandler = (phoneNum) => {
     __SMSSend(phoneNum)
       .then((res) => {
-        setCodeNumber(res.data.data);
+        setCodeNumber(res.data.data1);
         setPnDisabled(true);
         setShowInput(true);
-        console.log(res.data.data);
+        console.log(res.data.data1);
         // dispatch(__SMSSend(phoneNum));
       })
       .catch((error) => console.log(error));
