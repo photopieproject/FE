@@ -67,10 +67,6 @@ const PhotoSave = () => {
               QR Code
             </Span>
           </StDiv>
-          <Button down>
-            <RiKakaoTalkFill size={25} />
-            카카오톡 전송하기
-          </Button>
           <ShareKakao />
           <button
             style={{
