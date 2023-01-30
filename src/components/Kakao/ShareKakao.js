@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import { RiKakaoTalkFill } from "react-icons/ri";
+import styled, { css } from "styled-components";
+import Button from "../button/Button";
 
 export const ShareKakao = (photoUrl) => {
   // 왜 안되는지 모르겠는 애
@@ -114,17 +117,41 @@ export const ShareKakao = (photoUrl) => {
     }
   };
 
+  //   return (
+  //     <div className="kakao-share-button">
+  //       <button
+  //         id="kakao-link-btn"
+  //         // onClick={ShareKakaoSend(photoUrl)}
+  //       >
+  //         <img src="/icons/kakao.png" alt="kakao-share-icon" />
+  //       </button>
+  //     </div>
+  //   );
+  // };
+  //--------------새로 위
+
   return (
     <div className="kakao-share-button">
-      <button
-        id="kakao-link-btn"
-        // onClick={ShareKakaoSend(photoUrl)}
-      >
-        <img src="/icons/kakao.png" alt="kakao-share-icon" />
-      </button>
+      <StDiv downbtn id="kakao-link-btn">
+        <Button down>
+          <RiKakaoTalkFill size={25} />
+          카카오톡 전송하기
+        </Button>
+      </StDiv>
     </div>
   );
 };
 //--------------새로 위
+const StDiv = styled.div`
+  ${(props) =>
+    props.downbtn &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      width: 300px;
+    `}
+`;
 
 export default ShareKakao;
