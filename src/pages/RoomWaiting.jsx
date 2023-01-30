@@ -14,13 +14,19 @@ const RoomWaiting = () => {
     const navigate = useNavigate();
     const rooms = useSelector((state) => state.videos.videoRooms);
     // const rooms = useSelector((state) => state);
-    const roomInfo = useSelector((state) => state);
+    const roomInfo = useSelector((state) => state.videos.videoInfos[0]);
+    const token = useSelector((state) => state.videos.videoInfos[0].token);
+    const sessionId = useSelector(
+        (state) => state.videos.videoInfos[0].sessionId
+    );
+    const role = useSelector((state) => state.videos.videoInfos[0].role);
+    const nickname = rooms.nickname;
+
+    console.log("sessionId--->", sessionId);
+    console.log("token--->", token);
+    console.log("role--->", role);
     console.log("rooms: ", rooms);
     console.log("roomInfo: ", roomInfo);
-
-    const token = rooms.token;
-    const nickname = rooms.nickname;
-    const sessionId = rooms.sessionId;
 
     // const [OV, setOV] = useState('')
     const [session, setSession] = useState("");
@@ -31,9 +37,9 @@ const RoomWaiting = () => {
     // })
     const [publisher, setPublisher] = useState(null);
     const [subscribers, setSubscribers] = useState([]);
-    const [isConnect, setIsConnect] = useState(false);
-    const [connectObj, setConnectObj] = useState("");
-    const [otherClose, setOtherClose] = useState(false);
+    // const [isConnect, setIsConnect] = useState(false);
+    // const [connectObj, setConnectObj] = useState("");
+    // const [otherClose, setOtherClose] = useState(false);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
 
     console.log("mainSM --->", mainStreamManager);
@@ -89,20 +95,20 @@ const RoomWaiting = () => {
                 let subscriberList = subscribers;
                 subscriberList.push(subscriber);
                 setSubscribers([...subscribers, ...subscriberList]);
+                // setSubscribers([...subscribers]);
                 console.log("스트림 생성--->", subscribers.length, session);
-                console.log(
-                    "sub--->",
-                    subscriber
-                    // subscriber.stream.mediaStream.getVideoTracks()
-                );
-                console.log("sub list--->", subscriberList);
+                console.log("sub--->", subscriber);
+                console.log("subs --->", subscribers);
+                console.log("sub list --->", subscriberList);
 
-                setIsConnect(true);
+                // setIsConnect(true);
                 // dispatch(getChatInfoDB(sessionId))
             });
 
             session.on("streamDestroyed", (event) => {
-                setOtherClose(true);
+                // setOtherClose(true);
+                // deleteSubscriber(event.stream.streamManager);
+                console.log("event --->", event);
             });
 
             // mySession.on("signal:close", (event) => {
@@ -116,7 +122,7 @@ const RoomWaiting = () => {
 
             session.on("connectionCreated", (event) => {
                 console.log("connect--->", session);
-                setConnectObj(event.connection);
+                // setConnectObj(event.connection);
             });
 
             session
@@ -178,6 +184,8 @@ const RoomWaiting = () => {
             alert("복사에 실패하였습니다");
         }
     };
+
+    console.log("subscriber array--->", subscribers);
 
     // const videoRef = useRef(null);
 
@@ -308,13 +316,29 @@ const RoomWaiting = () => {
                                 <UserVideoComponent
                                     streamManager={mainStreamManager}
                                 />
-                                {subscribers.map((sub) => (
-                                    <div>
+                                <div>
+                                    <UserVideoComponent
+                                        streamManager={subscribers[0]}
+                                    />
+                                </div>
+                                <div>
+                                    <UserVideoComponent
+                                        streamManager={subscribers[2]}
+                                    />
+                                </div>
+                                <div>
+                                    <UserVideoComponent
+                                        streamManager={subscribers[4]}
+                                    />
+                                </div>
+
+                                {/* {subscribers.map((sub, i) => (
+                                    <div key={i}>
                                         <UserVideoComponent
                                             streamManager={sub}
                                         />
                                     </div>
-                                ))}
+                                ))} */}
                             </div>
                         ) : null}
                     </div>

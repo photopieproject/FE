@@ -4,7 +4,13 @@ import Swal from "sweetalert2";
 
 const initialState = {
     videoRooms: [],
-    videoInfos: [],
+    videoInfos: [
+        {
+            sessionId: {},
+            token: {},
+            role: {},
+        },
+    ],
     isLoading: true,
     error: null,
 };
@@ -72,9 +78,11 @@ export const videoSlice = createSlice({
             state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
             state.videoRooms = action.payload.data1;
             state.videoInfos = [
-                action.payload.data1.sessionId,
-                action.payload.data1.token,
-                action.payload.data1.role,
+                {
+                    sessionId: action.payload.data1.sessionId,
+                    token: action.payload.data1.token,
+                    role: action.payload.data1.role,
+                },
             ];
             // state.videoRooms = [...state.videoRooms, action.payload];
             console.log("action.payload: ", action.payload);
@@ -94,6 +102,13 @@ export const videoSlice = createSlice({
         [__enterPhotoRoom.fulfilled]: (state, action) => {
             state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
             state.videoRooms = action.payload.data1;
+            state.videoInfos = [
+                {
+                    sessionId: action.payload.data1.sessionId,
+                    token: action.payload.data1.token,
+                    role: action.payload.data1.role,
+                },
+            ];
             // console.log("action.payload: ", action.payload);
             // console.log("state.posts: ", state.posts);
         },
