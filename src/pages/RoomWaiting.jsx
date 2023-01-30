@@ -38,8 +38,8 @@ const RoomWaiting = () => {
     const [publisher, setPublisher] = useState(null);
     const [subscribers, setSubscribers] = useState([]);
     // const [isConnect, setIsConnect] = useState(false);
-    // const [connectObj, setConnectObj] = useState("");
-    // const [otherClose, setOtherClose] = useState(false);
+    const [connectObj, setConnectObj] = useState("");
+    const [otherClose, setOtherClose] = useState(false);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
 
     console.log("mainSM --->", mainStreamManager);
@@ -103,7 +103,7 @@ const RoomWaiting = () => {
             });
 
             mysession.on("streamDestroyed", (event) => {
-                // setOtherClose(true);
+                setOtherClose(true);
                 // deleteSubscriber(event.stream.streamManager);
                 console.log("event --->", event);
             });
@@ -119,7 +119,7 @@ const RoomWaiting = () => {
 
             mysession.on("connectionCreated", (event) => {
                 console.log("connect--->", mysession);
-                // setConnectObj(event.connection);
+                setConnectObj(event.connection);
             });
 
             mysession
@@ -130,6 +130,7 @@ const RoomWaiting = () => {
                     let videoDevices = devices.filter(
                         (device) => device.kind === "videoinput"
                     );
+                    console.log("video--->", videoDevices);
 
                     let publisher = OV.initPublisher(undefined, {
                         audioSource: undefined,
@@ -212,7 +213,7 @@ const RoomWaiting = () => {
                 <StDiv room_info>
                     <h2>Room Name: {rooms.roomName}</h2>
                     <p>
-                        Room Code: {rooms.roomCode}
+                        초대코드 복사
                         <BiCopy
                             onClick={() => copyClipBoard(rooms.roomCode)}
                             style={{ cursor: "pointer" }}
@@ -224,22 +225,21 @@ const RoomWaiting = () => {
                     {subscribers.length > 0 ? (
                         <StDiv picture_box id="picture-box">
                             {publisher !== undefined ? (
-                                <StDiv picture>
-                                    <UserVideoComponent
-                                        streamManager={mainStreamManager}
-                                    />
-                                </StDiv>
-                            ) : null}
-                            {subscribers.map((sub, i) => {
-                                console.log(sub);
-                                return (
-                                    <StDiv picture key={i}>
+                                <>
+                                    <StDiv picture>
                                         <UserVideoComponent
-                                            streamManager={sub}
+                                            streamManager={mainStreamManager}
                                         />
                                     </StDiv>
-                                );
-                            })}
+                                    {subscribers.map((sub) => (
+                                        <StDiv picture>
+                                            <UserVideoComponent
+                                                streamManager={sub}
+                                            />
+                                        </StDiv>
+                                    ))}
+                                </>
+                            ) : null}
                         </StDiv>
                     ) : null}
                 </StDiv>

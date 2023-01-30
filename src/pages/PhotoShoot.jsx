@@ -32,7 +32,8 @@ const PhotoShoot = () => {
     console.log(photo_one);
 
     const { roomId } = useParams();
-    const rooms = useSelector((state) => state.photos.photoinfo);
+    const rooms = useSelector((state) => state.photos.photoinfo.data1);
+    console.log("rooms--->", rooms);
 
     useEffect(() => {
         dispatch(__takeFrame(roomId));
@@ -105,20 +106,21 @@ const PhotoShoot = () => {
     return (
         <StDiv photo_shoot>
             <StDiv capture_area id="capture_area">
-                <img src={rooms.frameUrl} alt="frame url" />
+                <img src={rooms?.frameUrl} alt="frame url" />
                 <StH3>Photo-Pie</StH3>
                 <StDiv picture_box id="picture-box">
-                    <StDiv picture id="picture_1">
-                        <video
-                            ref={videoRef}
-                            autoPlay
-                            playsInline
-                            // width={"200px"}
-                            // height={"300px"}
-                            // muted={!muted}
-                            // hidden={!cameraOff}
-                        />
-                    </StDiv>
+                    {/* <StDiv picture id="picture_1"> */}
+                    <video
+                        id="picture_1"
+                        ref={videoRef}
+                        autoPlay
+                        playsInline
+                        // width={"200px"}
+                        // height={"300px"}
+                        // muted={!muted}
+                        // hidden={!cameraOff}
+                    />
+                    {/* </StDiv> */}
                     <StDiv picture id="picture_2">
                         picture_2
                     </StDiv>
