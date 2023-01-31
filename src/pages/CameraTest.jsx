@@ -7,26 +7,18 @@ import { useSelector } from "react-redux";
 import { OpenVidu } from "openvidu-browser";
 import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 
-const RoomWaiting = () => {
+const CameraTest = () => {
     // let localVideo = document.getElementById("localVideo");
     // let remoteVideo = document.getElementById("remoteVideo");
 
     const navigate = useNavigate();
     const rooms = useSelector((state) => state.videos.videoRooms);
-    // const rooms = useSelector((state) => state);
-    const roomInfo = useSelector((state) => state.videos.videoInfos[0]);
-    const token = useSelector((state) => state.videos.videoInfos[0].token);
-    const sessionId = useSelector(
-        (state) => state.videos.videoInfos[0].sessionId
-    );
-    const role = useSelector((state) => state.videos.videoInfos[0].role);
-    const nickname = rooms.nickname;
-
-    console.log("sessionId--->", sessionId);
-    console.log("token--->", token);
-    console.log("role--->", role);
+    // const rooms = useSelector((state) => state.videos.videoRooms.data);
     console.log("rooms: ", rooms);
-    console.log("roomInfo: ", roomInfo);
+
+    const token = rooms.token;
+    const nickname = rooms.nickname;
+    const sessionId = rooms.sessionId;
 
     // const [OV, setOV] = useState('')
     const [session, setSession] = useState("");
@@ -37,45 +29,17 @@ const RoomWaiting = () => {
     // })
     const [publisher, setPublisher] = useState(null);
     const [subscribers, setSubscribers] = useState([]);
-    // const [isConnect, setIsConnect] = useState(false);
+    const [isConnect, setIsConnect] = useState(false);
     const [connectObj, setConnectObj] = useState("");
     const [otherClose, setOtherClose] = useState(false);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
 
     console.log("mainSM --->", mainStreamManager);
-    console.log("session--->", session);
 
     const onbeforeunload = (event) => {
         event.preventDefault();
         leaveSession();
     };
-
-    // const sendCloseSignal = () => {
-    //     session
-    //         .signal({
-    //             data: "true",
-    //             to: [connectObj],
-    //             type: "close",
-    //         })
-    //         .then(() => {
-    //             console.log("종료시--->", session);
-    //             leaveSession();
-    //         })
-    //         .catch((err) => {
-    //             console.error(err);
-    //         });
-    // };
-
-    // const sendContinueSignal = () => {
-    //     session
-    //         .signal({
-    //             data: "true",
-    //             to: [connectObj],
-    //             type: "continue",
-    //         })
-    //         .then(() => console.log("진행중--->", session))
-    //         .catch((err) => console.error(err));
-    // };
 
     useEffect(() => {
         window.addEventListener("beforeunload", onbeforeunload);
@@ -83,48 +47,32 @@ const RoomWaiting = () => {
         const connectSession = () => {
             const OV = new OpenVidu();
 
-            let mysession = OV.initSession();
-            setSession(mysession);
-            console.log("세션--->", mysession);
+            let mySession = OV.initSession();
+            setSession(mySession);
+            console.log("세션--->", mySession);
 
-            mysession.on("streamCreated", (event) => {
-                let subscriber = mysession.subscribe(event.stream, undefined);
+            mySession.on("streamCreated", (event) => {
+                let subscriber = mySession.subscribe(event.stream, undefined);
                 let subscriberList = subscribers;
                 subscriberList.push(subscriber);
-                setSubscribers([...subscriberList]);
-                // setSubscribers([...subscribers, ...subscriberList]);
+                setSubscribers([...subscribers, ...subscriberList]);
                 console.log("스트림 생성--->", subscribers.length, session);
                 console.log("sub--->", subscriber);
-                console.log("subs --->", subscribers);
-                console.log("sub list --->", subscriberList);
+                console.log("sub list--->", subscriberList);
 
-                // setIsConnect(true);
-                // dispatch(getChatInfoDB(sessionId))
+                setIsConnect(true);
             });
 
-            // 나간 사람 삭제 안됨
-            mysession.on("streamDestroyed", (event) => {
-                event.preventDefault();
+            mySession.on("streamDestroyed", (event) => {
                 setOtherClose(true);
-                console.log("???", event.stream.streamManager);
-                console.log("event --->", event);
             });
 
-            // mySession.on("signal:close", (event) => {
-            //     console.log("시그날:close 세션--->", mySession);
-            //     setOtherClose(true);
-            // });
-
-            // mySession.on("signal:continue", (event) => {
-            //     console.log("시그날:continue--->", mySession);
-            // });
-
-            mysession.on("connectionCreated", (event) => {
-                console.log("connect--->", mysession);
+            mySession.on("connectionCreated", (event) => {
+                console.log("connect--->", session, mySession);
                 setConnectObj(event.connection);
             });
 
-            mysession
+            mySession
                 .connect(token, { clientData: nickname })
                 .then(async () => {
                     console.log("connect token");
@@ -132,7 +80,6 @@ const RoomWaiting = () => {
                     let videoDevices = devices.filter(
                         (device) => device.kind === "videoinput"
                     );
-                    console.log("video--->", videoDevices);
 
                     let publisher = OV.initPublisher(undefined, {
                         audioSource: undefined,
@@ -145,12 +92,9 @@ const RoomWaiting = () => {
                         mirror: false,
                     });
 
-                    mysession.publish(publisher);
-                    console.log("pub --->", publisher);
+                    mySession.publish(publisher);
                     setMainStreamManager(publisher);
-                    console.log("pub SM --->", publisher);
-                    // setPublisher(publisher);
-                    // console.log("set pub --->", publisher);
+                    setPublisher(publisher);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -161,7 +105,7 @@ const RoomWaiting = () => {
 
         return () => {
             window.removeEventListener("beforeunload", onbeforeunload);
-            chatClose();
+            // chatClose()
         };
     }, []);
 
@@ -174,11 +118,6 @@ const RoomWaiting = () => {
         setPublisher(undefined);
     };
 
-    const chatClose = () => {
-        // sendCloseSignal();
-        setTimeout(leaveSession, 500);
-    };
-
     const copyClipBoard = async (roomCode) => {
         try {
             await navigator.clipboard.writeText(roomCode);
@@ -188,30 +127,9 @@ const RoomWaiting = () => {
         }
     };
 
-    console.log("subscriber array--->", subscribers);
-
-    // const videoRef = useRef(null);
-
-    // useEffect(() => {
-    //     const getUserMedia = async () => {
-    //         try {
-    //             const stream = await navigator.mediaDevices.getUserMedia({
-    //                 video: { width: 200, height: 300 },
-    //                 audio: true,
-    //             });
-    //             videoRef.current.srcObject = stream;
-    //         } catch (err) {
-    //             console.log(err);
-    //         }
-    //     };
-    //     getUserMedia();
-    // }, []);
-
     return (
         <div>
             <div>
-                {/* <video id="localVideo" autoPlay width="480px"></video>
-                <video id="remoteVideo" autoPlay width="480px"></video> */}
                 <StDiv room_info>
                     <h2>Room Name: {rooms.roomName}</h2>
                     <p>
@@ -224,26 +142,12 @@ const RoomWaiting = () => {
                 </StDiv>
                 <StDiv capture_area id="capture_area">
                     <StH3>Photo-Pie</StH3>
-                    {subscribers.length > 0 ? (
-                        <StDiv picture_box id="picture-box">
-                            {publisher !== undefined ? (
-                                <>
-                                    <StDiv picture>
-                                        <UserVideoComponent
-                                            streamManager={mainStreamManager}
-                                        />
-                                    </StDiv>
-                                    {subscribers.map((sub) => (
-                                        <StDiv picture>
-                                            <UserVideoComponent
-                                                streamManager={sub}
-                                            />
-                                        </StDiv>
-                                    ))}
-                                </>
-                            ) : null}
-                        </StDiv>
-                    ) : null}
+                    <StDiv picture_box id="picture-box">
+                        <StDiv picture></StDiv>
+                        <StDiv picture></StDiv>
+                        <StDiv picture></StDiv>
+                        <StDiv picture></StDiv>
+                    </StDiv>
                 </StDiv>
                 <StDiv wait_btns>
                     <Button
@@ -254,6 +158,26 @@ const RoomWaiting = () => {
                     </Button>
                 </StDiv>
             </div>
+            {subscribers.length > 0 ? (
+                <div>
+                    <div>
+                        {publisher !== undefined ? (
+                            <div>
+                                <UserVideoComponent
+                                    streamManager={mainStreamManager}
+                                />
+                                {subscribers.map((sub, i) => (
+                                    <div key={i}>
+                                        <UserVideoComponent
+                                            streamManager={sub}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : null}
+                    </div>
+                </div>
+            ) : null}
         </div>
     );
 };
@@ -262,7 +186,7 @@ const StDiv = styled.div`
     ${(props) =>
         props.capture_area &&
         css`
-            background-color: rgb(0, 72, 255);
+            background-color: rgb(0, 0, 0);
             width: 500px;
             height: 750px;
             margin-bottom: 20px;
@@ -309,4 +233,4 @@ const StH3 = styled.h3`
     margin: 0 0 15px 0;
 `;
 
-export default RoomWaiting;
+export default CameraTest;
