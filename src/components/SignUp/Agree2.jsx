@@ -270,65 +270,20 @@ function Agree2({ setShow }) {
             </StDiv>
           </div>
         </StCenterBox>
-        {/* <StDiv SMSSend>
-          <StP SMSMsg>SMS 문자 인증</StP>
-          <div>
-            <StInput
-              SMSInput
-              type="text"
-              placeholder="'-' 없이 기입해주세요"
-              onChange={setPhoneNum}
-              value={phoneNum}
-              disabled={pnDisabled}
-              pnDisabled={pnDisabled}
-            ></StInput>
-            <StBtn
-              PnBtn
-              disabled={pnDisabled}
-              pnDisabled={pnDisabled}
-              onClick={() => sendMessageHandler(phoneNum)}
-            >
-              전송
-            </StBtn>
-          </div>
-          {showInput && (
-            <StDiv ShowInputBox>
-              <StInput
-                SMSInput
-                placeholder="숫자 6자리"
-                onChange={setConfirmNumber}
-                value={confirmNumber}
-                disabled={msgDisabled}
-                msgDisabled={msgDisabled}
-              ></StInput>
-              <StBtn
-                SMSBtn
-                onClick={MessageConfirmHandler}
-                disabled={msgDisabled}
-                msgDisabled={msgDisabled}
-              >
-                인증
-              </StBtn>
-              <StDiv StSmsCount>
-                <SmsCount disabled={msgDisabled} msgDisabled={msgDisabled} />
-              </StDiv>
-            </StDiv>
-          )}
-          <StP OkConfirmP>{checkP}</StP>
-
-        </StDiv> */}
-        <StBtn
-          NextGoBtn
-          onClick={() => setShow(true)}
-          // onClick={() => navigate("/signup")}
-          disabled={nextDisabled}
-          nextDisabled={nextDisabled}
-          type="button"
-          name="checkbutton"
-          value=""
-        >
-          다음
-        </StBtn>
+        <StDiv NextGoBtnBox>
+          <StBtn
+            NextGoBtn
+            onClick={() => setShow(true)}
+            // onClick={() => navigate("/signup")}
+            disabled={nextDisabled}
+            nextDisabled={nextDisabled}
+            type="button"
+            name="checkbutton"
+            value=""
+          >
+            다음
+          </StBtn>
+        </StDiv>
       </StDiv>
     </div>
   );
@@ -445,13 +400,6 @@ const StDiv = styled.div`
       border-bottom: 2px solid #7d6945;
     `}
       
-      ${(props) =>
-    props.SMSSend &&
-    css`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `};
   ${(props) =>
     props.Agree &&
     css`
@@ -462,12 +410,11 @@ const StDiv = styled.div`
       margin: 30px 0 0px 0;
       color: #7d6945;
     `}
-
   ${(props) =>
-    props.StSmsCount &&
+    props.NextGoBtnBox &&
     css`
-      margin: -10px auto -15px auto;
-      font-size: 12px;
+      display: flex;
+      justify-content: center;
     `}
 `;
 
