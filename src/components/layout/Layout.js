@@ -8,7 +8,8 @@ const layoutStyles = {
     justifyContent: "center",
     alignItems: "center",
     minHeight: "82.5vh",
-    // backgroundColor: "#eee8dc",
+    paddingTop: "30px",
+    backgroundColor: "#eee8dc",
 };
 
 const Layout = ({ children }) => {
