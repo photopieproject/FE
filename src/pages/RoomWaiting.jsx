@@ -8,9 +8,6 @@ import { OpenVidu } from "openvidu-browser";
 import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 
 const RoomWaiting = () => {
-    // let localVideo = document.getElementById("localVideo");
-    // let remoteVideo = document.getElementById("remoteVideo");
-
     const navigate = useNavigate();
     const rooms = useSelector((state) => state.videos.videoRooms);
     // const rooms = useSelector((state) => state);
@@ -28,13 +25,8 @@ const RoomWaiting = () => {
     console.log("rooms: ", rooms);
     console.log("roomInfo: ", roomInfo);
 
-    // const [OV, setOV] = useState('')
     const [session, setSession] = useState("");
     const [mySessionId, setMySessionId] = useState("");
-    // const [initUserData, setInitUserData] = useState({
-    //     mySessionId: channelId,
-    //     myUserName: userInfo.nickname,
-    // })
     const [publisher, setPublisher] = useState(null);
     const [subscribers, setSubscribers] = useState([]);
     // const [isConnect, setIsConnect] = useState(false);
@@ -49,33 +41,6 @@ const RoomWaiting = () => {
         event.preventDefault();
         leaveSession();
     };
-
-    // const sendCloseSignal = () => {
-    //     session
-    //         .signal({
-    //             data: "true",
-    //             to: [connectObj],
-    //             type: "close",
-    //         })
-    //         .then(() => {
-    //             console.log("종료시--->", session);
-    //             leaveSession();
-    //         })
-    //         .catch((err) => {
-    //             console.error(err);
-    //         });
-    // };
-
-    // const sendContinueSignal = () => {
-    //     session
-    //         .signal({
-    //             data: "true",
-    //             to: [connectObj],
-    //             type: "continue",
-    //         })
-    //         .then(() => console.log("진행중--->", session))
-    //         .catch((err) => console.error(err));
-    // };
 
     useEffect(() => {
         window.addEventListener("beforeunload", onbeforeunload);
@@ -109,15 +74,6 @@ const RoomWaiting = () => {
                 console.log("???", event.stream.streamManager);
                 console.log("event --->", event);
             });
-
-            // mySession.on("signal:close", (event) => {
-            //     console.log("시그날:close 세션--->", mySession);
-            //     setOtherClose(true);
-            // });
-
-            // mySession.on("signal:continue", (event) => {
-            //     console.log("시그날:continue--->", mySession);
-            // });
 
             mysession.on("connectionCreated", (event) => {
                 console.log("connect--->", mysession);
@@ -190,28 +146,9 @@ const RoomWaiting = () => {
 
     console.log("subscriber array--->", subscribers);
 
-    // const videoRef = useRef(null);
-
-    // useEffect(() => {
-    //     const getUserMedia = async () => {
-    //         try {
-    //             const stream = await navigator.mediaDevices.getUserMedia({
-    //                 video: { width: 200, height: 300 },
-    //                 audio: true,
-    //             });
-    //             videoRef.current.srcObject = stream;
-    //         } catch (err) {
-    //             console.log(err);
-    //         }
-    //     };
-    //     getUserMedia();
-    // }, []);
-
     return (
         <div>
             <div>
-                {/* <video id="localVideo" autoPlay width="480px"></video>
-                <video id="remoteVideo" autoPlay width="480px"></video> */}
                 <StDiv room_info>
                     <h2>Room Name: {rooms.roomName}</h2>
                     <p>
