@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apis } from "../../lib/axios";
 import Swal from "sweetalert2";
 
-const initialState = {
-  phoneNum: "",
-};
+// const initialState = {
+//   phoneNum: "",
+// };
 
 // id 중복체크
 export const __checkUserId = async (userId) => {
@@ -94,27 +94,27 @@ export const __SMSSends = createAsyncThunk(
     }
   }
 );
-export const loginSlice = createSlice({
-  name: "login",
-  initialState,
-  reducers: {},
-  extraReducers: {
-    [__SMSSends.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__SMSSends.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.phoneNum(action.payload);
-      console.log(action.payload);
-    },
-    [__SMSSends.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-  },
-});
-export const { SMSSends } = loginSlice.actions;
-export default loginSlice.reducer;
+// export const loginSlice = createSlice({
+//   name: "login",
+//   initialState,
+//   reducers: {},
+//   extraReducers: {
+//     [__SMSSends.pending]: (state) => {
+//       state.isLoading = true;
+//     },
+//     [__SMSSends.fulfilled]: (state, action) => {
+//       state.isLoading = false;
+//       state.phoneNum(action.payload);
+//       console.log(action.payload);
+//     },
+//     [__SMSSends.rejected]: (state, action) => {
+//       state.isLoading = false;
+//       state.error = action.payload;
+//     },
+//   },
+// });
+// export const { SMSSends } = loginSlice.actions;
+// export default loginSlice.reducer;
 // -----------------
 // import { apis } from "../../lib/axios";
 // import Swal from "sweetalert2";
