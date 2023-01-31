@@ -8,13 +8,12 @@ const Header = () => {
     const navigate = useNavigate();
 
     return (
-        <StDiv>
+        <StDiv style={{ backgroundColor: "#EEE8DC" }}>
             <StDiv nav_main>
                 <Span nav_logo onClick={() => navigate("/")}>
                     <StImg src="/image/logo.png" alt="logo" />
                 </Span>
                 <StDiv log_sign>
-                    {/* <StSpan onClick={() => navigate("/login")}>로그인</StSpan> */}
                     {/* 토큰이 있으면 로그아웃으로 버튼 변경(누르면 쿠키삭제) / 토큰 없으면 로그인 버튼 */}
                     {/*  */}
                     {!localStorage.getItem("id") &&
@@ -42,31 +41,6 @@ const Header = () => {
                     <Span onClick={() => navigate("/signup")}>회원가입</Span>
                 </StDiv>
             </StDiv>
-            <StDiv nav_category>
-                {/* <StDiv cate_gory>
-                    <Span cate_txt active_txt onClick={() => navigate("/")}>
-                        Home
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/roomopen")}>
-                        RoomOpen
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/roomwaiting")}>
-                        RoomWaiting
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/frame")}>
-                        Frame
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/photoshoot")}>
-                        PhotoShoot
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/loading")}>
-                        Loading
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/photosave")}>
-                        PhotoSave
-                    </Span>
-                </StDiv> */}
-            </StDiv>
         </StDiv>
     );
 };
@@ -86,13 +60,6 @@ const StDiv = styled.div`
             /* background-color: #eee8dc; */
         `}
     ${(props) =>
-        props.nav_category &&
-        css`
-            display: flex;
-            gap: 60px;
-            align-items: baseline;
-        `}
-  ${(props) =>
         props.cate_gory &&
         css`
             display: flex;

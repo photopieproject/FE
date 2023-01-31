@@ -9,6 +9,8 @@ const Button = (props) => {
         room_btn,
         choose_frame,
         start_camera,
+        camera_btn,
+        photo_trans,
     } = props;
     return (
         <StButton
@@ -18,6 +20,8 @@ const Button = (props) => {
             room_btn={room_btn}
             choose_frame={choose_frame}
             start_camera={start_camera}
+            camera_btn={camera_btn}
+            photo_trans={photo_trans}
         >
             {children}
         </StButton>
@@ -113,6 +117,33 @@ const StButton = styled.button`
                 width: 100%;
                 transform: translateY(-50%) translateX(-18px);
                 transition: transform 0.25s cubic-bezier(0, 0, 0.5, 2);
+            }
+        `}
+        ${(props) =>
+        props.camera_btn &&
+        css`
+            /* border: 1px solid #402c00; */
+            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            font-size: 16px;
+            background-color: #efebe3;
+            transition: background-color 0.25s ease-in-out;
+            &:hover {
+                background-color: #d8c5a2;
+            }
+        `}
+            ${(props) =>
+        props.photo_trans &&
+        css`
+            border-radius: 10px;
+            background-color: #402c00;
+            color: white;
+            width: 200px;
+            height: 50px;
+            transition: background-color 0.25s ease-in-out;
+            &:hover {
+                background-color: #af9462;
             }
         `}
 `;
