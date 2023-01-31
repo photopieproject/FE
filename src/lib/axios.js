@@ -66,8 +66,8 @@ export const apis = {
   checkUserId: (userId) => instance.get(`/user/id-check/${userId}`),
   //   checkNickname: (nickname) => instance.get(`/user/nicknamecheck/${nickname}`),
   checkOkConfirm: () => instance.post("/user/smsmessage"),
-  smsSend: (phoneNum) =>
-    instance.post(`/user/smsmessage?phoneNumber=${phoneNum}`),
+  smsSend: (phoneNumber) =>
+    instance.post(`/user/smsmessage?phoneNumber=${phoneNumber}`),
   // 아이디, 비밀번호 찾기, 비밀번호 재설정
   findId: () => instance.post("/user/find-id"),
   findPW: () => instance.post("/user/find-pw"),

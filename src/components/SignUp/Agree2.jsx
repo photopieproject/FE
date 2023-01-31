@@ -10,7 +10,7 @@ import {
   // __SMSSends,
 } from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
-import SmsCount from "../Count/SmsCount";
+// import SmsCount from "../Count/SmsCount"; ㅇㅇ
 // import { useDispatch } from "react-redux";
 
 function Agree2({ setShow }) {
@@ -20,21 +20,21 @@ function Agree2({ setShow }) {
   const [marketingCheck, setMarketingCheck] = useState(false);
   const [privacyCheck, setPrivacyCheck] = useState(false);
   const [nextDisabled, setNextDisabled] = useState(true);
-  const [msgDisabled, setMsgDisabled] = useState(false);
-  const [pnDisabled, setPnDisabled] = useState(false);
+  // const [msgDisabled, setMsgDisabled] = useState(false);ㅇㅇ
+  // const [pnDisabled, setPnDisabled] = useState(false); ㅇㅇ
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
   // const navigate = useNavigate();
   const outside = useRef();
-  const [phoneNum, setPhoneNum] = useInput();
-  const [confirmNumber, setConfirmNumber] = useInput();
-  const [codeNumber, setCodeNumber] = useState();
+  // const [phoneNum, setPhoneNum] = useInput(); ㅇㅇ
+  // const [confirmNumber, setConfirmNumber] = useInput(); ㅇㅇ
+  // const [codeNumber, setCodeNumber] = useState(); ㅇㅇ
   const [checkP, setCheckP] = useState();
-  const [showInput, setShowInput] = useState(false);
-  const [okConfirm, setOkConfirm] = useState(false);
+  // const [showInput, setShowInput] = useState(false);ㅇㅇ
+  // const [okConfirm, setOkConfirm] = useState(false); ㅇㅇ
   // const dispatch = useDispatch();
-  console.log(codeNumber);
+  // console.log(codeNumber); ㅇㅇ
 
   const allBtnEvent = () => {
     if (allCheck === false) {
@@ -101,43 +101,48 @@ function Agree2({ setShow }) {
     if (
       ageCheck === true &&
       privacyCheck === true &&
-      useCheck === true &&
-      okConfirm === true
+      useCheck === true
+      // okConfirm === true ㅇㅇ
     ) {
       setNextDisabled(!nextDisabled);
     } else {
       setNextDisabled(true);
     }
-  }, [ageCheck, privacyCheck, useCheck, okConfirm]);
+  }, [
+    ageCheck,
+    privacyCheck,
+    useCheck,
+    //  okConfirm
+  ]);
 
-  const sendMessageHandler = (phoneNum) => {
-    __SMSSend(phoneNum)
-      .then((res) => {
-        setCodeNumber(res.data.data1);
-        setPnDisabled(true);
-        setShowInput(true);
-        console.log(res.data.data1);
-        // dispatch(__SMSSend(phoneNum));
-      })
-      .catch((error) => console.log(error));
-    // dispatch(__SMSSend(Number(message)));
-    // console.log(message);
-    // if(res === 200){
-    //   setShowInput()
-    // }
-  };
+  // const sendMessageHandler = (phoneNum) => {
+  //   __SMSSend(phoneNum)
+  //     .then((res) => {
+  //       setCodeNumber(res.data.data1);
+  //       setPnDisabled(true);
+  //       setShowInput(true);
+  //       console.log(res.data.data1);
+  //       // dispatch(__SMSSend(phoneNum));
+  //     })
+  //     .catch((error) => console.log(error));
+  //   // dispatch(__SMSSend(Number(message)));
+  //   // console.log(message);
+  //   // if(res === 200){
+  //   //   setShowInput()
+  //   // }
+  // }; ㅇㅇ
 
-  const MessageConfirmHandler = () => {
-    if (codeNumber === confirmNumber) {
-      setCheckP("인증되었습니다.");
-      setOkConfirm(true);
-      setMsgDisabled(true);
-    } else if (codeNumber !== confirmNumber) {
-      setCheckP("인증번호를 확인해주세요.");
-      setOkConfirm(false);
-      setMsgDisabled(false);
-    }
-  };
+  // const MessageConfirmHandler = () => {
+  //   if (codeNumber === confirmNumber) {
+  //     setCheckP("인증되었습니다.");
+  //     setOkConfirm(true);
+  //     setMsgDisabled(true);
+  //   } else if (codeNumber !== confirmNumber) {
+  //     setCheckP("인증번호를 확인해주세요.");
+  //     setOkConfirm(false);
+  //     setMsgDisabled(false);
+  //   }
+  // };ㅇㅇ
 
   //삼항연산자
 
@@ -265,7 +270,7 @@ function Agree2({ setShow }) {
             </StDiv>
           </div>
         </StCenterBox>
-        <StDiv SMSSend>
+        {/* <StDiv SMSSend>
           <StP SMSMsg>SMS 문자 인증</StP>
           <div>
             <StInput
@@ -311,19 +316,19 @@ function Agree2({ setShow }) {
           )}
           <StP OkConfirmP>{checkP}</StP>
 
-          <StBtn
-            NextGoBtn
-            onClick={() => setShow(true)}
-            // onClick={() => navigate("/signup")}
-            disabled={nextDisabled}
-            nextDisabled={nextDisabled}
-            type="button"
-            name="checkbutton"
-            value=""
-          >
-            다음
-          </StBtn>
-        </StDiv>
+        </StDiv> */}
+        <StBtn
+          NextGoBtn
+          onClick={() => setShow(true)}
+          // onClick={() => navigate("/signup")}
+          disabled={nextDisabled}
+          nextDisabled={nextDisabled}
+          type="button"
+          name="checkbutton"
+          value=""
+        >
+          다음
+        </StBtn>
       </StDiv>
     </div>
   );
@@ -341,22 +346,22 @@ const StInput = styled.input`
     `}
 `;
 
-const StP = styled.p`
-  ${(props) =>
-    props.SMSMsg &&
-    css`
-      margin: 15px 0 5px 0;
-      font-weight: bold;
-      font-size: 18px;
-    `}
-  ${(props) =>
-    props.OkConfirmP &&
-    css`
-      font-size: 13px;
-      color: gray;
-      margin: 0 auto;
-    `}
-`;
+// const StP = styled.p`
+//   ${(props) =>
+//     props.SMSMsg &&
+//     css`
+//       margin: 15px 0 5px 0;
+//       font-weight: bold;
+//       font-size: 18px;
+//     `}
+//   ${(props) =>
+//     props.OkConfirmP &&
+//     css`
+//       font-size: 13px;
+//       color: gray;
+//       margin: 0 auto;
+//     `}
+// `; ㅇㅇ
 
 const StDiv = styled.div`
   ${(props) =>
