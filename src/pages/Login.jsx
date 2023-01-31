@@ -68,7 +68,12 @@ const Login = () => {
                 placeholder="Password를 입력해주세요."
               />
             </StDiv>
-            <StBtn Forgot>비밀번호 찾기</StBtn>
+            <StBtn Forgot onClick={() => navigate("/findid")}>
+              아이디 찾기
+            </StBtn>
+            <StBtn Forgot onClick={() => navigate("/findpw")}>
+              비밀번호 찾기
+            </StBtn>
           </StDiv>
           <StDiv LoginBtnBox>
             <StBtn LoginBtn>ID 로그인</StBtn>
@@ -139,7 +144,7 @@ const StDiv = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 10px;
+      margin-top: 25px;
     `}
 
 ${(props) =>
@@ -181,10 +186,11 @@ const StBtn = styled.button`
   ${(props) =>
     props.Forgot &&
     css`
+      font-size: 13px;
       background-color: transparent;
       color: #7d6945;
       border: none;
-      margin: 10px 0px 10px 220px;
+      margin: 5px 0px -5px 220px;
       font-weight: bold;
       &:hover {
         cursor: pointer;

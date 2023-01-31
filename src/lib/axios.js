@@ -70,8 +70,8 @@ export const apis = {
         instance.post(`/user/smsmessage?phoneNumber=${phoneNumber}`),
     // 아이디, 비밀번호 찾기, 비밀번호 재설정
     findId: () => instance.post("/user/find-id"),
-    findPW: () => instance.post("/user/find-pw"),
-    resetPW: () => instance.put("/user/reset-pw"),
+    findPW: (userId) => instance.post("/user/find-pw?phoneNumber=", userId),
+    resetPW: (password) => instance.put("/user/reset-pw", password),
     // 소셜 로그인 관련
     kakaoLogin: (code) => socialLogin.get(`/user/kakao/callback?code=${code}`),
     googleLogin: (code) =>

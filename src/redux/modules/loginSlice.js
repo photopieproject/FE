@@ -80,20 +80,56 @@ export const __SMSSend = async (post) => {
   }
 };
 
-export const __SMSSends = createAsyncThunk(
-  "login",
-  async (payload, thunkAPI) => {
-    console.log("payload :", payload);
-    try {
-      const data = await apis.smsSend(payload);
-      console.log("POST 추가 데이터", data.payload);
-      return thunkAPI.fulfillWithValue(data);
-    } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error);
-    }
+export const __findID = async (post) => {
+  try {
+    const data = await apis.findID(post);
+    Swal.fire("Success", data.data.msg, "success");
+    console.log(data);
+    return data;
+  } catch (error) {
+    Swal.fire("Error", error.response.data.statusMsg, "error");
+    console.log(error.response.data.statusMsg);
   }
-);
+};
+
+export const __findPW = async (post) => {
+  try {
+    const data = await apis.findPW(post);
+    Swal.fire("Success", data.data.msg, "success");
+    console.log(data);
+    return data;
+  } catch (error) {
+    Swal.fire("Error", error.response.data.statusMsg, "error");
+    console.log(error.response.data.statusMsg);
+  }
+};
+
+export const __resetPW = async (put) => {
+  try {
+    const data = await apis.resetPW(put);
+    Swal.fire("Success", data.data.msg, "success");
+    console.log(data);
+    return data;
+  } catch (error) {
+    Swal.fire("Error", error.response.data.statusMsg, "error");
+    console.log(error.response.data.statusMsg);
+  }
+};
+
+// export const __SMSSends = createAsyncThunk(
+//   "login",
+//   async (payload, thunkAPI) => {
+//     console.log("payload :", payload);
+//     try {
+//       const data = await apis.smsSend(payload);
+//       console.log("POST 추가 데이터", data.payload);
+//       return thunkAPI.fulfillWithValue(data);
+//     } catch (error) {
+//       console.log(error);
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
 // export const loginSlice = createSlice({
 //   name: "login",
 //   initialState,

@@ -16,6 +16,8 @@ import Terms from "../pages/Terms";
 import Marketing from "../pages/Marketing";
 import Google from "../pages/Google";
 // import CameraTest from "../pages/CameraTest";
+import FindPW from "../pages/FindPW";
+import FindID from "../pages/FindID";
 // import Test from "../components/OvVideo/Test";
 
 const Router = () => {
@@ -26,15 +28,11 @@ const Router = () => {
                     <Route path="/" element={<Main />} />
                     <Route path="login" element={<Login />} />
                     <Route path="signup" element={<SignUp />} />
+                    <Route path="findpw" element={<FindPW />} />
+                    <Route path="findid" element={<FindID />} />
                     <Route path="roomopen" element={<RoomOpen />} />
-                    {/* <Route
-                        path="roomwaiting/:roomId"
-                        element={<RoomWaiting />}
-                    /> */}
-                    {/* <Route
-                        path="roomwaiting/:roomId"
-                        element={<CameraTest />}
-                    /> */}
+                    {/* <Route path="roomwaiting/:roomId" element={<RoomWaiting />} /> */}
+                    {/* <Route path="roomwaiting/:roomId" element={<CameraTest />} /> */}
                     <Route path="frame/:roomId" element={<Frame />} />
                     <Route path="photoshoot/:roomId" element={<PhotoShoot />} />
                     <Route path="loading/:roomId" element={<Loading />} />
