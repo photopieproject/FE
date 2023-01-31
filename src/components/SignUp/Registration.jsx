@@ -1,40 +1,25 @@
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import {
-  __postSignup,
-  __checkUserId,
-  // __SMSSend,
-} from "../../redux/modules/loginSlice";
+import { __postSignup, __checkUserId } from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
 import { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
+import { useEffect } from "react";
+import SmsMessage from "../SMS/SmsMessage";
 
 const Registration = () => {
   const [userId, setUserId] = useInput();
   const [nickname, setNickName] = useInput();
   const [password, setPassword] = useInput();
-  // const [passwordCheck, setPasswordCheck] = useInput();
   const [checkUserId, setCheckUserId] = useState(false);
-  const [checkP, setCheckP] = useState();
   const [registDisabled, setRegistDisabled] = useState(true);
   const [PWPtag, setPWPtag] = useState();
   const [PWConfirm, setPWConfirm] = useState("");
   const [PWConfirmP, setPWConfirmP] = useState(false);
-  // const [phoneNumber, setPhoneNumber] = useState();
+  const [phoneNumber, setPhoneNumber] = useInput();
+  const [okConfirm, setOkConfirm] = useState(false);
+  const [checkP, setCheckP] = useState();
 
-  // const phoneNum = useSelector((state) => state);
-  // console.log("phoneNum", phoneNum);
-
-  // const dispatch = useDispatch();
-  // console.log(phoneNum);
-
-  // useEffect(() => {
-  //   // dispatch(__SMSSend());
-  //   dispatch(__SMSSend(Number(phoneNum)));
-  // });
-  // console.log(`phoneNum: ${phoneNum}`);
-  // console.log(phoneNum);
+  console.log(setOkConfirm);
 
   function isPassword(asValue) {
     const regExp =
@@ -55,12 +40,19 @@ const Registration = () => {
   const PWConfirmChk = () => {
     if (password === PWConfirm) {
       setPWConfirmP(<StPs2>비밀번호 확인되었습니다.</StPs2>);
-      setRegistDisabled(false);
     } else {
       setPWConfirmP(<StPs>비밀번호가 일치하지않습니다</StPs>);
-      setRegistDisabled(true);
     }
   };
+
+  useEffect(() => {
+    console.log(okConfirm);
+    if (okConfirm === true) {
+      setRegistDisabled(!setRegistDisabled);
+    } else {
+      setRegistDisabled(true);
+    }
+  }, [okConfirm]);
 
   const navigate = useNavigate();
 
@@ -70,8 +62,8 @@ const Registration = () => {
   }
 
   const onSubmitSignup = (e) => {
-    e.preventDefault();
     console.log("checkUserId:", checkUserId);
+    e.preventDefault();
     if (checkUserId === false) {
       alert("중복체크를 확인해주세요!");
       return;
@@ -82,8 +74,8 @@ const Registration = () => {
       nickname,
       password,
       // passwordCheck,
-      PWConfirm,
-      // phoneNum,
+      // PWConfirm,
+      phoneNumber,
       // 전역상태
       // 부모컴포넌트에서 자식컴포넌트 useState
     })
@@ -194,14 +186,14 @@ const Registration = () => {
               />
             </StDiv>
             <StP>{PWConfirmP}</StP>
-
-            {/* <StDiv IdPw>
-              Phone Number
-              <br />
-              <StInput LoginInput id="phoneNum" placeholder="ex) 01012345678" />
-            </StDiv> */}
           </div>
         </StDiv>
+
+        <SmsMessage
+          setOkConfirm={setOkConfirm}
+          setPhoneNumber={setPhoneNumber}
+          phoneNumber={phoneNumber}
+        />
 
         <StDiv LoginBtnBox>
           <StBtn
@@ -213,6 +205,7 @@ const Registration = () => {
             회원가입
           </StBtn>
         </StDiv>
+
         <StDiv SignUpGoBox>
           계정이 이미 있으신가요?
           <StBtn SignUpGoBtn onClick={() => navigate("/login")}>
@@ -229,7 +222,6 @@ const StDiv = styled.div`
     props.SingUpBox &&
     css`
       width: 500px;
-      height: 600px;
       border: 1px solid black;
       color: black;
     `}
