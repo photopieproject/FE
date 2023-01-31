@@ -19,10 +19,13 @@ const RoomOpen = () => {
                 console.log("createRoom res---->", res);
                 if (res.payload.statusCode === 200) {
                     Swal.fire("Success", res.payload.statusMsg, "success");
-                    navigate(`/roomwaiting/${res.payload.data1.id}`);
+                    navigate(`/frame/${res.payload.data1.id}`);
                 } else if (res.payload.data.statusCode === 400) {
                     Swal.fire("Error", res.payload.data.statusMsg, "error");
-                } else if (res.payload.data.statusCode === 401) {
+                } else if (
+                    res.payload.data.statusCode === 401 ||
+                    res.payload.status === 403
+                ) {
                     Swal.fire(
                         "토큰이 만료되었습니다",
                         "다시 로그인해주세요!",
@@ -43,9 +46,20 @@ const RoomOpen = () => {
                 console.log("enterRoom res--->", res);
                 if (res.payload.statusCode === 200) {
                     Swal.fire("Success", res.payload.statusMsg, "success");
-                    navigate(`/roomwaiting/${res.payload.data1.id}`);
+                    navigate(`/photoshoot/${res.payload.data1.id}`);
                 } else if (res.payload.data.statusCode === 400) {
                     Swal.fire("Error", res.payload.data.statusMsg, "error");
+                } else if (
+                    res.payload.data.statusCode === 401 ||
+                    res.payload.status === 403
+                ) {
+                    Swal.fire(
+                        "토큰이 만료되었습니다",
+                        "다시 로그인해주세요!",
+                        "error"
+                    );
+                    localStorage.removeItem("id");
+                    navigate("/login");
                 }
             })
             .catch((err) => console.log("enterRoom err--->", err));
@@ -96,13 +110,20 @@ const StInput = styled.input`
     width: 500px;
     height: 35px;
     font-size: 20px;
-    border: 1px solid #7e7373;
+    background-color: #eee8dc;
+    color: #402c00;
+    border: 0;
+    border-bottom: 2px solid #402c00;
     border-radius: 5px;
     padding: 10px;
+    &:focus {
+        outline: none;
+    }
 `;
 
 const StH1 = styled.h1`
     text-align: center;
+    color: #402c00;
 `;
 
 export default RoomOpen;

@@ -5,7 +5,7 @@ import Main from "../pages/Main";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import RoomOpen from "../pages/RoomOpen";
-import RoomWaiting from "../pages/RoomWaiting";
+// import RoomWaiting from "../pages/RoomWaiting";
 import Frame from "../pages/Frame";
 import PhotoShoot from "../pages/PhotoShoot";
 import Loading from "../pages/Loading";
@@ -27,10 +27,10 @@ const Router = () => {
                     <Route path="login" element={<Login />} />
                     <Route path="signup" element={<SignUp />} />
                     <Route path="roomopen" element={<RoomOpen />} />
-                    <Route
+                    {/* <Route
                         path="roomwaiting/:roomId"
                         element={<RoomWaiting />}
-                    />
+                    /> */}
                     {/* <Route
                         path="roomwaiting/:roomId"
                         element={<CameraTest />}

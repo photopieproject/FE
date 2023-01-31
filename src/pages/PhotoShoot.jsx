@@ -1,23 +1,26 @@
 import html2canvas from "html2canvas";
-import $ from "jquery";
 import styled, { css } from "styled-components";
-import { IoCameraSharp } from "react-icons/io5";
-import React, { useEffect, useRef, useState } from "react";
+// import { IoCameraSharp } from "react-icons/io5";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __takeFrame, __takePhoto } from "../redux/modules/photoSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import Count from "../components/Count/Count";
-import { apis } from "../lib/axios";
+// import Count from "../components/Count/Count";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
+import { BiCopy } from "react-icons/bi";
+import Button from "../components/button/Button";
+import { OpenVidu } from "openvidu-browser";
+import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 
 const PhotoShoot = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [showCount, setShowCount] = useState(false);
+    // const [showCount, setShowCount] = useState(false);
 
     const [photo_one, setPhoto_one] = useState("");
-
-    console.log(photo_one);
+    const [photo_two, setPhoto_two] = useState("");
+    const [photo_three, setPhoto_three] = useState("");
+    const [photo_four, setPhoto_four] = useState("");
 
     const { roomId } = useParams();
     const rooms = useSelector((state) => state.photos.photoinfo.data1);
@@ -27,137 +30,377 @@ const PhotoShoot = () => {
         dispatch(__takeFrame(roomId));
     }, [dispatch, roomId]);
 
+    const videoRooms = useSelector((state) => state.videos.videoRooms);
+    const roomInfo = useSelector((state) => state.videos.videoInfos[0]);
+    const token = useSelector((state) => state.videos.videoInfos[0].token);
+    const sessionId = useSelector(
+        (state) => state.videos.videoInfos[0].sessionId
+    );
+    const role = useSelector((state) => state.videos.videoInfos[0].role);
+    const nickname = videoRooms.nickname;
+
+    console.log("sessionId--->", sessionId);
+    console.log("token--->", token);
+    console.log("role--->", role);
+    console.log("videoRooms: ", videoRooms);
+    console.log("roomInfo: ", roomInfo);
+
+    const [session, setSession] = useState("");
+    // const [mySessionId, setMySessionId] = useState("");
+    const [publisher, setPublisher] = useState(null);
+    const [subscribers, setSubscribers] = useState([]);
+    // const [isConnect, setIsConnect] = useState(false);
+    // const [connectObj, setConnectObj] = useState("");
+    // const [otherClose, setOtherClose] = useState(false);
+    const [mainStreamManager, setMainStreamManager] = useState(undefined);
+
+    console.log("mainSM --->", mainStreamManager);
+    console.log("session--->", session);
+
+    const onbeforeunload = (event) => {
+        event.preventDefault();
+        leaveSession();
+    };
+
+    useEffect(() => {
+        window.addEventListener("beforeunload", onbeforeunload);
+
+        const connectSession = () => {
+            const OV = new OpenVidu();
+
+            let mysession = OV.initSession();
+            setSession(mysession);
+            console.log("세션--->", mysession);
+
+            mysession.on("streamCreated", (event) => {
+                let subscriber = mysession.subscribe(event.stream, undefined);
+                let subscriberList = subscribers;
+                subscriberList.push(subscriber);
+                setSubscribers([...subscriberList]);
+                // setSubscribers([...subscribers, ...subscriberList]);
+                console.log("스트림 생성--->", subscribers.length, session);
+                console.log("sub--->", subscriber);
+                console.log("subs --->", subscribers);
+                console.log("sub list --->", subscriberList);
+
+                // setIsConnect(true);
+                // dispatch(getChatInfoDB(sessionId))
+            });
+
+            // 나간 사람 삭제 안됨
+            mysession.on("streamDestroyed", (event) => {
+                event.preventDefault();
+                // setOtherClose(true);
+                console.log("???", event.stream.streamManager);
+                console.log("event --->", event);
+            });
+
+            mysession.on("connectionCreated", (event) => {
+                console.log("connect--->", mysession);
+                // setConnectObj(event.connection);
+            });
+
+            mysession
+                .connect(token, { clientData: nickname })
+                .then(async () => {
+                    console.log("connect token");
+                    let devices = await OV.getDevices();
+                    let videoDevices = devices.filter(
+                        (device) => device.kind === "videoinput"
+                    );
+                    console.log("video--->", videoDevices);
+
+                    let publisher = OV.initPublisher(undefined, {
+                        audioSource: undefined,
+                        videoSource: videoDevices[0].deviceId,
+                        publishAudio: true,
+                        publishVideo: { width: 200, height: 300 },
+                        resolution: "200x300",
+                        frameRate: 30,
+                        insertMode: "APPEND",
+                        mirror: false,
+                    });
+
+                    mysession.publish(publisher);
+                    console.log("pub --->", publisher);
+                    setMainStreamManager(publisher);
+                    console.log("pub SM --->", publisher);
+                    // setPublisher(publisher);
+                    // console.log("set pub --->", publisher);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+
+        connectSession();
+
+        return () => {
+            window.removeEventListener("beforeunload", onbeforeunload);
+            chatClose();
+        };
+    }, []);
+
+    const leaveSession = () => {
+        session.disconnect();
+
+        setSession(undefined);
+        setSubscribers([]);
+        // setMySessionId("");
+        setPublisher(undefined);
+    };
+
+    const chatClose = () => {
+        // sendCloseSignal();
+        setTimeout(leaveSession, 500);
+    };
+
+    const copyClipBoard = async (roomCode) => {
+        try {
+            await navigator.clipboard.writeText(roomCode);
+            alert("클립보드에 링크가 복사되었습니다");
+        } catch (e) {
+            alert("복사에 실패하였습니다");
+        }
+    };
+
+    console.log("subscriber array--->", subscribers);
+
     const onSubmitHandler_1 = () => {
-        //dispatch(__takePhoto({ roomId,  }));
         html2canvas(document.querySelector("#picture_1"))
             .then((canvas) => {
-                // 수정할 곳 이미지가 formdata로 안넘어감
                 let photo_one =
                     (canvas.toDataURL("image/jpg"), "photo_one.jpg");
                 photo_one = photo_one.replace("data:image/jpg;base64,", "");
                 //console.log(canvas.toDataURL(photo_one));
                 setPhoto_one(canvas.toDataURL(photo_one));
-                setShowCount(true);
                 //saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
                 // 사진을 저장함과 동시에 state에 넣어주기...
             })
             .then(() => {
                 const file = dataURLtoFile(photo_one, "photo_one.jpg");
-                console.log(file);
+                // console.log(file);
 
                 const photo_1 = new FormData();
 
                 // photo_1.append("file", file === "" ? new File([], "") : file);
                 photo_1.append("photo_1", file);
 
-                for (let value of photo_1.values()) {
-                    console.log("photo_1 value 값 --->", value);
-                }
-
-                dispatch(__takePhoto({ roomId, photo_1 })).then((res) => {
-                    console.log("사진전송 res --->", res);
-                });
+                // setShowCount(true);
+                setTimeout(() => {
+                    dispatch(__takePhoto({ roomId, formdata: photo_1 })).then(
+                        (res) => {
+                            console.log("사진전송 res --->", res);
+                        }
+                    );
+                }, 5000);
             });
     };
 
-    function saveAs(uri, filename) {
-        // timerId = setTimeout(() => {
-        let link = document.createElement("a");
-        if (typeof link.download === "string") {
-            link.href = uri;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } else {
-            window.open(uri);
-        }
-    }
+    const onSubmitHandler_2 = () => {
+        html2canvas(document.querySelector("#picture_2"))
+            .then((canvas) => {
+                let photo_two =
+                    (canvas.toDataURL("image/jpg"), "photo_two.jpg");
+                photo_two = photo_two.replace("data:image/jpg;base64,", "");
+                //console.log(canvas.toDataURL(photo_two));
+                setPhoto_two(canvas.toDataURL(photo_two));
+                //saveAs(canvas.toDataURL("image/jpg"), "photo_two.jpg");
+                // 사진을 저장함과 동시에 state에 넣어주기...
+            })
+            .then(() => {
+                const file = dataURLtoFile(photo_two, "photo_two.jpg");
+                // console.log(file);
 
-    const videoRef = useRef(null);
+                const photo_2 = new FormData();
 
-    useEffect(() => {
-        const getUserMedia = async () => {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { width: 200, height: 300 },
-                    audio: true,
-                });
-                videoRef.current.srcObject = stream;
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getUserMedia();
-    }, []);
+                // photo_2.append("file", file === "" ? new File([], "") : file);
+                photo_2.append("photo_2", file);
+
+                // setShowCount(true);
+                setTimeout(() => {
+                    dispatch(__takePhoto({ roomId, formdata: photo_2 })).then(
+                        (res) => {
+                            console.log("사진전송 res --->", res);
+                        }
+                    );
+                }, 5000);
+            });
+    };
+
+    const onSubmitHandler_3 = () => {
+        html2canvas(document.querySelector("#picture_3"))
+            .then((canvas) => {
+                let photo_three =
+                    (canvas.toDataURL("image/jpg"), "photo_three.jpg");
+                photo_three = photo_three.replace("data:image/jpg;base64,", "");
+                //console.log(canvas.toDataURL(photo_three));
+                setPhoto_three(canvas.toDataURL(photo_three));
+                //saveAs(canvas.toDataURL("image/jpg"), "photo_three.jpg");
+                // 사진을 저장함과 동시에 state에 넣어주기...
+            })
+            .then(() => {
+                const file = dataURLtoFile(photo_three, "photo_three.jpg");
+                // console.log(file);
+
+                const photo_3 = new FormData();
+
+                // photo_3.append("file", file === "" ? new File([], "") : file);
+                photo_3.append("photo_3", file);
+
+                // setShowCount(true);
+                setTimeout(() => {
+                    dispatch(__takePhoto({ roomId, formdata: photo_3 })).then(
+                        (res) => {
+                            console.log("사진전송 res --->", res);
+                        }
+                    );
+                }, 5000);
+            });
+    };
+
+    const onSubmitHandler_4 = () => {
+        html2canvas(document.querySelector("#picture_4"))
+            .then((canvas) => {
+                let photo_four =
+                    (canvas.toDataURL("image/jpg"), "photo_four.jpg");
+                photo_four = photo_four.replace("data:image/jpg;base64,", "");
+                //console.log(canvas.toDataURL(photo_four));
+                setPhoto_four(canvas.toDataURL(photo_four));
+                //saveAs(canvas.toDataURL("image/jpg"), "photo_four.jpg");
+                // 사진을 저장함과 동시에 state에 넣어주기...
+            })
+            .then(() => {
+                const file = dataURLtoFile(photo_four, "photo_four.jpg");
+                // console.log(file);
+
+                const photo_4 = new FormData();
+
+                // photo_4.append("file", file === "" ? new File([], "") : file);
+                photo_4.append("photo_4", file);
+
+                // setShowCount(true);
+                setTimeout(() => {
+                    dispatch(__takePhoto({ roomId, formdata: photo_4 })).then(
+                        (res) => {
+                            console.log("사진전송 res --->", res);
+                        }
+                    );
+                }, 5000);
+            });
+    };
 
     return (
         <StDiv photo_shoot>
-            <StDiv capture_area id="capture_area">
-                <img src={rooms?.frameUrl} alt="frame url" />
-                <StH3>Photo-Pie</StH3>
-                <StDiv picture_box id="picture-box">
-                    {/* <StDiv picture id="picture_1"> */}
-                    <video
-                        id="picture_1"
-                        ref={videoRef}
-                        autoPlay
-                        playsInline
-                        // width={"200px"}
-                        // height={"300px"}
-                        // muted={!muted}
-                        // hidden={!cameraOff}
-                    />
-                    {/* </StDiv> */}
-                    <StDiv picture id="picture_2">
-                        picture_2
-                    </StDiv>
-                    <StDiv picture id="picture_3">
-                        picture_3
-                    </StDiv>
-                    <StDiv picture id="picture_4">
-                        picture_4
-                    </StDiv>
+            <StDiv capture_area>
+                <StDiv frame_box>
+                    <StImg src={rooms?.frameUrl} alt="frame url" />
+                    {subscribers.length > 0 ? (
+                        <StDiv picture_box id="picture-box">
+                            {publisher !== undefined ? (
+                                <>
+                                    <StDiv picture id="picture_1">
+                                        <UserVideoComponent
+                                            streamManager={mainStreamManager}
+                                        />
+                                    </StDiv>
+                                    <StDiv picture id="picture_2">
+                                        <UserVideoComponent
+                                            streamManager={subscribers[0]}
+                                        />
+                                    </StDiv>
+                                    <StDiv picture id="picture_3">
+                                        <UserVideoComponent
+                                            streamManager={subscribers[1]}
+                                        />
+                                    </StDiv>
+                                    <StDiv picture id="picture_4">
+                                        <UserVideoComponent
+                                            streamManager={subscribers[2]}
+                                        />
+                                    </StDiv>
+                                </>
+                            ) : null}
+                        </StDiv>
+                    ) : (
+                        <StDiv picture_box id="picture-box">
+                            <StDiv picture>대기중... </StDiv>
+                            <StDiv picture>대기중...</StDiv>
+                            <StDiv picture>대기중...</StDiv>
+                            <StDiv picture>대기중...</StDiv>
+                        </StDiv>
+                    )}
                 </StDiv>
             </StDiv>
             <StDiv down_btn>
-                {showCount && (
+                <StDiv room_info>
+                    <h2>이곳의 이름은?</h2>
+                    <h2>{videoRooms.roomName}</h2>
+                    <p>
+                        초대코드 복사
+                        <BiCopy
+                            onClick={() => copyClipBoard(videoRooms.roomCode)}
+                            style={{ cursor: "pointer" }}
+                        />
+                    </p>
+                </StDiv>
+                {/* {showCount && (
                     <StDiv Count>
                         <Count />
                     </StDiv>
-                )}
-                <button
-                    style={{
-                        backgroundColor: "#ebe7e1",
-                        fontWeight: "bold",
-                        fontSize: "15px",
-                        width: "200px",
-                        height: "35px",
-                        boxShadow: "7px 7px 0px 1px gray",
-                        cursor: "pointer",
-                        border: 0,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "5px",
-                    }}
-                    id="download"
-                >
-                    <IoCameraSharp size={20} />
-                    촬영하기
-                </button>
-                <button
-                    id="pic_btn1"
-                    onClick={() => {
-                        onSubmitHandler_1(roomId);
-                    }}
-                >
-                    내 촬영하기
-                </button>
-
-                <button onClick={() => navigate(`/loading/${roomId}`)}>
-                    사진 전송하러 가기
-                </button>
+                )} */}
+                <StDiv all_btn>
+                    {role === "leader" ? (
+                        <StDiv btn_box>
+                            <Button
+                                camera_btn
+                                onClick={() => {
+                                    onSubmitHandler_1(roomId);
+                                }}
+                            >
+                                내꺼다이씌
+                            </Button>
+                            <Button
+                                camera_btn
+                                onClick={() => {
+                                    onSubmitHandler_2(roomId);
+                                }}
+                            >
+                                김치해새꺄
+                            </Button>
+                            <Button
+                                camera_btn
+                                onClick={() => {
+                                    onSubmitHandler_3(roomId);
+                                }}
+                            >
+                                다음나와이씌
+                            </Button>
+                            <Button
+                                camera_btn
+                                onClick={() => {
+                                    onSubmitHandler_4(roomId);
+                                }}
+                            >
+                                마지막김치해
+                            </Button>
+                        </StDiv>
+                    ) : null}
+                    <StDiv other_btn>
+                        <Button
+                            photo_trans
+                            onClick={() => navigate(`/loading/${roomId}`)}
+                        >
+                            사진 전송하러 가기
+                        </Button>
+                        <Button
+                            photo_trans
+                            // onClick={() => navigate(`/loading/${roomId}`)}
+                        >
+                            방 나가기
+                        </Button>
+                    </StDiv>
+                </StDiv>
             </StDiv>
         </StDiv>
     );
@@ -174,14 +417,23 @@ const StDiv = styled.div`
     ${(props) =>
         props.capture_area &&
         css`
-            background-color: rgb(0, 0, 0);
+            background-color: #eee8dc;
             width: 500px;
             height: 750px;
             margin-bottom: 20px;
         `}
+        ${(props) =>
+        props.frame_box &&
+        css`
+            position: relative;
+        `}
     ${(props) =>
         props.picture_box &&
         css`
+            position: absolute;
+            top: 85px;
+            left: 0;
+            z-index: 100;
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
@@ -190,21 +442,28 @@ const StDiv = styled.div`
     ${(props) =>
         props.picture &&
         css`
-            background-color: white;
             width: 200px;
             height: 300px;
             text-align: center;
             line-height: 300px;
+            font-size: 20px;
         `}
     ${(props) =>
         props.down_btn &&
         css`
             display: flex;
             flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
-            gap: 10px;
+            gap: 160px;
             width: 300px;
+            height: 750px;
         `}
+    /* ${(props) =>
+        props.room_info &&
+        css`
+            margin-bottom: 200px;
+        `} */
     ${(props) =>
         props.Count &&
         css`
@@ -212,14 +471,36 @@ const StDiv = styled.div`
             height: 50px;
             display: flex;
         `}
+        ${(props) =>
+        props.all_btn &&
+        css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+        `}
+        ${(props) =>
+        props.btn_box &&
+        css`
+            width: 300px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        `}
+        ${(props) =>
+        props.other_btn &&
+        css`
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        `}
 `;
 
-const StH3 = styled.h3`
-    text-align: center;
-    padding: 20px;
-    color: white;
-    font-size: 30px;
-    margin: 0 0 15px 0;
+const StImg = styled.img`
+    position: absolute;
+    top: 0;
+    left: 0;
 `;
 
 export default PhotoShoot;
