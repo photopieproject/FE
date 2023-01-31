@@ -14,6 +14,8 @@ const SmsMessage = ({ setOkConfirm, setPhoneNumber, phoneNumber }) => {
   const [codeNumber, setCodeNumber] = useState();
   const [checkP, setCheckP] = useState();
 
+  console.log(codeNumber);
+
   const sendMessageHandler = (phoneNumber) => {
     __SMSSend(phoneNumber)
       .then((res) => {
@@ -21,7 +23,6 @@ const SmsMessage = ({ setOkConfirm, setPhoneNumber, phoneNumber }) => {
         setPnDisabled(true);
         setShowInput(true);
         console.log(res.data.data1);
-        // dispatch(__SMSSend(phoneNum));
       })
       .catch((error) => console.log(error));
     // dispatch(__SMSSend(Number(message)));

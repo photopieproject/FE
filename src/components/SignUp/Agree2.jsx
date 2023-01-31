@@ -10,7 +10,6 @@ import {
   // __SMSSends,
 } from "../../redux/modules/loginSlice";
 import { useInput } from "../../lib/utils/useInput";
-// import SmsCount from "../Count/SmsCount"; ㅇㅇ
 // import { useDispatch } from "react-redux";
 
 function Agree2({ setShow }) {
@@ -20,21 +19,12 @@ function Agree2({ setShow }) {
   const [marketingCheck, setMarketingCheck] = useState(false);
   const [privacyCheck, setPrivacyCheck] = useState(false);
   const [nextDisabled, setNextDisabled] = useState(true);
-  // const [msgDisabled, setMsgDisabled] = useState(false);ㅇㅇ
-  // const [pnDisabled, setPnDisabled] = useState(false); ㅇㅇ
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
   // const navigate = useNavigate();
   const outside = useRef();
-  // const [phoneNum, setPhoneNum] = useInput(); ㅇㅇ
-  // const [confirmNumber, setConfirmNumber] = useInput(); ㅇㅇ
-  // const [codeNumber, setCodeNumber] = useState(); ㅇㅇ
   const [checkP, setCheckP] = useState();
-  // const [showInput, setShowInput] = useState(false);ㅇㅇ
-  // const [okConfirm, setOkConfirm] = useState(false); ㅇㅇ
-  // const dispatch = useDispatch();
-  // console.log(codeNumber); ㅇㅇ
 
   const allBtnEvent = () => {
     if (allCheck === false) {
@@ -98,51 +88,12 @@ function Agree2({ setShow }) {
   }, [ageCheck, privacyCheck, useCheck, marketingCheck]);
 
   useEffect(() => {
-    if (
-      ageCheck === true &&
-      privacyCheck === true &&
-      useCheck === true
-      // okConfirm === true ㅇㅇ
-    ) {
+    if (ageCheck === true && privacyCheck === true && useCheck === true) {
       setNextDisabled(!nextDisabled);
     } else {
       setNextDisabled(true);
     }
-  }, [
-    ageCheck,
-    privacyCheck,
-    useCheck,
-    //  okConfirm
-  ]);
-
-  // const sendMessageHandler = (phoneNum) => {
-  //   __SMSSend(phoneNum)
-  //     .then((res) => {
-  //       setCodeNumber(res.data.data1);
-  //       setPnDisabled(true);
-  //       setShowInput(true);
-  //       console.log(res.data.data1);
-  //       // dispatch(__SMSSend(phoneNum));
-  //     })
-  //     .catch((error) => console.log(error));
-  //   // dispatch(__SMSSend(Number(message)));
-  //   // console.log(message);
-  //   // if(res === 200){
-  //   //   setShowInput()
-  //   // }
-  // }; ㅇㅇ
-
-  // const MessageConfirmHandler = () => {
-  //   if (codeNumber === confirmNumber) {
-  //     setCheckP("인증되었습니다.");
-  //     setOkConfirm(true);
-  //     setMsgDisabled(true);
-  //   } else if (codeNumber !== confirmNumber) {
-  //     setCheckP("인증번호를 확인해주세요.");
-  //     setOkConfirm(false);
-  //     setMsgDisabled(false);
-  //   }
-  // };ㅇㅇ
+  }, [ageCheck, privacyCheck, useCheck]);
 
   //삼항연산자
 
@@ -289,35 +240,6 @@ function Agree2({ setShow }) {
   );
 }
 
-const StInput = styled.input`
-  ${(props) =>
-    props.SMSInput &&
-    css`
-      width: 200px;
-      height: 35px;
-      margin-right: 5px;
-      background-color: #f2ebde;
-      border: none;
-    `}
-`;
-
-// const StP = styled.p`
-//   ${(props) =>
-//     props.SMSMsg &&
-//     css`
-//       margin: 15px 0 5px 0;
-//       font-weight: bold;
-//       font-size: 18px;
-//     `}
-//   ${(props) =>
-//     props.OkConfirmP &&
-//     css`
-//       font-size: 13px;
-//       color: gray;
-//       margin: 0 auto;
-//     `}
-// `; ㅇㅇ
-
 const StDiv = styled.div`
   ${(props) =>
     props.AgreeBox &&
@@ -327,6 +249,7 @@ const StDiv = styled.div`
       border: 1px solid black;
       color: black;
     `}
+
   ${(props) =>
     props.Modal1 &&
     css`

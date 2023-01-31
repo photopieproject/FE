@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-function ResetPW({ setShow }) {
+function ResetPW() {
   //삼항연산자
 
   return (

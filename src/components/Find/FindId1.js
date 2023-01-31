@@ -1,79 +1,54 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { useInput } from "../../lib/utils/useInput";
-import { __findPW } from "../../redux/modules/loginSlice";
+import { __findID } from "../../redux/modules/loginSlice";
 import SmsMessage from "../SMS/SmsMessage";
 
-function FindPWMsg({ setShow }) {
+function FindId1({ setShow }) {
   const [nextDisabled, setNextDisabled] = useState(true);
-  const [userId, setUserId] = useInput();
+  // const [userId, setUserId] = useInput();
   const [okConfirm, setOkConfirm] = useState(false);
   const [phoneNumber, setPhoneNumber] = useInput();
 
-  const onSubmitFindPWMsg = (e) => {
-    console.log("myID:", userId);
+  const onSubmitFindId = (e) => {
+    // console.log("myID:", userId);
     e.preventDefault();
-    if (userId === null) {
-      alert("아이디를 입력해주세요!");
+    if (okConfirm === true) {
+      setShow(true);
       return;
     }
-    __findPW({
+    __findID({
       //서버로 요청하는 부분
-      userId,
-      // phoneNumber,
+      // userId,
+      phoneNumber,
     })
       .then((res) => {
         //서버에서 받아온 부분
 
-        console.log("signup res: ", res);
+        console.log("findid res: ", res);
         // alert(res.data.msg);
         localStorage.setItem("id", res.headers.authorization);
-        setShow(false);
-        // navigate("/login");
       })
       .catch((err) => {
         console.log("error: ", err);
       });
   };
 
-  useEffect(
-    () => {
-      console.log(okConfirm);
-      if (userId !== null && okConfirm === true) {
-        setNextDisabled(!setNextDisabled);
-        setNextDisabled(false);
-      } else if (userId === null && okConfirm === false) {
-        setNextDisabled(true);
-      }
-    },
-    [userId],
-    [okConfirm]
-  );
-
-  // useEffect(
-  //   userId !== undefined && okConfirm === true
-  //     ? setNextDisabled(!setNextDisabled)
-  //     : setNextDisabled(true)
-  // );
+  useEffect(() => {
+    console.log(okConfirm);
+    if (okConfirm === true) {
+      setNextDisabled(!setNextDisabled);
+    } else {
+      setNextDisabled(true);
+    }
+  }, [okConfirm]);
 
   return (
     <div>
-      <StDiv FindPWMsgBox>
-        <StDiv FindPWMsg>
-          <StDiv FindPw>비밀번호 찾기</StDiv>
-          <StDiv IdPw>
-            ID
-            <br />
-            <StInput
-              LoginInput2
-              type="text"
-              id="myID"
-              value={userId}
-              // disabled={checkUserId}
-              onChange={setUserId}
-              placeholder="ID를 입력해주세요"
-            />
-          </StDiv>
+      <StDiv FindIdMsgBox>
+        <StDiv FindIdMsg>
+          <StDiv FindId>아이디 찾기</StDiv>
+
           <StDiv smsspace>
             <SmsMessage
               setOkConfirm={setOkConfirm}
@@ -84,7 +59,7 @@ function FindPWMsg({ setShow }) {
           <StDiv NextGoBtnBox>
             <StBtn
               NextGoBtn
-              onClick={onSubmitFindPWMsg}
+              onClick={onSubmitFindId}
               // onClick={() => setShow(false)}
               disabled={nextDisabled}
               nextDisabled={nextDisabled}
@@ -103,7 +78,7 @@ function FindPWMsg({ setShow }) {
 
 const StDiv = styled.div`
   ${(props) =>
-    props.FindPWMsg &&
+    props.FindIdMsg &&
     css`
       width: 500px;
       height: 600px;
@@ -115,7 +90,7 @@ const StDiv = styled.div`
     `}
 
   ${(props) =>
-    props.FindPw &&
+    props.FindId &&
     css`
       font-size: 30px;
       font-weight: bold;
@@ -196,4 +171,4 @@ const StBtn = styled.button`
       }
     `}
 `;
-export default FindPWMsg;
+export default FindId1;

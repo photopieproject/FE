@@ -6,11 +6,10 @@ import { useState } from "react";
 
 const FindPW = () => {
   const [show, setShow] = useState(false);
-  // show =1 Registration...
-  // show =2 Agree2...
 
   return (
     <div>{show === true ? <ResetPW /> : <FindPWMsg setShow={setShow} />}</div>
+    // <div>{show === true ? <agree /> : <regist setShow={setShow} />}</div>
   );
 };
 export default FindPW;
