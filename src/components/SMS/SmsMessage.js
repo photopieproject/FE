@@ -8,8 +8,8 @@ const SmsMessage = ({
   setOkConfirm,
   phoneNumber,
   setPhoneNumber,
-  codeNumber,
-  setCodeNumber,
+  // codeNumber,
+  // setCodeNumber,
 }) => {
   console.log(setOkConfirm);
   const [msgDisabled, setMsgDisabled] = useState(false);
@@ -17,8 +17,8 @@ const SmsMessage = ({
   const [pnDisabled, setPnDisabled] = useState(false);
   const [confirmNumber, setConfirmNumber] = useInput();
   const [checkP, setCheckP] = useState();
+  const [codeNumber, setCodeNumber] = useState();
   //   const [okConfirm, setOkConfirm] = useState(false);
-  // const [codeNumber, setCodeNumber] = useState();
 
   console.log(codeNumber);
 

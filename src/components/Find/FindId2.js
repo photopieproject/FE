@@ -1,4 +1,5 @@
 // import { useEffect, useState } from "react";
+import { data } from "jquery";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 // import { useInput } from "../../lib/utils/useInput";
@@ -12,11 +13,11 @@ function FindId2({ setShow }) {
   // const [phoneNumber, setPhoneNumber] = useInput();
   const navigate = useNavigate();
 
-  const userIdList = [
-    {
-      id: "asdasd1",
-    },
-  ];
+  // const userIdList = [
+  //   {
+  //     id: "asdasd1",
+  //   },
+  // ];
 
   const onSubmitFoundId = (e) => {
     // console.log("myID:", userId);
@@ -51,6 +52,7 @@ function FindId2({ setShow }) {
   //     setNextDisabled(true);
   //   }
   // }, [okConfirm]);
+  console.log(data);
 
   return (
     <div>
@@ -59,16 +61,7 @@ function FindId2({ setShow }) {
           <StDiv FindId>아이디 찾기</StDiv>
           <StDiv IDBox>
             <p>고객님의 ID는</p>
-            {/* map돌려야하는가? */}
-            {/* {userIdList.map((Id) => (
-              <StDiv IDList>
-                <StP
-                  Ids */}
-            {/* id={Id.userId} value={Id.userId} */}
-            {/* /> */}
             asdasd1
-            {/* </StDiv> */}
-            {/* ))} */}
             <p>입니다.</p>
           </StDiv>
 

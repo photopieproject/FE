@@ -38,15 +38,12 @@ const Registration = () => {
   };
 
   const PWConfirmChk = () => {
-    if (password === PWConfirm) {
+    if (password !== PWConfirm || password === "") {
+      setPWConfirmP(<StPs>입력한 비밀번호와 일치하지 않습니다.</StPs>);
+    } else if (password === PWConfirm) {
       setPWConfirmP(<StPs2>비밀번호 확인되었습니다.</StPs2>);
-    } else if (password !== PWConfirm) {
-      setPWConfirmP(<StPs2>입력한 비밀번호와 일치하지 않습니다.</StPs2>);
-    } else if (password === undefined) {
-      setPWConfirmP(<StPs2>null</StPs2>);
     }
   };
-
   // const hasNotSameError = () => {
   //   password !== PWConfirm ? setPWConfirmP("입력한 비밀번호와 일치하지 않습니다.") : setPWConfirmP(null);
   // };
