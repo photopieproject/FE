@@ -11,6 +11,8 @@ import { BiCopy } from "react-icons/bi";
 import Button from "../components/button/Button";
 import { OpenVidu } from "openvidu-browser";
 import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
+import { __outPhotoRoom } from "../redux/modules/videoSlice";
+import Swal from "sweetalert2";
 
 const PhotoShoot = () => {
     const dispatch = useDispatch();
@@ -74,14 +76,16 @@ const PhotoShoot = () => {
 
             mysession.on("streamCreated", (event) => {
                 let subscriber = mysession.subscribe(event.stream, undefined);
-                let subscriberList = subscribers;
-                subscriberList.push(subscriber);
-                setSubscribers([...subscriberList]);
-                // setSubscribers([...subscribers, ...subscriberList]);
-                console.log("스트림 생성--->", subscribers.length, session);
-                console.log("sub--->", subscriber);
-                console.log("subs --->", subscribers);
-                console.log("sub list --->", subscriberList);
+                if (!subscriber.videos[0]) {
+                    let subscriberList = subscribers;
+                    subscriberList.push(subscriber);
+                    setSubscribers([...subscriberList]);
+                    // setSubscribers([...subscribers, ...subscriberList]);
+                    console.log("스트림 생성--->", subscribers.length, session);
+                    console.log("sub--->", subscriber);
+                    console.log("subs --->", subscribers);
+                    console.log("sub list --->", subscriberList);
+                }
 
                 // setIsConnect(true);
                 // dispatch(getChatInfoDB(sessionId))
@@ -90,7 +94,15 @@ const PhotoShoot = () => {
             // 나간 사람 삭제 안됨
             mysession.on("streamDestroyed", (event) => {
                 event.preventDefault();
+                // const delSub = event.stream.streamManager.stream.streamId;
+                // delSub.stream.streamId
                 // setOtherClose(true);
+                // const filterSub = subscribers.filter(
+                //     (sub) => sub.stream.streamId === delSub
+                // );
+                // setSubscribers(filterSub);
+                // console.log("filter sub arr--->", subscribers);
+                // sub !== event.stream.streamManager
                 console.log("???", event.stream.streamManager);
                 console.log("event --->", event);
             });
@@ -174,7 +186,7 @@ const PhotoShoot = () => {
                 photo_one = photo_one.replace("data:image/jpg;base64,", "");
                 //console.log(canvas.toDataURL(photo_one));
                 setPhoto_one(canvas.toDataURL(photo_one));
-                //saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
+                // saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
                 // 사진을 저장함과 동시에 state에 넣어주기...
             })
             .then(() => {
@@ -205,7 +217,7 @@ const PhotoShoot = () => {
                 photo_two = photo_two.replace("data:image/jpg;base64,", "");
                 //console.log(canvas.toDataURL(photo_two));
                 setPhoto_two(canvas.toDataURL(photo_two));
-                //saveAs(canvas.toDataURL("image/jpg"), "photo_two.jpg");
+                // saveAs(canvas.toDataURL("image/jpg"), "photo_two.jpg");
                 // 사진을 저장함과 동시에 state에 넣어주기...
             })
             .then(() => {
@@ -290,6 +302,19 @@ const PhotoShoot = () => {
             });
     };
 
+    const outRoomsHandler = (roomId) => {
+        dispatch(__outPhotoRoom(roomId)).then((res) => {
+            console.log("res--->", res);
+            if (res.payload.statusCode === 200) {
+                Swal.fire("Success", res.payload.statusMsg, "success");
+                navigate("/roomOpen");
+            } else if (res.payload.data.statusCode === 400) {
+                Swal.fire("Error", res.payload.data.statusMsg, "error");
+                navigate("/roomOpen");
+            }
+        });
+    };
+
     return (
         <StDiv photo_shoot>
             <StDiv capture_area>
@@ -351,6 +376,7 @@ const PhotoShoot = () => {
                 )} */}
                 <StDiv all_btn>
                     {role === "leader" ? (
+                        // userCount 4명이기 전까지는 촬영시작하기 버튼만 보이기
                         <StDiv btn_box>
                             <Button
                                 camera_btn
@@ -395,7 +421,7 @@ const PhotoShoot = () => {
                         </Button>
                         <Button
                             photo_trans
-                            // onClick={() => navigate(`/loading/${roomId}`)}
+                            onClick={() => outRoomsHandler(roomId)}
                         >
                             방 나가기
                         </Button>
