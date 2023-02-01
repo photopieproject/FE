@@ -205,7 +205,7 @@ const PhotoShoot = () => {
                             console.log("사진전송 res --->", res);
                         }
                     );
-                }, 5000);
+                }, 3000);
             });
     };
 
@@ -236,7 +236,7 @@ const PhotoShoot = () => {
                             console.log("사진전송 res --->", res);
                         }
                     );
-                }, 5000);
+                }, 3000);
             });
     };
 
@@ -267,7 +267,7 @@ const PhotoShoot = () => {
                             console.log("사진전송 res --->", res);
                         }
                     );
-                }, 5000);
+                }, 3000);
             });
     };
 
@@ -298,7 +298,7 @@ const PhotoShoot = () => {
                             console.log("사진전송 res --->", res);
                         }
                     );
-                }, 5000);
+                }, 3000);
             });
     };
 

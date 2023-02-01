@@ -68,10 +68,10 @@ const PhotoSave = () => {
             console.log("res--->", res);
             if (res.payload.statusCode === 200) {
                 Swal.fire("Success", res.payload.statusMsg, "success");
-                // navigate("/");
+                navigate("/");
             } else if (res.payload.data.statusCode === 400) {
                 Swal.fire("Error", res.payload.data.statusMsg, "error");
-                // navigate("/");
+                navigate("/");
             }
         });
     };
@@ -91,8 +91,12 @@ const PhotoSave = () => {
                             alt="frame url"
                         />
                         <StDiv picture_box>
-                            {roomPhotos.map((photo, i) => (
-                                <img src={photo} alt={`photo_${i + 1}`} />
+                            {roomPhotos?.map((photo, i) => (
+                                <img
+                                    key={i}
+                                    src={photo}
+                                    alt={`photo_${i + 1}`}
+                                />
                             ))}
                         </StDiv>
                     </StDiv>
