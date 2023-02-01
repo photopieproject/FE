@@ -10,14 +10,15 @@ function FindId1({ setShow }) {
   // const [userId, setUserId] = useInput();
   const [okConfirm, setOkConfirm] = useState(false);
   const [phoneNumber, setPhoneNumber] = useInput();
-  const [codeNumber, setCodeNumber] = useInput();
+  // const [codeNumber, setCodeNumber] = useInput();
   // const [confirmNumber, setConfirmNumber] = useInput();
 
   const onSubmitFindId = (e) => {
     e.preventDefault();
+    setShow(true);
     __findID({
       //서버로 요청하는 부분
-      codeNumber,
+      // codeNumber,
       phoneNumber, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
     })
       .then((res) => {
@@ -41,7 +42,6 @@ function FindId1({ setShow }) {
     console.log(okConfirm);
     if (okConfirm === true) {
       setNextDisabled(!setNextDisabled);
-      setShow(true);
     } else {
       setNextDisabled(true);
     }
@@ -58,8 +58,8 @@ function FindId1({ setShow }) {
               setOkConfirm={setOkConfirm}
               phoneNumber={phoneNumber}
               setPhoneNumber={setPhoneNumber}
-              codeNumber={codeNumber}
-              setCodeNumber={setCodeNumber}
+              // codeNumber={codeNumber}
+              // setCodeNumber={setCodeNumber}
             />
           </StDiv>
           <StDiv NextGoBtnBox>
