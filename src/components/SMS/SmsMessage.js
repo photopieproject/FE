@@ -4,17 +4,29 @@ import { useInput } from "../../lib/utils/useInput";
 import SmsCount from "../Count/SmsCount";
 import { __SMSSend } from "../../redux/modules/loginSlice";
 
-const SmsMessage = ({ setOkConfirm, setPhoneNumber, phoneNumber }) => {
+const SmsMessage = ({
+  setOkConfirm,
+  phoneNumber,
+  setPhoneNumber,
+  codeNumber,
+  setCodeNumber,
+}) => {
   console.log(setOkConfirm);
   const [msgDisabled, setMsgDisabled] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [pnDisabled, setPnDisabled] = useState(false);
   const [confirmNumber, setConfirmNumber] = useInput();
-  //   const [okConfirm, setOkConfirm] = useState(false);
-  const [codeNumber, setCodeNumber] = useState();
   const [checkP, setCheckP] = useState();
+  //   const [okConfirm, setOkConfirm] = useState(false);
+  // const [codeNumber, setCodeNumber] = useState();
 
   console.log(codeNumber);
+
+  // 백에서 data1에 넣어주면 안돼고
+  // 프론트에서 휴대폰번호랑 인증번호를 보냈을 때
+  // 그 휴대폰번호에 대한 인증번호를 둘 다 백이 갖고있으면
+  // 휴대폰이랑 인증번호를 우리한테 보내서
+  // 그게 대조했을 떄 맞으면 빽에서 ㅇㅋ 해야함
 
   const sendMessageHandler = (phoneNumber) => {
     __SMSSend(phoneNumber)
@@ -44,6 +56,7 @@ const SmsMessage = ({ setOkConfirm, setPhoneNumber, phoneNumber }) => {
       setMsgDisabled(false);
     }
   };
+
   return (
     <StDiv SMSSend>
       <StP SMSMsg>SMS 문자 인증</StP>

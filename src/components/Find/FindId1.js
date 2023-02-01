@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+import Swal from "sweetalert2";
 import { useInput } from "../../lib/utils/useInput";
 import { __findID } from "../../redux/modules/loginSlice";
 import SmsMessage from "../SMS/SmsMessage";
@@ -9,25 +10,27 @@ function FindId1({ setShow }) {
   // const [userId, setUserId] = useInput();
   const [okConfirm, setOkConfirm] = useState(false);
   const [phoneNumber, setPhoneNumber] = useInput();
+  const [codeNumber, setCodeNumber] = useInput();
+  // const [confirmNumber, setConfirmNumber] = useInput();
 
   const onSubmitFindId = (e) => {
-    // console.log("myID:", userId);
     e.preventDefault();
-    if (okConfirm === true) {
-      setShow(true);
-      return;
-    }
     __findID({
       //서버로 요청하는 부분
-      // userId,
-      phoneNumber,
+      codeNumber,
+      phoneNumber, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
     })
       .then((res) => {
         //서버에서 받아온 부분
 
         console.log("findid res: ", res);
         // alert(res.data.msg);
-        localStorage.setItem("id", res.headers.authorization);
+        if (res.data.statusCode === 200) {
+          Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
+        } else {
+          Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
+          // navigate("/login");
+        }
       })
       .catch((err) => {
         console.log("error: ", err);
@@ -38,6 +41,7 @@ function FindId1({ setShow }) {
     console.log(okConfirm);
     if (okConfirm === true) {
       setNextDisabled(!setNextDisabled);
+      setShow(true);
     } else {
       setNextDisabled(true);
     }
@@ -54,17 +58,18 @@ function FindId1({ setShow }) {
               setOkConfirm={setOkConfirm}
               phoneNumber={phoneNumber}
               setPhoneNumber={setPhoneNumber}
+              codeNumber={codeNumber}
+              setCodeNumber={setCodeNumber}
             />
           </StDiv>
           <StDiv NextGoBtnBox>
             <StBtn
               NextGoBtn
               onClick={onSubmitFindId}
-              // onClick={() => setShow(false)}
               disabled={nextDisabled}
               nextDisabled={nextDisabled}
               type="button"
-              name="checkbutton"
+              name="nextgobutton"
               value=""
             >
               다음
