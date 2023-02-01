@@ -9,6 +9,7 @@ const initialState = {
     token: [],
     photos: [],
     photoinfo: [],
+    loadRoomInfo: [],
     isLoading: true,
     error: null,
 };
@@ -67,6 +68,22 @@ export const __takeFrame = createAsyncThunk(
     }
 );
 
+// 전체 사진 가져오기 관련
+export const __completePhoto = createAsyncThunk(
+    "completePhoto",
+    async (payload, thunkAPI) => {
+        console.log("payload :", payload);
+        try {
+            const data = await apis.completePhoto(payload);
+            console.log("POST 추가 데이터", data);
+            return thunkAPI.fulfillWithValue(data.data);
+        } catch (err) {
+            console.log(err);
+            return thunkAPI.rejectWithValue(err);
+        }
+    }
+);
+
 export const photoSlice = createSlice({
     name: "photo",
     initialState,
@@ -113,6 +130,21 @@ export const photoSlice = createSlice({
             // console.log("state값", state);
         },
         [__takeFrame.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        // 전체 사진 가져오기 관련
+        [__completePhoto.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__completePhoto.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.loadRoomInfo = action.payload;
+            console.log("action-서버값", action.payload);
+            // console.log("state값", state);
+        },
+        [__completePhoto.rejected]: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         },

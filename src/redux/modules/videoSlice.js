@@ -47,14 +47,14 @@ export const __enterPhotoRoom = createAsyncThunk(
     }
 );
 
-// 포토부스 방 코드로 입장
+// 방 종료
 export const __outPhotoRoom = createAsyncThunk(
     "outPhotoRoom",
     async (payload, thunkAPI) => {
         try {
             const data = await apis.outPhotoRoom(payload);
-            console.log("payload: ", payload); // roomCode 넘겨받아야 함
-            console.log("enterPhotoRoom: ", data);
+            console.log("payload: ", payload);
+            console.log("outphotoRoom data: ", data);
             return thunkAPI.fulfillWithValue(data.data); // 필요한 최소한의 정보만 넣어줘야함
         } catch (err) {
             console.log(err);
@@ -117,20 +117,14 @@ export const videoSlice = createSlice({
             // catch 된 error 객체를 state.error에 넣습니다.
         },
 
-        // 포토부스 방 코드로 입장
+        // 방 종료
         [__outPhotoRoom.pending]: (state) => {
             state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
         },
+        // 이 부분 삭제하는 거 수ㅇㅐ야함
         [__outPhotoRoom.fulfilled]: (state, action) => {
             state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.videoRooms = action.payload.data1;
-            state.videoInfos = [
-                {
-                    sessionId: action.payload.data1.sessionId,
-                    token: action.payload.data1.token,
-                    role: action.payload.data1.role,
-                },
-            ];
+            state.videoRooms = action.payload;
             // console.log("action.payload: ", action.payload);
             // console.log("state.posts: ", state.posts);
         },
