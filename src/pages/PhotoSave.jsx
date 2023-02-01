@@ -92,11 +92,14 @@ const PhotoSave = () => {
                         />
                         <StDiv picture_box>
                             {roomPhotos?.map((photo, i) => (
-                                <img
-                                    key={i}
-                                    src={photo}
-                                    alt={`photo_${i + 1}`}
-                                />
+                                <StDiv picture>
+                                    <StImg
+                                        photo_img
+                                        key={i}
+                                        src={photo}
+                                        alt={`photo_${i + 1}`}
+                                    />
+                                </StDiv>
                             ))}
                         </StDiv>
                     </StDiv>
@@ -154,12 +157,9 @@ const StDiv = styled.div`
             width: 500px;
             height: 750px;
             margin-bottom: 20px;
-        `}
-        ${(props) =>
-        props.frame_box &&
-        css`
             position: relative;
         `}
+        ${(props) => props.frame_box && css``}
     ${(props) =>
         props.picture_box &&
         css`
@@ -180,8 +180,8 @@ const StDiv = styled.div`
             text-align: center;
             line-height: 300px;
             /* background-image: url("/image/2-8.jpg"); */
-            background-position: center;
-            background-size: cover;
+            /* background-position: center;
+            background-size: cover; */
         `}
     ${(props) =>
         props.picture2 &&
@@ -243,6 +243,12 @@ const StImg = styled.img`
             position: absolute;
             top: 0;
             left: 0;
+        `}
+    ${(props) =>
+        props.photo_img &&
+        css`
+            width: 200px;
+            height: 300px;
         `}
     ${(props) =>
         props.qrimg &&
