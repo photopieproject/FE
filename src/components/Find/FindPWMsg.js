@@ -36,19 +36,17 @@ function FindPWMsg({ setShow }) {
       });
   };
 
-  useEffect(
-    () => {
-      console.log(okConfirm);
-      if (userId !== null && okConfirm === true) {
-        setNextDisabled(!setNextDisabled);
-        setNextDisabled(false);
-      } else if (userId === null && okConfirm === false) {
-        setNextDisabled(true);
-      }
-    },
-    [userId],
-    [okConfirm]
-  );
+  // useEffect(
+  //   () => {
+  //     console.log(okConfirm);
+  //     if (userId !== null && okConfirm === true) {
+  //       setNextDisabled(!setNextDisabled);
+  //     } else if (userId === null && okConfirm === false) {
+  //       setNextDisabled(true);
+  //     }
+  //   },
+  //   [userId], [okConfirm]
+  // );
 
   // useEffect(
   //   userId !== undefined && okConfirm === true
@@ -86,8 +84,8 @@ function FindPWMsg({ setShow }) {
               NextGoBtn
               onClick={onSubmitFindPWMsg}
               // onClick={() => setShow(false)}
-              disabled={nextDisabled}
-              nextDisabled={nextDisabled}
+              disabled={!okConfirm}
+              nextDisabled={!okConfirm}
               type="button"
               name="checkbutton"
               value=""

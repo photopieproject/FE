@@ -68,26 +68,35 @@ const Login = () => {
                 placeholder="Password를 입력해주세요."
               />
             </StDiv>
-            <StBtn Forgot onClick={() => navigate("/findid")}>
+            {/* <StBtn Forgot onClick={() => navigate("/findid")}>
               아이디 찾기
             </StBtn>
             <StBtn Forgot onClick={() => navigate("/findpw")}>
               비밀번호 찾기
-            </StBtn>
+            </StBtn> */}
           </StDiv>
           <StDiv LoginBtnBox>
             <StBtn LoginBtn>ID 로그인</StBtn>
           </StDiv>
+          <StDiv social_login>
+            <a href={KAKAO_AUTH}>
+              <StBtn LoginBtnKakao>Kakao 로그인</StBtn>
+            </a>
+            {/* <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile&https://www.googleapis.com/auth/userinfo.email&response_type=code"> */}
+            <a href={GOOGLE_AUTH}>
+              <StBtn LoginBtnGoogle>Google 로그인</StBtn>
+              {/* `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_BASEURL}oauth/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code`; */}
+            </a>
+          </StDiv>
         </form>
-        <StDiv social_login>
-          <a href={KAKAO_AUTH}>
-            <StBtn LoginBtnKakao>Kakao 로그인</StBtn>
-          </a>
-          {/* <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile&https://www.googleapis.com/auth/userinfo.email&response_type=code"> */}
-          <a href={GOOGLE_AUTH}>
-            <StBtn LoginBtnGoogle>Google 로그인</StBtn>
-            {/* `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_BASEURL}oauth/google/callback&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code`; */}
-          </a>
+        <StDiv ForgotBox>
+          <StBtn ForgotID onClick={() => navigate("/findid")}>
+            ID 찾기
+          </StBtn>
+          /
+          <StBtn ForgotPW onClick={() => navigate("/findpw")}>
+            Password 찾기
+          </StBtn>
         </StDiv>
         <StDiv SignUpGoBox>
           계정이 없으신가요?
@@ -162,6 +171,14 @@ ${(props) =>
       flex-direction: column;
       align-items: center;
     `}
+        ${(props) =>
+    props.ForgotBox &&
+    css`
+      margin: 10px auto;
+      width: 155px;
+      height: 20px;
+      display: flex;
+    `}
 `;
 
 const StInput = styled.input`
@@ -184,13 +201,33 @@ const StInput = styled.input`
 
 const StBtn = styled.button`
   ${(props) =>
-    props.Forgot &&
+    props.ForgotID &&
     css`
+      width: 50px;
+      display: flex;
+      padding: 0px;
       font-size: 13px;
       background-color: transparent;
       color: #7d6945;
       border: none;
-      margin: 5px 0px -5px 220px;
+      /* margin: 5px 0px -5px 220px; */
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    `}
+  ${(props) =>
+    props.ForgotPW &&
+    css`
+      width: 100px;
+      padding: 0 0 0 5px;
+      display: flex;
+      font-size: 13px;
+      background-color: transparent;
+      color: #7d6945;
+      border: none;
+      /* margin: 5px 0px -5px 220px; */
       font-weight: bold;
       &:hover {
         cursor: pointer;

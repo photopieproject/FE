@@ -60,16 +60,15 @@ function FindId2({ setShow }) {
           <StDiv IDBox>
             <p>고객님의 ID는</p>
             {/* map돌려야하는가? */}
-            {userIdList.map((Id) => (
+            {/* {userIdList.map((Id) => (
               <StDiv IDList>
                 <StP
-                  Ids
-                  //  id={Id.userId} value={Id.userId}
-                />
-                asdasd1
-              </StDiv>
-            ))}
-
+                  Ids */}
+            {/* id={Id.userId} value={Id.userId} */}
+            {/* /> */}
+            asdasd1
+            {/* </StDiv> */}
+            {/* ))} */}
             <p>입니다.</p>
           </StDiv>
 
