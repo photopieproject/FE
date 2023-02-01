@@ -28,7 +28,7 @@ const Login = () => {
                     Swal.fire("Success", res.data.statusMsg, "success");
                 }
                 localStorage.setItem("id", res.headers.authorization);
-                // localStorage.setItem("userId", res.data.userId);
+                localStorage.setItem("nickname", res.data.data1.nickname);
                 navigate("/");
             })
             .catch((error) => {

@@ -1,7 +1,16 @@
 import styled, { css } from "styled-components";
 
 const Span = (props) => {
-    const { children, onClick, nav_logo, active_txt, cate_txt, qrcode } = props;
+    const {
+        children,
+        onClick,
+        nav_logo,
+        active_txt,
+        cate_txt,
+        qrcode,
+        nick,
+        hello,
+    } = props;
     return (
         <StSpan
             onClick={onClick}
@@ -9,6 +18,8 @@ const Span = (props) => {
             active_txt={active_txt}
             cate_txt={cate_txt}
             qrcode={qrcode}
+            nick={nick}
+            hello={hello}
         >
             {children}
         </StSpan>
@@ -53,6 +64,19 @@ const StSpan = styled.span`
             justify-content: center;
             align-items: center;
             gap: 5px;
+        `}
+        ${(props) =>
+        props.nick &&
+        css`
+            cursor: default;
+            color: #402c00;
+        `}
+            ${(props) =>
+        props.hello &&
+        css`
+            cursor: default;
+            color: #402c00;
+            margin-right: 20px;
         `}
 `;
 

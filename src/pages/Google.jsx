@@ -15,9 +15,11 @@ const Google = () => {
             console.log(res); // 토큰이 넘어올 것임
             if (res.data.statusCode === 200) {
                 const ACCESS_TOKEN = res.headers.authorization;
+                const nickname = res.data.data1.nickname;
 
-                localStorage.setItem("Authorization", ACCESS_TOKEN); //예시로 로컬에 저장함
-                // localStorage.setItem("nickname", res.data.data); //예시로 로컬에 저장함
+                localStorage.setItem("Authorization", ACCESS_TOKEN);
+                localStorage.setItem("nickname", nickname);
+
                 Swal.fire(
                     res.data.statusMsg,
                     "구글 로그인을 성공했습니다!",
