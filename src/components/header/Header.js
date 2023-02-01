@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 
 const Header = () => {
     const navigate = useNavigate();
+    const nickname = localStorage.getItem("nickname");
+    // const randomNick = Math.floor(Math.random() * 10000);
 
     return (
         <StDiv style={{ backgroundColor: "#EEE8DC" }}>
@@ -14,8 +16,16 @@ const Header = () => {
                     <StImg src="/image/logo.png" alt="logo" />
                 </Span>
                 <StDiv log_sign>
+                    {nickname ? (
+                        <Span hello>
+                            Hello!{" "}
+                            <Span nick>
+                                {nickname}님
+                                {/* {nickname ? nickname : `user${randomNick}`}님 */}
+                            </Span>
+                        </Span>
+                    ) : null}
                     {/* 토큰이 있으면 로그아웃으로 버튼 변경(누르면 쿠키삭제) / 토큰 없으면 로그인 버튼 */}
-                    {/*  */}
                     {!localStorage.getItem("id") &&
                     !localStorage.getItem("Authorization") ? (
                         <Span onClick={() => navigate("/login")}>로그인</Span>

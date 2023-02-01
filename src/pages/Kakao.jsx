@@ -17,9 +17,11 @@ const Kakao = () => {
             if (res.data.statusCode === 200) {
                 // const ACCESS_TOKEN = res.headers.authorization;
                 const TOKEN = res.headers.authorization;
+                const nickname = res.data.data1.nickname;
 
-                localStorage.setItem("Authorization", TOKEN); //예시로 로컬에 저장함
-                // localStorage.setItem("nickname", res.data.data); //예시로 로컬에 저장함
+                localStorage.setItem("Authorization", TOKEN);
+                localStorage.setItem("nickname", nickname);
+
                 Swal.fire(
                     res.data.msg,
                     "카카오 로그인을 성공했습니다!",
