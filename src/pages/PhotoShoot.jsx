@@ -61,7 +61,39 @@ const PhotoShoot = () => {
 
     const onbeforeunload = (event) => {
         event.preventDefault();
+        event.returnValue = "";
         leaveSession();
+    };
+
+    const outRoomsHandler = (roomId) => {
+        Swal.fire({
+            title: "방 나가기를 하면 연결이 끊어집니다",
+            text: "다시 되돌릴 수 없습니다",
+            icon: "warning",
+
+            showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+            confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
+            cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
+            confirmButtonText: "방 나가기", // confirm 버튼 텍스트 지정
+            cancelButtonText: "그대로 있기", // cancel 버튼 텍스트 지정
+
+            reverseButtons: true, // 버튼 순서 거꾸로
+        }).then((result) => {
+            // 만약 Promise리턴을 받으면,
+            if (result.isConfirmed) {
+                // 만약 모달창에서 confirm 버튼을 눌렀다면
+                dispatch(__outPhotoRoom(roomId)).then((res) => {
+                    console.log("res--->", res);
+                    if (res.payload.statusCode === 200) {
+                        Swal.fire("Success", res.payload.statusMsg, "success");
+                        navigate("/roomOpen");
+                    } else if (res.payload.data.statusCode === 400) {
+                        Swal.fire("Error", res.payload.data.statusMsg, "error");
+                        navigate("/roomOpen");
+                    }
+                });
+            }
+        });
     };
 
     useEffect(() => {
@@ -300,19 +332,6 @@ const PhotoShoot = () => {
                     );
                 }, 3000);
             });
-    };
-
-    const outRoomsHandler = (roomId) => {
-        dispatch(__outPhotoRoom(roomId)).then((res) => {
-            console.log("res--->", res);
-            if (res.payload.statusCode === 200) {
-                Swal.fire("Success", res.payload.statusMsg, "success");
-                navigate("/roomOpen");
-            } else if (res.payload.data.statusCode === 400) {
-                Swal.fire("Error", res.payload.data.statusMsg, "error");
-                navigate("/roomOpen");
-            }
-        });
     };
 
     return (

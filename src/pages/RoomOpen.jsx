@@ -32,6 +32,8 @@ const RoomOpen = () => {
                         "error"
                     );
                     localStorage.removeItem("id");
+                    localStorage.removeItem("nickname");
+                    localStorage.removeItem("Authorization");
                     navigate("/login");
                 }
             })
@@ -59,6 +61,8 @@ const RoomOpen = () => {
                         "error"
                     );
                     localStorage.removeItem("id");
+                    localStorage.removeItem("nickname");
+                    localStorage.removeItem("Authorization");
                     navigate("/login");
                 }
             })
