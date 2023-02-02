@@ -10,49 +10,31 @@ function FindPWMsg({ setShow }) {
   const [okConfirm, setOkConfirm] = useState(false);
   const [phoneNumber, setPhoneNumber] = useInput();
 
-  const onSubmitFindPWMsg = (e) => {
-    console.log("myID:", userId);
-    e.preventDefault();
-    if (userId === null) {
-      alert("아이디를 입력해주세요!");
-      return;
-    }
+  const findPwHandler = (phoneNumber) => {
     __findPW({
       //서버로 요청하는 부분
-      userId,
-      // phoneNumber,
+      // codeNumber,
+      phoneNumber, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
     })
       .then((res) => {
         //서버에서 받아온 부분
+        // setShowInput(true);
+        console.log("findid res: ", res.data);
 
-        console.log("signup res: ", res);
-        // alert(res.data.msg);
-        localStorage.setItem("id", res.headers.authorization);
-        setShow(false);
-        // navigate("/login");
+        if (res.data.statusCode === 200) {
+          // alert(res.data.msg);
+          // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
+          alert(res.data.statusMsg, res.data.statusCode, "success");
+        } else {
+          alert(res.data.msg, "아이디가 없습니다.", "error");
+          // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
+          // navigate("/login");
+        }
       })
       .catch((err) => {
         console.log("error: ", err);
       });
   };
-
-  // useEffect(
-  //   () => {
-  //     console.log(okConfirm);
-  //     if (userId !== null && okConfirm === true) {
-  //       setNextDisabled(!setNextDisabled);
-  //     } else if (userId === null && okConfirm === false) {
-  //       setNextDisabled(true);
-  //     }
-  //   },
-  //   [userId], [okConfirm]
-  // );
-
-  // useEffect(
-  //   userId !== undefined && okConfirm === true
-  //     ? setNextDisabled(!setNextDisabled)
-  //     : setNextDisabled(true)
-  // );
 
   return (
     <div>
@@ -82,8 +64,7 @@ function FindPWMsg({ setShow }) {
           <StDiv NextGoBtnBox>
             <StBtn
               NextGoBtn
-              onClick={onSubmitFindPWMsg}
-              // onClick={() => setShow(false)}
+              onClick={findPwHandler}
               disabled={!okConfirm}
               nextDisabled={!okConfirm}
               type="button"

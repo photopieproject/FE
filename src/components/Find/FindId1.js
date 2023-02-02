@@ -12,6 +12,8 @@ function FindId1({ setShow }) {
   const [phoneNumber, setPhoneNumber] = useInput();
   // const [codeNumber, setCodeNumber] = useInput();
   // const [confirmNumber, setConfirmNumber] = useInput();
+  const [isShow, setIsShow] = useState();
+  const [isUserId, setIsUserId] = useState();
 
   const onSubmitFindId = (e) => {
     e.preventDefault();
@@ -39,10 +41,10 @@ function FindId1({ setShow }) {
       });
   };
 
+  console.log(okConfirm);
   useEffect(() => {
-    console.log(okConfirm);
     if (okConfirm === true) {
-      setNextDisabled(!setNextDisabled);
+      setNextDisabled(false);
     } else {
       setNextDisabled(true);
     }
@@ -59,6 +61,8 @@ function FindId1({ setShow }) {
               setOkConfirm={setOkConfirm}
               phoneNumber={phoneNumber}
               setPhoneNumber={setPhoneNumber}
+              setIsUserId={setIsUserId}
+              setIsShow={setIsShow}
               // codeNumber={codeNumber}
               // setCodeNumber={setCodeNumber}
             />
@@ -67,13 +71,43 @@ function FindId1({ setShow }) {
             <StBtn
               NextGoBtn
               onClick={onSubmitFindId}
-              disabled={nextDisabled}
-              nextDisabled={nextDisabled}
+              disabled={!okConfirm}
+              nextDisabled={!okConfirm}
               type="button"
               name="nextgobutton"
               value=""
             >
               다음
+            </StBtn>
+          </StDiv>
+          <StDiv IDBox>
+            {isShow === true ? (
+              <p>
+                고객님의 ID는
+                {isUserId}입니다.
+              </p>
+            ) : null}
+          </StDiv>
+
+          {/* <StDiv smsspace>
+            <SmsMessage
+              setOkConfirm={setOkConfirm}
+              phoneNumber={phoneNumber}
+              setPhoneNumber={setPhoneNumber}
+            />
+          </StDiv> */}
+          <StDiv NextGoBtnBox>
+            <StBtn
+              NextGoBtn2
+              // onClick={onSubmitFoundId}
+              // onClick={() => setShow(false)}
+              // disabled={nextDisabled}
+              // nextDisabled={nextDisabled}
+              // type="button"
+              // name="checkbutton"
+              // value=""
+            >
+              로그인하러 가기
             </StBtn>
           </StDiv>
         </StDiv>
@@ -157,6 +191,33 @@ const StBtn = styled.button`
       justify-content: center;
       align-items: center;
       width: 90px;
+      height: 40px;
+      border-radius: 15px;
+      background: ${({ nextDisabled }) =>
+        nextDisabled
+          ? "#d9d9d9"
+          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+      color: ${({ nextDisabled }) => (nextDisabled ? "#7d6945" : "white")};
+      /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
+      color: white; */
+      background-size: 200%;
+      transition: 500ms;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      &:disabled {
+        background-color: #ddd8d8;
+      }
+    `}
+
+  ${(props) =>
+    props.NextGoBtn2 &&
+    css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
       height: 40px;
       border-radius: 15px;
       background: ${({ nextDisabled }) =>
