@@ -15,7 +15,7 @@ function FindId1({ setShow }) {
 
   const onSubmitFindId = (e) => {
     e.preventDefault();
-    setShow(true);
+
     __findID({
       //서버로 요청하는 부분
       // codeNumber,
@@ -28,8 +28,9 @@ function FindId1({ setShow }) {
         // alert(res.data.msg);
         if (res.data.statusCode === 200) {
           Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
+          setShow(true);
         } else {
-          Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
+          Swal.fire(res.data.statusMsg, "아이디가 없습니다.", "error");
           // navigate("/login");
         }
       })
