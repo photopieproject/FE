@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __takeFrame, __takePhoto } from "../redux/modules/photoSlice";
 import { useNavigate, useParams } from "react-router-dom";
+// import { useLocation, useNavigate, useParams } from "react-router-dom";
 // import Count from "../components/Count/Count";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
 import { BiCopy } from "react-icons/bi";
@@ -17,6 +18,8 @@ import Swal from "sweetalert2";
 const PhotoShoot = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    // const location = useLocation();
+
     // const [showCount, setShowCount] = useState(false);
 
     const [photo_one, setPhoto_one] = useState("");
@@ -60,10 +63,17 @@ const PhotoShoot = () => {
     console.log("session--->", session);
 
     const onbeforeunload = (event) => {
+        console.log(event);
         event.preventDefault();
         event.returnValue = "";
         leaveSession();
     };
+
+    // 수정 예정
+    // const preventGoBack = () => {
+    //     history.pushState(null, "", location.href);
+    //     alert("방 나가기를 눌러주세요!");
+    // };
 
     const outRoomsHandler = (roomId) => {
         Swal.fire({
@@ -98,6 +108,8 @@ const PhotoShoot = () => {
 
     useEffect(() => {
         window.addEventListener("beforeunload", onbeforeunload);
+        // 수정 예정
+        // window.addEventListener("popstate", preventGoBack);
 
         const connectSession = () => {
             const OV = new OpenVidu();
@@ -181,6 +193,8 @@ const PhotoShoot = () => {
 
         return () => {
             window.removeEventListener("beforeunload", onbeforeunload);
+            // 수정 예정
+            // window.removeEventListener("popstate", preventGoBack);
             chatClose();
         };
     }, []);
