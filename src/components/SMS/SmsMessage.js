@@ -2,12 +2,14 @@ import styled, { css } from "styled-components";
 import { useState } from "react";
 import { useInput } from "../../lib/utils/useInput";
 import SmsCount from "../Count/SmsCount";
-import { __findID, __SMSSend } from "../../redux/modules/loginSlice";
+import { __findID, __findPW, __SMSSend } from "../../redux/modules/loginSlice";
 
 const SmsMessage = ({
   setOkConfirm,
   phoneNumber,
   setPhoneNumber,
+  setIsShow,
+  setIsUserId,
   // codeNumber,
   // setCodeNumber,
 }) => {
@@ -20,7 +22,8 @@ const SmsMessage = ({
   const [codeNumber, setCodeNumber] = useState();
   //   const [okConfirm, setOkConfirm] = useState(false);
 
-  console.log(codeNumber);
+  console.log(codeNumber); //찐인증번호
+  console.log(confirmNumber); //내가 입력한 인증번호
 
   // 백에서 data1에 넣어주면 안돼고
   // 프론트에서 휴대폰번호랑 인증번호를 보냈을 때
@@ -28,12 +31,22 @@ const SmsMessage = ({
   // 휴대폰이랑 인증번호를 우리한테 보내서
   // 그게 대조했을 떄 맞으면 빽에서 ㅇㅋ 해야함
 
+  // function checkPhone(phoneNumber) {
+  //   var regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+  //   return regExp.test(phoneNumber);
+  // }
+  // const checkPhoneNum = (phoneNumber) => {
+  //   if (checkPhone(phoneNumber) === false) {
+  //     alert("'-'를 뺀 숫자만 입력해주세요.");
+  //   }
+  // };
+
   const sendMessageHandler = (phoneNumber) => {
     __SMSSend(phoneNumber)
       .then((res) => {
         setCodeNumber(res.data.data1);
         setPnDisabled(true);
-        setShowInput(true);
+        // setShowInput(true);
         console.log(res.data.data1);
       })
       .catch((error) => console.log(error));
@@ -52,31 +65,63 @@ const SmsMessage = ({
     })
       .then((res) => {
         //서버에서 받아온 부분
-
-        // if (res.data.statusCode === 200) {
+        setShowInput(true);
         console.log("findid res: ", res.data);
-        // alert(res.data.msg);
-        //   Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
-        // } else {
-        //   Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
-        //   // navigate("/login");
-        // }
+        setIsUserId(res.data.data2);
+        if (res.data.statusCode === 200) {
+          console.log("1234");
+          // alert(res.data.msg);
+          // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
+          alert(res.data.statusMsg, res.data.statusCode, "success");
+        } else {
+          alert(res.data.msg, "아이디가 없습니다.", "error");
+          // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
+          // navigate("/login");
+        }
       })
       .catch((err) => {
         console.log("error: ", err);
       });
   };
 
+  // const findPwHandler = (phoneNumber) => {
+  //   __findPW({
+  //     //서버로 요청하는 부분
+  //     // codeNumber,
+  //     phoneNumber, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
+  //   })
+  //     .then((res) => {
+  //       //서버에서 받아온 부분
+  //       // setShowInput(true);
+  //       console.log("findid res: ", res.data);
+
+  //       if (res.data.statusCode === 200) {
+  //         // alert(res.data.msg);
+  //         // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
+  //         alert(res.data.statusMsg, res.data.statusCode, "success");
+  //       } else {
+  //         alert(res.data.msg, "아이디가 없습니다.", "error");
+  //         // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
+  //         // navigate("/login");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log("error: ", err);
+  //     });
+  // };
+
   const MessageConfirmHandler = () => {
-    console.log(setOkConfirm);
-    if (codeNumber === confirmNumber) {
-      setCheckP("인증되었습니다.");
-      setOkConfirm(true);
-      setMsgDisabled(true);
-    } else if (codeNumber !== confirmNumber) {
+    console.log("codeNumber : ", codeNumber);
+    console.log("confirmNumber : ", confirmNumber);
+    if (codeNumber !== confirmNumber) {
       setCheckP("인증번호를 확인해주세요.");
       setOkConfirm(false);
+      setMsgDisabled(true);
+    } else if (codeNumber === confirmNumber) {
+      setCheckP("인증되었습니다.");
+      setOkConfirm(true);
       setMsgDisabled(false);
+      setIsShow(true);
     }
   };
 
@@ -132,9 +177,9 @@ const SmsMessage = ({
           >
             인증
           </StBtn>
-          <StDiv StSmsCount>
+          {/* <StDiv StSmsCount>
             <SmsCount disabled={msgDisabled} msgDisabled={msgDisabled} />
-          </StDiv>
+          </StDiv> */}
         </StDiv>
       )}
       <StP OkConfirmP>{checkP}</StP>
