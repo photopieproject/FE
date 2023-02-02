@@ -10,9 +10,9 @@ const Login = () => {
     const [password, setPassword] = useInput();
 
     const KAKAO_AUTH =
-        "https://kauth.kakao.com/oauth/authorize?client_id=fe65192e7b1e6f392649c07eb62021aa&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/kakao/callback&response_type=code";
+        "https://kauth.kakao.com/oauth/authorize?client_id=fe65192e7b1e6f392649c07eb62021aa&redirect_uri=https://photo-pie.store/api/user/kakao/callback&response_type=code";
     const GOOGLE_AUTH =
-        "https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://dev.djcf93g3uh9mz.amplifyapp.com/api/user/google/callback&response_type=code&scope=profile";
+        "https://accounts.google.com/o/oauth2/v2/auth?client_id=963085836422-fl7eegrisc0bm2ttkubaltkagb0jajrg.apps.googleusercontent.com&redirect_uri=https://photo-pie.store/api/user/google/callback&response_type=code&scope=profile";
 
     // LOGIN
     const onSubmitLogin = (e) => {
