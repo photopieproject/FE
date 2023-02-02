@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { useState } from "react";
 import { useInput } from "../../lib/utils/useInput";
 import SmsCount from "../Count/SmsCount";
-import { __SMSSend } from "../../redux/modules/loginSlice";
+import { __findID, __SMSSend } from "../../redux/modules/loginSlice";
 
 const SmsMessage = ({
   setOkConfirm,
@@ -44,6 +44,29 @@ const SmsMessage = ({
     // }
   };
 
+  const findIdHandler = (phoneNumber) => {
+    __findID({
+      //서버로 요청하는 부분
+      // codeNumber,
+      phoneNumber, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
+    })
+      .then((res) => {
+        //서버에서 받아온 부분
+
+        // if (res.data.statusCode === 200) {
+        console.log("findid res: ", res.data);
+        // alert(res.data.msg);
+        //   Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
+        // } else {
+        //   Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
+        //   // navigate("/login");
+        // }
+      })
+      .catch((err) => {
+        console.log("error: ", err);
+      });
+  };
+
   const MessageConfirmHandler = () => {
     console.log(setOkConfirm);
     if (codeNumber === confirmNumber) {
@@ -70,14 +93,26 @@ const SmsMessage = ({
           disabled={pnDisabled}
           pnDisabled={pnDisabled}
         ></StInput>
-        <StBtn
-          PnBtn
-          disabled={pnDisabled}
-          pnDisabled={pnDisabled}
-          onClick={() => sendMessageHandler(phoneNumber)}
-        >
-          전송
-        </StBtn>
+        {window.location.href === "http://localhost:3000/findid" ? (
+          <StBtn
+            PnBtn
+            disabled={pnDisabled}
+            pnDisabled={pnDisabled}
+            onClick={() => findIdHandler(phoneNumber)}
+          >
+            전송
+          </StBtn>
+        ) : (
+          <StBtn
+            PnBtn
+            disabled={pnDisabled}
+            pnDisabled={pnDisabled}
+            onClick={() => sendMessageHandler(phoneNumber)}
+          >
+            사인업
+            {/* 다 하고나서 전송으로 바꾸기 */}
+          </StBtn>
+        )}
       </div>
       {showInput && (
         <StDiv ShowInputBox>

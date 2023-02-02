@@ -59,9 +59,13 @@ export const apis = {
     instance.post(`/user/smsmessage?phoneNumber=${phoneNumber}`),
 
   // 아이디, 비밀번호 찾기, 비밀번호 재설정
-  findId: (phoneNumber) =>
-    instance.post("/user/find-id?phoneNumber=", phoneNumber),
-  findPW: (userId) => instance.post("/user/find-pw?phoneNumber=", userId),
+  findID: (payload) =>
+    instance.post(`/user/find-id?phoneNumber=${payload.phoneNumber}`),
+  findPW: (payload) =>
+    instance.post(
+      `/user/find-pw?phoneNumber=${payload.phoneNumber}`,
+      payload.userId
+    ),
   resetPW: (password) => instance.put("/user/reset-pw", password),
 
   // 소셜 로그인 관련
