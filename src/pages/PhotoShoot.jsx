@@ -4,8 +4,8 @@ import styled, { css } from "styled-components";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __takeFrame, __takePhoto } from "../redux/modules/photoSlice";
+// import { useNavigate, useParams } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
-// import { useLocation, useNavigate, useParams } from "react-router-dom";
 // import Count from "../components/Count/Count";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
 import { BiCopy } from "react-icons/bi";
@@ -18,7 +18,6 @@ import Swal from "sweetalert2";
 const PhotoShoot = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const location = useLocation();
 
     // const [showCount, setShowCount] = useState(false);
 
@@ -62,19 +61,6 @@ const PhotoShoot = () => {
     console.log("mainSM --->", mainStreamManager);
     console.log("session--->", session);
 
-    const onbeforeunload = (event) => {
-        console.log(event);
-        event.preventDefault();
-        event.returnValue = "";
-        leaveSession();
-    };
-
-    // 수정 예정
-    // const preventGoBack = () => {
-    //     history.pushState(null, "", location.href);
-    //     alert("방 나가기를 눌러주세요!");
-    // };
-
     const outRoomsHandler = (roomId) => {
         Swal.fire({
             title: "방 나가기를 하면 연결이 끊어집니다",
@@ -106,10 +92,26 @@ const PhotoShoot = () => {
         });
     };
 
+    const onbeforeunload = (event) => {
+        console.log(event);
+        event.preventDefault();
+        event.returnValue = "";
+        leaveSession();
+    };
+
     useEffect(() => {
         window.addEventListener("beforeunload", onbeforeunload);
-        // 수정 예정
-        // window.addEventListener("popstate", preventGoBack);
+
+        const preventGoBack = () => {
+            // change start
+            window.history.pushState(null, "", window.location.href);
+            alert("방 나가기를 눌러주세요!");
+            // change end
+            console.log("prevent go back!");
+        };
+
+        window.history.pushState(null, "", window.location.href);
+        window.addEventListener("popstate", preventGoBack);
 
         const connectSession = () => {
             const OV = new OpenVidu();
@@ -192,9 +194,9 @@ const PhotoShoot = () => {
         connectSession();
 
         return () => {
+            window.removeEventListener("popstate", preventGoBack);
             window.removeEventListener("beforeunload", onbeforeunload);
-            // 수정 예정
-            // window.removeEventListener("popstate", preventGoBack);
+
             chatClose();
         };
     }, []);
@@ -408,7 +410,7 @@ const PhotoShoot = () => {
                     </StDiv>
                 )} */}
                 <StDiv all_btn>
-                    {role === "leader" ? (
+                    {role === "leader" && videoRooms.userCount === 4 ? (
                         // userCount 4명이기 전까지는 촬영시작하기 버튼만 보이기
                         <StDiv btn_box>
                             <Button
