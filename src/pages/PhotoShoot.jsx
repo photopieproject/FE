@@ -410,7 +410,7 @@ const PhotoShoot = () => {
                     </StDiv>
                 )} */}
                 <StDiv all_btn>
-                    {role === "leader" && videoRooms.userCount === 4 ? (
+                    {role === "leader" && subscribers.length === 3 ? (
                         // userCount 4명이기 전까지는 촬영시작하기 버튼만 보이기
                         <StDiv btn_box>
                             <Button
