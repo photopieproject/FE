@@ -62,11 +62,18 @@ export const apis = {
   findID: (payload) =>
     instance.post(`/user/find-id?phoneNumber=${payload.phoneNumber}`),
   findPW: (payload) =>
-    instance.post(
-      `/user/find-pw?phoneNumber=${payload.phoneNumber}`,
-      payload.userId
-    ),
-  resetPW: (password) => instance.put("/user/reset-pw", password),
+    instance.post(`/user/find-pw?phoneNumber=${payload.phoneNumber}`, {
+      userId: payload.userId,
+    }),
+  resetPW: (password, userId) =>
+    instance.put("/user/reset-pw", password, userId),
+
+  // resetPW: (payload) =>
+  // instance.put(
+  //   "/user/reset-pw",
+  //   { password: payload.password },
+  //   { userId: payload.userId }
+  // ),
 
   // 소셜 로그인 관련
   kakaoLogin: (code) => socialLogin.get(`/user/kakao/callback?code=${code}`),

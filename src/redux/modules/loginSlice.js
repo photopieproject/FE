@@ -1,10 +1,6 @@
 import { apis } from "../../lib/axios";
 import Swal from "sweetalert2";
 
-// const initialState = {
-//   phoneNum: "",
-// };
-
 // id 중복체크
 export const __checkUserId = async (userId) => {
   try {

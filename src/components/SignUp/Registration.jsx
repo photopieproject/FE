@@ -22,6 +22,7 @@ const Registration = () => {
   console.log(setOkConfirm);
 
   function isPassword(asValue) {
+    //정규식, 유효성검사
     const regExp =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
     return regExp.test(asValue);

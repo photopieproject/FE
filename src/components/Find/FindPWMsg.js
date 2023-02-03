@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useInput } from "../../lib/utils/useInput";
 import { __findPW } from "../../redux/modules/loginSlice";
 import SmsMessage from "../SMS/SmsMessage";
 
-function FindPWMsg({ setShow }) {
+function FindPWMsg({ setShow, userId, setUserId }) {
   const [nextDisabled, setNextDisabled] = useState(true);
-  const [userId, setUserId] = useInput();
   const [okConfirm, setOkConfirm] = useState(false);
   const [phoneNumber, setPhoneNumber] = useInput();
   // const [codeNumber, setCodeNumber] = useInput();
   // const [confirmNumber, setConfirmNumber] = useInput();
   // const [isShow, setIsShow] = useState();
   // const [isUserId, setIsUserId] = useState();
-  const navigate = useNavigate();
 
-  const findPwHandler = (phoneNumber, userId) => {
-    console.log(userId);
+  console.log(userId);
+
+  const nextResetGoBtn = (e) => {
+    e.preventDefault();
+
     __findPW({
       //서버로 요청하는 부분
       userId,
@@ -27,14 +27,15 @@ function FindPWMsg({ setShow }) {
         //서버에서 받아온 부분
         // setCodeNumber(res.data.data1);
         // setShowInput(true);
-        console.log("findid res: ", res.data);
-        // setIsUserId(res.data.data2);
+        console.log("findCodeNumber res: ", res.data1);
+        // setUserId(res.data.data2);
         if (res.data.statusCode === 200) {
-          console.log("1234");
+          console.log("userId");
           // alert(res.data.msg);
           // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
           alert(res.data.statusMsg, res.data.statusCode, "success");
-          navigate("/resetpw");
+          // navigate("/resetpw");
+          setShow(true);
         } else {
           alert(res.data.msg, "아이디가 없습니다.", "error");
           // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
@@ -88,7 +89,7 @@ function FindPWMsg({ setShow }) {
           <StDiv NextGoBtnBox>
             <StBtn
               NextGoBtn
-              onClick={findPwHandler}
+              onClick={nextResetGoBtn}
               disabled={!okConfirm}
               nextDisabled={!okConfirm}
               type="button"
@@ -184,8 +185,12 @@ const StBtn = styled.button`
       background: ${({ nextDisabled }) =>
         nextDisabled
           ? "#d9d9d9"
-          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ nextDisabled }) => (nextDisabled ? "#7d6945" : "white")};
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ nextDisabled }) => (nextDisabled ? "#402c00" : "white")};
       /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
       color: white; */
       background-size: 200%;
