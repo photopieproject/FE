@@ -9,7 +9,6 @@ const FindPW = () => {
 
   return (
     <div>{show === true ? <ResetPW /> : <FindPWMsg setShow={setShow} />}</div>
-    // <div>{show === true ? <agree /> : <regist setShow={setShow} />}</div>
   );
 };
 export default FindPW;

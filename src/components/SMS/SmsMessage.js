@@ -10,8 +10,7 @@ const SmsMessage = ({
   setPhoneNumber,
   setIsShow,
   setIsUserId,
-  // codeNumber,
-  // setCodeNumber,
+  userId,
 }) => {
   console.log(setOkConfirm);
   const [msgDisabled, setMsgDisabled] = useState(false);
@@ -21,6 +20,7 @@ const SmsMessage = ({
   const [checkP, setCheckP] = useState();
   const [codeNumber, setCodeNumber] = useState();
   //   const [okConfirm, setOkConfirm] = useState(false);
+  // const [userId, setUserId] = useInput();
 
   console.log(codeNumber); //찐인증번호
   console.log(confirmNumber); //내가 입력한 인증번호
@@ -65,6 +65,7 @@ const SmsMessage = ({
     })
       .then((res) => {
         //서버에서 받아온 부분
+        setCodeNumber(res.data.data1);
         setShowInput(true);
         console.log("findid res: ", res.data);
         setIsUserId(res.data.data2);
@@ -84,31 +85,37 @@ const SmsMessage = ({
       });
   };
 
-  // const findPwHandler = (phoneNumber) => {
-  //   __findPW({
-  //     //서버로 요청하는 부분
-  //     // codeNumber,
-  //     phoneNumber, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
-  //   })
-  //     .then((res) => {
-  //       //서버에서 받아온 부분
-  //       // setShowInput(true);
-  //       console.log("findid res: ", res.data);
+  const findPwHandler = (phoneNumber, userId) => {
+    console.log(userId);
+    __findPW({
+      //서버로 요청하는 부분
+      userId,
+      phoneNumber, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
+    })
+      .then((res) => {
+        //서버에서 받아온 부분
+        console.log(userId);
+        setCodeNumber(res.data.data1);
 
-  //       if (res.data.statusCode === 200) {
-  //         // alert(res.data.msg);
-  //         // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
-  //         alert(res.data.statusMsg, res.data.statusCode, "success");
-  //       } else {
-  //         alert(res.data.msg, "아이디가 없습니다.", "error");
-  //         // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
-  //         // navigate("/login");
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log("error: ", err);
-  //     });
-  // };
+        // setShowInput(true);
+        console.log("findid res: ", res.data);
+        // setIsUserId(res.data.data2);
+        if (res.data.statusCode === 200) {
+          console.log("1234");
+          // alert(res.data.msg);
+          // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
+          alert(res.data.statusMsg, res.data.statusCode, "success");
+          setIsShow(true);
+        } else {
+          alert(res.data.msg, "아이디가 없습니다.", "error");
+          // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
+          // navigate("/login");
+        }
+      })
+      .catch((err) => {
+        console.log("error: ", err);
+      });
+  };
 
   const MessageConfirmHandler = () => {
     console.log("codeNumber : ", codeNumber);
@@ -116,12 +123,11 @@ const SmsMessage = ({
     if (codeNumber !== confirmNumber) {
       setCheckP("인증번호를 확인해주세요.");
       setOkConfirm(false);
-      setMsgDisabled(true);
+      setMsgDisabled(false);
     } else if (codeNumber === confirmNumber) {
       setCheckP("인증되었습니다.");
       setOkConfirm(true);
-      setMsgDisabled(false);
-      setIsShow(true);
+      setMsgDisabled(true);
     }
   };
 
@@ -147,7 +153,8 @@ const SmsMessage = ({
           >
             전송
           </StBtn>
-        ) : (
+        ) : window.location.href === "http://localhost:3000/signup" ? (
+          //사항연산자 안되면 if
           <StBtn
             PnBtn
             disabled={pnDisabled}
@@ -156,6 +163,15 @@ const SmsMessage = ({
           >
             사인업
             {/* 다 하고나서 전송으로 바꾸기 */}
+          </StBtn>
+        ) : (
+          <StBtn
+            PnBtn
+            disabled={pnDisabled}
+            pnDisabled={pnDisabled}
+            onClick={() => findPwHandler(phoneNumber)}
+          >
+            비밀번호
           </StBtn>
         )}
       </div>
@@ -240,11 +256,20 @@ const StBtn = styled.button`
       height: 30px;
       border-radius: 10px;
       margin: 10px auto;
-      background: ${({ pnDisabled }) =>
+      /* background: ${({ pnDisabled }) =>
         pnDisabled
           ? "#d9d9d9"
           : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ pnDisabled }) => (pnDisabled ? "#7d6945" : "white")};
+      color: ${({ pnDisabled }) => (pnDisabled ? "#7d6945" : "white")}; */
+      background: ${({ pnDisabled }) =>
+        pnDisabled
+          ? "#d9d9d9"
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ pnDisabled }) => (pnDisabled ? "#402c00" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;
@@ -264,11 +289,20 @@ const StBtn = styled.button`
       height: 30px;
       border-radius: 10px;
       margin: 10px auto;
-      background: ${({ msgDisabled }) =>
+      /* background: ${({ msgDisabled }) =>
         msgDisabled
           ? "#d9d9d9"
           : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ msgDisabled }) => (msgDisabled ? "#7d6945" : "white")};
+      color: ${({ msgDisabled }) => (msgDisabled ? "#7d6945" : "white")}; */
+      background: ${({ msgDisabled }) =>
+        msgDisabled
+          ? "#d9d9d9"
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ msgDisabled }) => (msgDisabled ? "#402c00" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;

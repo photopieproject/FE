@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Swal from "sweetalert2";
 import { useInput } from "../../lib/utils/useInput";
@@ -14,7 +15,7 @@ function FindId1({ setShow }) {
   // const [confirmNumber, setConfirmNumber] = useInput();
   const [isShow, setIsShow] = useState();
   const [isUserId, setIsUserId] = useState();
-
+  const navigate = useNavigate();
   const onSubmitFindId = (e) => {
     e.preventDefault();
 
@@ -28,13 +29,14 @@ function FindId1({ setShow }) {
 
         console.log("findid res: ", res);
         // alert(res.data.msg);
-        if (res.data.statusCode === 200) {
-          Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
-          setShow(true);
-        } else {
-          Swal.fire(res.data.statusMsg, "아이디가 없습니다.", "error");
-          // navigate("/login");
-        }
+        // if (res.data.statusCode === 200) {
+        //   Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
+        // setShow(true);
+        setIsShow(true);
+        // } else {
+        // Swal.fire(res.data.statusMsg, "아이디가 없습니다.", "error");
+        // navigate("/login");
+        // }
       })
       .catch((err) => {
         console.log("error: ", err);
@@ -50,6 +52,9 @@ function FindId1({ setShow }) {
     }
   }, [okConfirm]);
 
+  const GoLoginBtn = () => {
+    navigate("/login");
+  };
   return (
     <div>
       <StDiv FindIdMsgBox>
@@ -77,16 +82,11 @@ function FindId1({ setShow }) {
               name="nextgobutton"
               value=""
             >
-              다음
+              아이디 확인하기
             </StBtn>
           </StDiv>
           <StDiv IDBox>
-            {isShow === true ? (
-              <p>
-                고객님의 ID는
-                {isUserId}입니다.
-              </p>
-            ) : null}
+            {isShow === true ? <p>고객님의 ID는 "{isUserId}" 입니다.</p> : null}
           </StDiv>
 
           {/* <StDiv smsspace>
@@ -99,7 +99,7 @@ function FindId1({ setShow }) {
           <StDiv NextGoBtnBox>
             <StBtn
               NextGoBtn2
-              // onClick={onSubmitFoundId}
+              onClick={GoLoginBtn}
               // onClick={() => setShow(false)}
               // disabled={nextDisabled}
               // nextDisabled={nextDisabled}
@@ -190,14 +190,18 @@ const StBtn = styled.button`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 90px;
+      width: 160px;
       height: 40px;
       border-radius: 15px;
       background: ${({ nextDisabled }) =>
         nextDisabled
           ? "#d9d9d9"
-          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ nextDisabled }) => (nextDisabled ? "#7d6945" : "white")};
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ nextDisabled }) => (nextDisabled ? "#402c00" : "white")};
       /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
       color: white; */
       background-size: 200%;
@@ -223,10 +227,12 @@ const StBtn = styled.button`
       background: ${({ nextDisabled }) =>
         nextDisabled
           ? "#d9d9d9"
-          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ nextDisabled }) => (nextDisabled ? "#7d6945" : "white")};
-      /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
-      color: white; */
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ nextDisabled }) => (nextDisabled ? "#402c00" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;

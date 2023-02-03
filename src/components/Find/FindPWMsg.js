@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useInput } from "../../lib/utils/useInput";
 import { __findPW } from "../../redux/modules/loginSlice";
@@ -9,22 +10,31 @@ function FindPWMsg({ setShow }) {
   const [userId, setUserId] = useInput();
   const [okConfirm, setOkConfirm] = useState(false);
   const [phoneNumber, setPhoneNumber] = useInput();
+  // const [codeNumber, setCodeNumber] = useInput();
+  // const [confirmNumber, setConfirmNumber] = useInput();
+  // const [isShow, setIsShow] = useState();
+  // const [isUserId, setIsUserId] = useState();
+  const navigate = useNavigate();
 
-  const findPwHandler = (phoneNumber) => {
+  const findPwHandler = (phoneNumber, userId) => {
+    console.log(userId);
     __findPW({
       //서버로 요청하는 부분
-      // codeNumber,
+      userId,
       phoneNumber, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
     })
       .then((res) => {
         //서버에서 받아온 부분
+        // setCodeNumber(res.data.data1);
         // setShowInput(true);
         console.log("findid res: ", res.data);
-
+        // setIsUserId(res.data.data2);
         if (res.data.statusCode === 200) {
+          console.log("1234");
           // alert(res.data.msg);
           // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
           alert(res.data.statusMsg, res.data.statusCode, "success");
+          navigate("/resetpw");
         } else {
           alert(res.data.msg, "아이디가 없습니다.", "error");
           // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
@@ -35,12 +45,21 @@ function FindPWMsg({ setShow }) {
         console.log("error: ", err);
       });
   };
+  console.log(okConfirm);
+  useEffect(() => {
+    if (okConfirm === true) {
+      setNextDisabled(false);
+    } else {
+      setNextDisabled(true);
+    }
+  }, [okConfirm]);
 
   return (
     <div>
       <StDiv FindPWMsgBox>
         <StDiv FindPWMsg>
           <StDiv FindPw>비밀번호 찾기</StDiv>
+
           <StDiv IdPw>
             ID
             <br />
@@ -49,9 +68,9 @@ function FindPWMsg({ setShow }) {
               type="text"
               id="myID"
               value={userId}
-              // disabled={checkUserId}
               onChange={setUserId}
               placeholder="ID를 입력해주세요"
+              // disabled={checkUserId}
             />
           </StDiv>
           <StDiv smsspace>
@@ -59,6 +78,11 @@ function FindPWMsg({ setShow }) {
               setOkConfirm={setOkConfirm}
               phoneNumber={phoneNumber}
               setPhoneNumber={setPhoneNumber}
+              userId={userId}
+              // setIsUserId={setIsUserId}
+              // setIsShow={setIsShow}
+              // codeNumber={codeNumber}
+              // setCodeNumber={setCodeNumber}
             />
           </StDiv>
           <StDiv NextGoBtnBox>
