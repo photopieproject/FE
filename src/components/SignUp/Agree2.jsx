@@ -351,11 +351,20 @@ const StBtn = styled.button`
       width: 90px;
       height: 40px;
       border-radius: 15px;
-      background: ${({ nextDisabled }) =>
+      /* background: ${({ nextDisabled }) =>
         nextDisabled
           ? "#d9d9d9"
           : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ nextDisabled }) => (nextDisabled ? "#7d6945" : "white")};
+      color: ${({ nextDisabled }) => (nextDisabled ? "#7d6945" : "white")}; */
+      background: ${({ nextDisabled }) =>
+        nextDisabled
+          ? "#d9d9d9"
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ nextDisabled }) => (nextDisabled ? "#402c00" : "white")};
       /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
       color: white; */
       background-size: 200%;
@@ -375,7 +384,8 @@ const StBtn = styled.button`
       height: 30px;
       border-radius: 8px;
       margin: 10px 0 10px 10px;
-      background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
+      /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945); */
+      background-color: #402c00;
       background-size: 200%;
       transition: 500ms;
       border: none;
@@ -384,7 +394,8 @@ const StBtn = styled.button`
       font-size: 14px;
       &:hover {
         cursor: pointer;
-        background-position: right;
+        /* background-position: right; */
+        background-color: #af9462;
         /* font-size: 15px; */
       }
     `}
@@ -396,11 +407,20 @@ const StBtn = styled.button`
       height: 30px;
       border-radius: 10px;
       margin: 10px auto;
-      background: ${({ pnDisabled }) =>
+      /* background: ${({ pnDisabled }) =>
         pnDisabled
           ? "#d9d9d9"
           : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ pnDisabled }) => (pnDisabled ? "#7d6945" : "white")};
+      color: ${({ pnDisabled }) => (pnDisabled ? "#7d6945" : "white")}; */
+      background: ${({ pnDisabled }) =>
+        pnDisabled
+          ? "#d9d9d9"
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ pnDisabled }) => (pnDisabled ? "#402c00" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;
@@ -419,11 +439,20 @@ const StBtn = styled.button`
       height: 30px;
       border-radius: 10px;
       margin: 10px auto;
-      background: ${({ msgDisabled }) =>
+      /* background: ${({ msgDisabled }) =>
         msgDisabled
           ? "#d9d9d9"
           : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ msgDisabled }) => (msgDisabled ? "#7d6945" : "white")};
+      color: ${({ msgDisabled }) => (msgDisabled ? "#7d6945" : "white")}; */
+      background: ${({ msgDisabled }) =>
+        msgDisabled
+          ? "#d9d9d9"
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ msgDisabled }) => (msgDisabled ? "#402c00" : "white")};
       background-size: 200%;
       transition: 500ms;
       border: none;

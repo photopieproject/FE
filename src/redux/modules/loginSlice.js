@@ -99,7 +99,7 @@ export const __findPW = async (post) => {
     return data;
   } catch (error) {
     Swal.fire("Error", error.response.data.statusMsg, "error");
-    console.log(error.response.data.statusMsg);
+    // console.log(error.response.data.statusMsg);
   }
 };
 
