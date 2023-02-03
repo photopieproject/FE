@@ -85,8 +85,7 @@ const SmsMessage = ({
       });
   };
 
-  const findPwHandler = (phoneNumber, userId) => {
-    console.log(userId);
+  const findPwHandler = () => {
     __findPW({
       //서버로 요청하는 부분
       userId,
@@ -96,20 +95,14 @@ const SmsMessage = ({
         //서버에서 받아온 부분
         console.log(userId);
         setCodeNumber(res.data.data1);
-
-        // setShowInput(true);
+        setShowInput(true);
         console.log("findid res: ", res.data);
-        // setIsUserId(res.data.data2);
         if (res.data.statusCode === 200) {
           console.log("1234");
-          // alert(res.data.msg);
-          // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
           alert(res.data.statusMsg, res.data.statusCode, "success");
           setIsShow(true);
         } else {
           alert(res.data.msg, "아이디가 없습니다.", "error");
-          // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
-          // navigate("/login");
         }
       })
       .catch((err) => {
@@ -169,7 +162,7 @@ const SmsMessage = ({
             PnBtn
             disabled={pnDisabled}
             pnDisabled={pnDisabled}
-            onClick={() => findPwHandler(phoneNumber)}
+            onClick={findPwHandler}
           >
             비밀번호
           </StBtn>
