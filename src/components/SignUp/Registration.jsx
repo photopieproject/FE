@@ -357,11 +357,20 @@ const StBtn = styled.button`
       transition: 500ms;
       /* color: white; */
       font-weight: bold;
-      background: ${({ checkUserId }) =>
+      /* background: ${({ checkUserId }) =>
         checkUserId
           ? "#d9d9d9"
           : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ checkUserId }) => (checkUserId ? "#7d6945" : "white")};
+      color: ${({ checkUserId }) => (checkUserId ? "#7d6945" : "white")}; */
+      background: ${({ checkUserId }) =>
+        checkUserId
+          ? "#d9d9d9"
+          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
+            "#402c00"};
+      &:hover {
+        background-color: #af9462;
+      }
+      color: ${({ checkUserId }) => (checkUserId ? "#402c00" : "white")};
       &:hover {
         cursor: pointer;
         background-position: right;
