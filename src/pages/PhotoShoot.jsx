@@ -9,11 +9,13 @@ import { useNavigate, useParams } from "react-router-dom";
 // import Count from "../components/Count/Count";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
 import { BiCopy } from "react-icons/bi";
+import { MdMeetingRoom } from "react-icons/md";
 import Button from "../components/button/Button";
 import { OpenVidu } from "openvidu-browser";
 import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 import { __outPhotoRoom } from "../redux/modules/videoSlice";
 import Swal from "sweetalert2";
+import Span from "../components/button/Span";
 
 const PhotoShoot = () => {
     const dispatch = useDispatch();
@@ -25,6 +27,13 @@ const PhotoShoot = () => {
     const [photo_two, setPhoto_two] = useState("");
     const [photo_three, setPhoto_three] = useState("");
     const [photo_four, setPhoto_four] = useState("");
+
+    const [oneDis, setOneDis] = useState(false);
+    const [twoDis, setTwoDis] = useState(false);
+    const [threeDis, setThreeDis] = useState(false);
+    const [fourDis, setFourDis] = useState(false);
+
+    const [saveDisabled, setSaveDisabled] = useState(true);
 
     const { roomId } = useParams();
     const rooms = useSelector((state) => state.photos.photoinfo.data1);
@@ -251,6 +260,7 @@ const PhotoShoot = () => {
                     dispatch(__takePhoto({ roomId, formdata: photo_1 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
+                            setOneDis(true);
                         }
                     );
                 }, 3000);
@@ -282,6 +292,7 @@ const PhotoShoot = () => {
                     dispatch(__takePhoto({ roomId, formdata: photo_2 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
+                            setTwoDis(true);
                         }
                     );
                 }, 3000);
@@ -313,6 +324,7 @@ const PhotoShoot = () => {
                     dispatch(__takePhoto({ roomId, formdata: photo_3 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
+                            setThreeDis(true);
                         }
                     );
                 }, 3000);
@@ -344,6 +356,8 @@ const PhotoShoot = () => {
                     dispatch(__takePhoto({ roomId, formdata: photo_4 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
+                            setFourDis(true);
+                            setSaveDisabled(false);
                         }
                     );
                 }, 3000);
@@ -394,15 +408,17 @@ const PhotoShoot = () => {
             </StDiv>
             <StDiv down_btn>
                 <StDiv room_info>
-                    <h2>이곳의 이름은?</h2>
-                    <h2>{videoRooms.roomName}</h2>
-                    <p>
+                    <StDiv name_icon>
+                        <MdMeetingRoom size={40} />
+                        <Span room_name>{videoRooms.roomName}</Span>
+                    </StDiv>
+                    <StP>
                         초대코드 복사
                         <BiCopy
                             onClick={() => copyClipBoard(videoRooms.roomCode)}
                             style={{ cursor: "pointer" }}
                         />
-                    </p>
+                    </StP>
                 </StDiv>
                 {/* {showCount && (
                     <StDiv Count>
@@ -410,11 +426,14 @@ const PhotoShoot = () => {
                     </StDiv>
                 )} */}
                 <StDiv all_btn>
-                    {role === "leader" && subscribers.length === 3 ? (
+                    {role === "leader" ? (
+                        // {role === "leader" && subscribers.length === 3 ? (
                         // userCount 4명이기 전까지는 촬영시작하기 버튼만 보이기
                         <StDiv btn_box>
                             <Button
-                                camera_btn
+                                camera_btn1
+                                disabled={oneDis}
+                                oneDis={oneDis}
                                 onClick={() => {
                                     onSubmitHandler_1(roomId);
                                 }}
@@ -422,7 +441,9 @@ const PhotoShoot = () => {
                                 내꺼다이씌
                             </Button>
                             <Button
-                                camera_btn
+                                camera_btn2
+                                disabled={twoDis}
+                                twoDis={twoDis}
                                 onClick={() => {
                                     onSubmitHandler_2(roomId);
                                 }}
@@ -430,7 +451,9 @@ const PhotoShoot = () => {
                                 김치해새꺄
                             </Button>
                             <Button
-                                camera_btn
+                                camera_btn3
+                                disabled={threeDis}
+                                threeDis={threeDis}
                                 onClick={() => {
                                     onSubmitHandler_3(roomId);
                                 }}
@@ -438,7 +461,9 @@ const PhotoShoot = () => {
                                 다음나와이씌
                             </Button>
                             <Button
-                                camera_btn
+                                camera_btn4
+                                disabled={fourDis}
+                                fourDis={fourDis}
                                 onClick={() => {
                                     onSubmitHandler_4(roomId);
                                 }}
@@ -448,12 +473,23 @@ const PhotoShoot = () => {
                         </StDiv>
                     ) : null}
                     <StDiv other_btn>
-                        <Button
-                            photo_trans
-                            onClick={() => navigate(`/loading/${roomId}`)}
-                        >
-                            사진 전송하러 가기
-                        </Button>
+                        {role === "leader" ? (
+                            <Button
+                                photo_trans
+                                disabled={saveDisabled}
+                                saveDisabled={saveDisabled}
+                                onClick={() => navigate(`/loading/${roomId}`)}
+                            >
+                                사진 전송하러 가기
+                            </Button>
+                        ) : (
+                            <Button
+                                photo_trans
+                                onClick={() => navigate(`/loading/${roomId}`)}
+                            >
+                                사진 전송하러 가기
+                            </Button>
+                        )}
                         <Button
                             photo_trans
                             onClick={() => outRoomsHandler(roomId)}
@@ -556,6 +592,13 @@ const StDiv = styled.div`
             flex-direction: column;
             gap: 10px;
         `}
+        ${(props) =>
+        props.name_icon &&
+        css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        `}
 `;
 
 const StImg = styled.img`
@@ -564,4 +607,13 @@ const StImg = styled.img`
     left: 0;
 `;
 
+const StP = styled.p`
+    border-radius: 10px;
+    background-color: #402c00;
+    color: white;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+`;
 export default PhotoShoot;
