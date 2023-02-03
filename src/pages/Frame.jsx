@@ -127,31 +127,11 @@ const Frame = () => {
                             <StInput
                                 type="radio"
                                 id={kind.name}
-                                // value={kind.name}
                                 value={kind.frameNum}
-                                // checked={chooseFrame === `${kind.name}`}
                                 checked={frameNum === `${kind.frameNum}`}
                                 onChange={chooseFramehandler}
-                                // onClick={chooseFrameCheckBtn}
                             />
                             <StImg src={kind.img} alt={kind.name} />
-                            {/* {kind.name === "frame_white" ? (
-                                <StImg f_white src={kind.img} alt={kind.name} />
-                            ) : (
-                                <StImg src={kind.img} alt={kind.name} />
-                            )} */}
-                            {/* {chooseFrame === kind.name ? ( */}
-                            {frameNum === kind.frameNum ? (
-                                // <img src={checkHeart} alt="check" />
-                                <BsPatchCheckFill
-                                    size={80}
-                                    style={{
-                                        position: "absolute",
-                                        top: "35%",
-                                        left: "35%",
-                                    }}
-                                />
-                            ) : null}
                         </StDiv>
                     </label>
                 ))}
@@ -171,17 +151,6 @@ const Frame = () => {
                                 onChange={chooseFramehandler}
                             />
                             <StImg src={kind.img} alt={kind.name} />
-                            {frameNum === kind.frameNum ? (
-                                // <img src={checkHeart} alt="check" />
-                                <BsPatchCheckFill
-                                    size={80}
-                                    style={{
-                                        position: "absolute",
-                                        top: "35%",
-                                        left: "35%",
-                                    }}
-                                />
-                            ) : null}
                         </StDiv>
                     </label>
                 ))}
@@ -200,6 +169,8 @@ const StDiv = styled.div`
     ${(props) =>
         props.choose_frame &&
         css`
+        width: 95%
+        max-width: 1200px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -219,32 +190,7 @@ const StDiv = styled.div`
 
 const StH3 = styled.h3`
     font-size: 30px;
-    font-weight: bold;
-    color: #478ba2;
-    display: flex;
-    align-items: center;
-    color: #478ba2;
-    background: none;
-    border: none;
-    padding: 12px 18px;
-    position: relative;
-    font-family: monospace;
-    transition: linear 0.3s;
-    margin-top: 30px;
-
-    &::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%) translateX(calc(100% + 4px));
-        width: 45px;
-        height: 45px;
-        background-color: #eee8dc;
-        border-radius: 50px;
-        transition: transform 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2),
-            width 0.25s cubic-bezier(0, 0, 0.5, 2);
-        z-index: -1;
-    }
+    color: #402c00;
 `;
 
 const StImg = styled.img`
@@ -261,7 +207,7 @@ const StImg = styled.img`
 const StInput = styled.input.attrs({ type: "radio" })`
     visibility: hidden;
     &:checked + img {
-        border: 3px solid #213f76;
+        border: 3px solid #402c00;
         border-radius: 20px;
         box-sizing: border-box;
     }

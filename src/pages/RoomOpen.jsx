@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Button from "../components/button/Button";
 import { useInput } from "../lib/utils/useInput";
 import { __createRoom, __enterPhotoRoom } from "../redux/modules/videoSlice";
@@ -70,64 +70,67 @@ const RoomOpen = () => {
     };
 
     return (
-        <div>
-            <div>
-                <StH1>방 만들기</StH1>
-                <div>
-                    <p>방 만들기</p>
-                    <StDiv>
-                        <StInput
-                            type="text"
-                            placeholder="방 이름을 입력하세요"
-                            value={roomName}
-                            onChange={setRoomName}
-                        />
-                        <Button room_btn onClick={createRoomSubmit}>
-                            방 개설하기
-                        </Button>
-                    </StDiv>
-                    <p>코드로 방 찾기</p>
-                    <StDiv>
-                        <StInput
-                            type="text"
-                            placeholder="방 코드를 입력하세요"
-                            value={roomCode}
-                            onChange={setRoomCode}
-                        />
-                        <Button room_btn onClick={enterRoomSubmit}>
-                            방 입장하기
-                        </Button>
-                    </StDiv>
-                </div>
-            </div>
-        </div>
+        <StDiv room_open>
+            <p>방 만들기</p>
+            <StDiv room_box>
+                <StInput
+                    type="text"
+                    placeholder="방 이름을 입력하세요"
+                    value={roomName}
+                    onChange={setRoomName}
+                />
+                <Button room_btn onClick={createRoomSubmit}>
+                    방 개설하기
+                </Button>
+            </StDiv>
+            <p>코드로 방 찾기</p>
+            <StDiv room_box>
+                <StInput
+                    type="text"
+                    placeholder="방 코드를 입력하세요"
+                    value={roomCode}
+                    onChange={setRoomCode}
+                />
+                <Button room_btn onClick={enterRoomSubmit}>
+                    방 입장하기
+                </Button>
+            </StDiv>
+        </StDiv>
     );
 };
 
 const StDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    ${(props) =>
+        props.room_open &&
+        css`
+            width: 95%;
+            max-width: 500px;
+            padding: 10px;
+            box-sizing: border-box;
+        `}
+    ${(props) =>
+        props.room_box &&
+        css`
+            width: 95%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `}
 `;
 
 const StInput = styled.input`
-    width: 500px;
-    height: 35px;
+    width: 100%;
+    /* width: 500px;
+    height: 35px; */
     font-size: 20px;
     background-color: #eee8dc;
     color: #402c00;
     border: 0;
     border-bottom: 2px solid #402c00;
-    border-radius: 5px;
     padding: 10px;
     &:focus {
         outline: none;
     }
-`;
-
-const StH1 = styled.h1`
-    text-align: center;
-    color: #402c00;
 `;
 
 export default RoomOpen;

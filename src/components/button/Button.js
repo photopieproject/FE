@@ -9,8 +9,17 @@ const Button = (props) => {
         room_btn,
         choose_frame,
         start_camera,
-        camera_btn,
+        camera_btn1,
+        camera_btn2,
+        camera_btn3,
+        camera_btn4,
         photo_trans,
+        disabled,
+        oneDis,
+        twoDis,
+        threeDis,
+        fourDis,
+        saveDisabled,
     } = props;
     return (
         <StButton
@@ -20,8 +29,17 @@ const Button = (props) => {
             room_btn={room_btn}
             choose_frame={choose_frame}
             start_camera={start_camera}
-            camera_btn={camera_btn}
+            camera_btn1={camera_btn1}
+            camera_btn2={camera_btn2}
+            camera_btn3={camera_btn3}
+            camera_btn4={camera_btn4}
             photo_trans={photo_trans}
+            disabled={disabled}
+            oneDis={oneDis}
+            twoDis={twoDis}
+            threeDis={threeDis}
+            fourDis={fourDis}
+            saveDisabled={saveDisabled}
         >
             {children}
         </StButton>
@@ -59,13 +77,16 @@ const StButton = styled.button`
             ${(props) =>
         props.room_btn &&
         css`
-            background-color: #ebe7e1;
-            box-shadow: 7px 7px 0px 1px gray;
-            font-weight: bold;
-            font-size: 15px;
-            width: 100px;
-            height: 35px;
+            background-color: #402c00;
+            border-radius: 10px;
+            color: white;
+            width: 150px;
+            height: 40px;
             margin-top: 20px;
+            transition: background-color 0.25s ease-in-out;
+            &:hover {
+                background-color: #af9462;
+            }
         `}
         ${(props) =>
         props.choose_frame &&
@@ -81,63 +102,84 @@ const StButton = styled.button`
         ${(props) =>
         props.start_camera &&
         css`
-            display: flex;
-            align-items: center;
-            color: #478ba2;
-            background: none;
-            border: none;
-            padding: 12px 18px;
-            position: relative;
-            font-size: 1rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            font-family: monospace;
-            transition: linear 0.3s;
-            margin-top: 30px;
-
-            &:hover {
-                color: #478ba2;
-            }
-
-            &::before {
-                content: "";
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%) translateX(calc(100% + 4px));
-                width: 45px;
-                height: 45px;
-                background-color: #eee8dc;
-                border-radius: 50px;
-                transition: transform 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2),
-                    width 0.25s cubic-bezier(0, 0, 0.5, 2);
-                z-index: -1;
-            }
-
-            &:hover::before {
-                width: 100%;
-                transform: translateY(-50%) translateX(-18px);
-                transition: transform 0.25s cubic-bezier(0, 0, 0.5, 2);
-            }
-        `}
-        ${(props) =>
-        props.camera_btn &&
-        css`
-            /* border: 1px solid #402c00; */
             border-radius: 10px;
-            width: 100px;
-            height: 100px;
+            width: 220px;
+            height: 50px;
             font-size: 16px;
-            background-color: #efebe3;
+            color: white;
+            margin-top: 50px;
             transition: background-color 0.25s ease-in-out;
+            background-color: #402c00;
             &:hover {
                 background-color: #d8c5a2;
             }
         `}
-            ${(props) =>
+        ${(props) =>
+        props.camera_btn1 &&
+        css`
+            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            font-size: 16px;
+            color: white;
+            transition: background-color 0.25s ease-in-out;
+            background-color: ${({ oneDis }) =>
+                oneDis ? "#d8c5a2" : "#402c00"};
+            &:hover {
+                background-color: #d8c5a2;
+            }
+        `}
+        ${(props) =>
+        props.camera_btn2 &&
+        css`
+            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            font-size: 16px;
+            color: white;
+            transition: background-color 0.25s ease-in-out;
+            background-color: ${({ twoDis }) =>
+                twoDis ? "#d8c5a2" : "#402c00"};
+            &:hover {
+                background-color: #d8c5a2;
+            }
+        `}
+        ${(props) =>
+        props.camera_btn3 &&
+        css`
+            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            font-size: 16px;
+            color: white;
+            transition: background-color 0.25s ease-in-out;
+            background-color: ${({ threeDis }) =>
+                threeDis ? "#d8c5a2" : "#402c00"};
+            &:hover {
+                background-color: #d8c5a2;
+            }
+        `}
+        ${(props) =>
+        props.camera_btn4 &&
+        css`
+            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            font-size: 16px;
+            color: white;
+            transition: background-color 0.25s ease-in-out;
+            background-color: ${({ fourDis }) =>
+                fourDis ? "#d8c5a2" : "#402c00"};
+            &:hover {
+                background-color: #d8c5a2;
+            }
+        `}
+        ${(props) =>
         props.photo_trans &&
         css`
             border-radius: 10px;
-            background-color: #402c00;
+            background-color: ${({ saveDisabled }) =>
+                saveDisabled ? "#af9462" : "#402c00"};
             color: white;
             width: 200px;
             height: 50px;

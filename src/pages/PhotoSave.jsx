@@ -92,10 +92,9 @@ const PhotoSave = () => {
                         />
                         <StDiv picture_box>
                             {roomPhotos?.map((photo, i) => (
-                                <StDiv picture>
+                                <StDiv picture key={i}>
                                     <StImg
                                         photo_img
-                                        key={i}
                                         src={photo}
                                         alt={`photo_${i + 1}`}
                                     />

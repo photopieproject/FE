@@ -10,6 +10,7 @@ const Span = (props) => {
         qrcode,
         nick,
         hello,
+        room_name,
     } = props;
     return (
         <StSpan
@@ -20,6 +21,7 @@ const Span = (props) => {
             qrcode={qrcode}
             nick={nick}
             hello={hello}
+            room_name={room_name}
         >
             {children}
         </StSpan>
@@ -47,7 +49,7 @@ const StSpan = styled.span`
             color: #478ba2;
             font-weight: bold;
         `}
-        ${(props) =>
+    ${(props) =>
         props.qrcode &&
         css`
             background-color: #ebe7e1;
@@ -65,18 +67,26 @@ const StSpan = styled.span`
             align-items: center;
             gap: 5px;
         `}
-        ${(props) =>
+    ${(props) =>
         props.nick &&
         css`
             cursor: default;
             color: #402c00;
         `}
-            ${(props) =>
+    ${(props) =>
         props.hello &&
         css`
             cursor: default;
             color: #402c00;
             margin-right: 20px;
+        `}
+    ${(props) =>
+        props.room_name &&
+        css`
+            font-size: 24px;
+            cursor: default;
+            font-weight: bold;
+            margin-left: 10px;
         `}
 `;
 
