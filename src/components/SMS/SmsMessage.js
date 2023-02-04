@@ -46,7 +46,7 @@ const SmsMessage = ({
       .then((res) => {
         setCodeNumber(res.data.data1);
         setPnDisabled(true);
-        // setShowInput(true);
+        setShowInput(true);
         console.log(res.data.data1);
       })
       .catch((error) => console.log(error));
@@ -144,7 +144,7 @@ const SmsMessage = ({
             pnDisabled={pnDisabled}
             onClick={() => findIdHandler(phoneNumber)}
           >
-            전송
+            인증번호 전송
           </StBtn>
         ) : window.location.href === "http://localhost:3000/signup" ? (
           //사항연산자 안되면 if
@@ -154,7 +154,7 @@ const SmsMessage = ({
             pnDisabled={pnDisabled}
             onClick={() => sendMessageHandler(phoneNumber)}
           >
-            사인업
+            인증번호 전송
             {/* 다 하고나서 전송으로 바꾸기 */}
           </StBtn>
         ) : (
@@ -164,7 +164,7 @@ const SmsMessage = ({
             pnDisabled={pnDisabled}
             onClick={findPwHandler}
           >
-            비밀번호
+            인증번호 전송
           </StBtn>
         )}
       </div>
@@ -209,6 +209,8 @@ const StDiv = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
+      height: 131px;
     `}
 `;
 const StInput = styled.input`
@@ -218,7 +220,8 @@ const StInput = styled.input`
       width: 200px;
       height: 35px;
       margin-right: 5px;
-      background-color: #f2ebde;
+      background-color: #f2eeee;
+      border-radius: 10px;
       border: none;
     `}
 `;
@@ -245,66 +248,60 @@ const StBtn = styled.button`
   ${(props) =>
     props.PnBtn &&
     css`
-      width: 50px;
-      height: 30px;
+      width: 120px;
+      height: 40px;
       border-radius: 10px;
-      margin: 10px auto;
-      /* background: ${({ pnDisabled }) =>
-        pnDisabled
-          ? "#d9d9d9"
-          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ pnDisabled }) => (pnDisabled ? "#7d6945" : "white")}; */
-      background: ${({ pnDisabled }) =>
-        pnDisabled
-          ? "#d9d9d9"
-          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-            "#402c00"};
-      &:hover {
-        background-color: #af9462;
-      }
-      color: ${({ pnDisabled }) => (pnDisabled ? "#402c00" : "white")};
-      background-size: 200%;
-      transition: 500ms;
-      border: none;
+      margin-top: 10px;
+      /*background-color: #fffaf2;*/
+      /* border: 2px solid #3a3232; */
       font-weight: bold;
-      font-size: 14px;
       &:hover {
         cursor: pointer;
-        background-position: right;
-        /* font-size: 15px; */
+        background-color: #3a3232;
+        color: #fffaf2;
+      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: ${({ pnDisabled }) => (pnDisabled ? "#d9d9d9" : "#fffaf2")};
+      color: ${({ pnDisabled }) => (pnDisabled ? "#fffaf2" : "#3a3232")};
+      border: ${({ pnDisabled }) =>
+        pnDisabled ? "none" : "2px solid #3a3232"};
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      &:disabled {
+        background-color: #ddd8d8;
       }
     `}
 
   ${(props) =>
     props.SMSBtn &&
     css`
-      width: 50px;
-      height: 30px;
-      border-radius: 10px;
-      margin: 10px auto;
-      /* background: ${({ msgDisabled }) =>
-        msgDisabled
-          ? "#d9d9d9"
-          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ msgDisabled }) => (msgDisabled ? "#7d6945" : "white")}; */
-      background: ${({ msgDisabled }) =>
-        msgDisabled
-          ? "#d9d9d9"
-          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-            "#402c00"};
-      &:hover {
-        background-color: #af9462;
-      }
-      color: ${({ msgDisabled }) => (msgDisabled ? "#402c00" : "white")};
-      background-size: 200%;
-      transition: 500ms;
-      border: none;
+      width: 150px;
+      height: 40px;
+      border-radius: 20px;
+      margin-top: 10px;
+      /*background-color: #fffaf2;*/
+      /* border: 2px solid #3a3232; */
       font-weight: bold;
-      font-size: 14px;
       &:hover {
         cursor: pointer;
-        background-position: right;
-        /* font-size: 15px; */
+        background-color: #3a3232;
+        color: #fffaf2;
+      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: ${({ msgDisabled }) => (msgDisabled ? "#d9d9d9" : "#fffaf2")};
+      color: ${({ msgDisabled }) => (msgDisabled ? "#fffaf2" : "#3a3232")};
+      border: ${({ msgDisabled }) =>
+        msgDisabled ? "none" : "2px solid #3a3232"};
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      &:disabled {
+        background-color: #ddd8d8;
       }
     `}
 `;

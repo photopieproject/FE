@@ -57,10 +57,9 @@ function FindId1({ setShow }) {
   };
   return (
     <div>
-      <StDiv FindIdMsgBox>
+      <StDiv FindIdPage>
         <StDiv FindIdMsg>
-          <StDiv FindId>아이디 찾기</StDiv>
-
+          <StDiv FindId>Find ID</StDiv>
           <StDiv smsspace>
             <SmsMessage
               setOkConfirm={setOkConfirm}
@@ -68,6 +67,7 @@ function FindId1({ setShow }) {
               setPhoneNumber={setPhoneNumber}
               setIsUserId={setIsUserId}
               setIsShow={setIsShow}
+              style={{ width: "350px" }}
               // codeNumber={codeNumber}
               // setCodeNumber={setCodeNumber}
             />
@@ -107,7 +107,16 @@ function FindId1({ setShow }) {
               // name="checkbutton"
               // value=""
             >
-              로그인하러 가기
+              Login
+            </StBtn>
+          </StDiv>
+        </StDiv>
+        <StDiv RightBox>
+          <StP RightTxt1>Welcome Back!</StP>
+          <StP RightTxt2>안녕하세요. 포토파이입니다.</StP>
+          <StDiv>
+            <StBtn RightFindIdBtn onClick={() => navigate("/signup")}>
+              Sign Up
             </StBtn>
           </StDiv>
         </StDiv>
@@ -118,26 +127,47 @@ function FindId1({ setShow }) {
 
 const StDiv = styled.div`
   ${(props) =>
+    props.FindIdPage &&
+    css`
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    `}
+  ${(props) =>
+    props.RightBox &&
+    css`
+      width: 45%;
+      height: 100vh;
+      background: #3a3232;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `}
+
+  ${(props) =>
     props.FindIdMsg &&
     css`
-      width: 500px;
-      height: 600px;
-      border: 1px solid black;
+      width: 55%;
+      height: 100vh;
       color: black;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
     `}
 
   ${(props) =>
     props.FindId &&
     css`
-      font-size: 30px;
-      font-weight: bold;
+      font-size: 70px;
       display: flex;
       justify-content: center;
-      margin: 50px 0 0px 0;
-      color: #7d6945;
+      margin: 30px 0 0px 0;
+      color: black;
+      font-family: "Belleza";
     `}
 
     ${(props) =>
@@ -145,8 +175,8 @@ const StDiv = styled.div`
     css`
       font-size: 15px;
       font-weight: bold;
-      color: gray;
-      margin-top: 50px;
+      color: #6b6462;
+      padding-top: 20px;
     `}
 
     ${(props) =>
@@ -183,32 +213,71 @@ const StInput = styled.input`
       }
     `}
 `;
+
+const StP = styled.p`
+  ${(props) =>
+    props.RightTxt1 &&
+    css`
+      font-size: 50px;
+      color: white;
+      margin-top: -60px;
+      font-family: "Belleza";
+    `}
+
+  ${(props) =>
+    props.RightTxt2 &&
+    css`
+      font-size: 40px;
+      color: white;
+      margin: 0px auto 60px auto;
+    `}
+`;
+
 const StBtn = styled.button`
+  ${(props) =>
+    props.RightFindIdBtn &&
+    css`
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      top: 610px;
+      left: 1371px;
+      border-radius: 50px;
+      border: 1px solid #fffaf2;
+      background-color: #3a3232;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background-color: #fffaf2;
+        color: #3a3232;
+      }
+    `}
+
   ${(props) =>
     props.NextGoBtn &&
     css`
+      width: 150px;
+      height: 40px;
+      border-radius: 20px;
+      margin-top: 10px;
+      /*background-color: #fffaf2;*/
+      /* border: 2px solid #3a3232; */
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+        background-color: #3a3232;
+        color: #fffaf2;
+      }
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 160px;
-      height: 40px;
-      border-radius: 15px;
       background: ${({ nextDisabled }) =>
-        nextDisabled
-          ? "#d9d9d9"
-          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-            "#402c00"};
-      &:hover {
-        background-color: #af9462;
-      }
-      color: ${({ nextDisabled }) => (nextDisabled ? "#402c00" : "white")};
-      /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
-      color: white; */
-      background-size: 200%;
-      transition: 500ms;
-      border: none;
+        nextDisabled ? "#d9d9d9" : "#fffaf2"};
+      color: ${({ nextDisabled }) => (nextDisabled ? "#fffaf2" : "#3a3232")};
+      border: ${({ nextDisabled }) =>
+        nextDisabled ? "none" : "2px solid #3a3232"};
       font-weight: bold;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
       &:disabled {
         background-color: #ddd8d8;
@@ -218,29 +287,19 @@ const StBtn = styled.button`
   ${(props) =>
     props.NextGoBtn2 &&
     css`
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 150px;
-      height: 40px;
-      border-radius: 15px;
-      background: ${({ nextDisabled }) =>
-        nextDisabled
-          ? "#d9d9d9"
-          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-            "#402c00"};
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      top: 610px;
+      left: 1371px;
+      border-radius: 50px;
+      border: 2px solid #3a3232;
+      background-color: #fffaf2;
+      color: #3a3232;
       &:hover {
-        background-color: #af9462;
-      }
-      color: ${({ nextDisabled }) => (nextDisabled ? "#402c00" : "white")};
-      background-size: 200%;
-      transition: 500ms;
-      border: none;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      &:disabled {
-        background-color: #ddd8d8;
+        cursor: pointer;
+        background-color: #3a3232;
+        color: #fffaf2;
       }
     `}
 `;

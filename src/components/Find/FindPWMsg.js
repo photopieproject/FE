@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useInput } from "../../lib/utils/useInput";
 import { __findPW } from "../../redux/modules/loginSlice";
@@ -12,6 +13,7 @@ function FindPWMsg({ setShow, userId, setUserId }) {
   // const [confirmNumber, setConfirmNumber] = useInput();
   // const [isShow, setIsShow] = useState();
   // const [isUserId, setIsUserId] = useState();
+  const navigate = useNavigate();
 
   console.log(userId);
 
@@ -56,77 +58,102 @@ function FindPWMsg({ setShow, userId, setUserId }) {
   }, [okConfirm]);
 
   return (
-    <div>
-      <StDiv FindPWMsgBox>
-        <StDiv FindPWMsg>
-          <StDiv FindPw>비밀번호 찾기</StDiv>
-
-          <StDiv IdPw>
-            ID
-            <br />
-            <StInput
-              LoginInput2
-              type="text"
-              id="myID"
-              value={userId}
-              onChange={setUserId}
-              placeholder="ID를 입력해주세요"
-              // disabled={checkUserId}
-            />
-          </StDiv>
-          <StDiv smsspace>
-            <SmsMessage
-              setOkConfirm={setOkConfirm}
-              phoneNumber={phoneNumber}
-              setPhoneNumber={setPhoneNumber}
-              userId={userId}
-              // setIsUserId={setIsUserId}
-              // setIsShow={setIsShow}
-              // codeNumber={codeNumber}
-              // setCodeNumber={setCodeNumber}
-            />
-          </StDiv>
-          <StDiv NextGoBtnBox>
-            <StBtn
-              NextGoBtn
-              onClick={nextResetGoBtn}
-              disabled={!okConfirm}
-              nextDisabled={!okConfirm}
-              type="button"
-              name="checkbutton"
-              value=""
-            >
-              다음
-            </StBtn>
-          </StDiv>
+    <StDiv FindPWMsgPage>
+      <StDiv FindPWMsg>
+        <StDiv FindPw>Find Password</StDiv>
+        <StDiv IdPw>
+          ID
+          <br />
+          <StInput
+            LoginInput2
+            type="text"
+            id="myID"
+            value={userId}
+            onChange={setUserId}
+            placeholder="ID를 입력해주세요"
+            // disabled={checkUserId}
+          />
+        </StDiv>
+        <StDiv smsspace>
+          <SmsMessage
+            setOkConfirm={setOkConfirm}
+            phoneNumber={phoneNumber}
+            setPhoneNumber={setPhoneNumber}
+            userId={userId}
+            // setIsUserId={setIsUserId}
+            // setIsShow={setIsShow}
+            // codeNumber={codeNumber}
+            // setCodeNumber={setCodeNumber}
+          />
+        </StDiv>
+        <StDiv NextGoBtnBox>
+          <StBtn
+            NextGoBtn
+            onClick={nextResetGoBtn}
+            disabled={!okConfirm}
+            nextDisabled={!okConfirm}
+            type="button"
+            name="checkbutton"
+            value=""
+          >
+            비밀번호 재설정하기
+          </StBtn>
         </StDiv>
       </StDiv>
-    </div>
+      <StDiv RightBox>
+        <StP RightTxt1>Welcome Back!</StP>
+        <StP RightTxt2>안녕하세요. 포토파이입니다.</StP>
+        <StDiv>
+          <StBtn RightLoginbtn onClick={() => navigate("/login")}>
+            Login
+          </StBtn>
+        </StDiv>
+      </StDiv>
+    </StDiv>
   );
 }
 
 const StDiv = styled.div`
   ${(props) =>
+    props.FindPWMsgPage &&
+    css`
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    `}
+  ${(props) =>
     props.FindPWMsg &&
     css`
-      width: 500px;
-      height: 600px;
-      border: 1px solid black;
+      width: 55%;
+      height: 100vh;
       color: black;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `}
+  ${(props) =>
+    props.RightBox &&
+    css`
+      width: 45%;
+      height: 100vh;
+      background: #3a3232;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
     `}
 
   ${(props) =>
     props.FindPw &&
     css`
-      font-size: 30px;
-      font-weight: bold;
+      font-size: 70px;
       display: flex;
       justify-content: center;
-      margin: 50px 0 0px 0;
-      color: #7d6945;
+      margin: 30px 0 0px 0;
+      color: black;
     `}
 
     ${(props) =>
@@ -134,8 +161,8 @@ const StDiv = styled.div`
     css`
       font-size: 15px;
       font-weight: bold;
-      color: gray;
-      margin-top: 50px;
+      color: #6b6462;
+      padding-top: 20px;
     `}
 
     ${(props) =>
@@ -160,47 +187,104 @@ const StInput = styled.input`
     props.LoginInput2 &&
     css`
       ::placeholder {
-        color: #cacaca;
+        color: #b9b8b8;
       }
+      background-color: #f2eeee;
+      border-radius: 10px;
       border: none;
-      border-bottom: solid 2px black;
-      width: 200px;
+      width: 300px;
       height: 40px;
       &:focus {
         outline: none;
-        border-bottom: solid 4px #ecdfc8;
       }
     `}
 `;
+
+const StP = styled.p`
+  ${(props) =>
+    props.RightTxt1 &&
+    css`
+      font-size: 50px;
+      color: white;
+      margin-top: -60px;
+    `}
+
+  ${(props) =>
+    props.RightTxt2 &&
+    css`
+      font-size: 40px;
+      color: white;
+      margin: 0px auto 60px auto;
+    `}
+`;
+
 const StBtn = styled.button`
+  ${(props) =>
+    props.RightFindIdBtn &&
+    css`
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      top: 610px;
+      left: 1371px;
+      border-radius: 50px;
+      border: 1px solid #fffaf2;
+      background-color: #3a3232;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background-color: #fffaf2;
+        color: #3a3232;
+      }
+    `}
+
   ${(props) =>
     props.NextGoBtn &&
     css`
+      width: 150px;
+      height: 40px;
+      border-radius: 20px;
+      margin-top: 10px;
+      /*background-color: #fffaf2;*/
+      /* border: 2px solid #3a3232; */
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+        background-color: #3a3232;
+        color: #fffaf2;
+      }
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 90px;
-      height: 40px;
-      border-radius: 15px;
       background: ${({ nextDisabled }) =>
-        nextDisabled
-          ? "#d9d9d9"
-          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-            "#402c00"};
-      &:hover {
-        background-color: #af9462;
-      }
-      color: ${({ nextDisabled }) => (nextDisabled ? "#402c00" : "white")};
-      /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
-      color: white; */
-      background-size: 200%;
-      transition: 500ms;
-      border: none;
+        nextDisabled ? "#d9d9d9" : "#fffaf2"};
+      color: ${({ nextDisabled }) => (nextDisabled ? "#fffaf2" : "#3a3232")};
+      border: ${({ nextDisabled }) =>
+        nextDisabled ? "none" : "2px solid #3a3232"};
       font-weight: bold;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
       &:disabled {
         background-color: #ddd8d8;
+      }
+    `}
+
+    ${(props) =>
+    props.RightLoginbtn &&
+    css`
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      top: 610px;
+      left: 1371px;
+      border-radius: 50px;
+      border: 1px solid #fffaf2;
+      background-color: #3a3232;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background-color: #fffaf2;
+        color: #3a3232;
       }
     `}
 `;
