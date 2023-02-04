@@ -473,7 +473,7 @@ const StBtn = styled.button`
       height: 30px;
       border-radius: 5px;
       margin: 10px auto;
-      background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945);
+      background-color: #402c00;
       background-size: 200%;
       transition: 500ms;
       border: none;

@@ -52,7 +52,6 @@ function Count() {
   useEffect(() => {
     if (time.current <= -1) {
       Swal.fire({
-        // icon: "error",
         title: "촬영완료 ! ",
         text: "촬영이 완료되었습니다:)",
       });
