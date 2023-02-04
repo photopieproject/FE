@@ -10,7 +10,7 @@ const Loading = () => {
     useEffect(() => {
         setTimeout(() => {
             navigate(`/photosave/${roomId}`);
-        }, 10000);
+        }, 5000);
     });
 
     return (
@@ -29,7 +29,7 @@ const StDiv = styled.div`
             width: 100%;
             height: 100%;
             text-align: center;
-            background-color: #eee8dc;
+            background-color: #fffaf2;
             overflow: hidden;
         `}
     ${(props) =>
@@ -40,7 +40,6 @@ const StDiv = styled.div`
             width: 100%;
             float: left;
             position: relative;
-            /*margin:0 -4px -5px -2px;*/
             transition: all 0.2s ease;
         `}
         ${(props) =>
@@ -59,7 +58,7 @@ const StDiv = styled.div`
             &::before {
                 content: "";
                 position: absolute;
-                background-color: #fff;
+                background-color: #3a3232;
                 top: 0px;
                 left: 0px;
                 height: 40px;
@@ -73,7 +72,7 @@ const StDiv = styled.div`
             }
             &::after {
                 content: "LOADING ...";
-                color: #402c00;
+                color: #c8c6c6;
                 font-family: Lato, "Helvetica Neue";
                 font-weight: 200;
                 font-size: 20px;

@@ -20,30 +20,20 @@ const Span = (props) => {
 const StSpan = styled.span`
     cursor: pointer;
     ${(props) =>
-        props.nav_logo &&
-        css`
-            color: #302e2f;
-            font-size: 30px;
-            font-weight: bold;
-            display: flex;
-        `}
-    ${(props) =>
         props.qrcode &&
         css`
-            background-color: #ebe7e1;
-            font-weight: bold;
-            font-size: 15px;
+        border-radius: 10px;
+            background-color: #3a3232;
+            color: #fffaf2;
             width: 200px;
-            height: 35px;
-            box-shadow: 7px 7px 0px 1px gray;
-            text-align: center;
-            line-height: 35px;
-            margin-top: 10px;
-            cursor: default;
+            height: 50px;,
+            font-size: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 5px;
+            margin-top: 10px;
+            cursor: default;
         `}
     ${(props) =>
         props.nick &&

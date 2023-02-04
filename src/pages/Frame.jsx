@@ -7,17 +7,14 @@ import frameMint from "../assets/frame/frame_mint.png";
 import framePink from "../assets/frame/frame_pink.png";
 import framePupple from "../assets/frame/frame_pupple.png";
 import frameWhiteV0 from "../assets/frame/frame_white_v0.png";
-// import frameWhite from "../assets/frame/frame_white.jpeg";
-// import frameWhiteV2 from "../assets/frame/frame_white_v2.png";
 import frameBlackV2 from "../assets/frame/frame_black_v2.png";
 import frameGraV1 from "../assets/frame/frame_gra_v1.png";
 import frameGraV2 from "../assets/frame/frame_gra_v2.png";
 import frameGraV3 from "../assets/frame/frame_gra_v3.png";
 import frameGraV4 from "../assets/frame/frame_gra_v4.png";
 import Button from "../components/button/Button";
-import { BsPatchCheckFill } from "react-icons/bs";
 import { __chooseFrame } from "../redux/modules/photoSlice";
-// import checkHeart from "../assets/svg/check-heart.svg";
+import toast, { Toaster } from "react-hot-toast";
 
 const Frame = () => {
     const navigate = useNavigate();
@@ -85,24 +82,45 @@ const Frame = () => {
     ];
 
     // 오류 수정
-
     const chooseFramehandler = (e) => {
-        console.log(`${e.target.value} 선택되었습니다!`);
         setFrameNum(e.target.value);
-        console.log("frameNum--->", frameNum);
     };
     console.log("change after chooseFrame--->", frameNum);
 
     const chooseFrameCheckBtn = () => {
-        console.log(`선택되었습니다!`);
         dispatch(__chooseFrame({ roomId, frameNum }))
             .then((res) => {
                 console.log(res);
+
                 if (res.payload.statusCode === 200) {
-                    alert(res.payload.statusMsg);
+                    toast.success(res.payload.statusMsg, {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#3a3232",
+                            color: "#fffaf2",
+                        },
+                        iconTheme: {
+                            primary: "#fffaf2",
+                            secondary: "#3a3232",
+                        },
+                        duration: 4000,
+                    });
                     navigate(`/photoshoot/${roomId}`);
+                    // setTimeout(() => {
+                    // }, 1000);
                 } else if (res.payload.response.status === 400) {
-                    alert("frame을 선택해주세요!");
+                    toast.error("Frame을 선택해주세요!", {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#fffaf2",
+                            color: "#3a3232",
+                        },
+                        iconTheme: {
+                            primary: "#3a3232",
+                            secondary: "#fffaf2",
+                        },
+                        duration: 4000,
+                    });
                 }
             })
             .catch((err) => console.log(err));
@@ -110,6 +128,7 @@ const Frame = () => {
 
     return (
         <StDiv choose_frame>
+            <Toaster />
             {/* 단색 프레임 */}
             <StH3>ONE COLOR</StH3>
             <StDiv frame_set>

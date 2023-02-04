@@ -45,42 +45,31 @@ const Button = (props) => {
 };
 
 const StButton = styled.button`
-    background-color: transparent;
     border: 0;
     cursor: pointer;
     ${(props) =>
-        props.kakao &&
-        css`
-            background-color: #fee102;
-            font-weight: bold;
-            font-size: 15px;
-            width: 200px;
-            height: 35px;
-            box-shadow: 7px 7px 0px 1px gray;
-        `}
-    ${(props) =>
         props.down &&
         css`
-            background-color: #ebe7e1;
-            font-weight: bold;
-            font-size: 15px;
+            border-radius: 10px;
+            background-color: #3a3232;
+            color: #fffaf2;
             width: 200px;
-            height: 35px;
-            box-shadow: 7px 7px 0px 1px gray;
+            height: 50px;,
+            font-size: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 5px;
         `}
-            ${(props) =>
+    ${(props) =>
         props.room_btn &&
         css`
             /* font-family: "Nanum Myeongjo", serif; */
             background-color: #3a3232;
-            border-radius: 10px;
+            border-radius: 50px;
             color: #fffaf2;
             width: 150px;
-            height: 40px;
+            height: 35px;
             margin-top: 20px;
             transition: background-color 0.25s ease-in-out;
             &:hover {
@@ -105,12 +94,13 @@ const StButton = styled.button`
             width: 100px;
             height: 100px;
             font-size: 16px;
-            color: #fffaf2;
+            color: ${({ oneDis }) => (oneDis ? "#3a3232" : "#fffaf2")};
             transition: background-color 0.25s ease-in-out;
             background-color: ${({ oneDis }) =>
-                oneDis ? "#d8c5a2" : "#3a3232"};
+                oneDis ? "#f2eeee" : "#3a3232"};
             &:hover {
-                background-color: #d8c5a2;
+                background-color: #f2eeee;
+                color: #3a3232;
             }
         `}
         ${(props) =>
@@ -120,12 +110,13 @@ const StButton = styled.button`
             width: 100px;
             height: 100px;
             font-size: 16px;
-            color: #fffaf2;
+            color: ${({ twoDis }) => (twoDis ? "#3a3232" : "#fffaf2")};
             transition: background-color 0.25s ease-in-out;
             background-color: ${({ twoDis }) =>
-                twoDis ? "#d8c5a2" : "#3a3232"};
+                twoDis ? "#f2eeee" : "#3a3232"};
             &:hover {
-                background-color: #d8c5a2;
+                background-color: #f2eeee;
+                color: #3a3232;
             }
         `}
         ${(props) =>
@@ -135,12 +126,13 @@ const StButton = styled.button`
             width: 100px;
             height: 100px;
             font-size: 16px;
-            color: #fffaf2;
+            color: ${({ threeDis }) => (threeDis ? "#3a3232" : "#fffaf2")};
             transition: background-color 0.25s ease-in-out;
             background-color: ${({ threeDis }) =>
-                threeDis ? "#d8c5a2" : "#3a3232"};
+                threeDis ? "#f2eeee" : "#3a3232"};
             &:hover {
-                background-color: #d8c5a2;
+                background-color: #f2eeee;
+                color: #3a3232;
             }
         `}
         ${(props) =>
@@ -150,12 +142,13 @@ const StButton = styled.button`
             width: 100px;
             height: 100px;
             font-size: 16px;
-            color: #fffaf2;
+            color: ${({ fourDis }) => (fourDis ? "#3a3232" : "#fffaf2")};
             transition: background-color 0.25s ease-in-out;
             background-color: ${({ fourDis }) =>
-                fourDis ? "#d8c5a2" : "#3a3232"};
+                fourDis ? "#f2eeee" : "#3a3232"};
             &:hover {
-                background-color: #d8c5a2;
+                background-color: #f2eeee;
+                color: #3a3232;
             }
         `}
         ${(props) =>
@@ -163,14 +156,15 @@ const StButton = styled.button`
         css`
             border-radius: 10px;
             background-color: ${({ saveDisabled }) =>
-                saveDisabled ? "#af9462" : "#3a3232"};
-            color: #fffaf2;
+                saveDisabled ? "#f2eeee" : "#3a3232"};
+            color: ${({ saveDisabled }) =>
+                saveDisabled ? "#3a3232" : "#fffaf2"};
+            // cursor 안먹힘 수정 예정
+            cursor: ${({ saveDisabled }) =>
+                saveDisabled ? "defalut" : "pointer"};
             width: 200px;
             height: 50px;
             transition: background-color 0.25s ease-in-out;
-            &:hover {
-                background-color: #af9462;
-            }
         `}
 `;
 
