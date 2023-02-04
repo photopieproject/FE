@@ -93,42 +93,29 @@ export const ShareKakao = (photoUrl) => {
           imageUrl:
             "https://my-photopie-github-actions-s3-bucket.s3.ap-northeast-2.amazonaws.com/frame/rainbow.jpg", // i.e. process.env.FETCH_URL + '/logo.png'
           link: {
-            mobileWebUrl: "https://dev.djcf93g3uh9mz.amplifyapp.com",
-            webUrl: "https://dev.djcf93g3uh9mz.amplifyapp.com",
+            mobileWebUrl: "https://photo-pie.store",
+            webUrl: "https://photo-pie.store",
           },
         },
         buttons: [
           {
             title: "다운로드",
             link: {
-              mobileWebUrl: "https://dev.djcf93g3uh9mz.amplifyapp.com",
-              webUrl: "https://dev.djcf93g3uh9mz.amplifyapp.com",
+              mobileWebUrl: "https://photo-pie.store",
+              webUrl: "https://photo-pie.store",
             },
           },
           // {
           //   title: "앱으로 보기",
           //   link: {
-          //     mobileWebUrl: "https://dev.djcf93g3uh9mz.amplifyapp.com",
-          //     webUrl: "https://dev.djcf93g3uh9mz.amplifyapp.com",
+          //     mobileWebUrl: "https://photo-pie.store",
+          //     webUrl: "https://photo-pie.store",
           //   },
           // },
         ],
       });
     }
   };
-
-  //   return (
-  //     <div className="kakao-share-button">
-  //       <button
-  //         id="kakao-link-btn"
-  //         // onClick={ShareKakaoSend(photoUrl)}
-  //       >
-  //         <img src="/icons/kakao.png" alt="kakao-share-icon" />
-  //       </button>
-  //     </div>
-  //   );
-  // };
-  //--------------새로 위
 
   return (
     <div className="kakao-share-button">
