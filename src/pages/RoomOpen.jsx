@@ -71,7 +71,7 @@ const RoomOpen = () => {
 
     return (
         <StDiv room_open>
-            <p>방 만들기</p>
+            <StP>방 만들기</StP>
             <StDiv room_box>
                 <StInput
                     type="text"
@@ -83,7 +83,7 @@ const RoomOpen = () => {
                     방 개설하기
                 </Button>
             </StDiv>
-            <p>코드로 방 찾기</p>
+            <StP>코드로 방 찾기</StP>
             <StDiv room_box>
                 <StInput
                     type="text"
@@ -122,15 +122,25 @@ const StInput = styled.input`
     width: 100%;
     /* width: 500px;
     height: 35px; */
-    font-size: 20px;
-    background-color: #eee8dc;
-    color: #402c00;
+    font-size: 16px;
+    background-color: #fffaf2;
+    color: #3a3232;
     border: 0;
-    border-bottom: 2px solid #402c00;
+    border-bottom: 2px solid #3a3232;
     padding: 10px;
     &:focus {
         outline: none;
     }
+`;
+
+const StP = styled.p`
+    font-weight: bold;
+    font-size: 18px;
+    /* font-family: "Nanum Myeongjo", serif; */
+    /* background-color: #3a3232;
+    color: #fffaf2;
+    width: 200px;
+    padding: 10px 5px; */
 `;
 
 export default RoomOpen;

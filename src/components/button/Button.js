@@ -7,7 +7,6 @@ const Button = (props) => {
         kakao,
         down,
         room_btn,
-        choose_frame,
         start_camera,
         camera_btn1,
         camera_btn2,
@@ -27,7 +26,6 @@ const Button = (props) => {
             kakao={kakao}
             down={down}
             room_btn={room_btn}
-            choose_frame={choose_frame}
             start_camera={start_camera}
             camera_btn1={camera_btn1}
             camera_btn2={camera_btn2}
@@ -77,9 +75,10 @@ const StButton = styled.button`
             ${(props) =>
         props.room_btn &&
         css`
-            background-color: #402c00;
+            /* font-family: "Nanum Myeongjo", serif; */
+            background-color: #3a3232;
             border-radius: 10px;
-            color: white;
+            color: #fffaf2;
             width: 150px;
             height: 40px;
             margin-top: 20px;
@@ -89,30 +88,15 @@ const StButton = styled.button`
             }
         `}
         ${(props) =>
-        props.choose_frame &&
-        css`
-            background-color: #ebe7e1;
-            box-shadow: 7px 7px 0px 1px gray;
-            font-weight: bold;
-            font-size: 15px;
-            width: 100px;
-            height: 35px;
-            margin-top: 20px;
-        `}
-        ${(props) =>
         props.start_camera &&
         css`
-            border-radius: 10px;
+            border-radius: 50px;
             width: 220px;
             height: 50px;
             font-size: 16px;
-            color: white;
             margin-top: 50px;
-            transition: background-color 0.25s ease-in-out;
-            background-color: #402c00;
-            &:hover {
-                background-color: #d8c5a2;
-            }
+            background-color: #3a3232;
+            color: #fffaf2;
         `}
         ${(props) =>
         props.camera_btn1 &&
@@ -121,10 +105,10 @@ const StButton = styled.button`
             width: 100px;
             height: 100px;
             font-size: 16px;
-            color: white;
+            color: #fffaf2;
             transition: background-color 0.25s ease-in-out;
             background-color: ${({ oneDis }) =>
-                oneDis ? "#d8c5a2" : "#402c00"};
+                oneDis ? "#d8c5a2" : "#3a3232"};
             &:hover {
                 background-color: #d8c5a2;
             }
@@ -136,10 +120,10 @@ const StButton = styled.button`
             width: 100px;
             height: 100px;
             font-size: 16px;
-            color: white;
+            color: #fffaf2;
             transition: background-color 0.25s ease-in-out;
             background-color: ${({ twoDis }) =>
-                twoDis ? "#d8c5a2" : "#402c00"};
+                twoDis ? "#d8c5a2" : "#3a3232"};
             &:hover {
                 background-color: #d8c5a2;
             }
@@ -151,10 +135,10 @@ const StButton = styled.button`
             width: 100px;
             height: 100px;
             font-size: 16px;
-            color: white;
+            color: #fffaf2;
             transition: background-color 0.25s ease-in-out;
             background-color: ${({ threeDis }) =>
-                threeDis ? "#d8c5a2" : "#402c00"};
+                threeDis ? "#d8c5a2" : "#3a3232"};
             &:hover {
                 background-color: #d8c5a2;
             }
@@ -166,10 +150,10 @@ const StButton = styled.button`
             width: 100px;
             height: 100px;
             font-size: 16px;
-            color: white;
+            color: #fffaf2;
             transition: background-color 0.25s ease-in-out;
             background-color: ${({ fourDis }) =>
-                fourDis ? "#d8c5a2" : "#402c00"};
+                fourDis ? "#d8c5a2" : "#3a3232"};
             &:hover {
                 background-color: #d8c5a2;
             }
@@ -179,8 +163,8 @@ const StButton = styled.button`
         css`
             border-radius: 10px;
             background-color: ${({ saveDisabled }) =>
-                saveDisabled ? "#af9462" : "#402c00"};
-            color: white;
+                saveDisabled ? "#af9462" : "#3a3232"};
+            color: #fffaf2;
             width: 200px;
             height: 50px;
             transition: background-color 0.25s ease-in-out;

@@ -54,14 +54,6 @@ const Frame = () => {
             img: frameWhiteV0,
             frameNum: 5,
         },
-        // {
-        //     name: "frame_white_v2",
-        //     img: frameWhiteV2,
-        // },
-        // {
-        //     name: "frame_white",
-        //     img: frameWhite,
-        // },
     ];
 
     const patternColorFrame = [
@@ -108,10 +100,10 @@ const Frame = () => {
                 console.log(res);
                 if (res.payload.statusCode === 200) {
                     alert(res.payload.statusMsg);
-                } else if (res.payload.statusCode === 400) {
-                    alert(res.payload.statusMsg);
+                    navigate(`/photoshoot/${roomId}`);
+                } else if (res.payload.response.status === 400) {
+                    alert("frame을 선택해주세요!");
                 }
-                navigate(`/photoshoot/${roomId}`);
             })
             .catch((err) => console.log(err));
     };
@@ -169,8 +161,8 @@ const StDiv = styled.div`
     ${(props) =>
         props.choose_frame &&
         css`
-        width: 95%
-        max-width: 1200px;
+            width: 95%
+            max-width: 1200px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -189,8 +181,8 @@ const StDiv = styled.div`
 `;
 
 const StH3 = styled.h3`
+    font-family: "Belleza", sans-serif;
     font-size: 30px;
-    color: #402c00;
 `;
 
 const StImg = styled.img`
@@ -207,7 +199,7 @@ const StImg = styled.img`
 const StInput = styled.input.attrs({ type: "radio" })`
     visibility: hidden;
     &:checked + img {
-        border: 3px solid #402c00;
+        border: 3px solid #3a3232;
         border-radius: 20px;
         box-sizing: border-box;
     }

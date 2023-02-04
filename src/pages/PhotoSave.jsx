@@ -6,7 +6,7 @@ import Span from "../components/button/Span";
 // import { RiKakaoTalkFill } from "react-icons/ri";
 import { MdQrCode2, MdCloudDownload } from "react-icons/md";
 import { ShareKakao } from "../components/Kakao/ShareKakao";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __completePhoto } from "../redux/modules/photoSlice";
 import { useNavigate, useParams } from "react-router-dom";
@@ -41,27 +41,33 @@ const PhotoSave = () => {
     const roomPhotos = useSelector((state) => state.photos.loadRoomInfo.data1);
     console.log(roomPhotos);
 
-    $(function () {
-        $("#download").on("click", () => {
-            html2canvas(document.querySelector("#capture_area")).then(
-                (canvas) => {
-                    saveAs(canvas.toDataURL("image/jpg"), "photo_pie.jpg");
-                }
-            );
+    const pictureSaveHandler = () => {
+        html2canvas(document.querySelector("#frame_box")).then((canvas) => {
+            // logging: true,
+            // letterRendering: 1,
+            // allowTaint: true,
+            // useCORS: true
+            let completePhoto =
+                (canvas.toDataURL("image/jpg"), "completePhoto.jpg");
+            // completePhoto = completePhoto.replace("data:image/jpg;base64,", "");
+            //console.log(canvas.toDataURL(photo_four));
+            saveAs(canvas.toDataURL("image/jpg"), "completePhoto.jpg");
+            // 사진을 저장함과 동시에 state에 넣어주기...
         });
-        function saveAs(uri, filename) {
-            let link = document.createElement("a");
-            if (typeof link.download === "string") {
-                link.href = uri;
-                link.download = filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            } else {
-                window.open(uri);
-            }
+    };
+
+    function saveAs(uri, filename) {
+        let link = document.createElement("a");
+        if (typeof link.download === "string") {
+            link.href = uri;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            window.open(uri);
         }
-    });
+    }
 
     const outRoomsHandler = (roomId) => {
         dispatch(__outPhotoRoom(roomId)).then((res) => {
@@ -87,15 +93,15 @@ const PhotoSave = () => {
                     <StDiv frame_box id="frame_box">
                         <StImg
                             abImg
-                            src={roomInfo.data2?.frameUrl}
+                            src={`data:image/png;base64,${roomInfo.data2?.frameUrl}`}
                             alt="frame url"
                         />
-                        <StDiv picture_box>
+                        <StDiv picture_box id="picture_box">
                             {roomPhotos?.map((photo, i) => (
                                 <StDiv picture key={i}>
                                     <StImg
                                         photo_img
-                                        src={photo}
+                                        src={`data:image/png;base64,${photo}`}
                                         alt={`photo_${i + 1}`}
                                     />
                                 </StDiv>
@@ -113,6 +119,7 @@ const PhotoSave = () => {
                     </StDiv>
                     <ShareKakao />
                     <button
+                        onClick={pictureSaveHandler}
                         style={{
                             borderRadius: "10px",
                             backgroundColor: "#402c00",
@@ -156,9 +163,15 @@ const StDiv = styled.div`
             width: 500px;
             height: 750px;
             margin-bottom: 20px;
-            position: relative;
         `}
-        ${(props) => props.frame_box && css``}
+            ${(props) =>
+        props.frame_box &&
+        css`
+            background-color: #0048ff;
+            position: relative;
+            width: 500px;
+            height: 750px;
+        `}
     ${(props) =>
         props.picture_box &&
         css`

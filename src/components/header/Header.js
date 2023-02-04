@@ -1,4 +1,3 @@
-// import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Span from "../button/Span";
@@ -10,7 +9,7 @@ const Header = () => {
     // const randomNick = Math.floor(Math.random() * 10000);
 
     return (
-        <StDiv style={{ backgroundColor: "#EEE8DC" }}>
+        <StDiv style={{ backgroundColor: "#fffaf2" }}>
             <StDiv nav_main>
                 <Span nav_logo onClick={() => navigate("/")}>
                     <StImg src="/image/photopie_logo_1.png" alt="logo" />
@@ -18,7 +17,7 @@ const Header = () => {
                 <StDiv log_sign>
                     {nickname ? (
                         <Span hello>
-                            Hello!{" "}
+                            Hello!
                             <Span nick>
                                 {nickname}님
                                 {/* {nickname ? nickname : `user${randomNick}`}님 */}
@@ -60,15 +59,13 @@ const StDiv = styled.div`
         props.nav_main &&
         css`
             max-width: 1200px;
-            /* max-width: 100%; */
-            /* width: 100%; */
-            height: 35px;
+            width: 95%;
+            height: 55px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
             margin: 0 auto;
-            /* background-color: #eee8dc; */
         `}
     ${(props) =>
         props.cate_gory &&
@@ -76,16 +73,17 @@ const StDiv = styled.div`
             display: flex;
             gap: 30px;
         `}
-  ${(props) =>
+    ${(props) =>
         props.log_sign &&
         css`
             display: flex;
+            align-items: center;
             gap: 15px;
         `}
 `;
 
 const StImg = styled.img`
-    margin-top: 50px;
+    margin: 10px;
     width: 100px;
 `;
 

@@ -5,7 +5,7 @@ const Footer = () => {
     const navigate = useNavigate();
 
     return (
-        <StDiv style={{ backgroundColor: "#EEE8DC" }}>
+        <StDiv style={{ backgroundColor: "#fffaf2" }}>
             <StDiv footer_box>
                 <StP copy_right>copyright ©️ PHOTO-PIE</StP>
                 <StDiv agree_box>
@@ -30,7 +30,7 @@ const StDiv = styled.div`
         css`
             max-width: 1200px;
             width: 95%;
-            height: 150px;
+            height: 70px;
             display: flex;
             color: #868b94;
             align-items: flex-end;

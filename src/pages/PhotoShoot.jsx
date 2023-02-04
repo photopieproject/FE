@@ -260,6 +260,7 @@ const PhotoShoot = () => {
                     dispatch(__takePhoto({ roomId, formdata: photo_1 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
+                            alert("1번사진 촬영완료!");
                             setOneDis(true);
                         }
                     );
@@ -292,6 +293,7 @@ const PhotoShoot = () => {
                     dispatch(__takePhoto({ roomId, formdata: photo_2 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
+                            alert("2번사진 촬영완료!");
                             setTwoDis(true);
                         }
                     );
@@ -324,6 +326,7 @@ const PhotoShoot = () => {
                     dispatch(__takePhoto({ roomId, formdata: photo_3 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
+                            alert("3번사진 촬영완료!");
                             setThreeDis(true);
                         }
                     );
@@ -357,6 +360,7 @@ const PhotoShoot = () => {
                         (res) => {
                             console.log("사진전송 res --->", res);
                             setFourDis(true);
+                            alert("4번사진 촬영완료!");
                             setSaveDisabled(false);
                         }
                     );
