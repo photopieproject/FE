@@ -1,10 +1,7 @@
 import styled, { css } from "styled-components";
-// import { AiOutlineArrowRight } from "react-icons/ai";
 import MainSlider from "../components/Main/MainSlider";
-// import { useNavigate } from "react-router-dom";
-const Main = () => {
-    // const navigate = useNavigate();
 
+const Main = () => {
     return (
         <StDiv MainBox>
             <MainSlider />
