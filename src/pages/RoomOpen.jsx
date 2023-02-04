@@ -4,7 +4,8 @@ import styled, { css } from "styled-components";
 import Button from "../components/button/Button";
 import { useInput } from "../lib/utils/useInput";
 import { __createRoom, __enterPhotoRoom } from "../redux/modules/videoSlice";
-import Swal from "sweetalert2";
+import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const RoomOpen = () => {
     const dispatch = useDispatch();
@@ -13,28 +14,79 @@ const RoomOpen = () => {
     const [roomName, setRoomName] = useInput();
     const [roomCode, setRoomCode] = useInput();
 
+    useEffect(() => {
+        toast.success(
+            "친구들과 함께 할 방을 만들거나\n 친구에게 초대받은 코드를 입력해주세요!\n 📷 카메라 허용 + 🎤마이크 허용을 \n꼭 진행하고 입장해주세요!",
+            {
+                style: {
+                    borderRadius: "10px",
+                    background: "#3a3232",
+                    color: "#fffaf2",
+                    fontSize: "13px",
+                },
+                iconTheme: {
+                    primary: "#fffaf2",
+                    secondary: "#3a3232",
+                },
+                duration: 6000,
+            }
+        );
+    }, []);
+
     const createRoomSubmit = () => {
         dispatch(__createRoom({ roomName }))
             .then((res) => {
                 console.log("createRoom res---->", res);
                 if (res.payload.statusCode === 200) {
-                    Swal.fire("Success", res.payload.statusMsg, "success");
+                    toast.success(res.payload.statusMsg, {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#3a3232",
+                            color: "#fffaf2",
+                        },
+                        iconTheme: {
+                            primary: "#fffaf2",
+                            secondary: "#3a3232",
+                        },
+                    });
                     navigate(`/frame/${res.payload.data1.id}`);
+                    // setTimeout(() => {
+                    // }, 1000);
                 } else if (res.payload.data.statusCode === 400) {
-                    Swal.fire("Error", res.payload.data.statusMsg, "error");
+                    toast.error(res.payload.data.statusMsg, {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#fffaf2",
+                            color: "#3a3232",
+                        },
+                        iconTheme: {
+                            primary: "#3a3232",
+                            secondary: "#fffaf2",
+                        },
+                    });
                 } else if (
                     res.payload.data.statusCode === 401 ||
                     res.payload.status === 403
                 ) {
-                    Swal.fire(
-                        "토큰이 만료되었습니다",
-                        "다시 로그인해주세요!",
-                        "error"
-                    );
+                    toast.error("토큰이 만료되었습니다\n다시 로그인해주세요!", {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#fffaf2",
+                            color: "#3a3232",
+                        },
+                        iconTheme: {
+                            primary: "#3a3232",
+                            secondary: "#fffaf2",
+                        },
+                    });
+
                     localStorage.removeItem("id");
                     localStorage.removeItem("nickname");
                     localStorage.removeItem("Authorization");
+
                     navigate("/login");
+                    // setTimeout(() => {
+                    // }, 1000);
                 }
             })
             .catch((err) => {
@@ -47,23 +99,55 @@ const RoomOpen = () => {
             .then((res) => {
                 console.log("enterRoom res--->", res);
                 if (res.payload.statusCode === 200) {
-                    Swal.fire("Success", res.payload.statusMsg, "success");
+                    toast.success(res.payload.statusMsg, {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#3a3232",
+                            color: "#fffaf2",
+                        },
+                        iconTheme: {
+                            primary: "#fffaf2",
+                            secondary: "#3a3232",
+                        },
+                    });
                     navigate(`/photoshoot/${res.payload.data1.id}`);
+                    // setTimeout(() => {
+                    // }, 1000);
                 } else if (res.payload.data.statusCode === 400) {
-                    Swal.fire("Error", res.payload.data.statusMsg, "error");
+                    toast.error(res.payload.data.statusMsg, {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#fffaf2",
+                            color: "#3a3232",
+                        },
+                        iconTheme: {
+                            primary: "#3a3232",
+                            secondary: "#fffaf2",
+                        },
+                    });
                 } else if (
                     res.payload.data.statusCode === 401 ||
                     res.payload.status === 403
                 ) {
-                    Swal.fire(
-                        "토큰이 만료되었습니다",
-                        "다시 로그인해주세요!",
-                        "error"
-                    );
+                    toast.error("토큰이 만료되었습니다\n다시 로그인해주세요!", {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#fffaf2",
+                            color: "#3a3232",
+                        },
+                        iconTheme: {
+                            primary: "#3a3232",
+                            secondary: "#fffaf2",
+                        },
+                    });
+
                     localStorage.removeItem("id");
                     localStorage.removeItem("nickname");
                     localStorage.removeItem("Authorization");
-                    navigate("/login");
+
+                    setTimeout(() => {
+                        navigate("/login");
+                    }, 1000);
                 }
             })
             .catch((err) => console.log("enterRoom err--->", err));
@@ -71,6 +155,7 @@ const RoomOpen = () => {
 
     return (
         <StDiv room_open>
+            <Toaster />
             <StP>방 만들기</StP>
             <StDiv room_box>
                 <StInput
@@ -83,7 +168,7 @@ const RoomOpen = () => {
                     방 개설하기
                 </Button>
             </StDiv>
-            <StP>코드로 방 찾기</StP>
+            <StP code_para>코드로 방 찾기</StP>
             <StDiv room_box>
                 <StInput
                     type="text"
@@ -136,11 +221,11 @@ const StInput = styled.input`
 const StP = styled.p`
     font-weight: bold;
     font-size: 18px;
-    /* font-family: "Nanum Myeongjo", serif; */
-    /* background-color: #3a3232;
-    color: #fffaf2;
-    width: 200px;
-    padding: 10px 5px; */
+    ${(props) =>
+        props.code_para &&
+        css`
+            margin-top: 70px;
+        `}
 `;
 
 export default RoomOpen;

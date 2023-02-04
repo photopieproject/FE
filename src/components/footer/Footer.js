@@ -53,7 +53,8 @@ const StP = styled.p`
     ${(props) =>
         props.copy_right &&
         css`
-            color: #402c00;
+            font-family: "Belleza", sans-serif;
+            color: #3a3232;
             margin: 10px 0;
             font-size: 18px;
             font-weight: bold;

@@ -1,11 +1,10 @@
 import Slider from "react-slick";
 import React from "react";
-// import { AiOutlineArrowRight } from "react-icons/ai";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import toast, { Toaster } from "react-hot-toast";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
@@ -24,21 +23,28 @@ export const MainSlider = () => {
             !localStorage.getItem("id") &&
             !localStorage.getItem("Authorization")
         ) {
-            Swal.fire("Warning", "로그인 후 이용해주세요!", "warning");
-            // alert();
-            navigate("/login");
+            toast.error("로그인 후 이용해주세요!", {
+                style: {
+                    borderRadius: "50px",
+                    background: "#3a3232",
+                    color: "#fffaf2",
+                },
+                iconTheme: {
+                    primary: "#fffaf2",
+                    secondary: "#3a3232",
+                },
+            });
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
         } else {
-            Swal.fire(
-                "Success",
-                "방을 만들거나 코드로 친구를 초대하세요!",
-                "success"
-            );
             navigate("/roomopen");
         }
     };
 
     return (
         <StDiv SliderBox>
+            <Toaster />
             <Slider {...settings} style={{ height: "660px" }}>
                 <StDiv Slider1>
                     <StDiv main_1>
@@ -549,8 +555,6 @@ const StMain = styled.main`
     font-family: "Belleza", sans-serif;
     color: #3a3232;
 `;
-
-const StDivv = styled.div``;
 
 const StSection = styled.section`
     ${(props) =>

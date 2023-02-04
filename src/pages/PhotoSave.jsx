@@ -1,20 +1,18 @@
 import html2canvas from "html2canvas";
-import $ from "jquery";
 import styled, { css } from "styled-components";
 import Button from "../components/button/Button";
 import Span from "../components/button/Span";
-// import { RiKakaoTalkFill } from "react-icons/ri";
 import { MdQrCode2, MdCloudDownload } from "react-icons/md";
 import { ShareKakao } from "../components/Kakao/ShareKakao";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __completePhoto } from "../redux/modules/photoSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { __outPhotoRoom } from "../redux/modules/videoSlice";
+import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 
 const PhotoSave = () => {
-    console.log("Capture Start");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { roomId } = useParams();
@@ -31,6 +29,38 @@ const PhotoSave = () => {
         };
     }, []);
 
+    const onbeforeunload = (event) => {
+        event.preventDefault();
+        event.returnValue = "";
+    };
+
+    useEffect(() => {
+        window.addEventListener("beforeunload", onbeforeunload);
+
+        const preventGoBack = () => {
+            // change start
+            window.history.pushState(null, "", window.location.href);
+            toast.error("방 나가기를 눌러주세요!", {
+                style: {
+                    borderRadius: "10px",
+                    background: "#fffaf2",
+                    color: "#3a3232",
+                },
+                iconTheme: {
+                    primary: "#3a3232",
+                    secondary: "#fffaf2",
+                },
+            });
+        };
+
+        window.history.pushState(null, "", window.location.href);
+        window.addEventListener("popstate", preventGoBack);
+        return () => {
+            window.removeEventListener("popstate", preventGoBack);
+            window.removeEventListener("beforeunload", onbeforeunload);
+        };
+    }, []);
+
     useEffect(() => {
         dispatch(__completePhoto(roomId));
     }, [dispatch, roomId]);
@@ -43,16 +73,10 @@ const PhotoSave = () => {
 
     const pictureSaveHandler = () => {
         html2canvas(document.querySelector("#frame_box")).then((canvas) => {
-            // logging: true,
-            // letterRendering: 1,
-            // allowTaint: true,
-            // useCORS: true
             let completePhoto =
-                (canvas.toDataURL("image/jpg"), "completePhoto.jpg");
+                (canvas.toDataURL("image/jpg"), "Photo-Pie.jpg");
             // completePhoto = completePhoto.replace("data:image/jpg;base64,", "");
-            //console.log(canvas.toDataURL(photo_four));
-            saveAs(canvas.toDataURL("image/jpg"), "completePhoto.jpg");
-            // 사진을 저장함과 동시에 state에 넣어주기...
+            saveAs(canvas.toDataURL("image/jpg"), "Photo-Pie.jpg");
         });
     };
 
@@ -70,14 +94,50 @@ const PhotoSave = () => {
     }
 
     const outRoomsHandler = (roomId) => {
-        dispatch(__outPhotoRoom(roomId)).then((res) => {
-            console.log("res--->", res);
-            if (res.payload.statusCode === 200) {
-                Swal.fire("Success", res.payload.statusMsg, "success");
-                navigate("/");
-            } else if (res.payload.data.statusCode === 400) {
-                Swal.fire("Error", res.payload.data.statusMsg, "error");
-                navigate("/");
+        Swal.fire({
+            title: "방 나가기를 하면 \n사진을 저장할 수 없습니다",
+            text: "재입장이 불가합니다",
+            icon: "warning",
+
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "방 나가기",
+            cancelButtonText: "그대로 있기",
+
+            reverseButtons: true, // 버튼 순서 거꾸로
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(__outPhotoRoom(roomId)).then((res) => {
+                    console.log("res--->", res);
+                    if (res.payload.statusCode === 200) {
+                        toast.success(res.payload.statusMsg, {
+                            style: {
+                                borderRadius: "10px",
+                                background: "#3a3232",
+                                color: "#fffaf2",
+                            },
+                            iconTheme: {
+                                primary: "#fffaf2",
+                                secondary: "#3a3232",
+                            },
+                        });
+                        navigate("/");
+                    } else if (res.payload.data.statusCode === 400) {
+                        toast.error(res.payload.data.statusMsg, {
+                            style: {
+                                borderRadius: "10px",
+                                background: "#fffaf2",
+                                color: "#3a3232",
+                            },
+                            iconTheme: {
+                                primary: "#3a3232",
+                                secondary: "#fffaf2",
+                            },
+                        });
+                        navigate("/");
+                    }
+                });
             }
         });
     };
@@ -89,6 +149,7 @@ const PhotoSave = () => {
             <input type="radio" id="color" />
             <label htmlFor="color">뽀샤시</label> */}
             <StDiv photo_shoot>
+                <Toaster />
                 <StDiv capture_area id="capture_area">
                     <StDiv frame_box id="frame_box">
                         <StImg
@@ -122,11 +183,10 @@ const PhotoSave = () => {
                         onClick={pictureSaveHandler}
                         style={{
                             borderRadius: "10px",
-                            backgroundColor: "#402c00",
-                            color: "white",
+                            backgroundColor: "#3a3232",
+                            color: "#fffaf2",
                             width: "200px",
                             height: "50px",
-                            // fontWeight: "bold",
                             fontSize: "15px",
                             cursor: "pointer",
                             border: 0,
@@ -191,45 +251,6 @@ const StDiv = styled.div`
             height: 300px;
             text-align: center;
             line-height: 300px;
-            /* background-image: url("/image/2-8.jpg"); */
-            /* background-position: center;
-            background-size: cover; */
-        `}
-    ${(props) =>
-        props.picture2 &&
-        css`
-            background-color: white;
-            width: 200px;
-            height: 300px;
-            text-align: center;
-            line-height: 300px;
-            background-image: url("/image/2-6.jpg");
-            background-position: center;
-            background-size: cover;
-        `}
-    ${(props) =>
-        props.picture3 &&
-        css`
-            background-color: white;
-            width: 200px;
-            height: 300px;
-            text-align: center;
-            line-height: 300px;
-            background-image: url("/image/2-7.jpg");
-            background-position: center;
-            background-size: cover;
-        `}
-    ${(props) =>
-        props.picture4 &&
-        css`
-            background-color: white;
-            width: 200px;
-            height: 300px;
-            text-align: center;
-            line-height: 300px;
-            background-image: url("/image/2-5.jpg");
-            background-position: center;
-            background-size: cover;
         `}
         ${(props) =>
         props.down_btn &&

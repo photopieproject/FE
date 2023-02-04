@@ -1,27 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Span from "../button/Span";
-import Swal from "sweetalert2";
+import toast, { Toaster } from "react-hot-toast";
 
 const Header = () => {
     const navigate = useNavigate();
     const nickname = localStorage.getItem("nickname");
-    // const randomNick = Math.floor(Math.random() * 10000);
+    const logout = () => {
+        toast.success("로그아웃 되었습니다", {
+            icon: "👋🏻",
+            style: {
+                borderRadius: "50px",
+                background: "#3a3232",
+                color: "#fffaf2",
+            },
+        });
+    };
+    const removeStorage = () => {
+        localStorage.removeItem("id");
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("Authorization");
+        navigate("/");
+    };
 
     return (
         <StDiv style={{ backgroundColor: "#fffaf2" }}>
             <StDiv nav_main>
-                <Span nav_logo onClick={() => navigate("/")}>
+                <Span onClick={() => navigate("/")}>
                     <StImg src="/image/photopie_logo_1.png" alt="logo" />
                 </Span>
                 <StDiv log_sign>
                     {nickname ? (
                         <Span hello>
                             Hello!
-                            <Span nick>
-                                {nickname}님
-                                {/* {nickname ? nickname : `user${randomNick}`}님 */}
-                            </Span>
+                            <Span nick>{nickname}님</Span>
                         </Span>
                     ) : null}
                     {/* 토큰이 있으면 로그아웃으로 버튼 변경(누르면 쿠키삭제) / 토큰 없으면 로그인 버튼 */}
@@ -29,23 +41,17 @@ const Header = () => {
                     !localStorage.getItem("Authorization") ? (
                         <Span onClick={() => navigate("/login")}>로그인</Span>
                     ) : (
-                        <Span
-                            onClick={() => {
-                                // __postLogout();
-                                Swal.fire(
-                                    "Logout",
-                                    "로그아웃 되었습니다",
-                                    "success"
-                                );
-                                // alert("로그아웃 되었습니다!");
-                                localStorage.removeItem("id");
-                                localStorage.removeItem("nickname");
-                                localStorage.removeItem("Authorization");
-                                navigate("/login");
-                            }}
-                        >
-                            로그아웃
-                        </Span>
+                        <>
+                            <Span
+                                onClick={() => {
+                                    logout();
+                                    removeStorage();
+                                }}
+                            >
+                                로그아웃
+                            </Span>
+                            <Toaster />
+                        </>
                     )}
                     <Span onClick={() => navigate("/signup")}>회원가입</Span>
                 </StDiv>
@@ -58,8 +64,8 @@ const StDiv = styled.div`
     ${(props) =>
         props.nav_main &&
         css`
-            max-width: 1200px;
-            width: 95%;
+            width: 1200px;
+            /* width: 95%; */
             height: 55px;
             display: flex;
             justify-content: space-between;

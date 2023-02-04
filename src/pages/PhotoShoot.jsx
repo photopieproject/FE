@@ -1,12 +1,9 @@
 import html2canvas from "html2canvas";
 import styled, { css } from "styled-components";
-// import { IoCameraSharp } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __takeFrame, __takePhoto } from "../redux/modules/photoSlice";
-// import { useNavigate, useParams } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
-// import Count from "../components/Count/Count";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
 import { BiCopy } from "react-icons/bi";
 import { MdMeetingRoom } from "react-icons/md";
@@ -16,12 +13,12 @@ import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
 import { __outPhotoRoom } from "../redux/modules/videoSlice";
 import Swal from "sweetalert2";
 import Span from "../components/button/Span";
+import toast, { Toaster } from "react-hot-toast";
+import { useRef } from "react";
 
 const PhotoShoot = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    // const [showCount, setShowCount] = useState(false);
 
     const [photo_one, setPhoto_one] = useState("");
     const [photo_two, setPhoto_two] = useState("");
@@ -59,16 +56,15 @@ const PhotoShoot = () => {
     console.log("roomInfo: ", roomInfo);
 
     const [session, setSession] = useState("");
-    // const [mySessionId, setMySessionId] = useState("");
     const [publisher, setPublisher] = useState(null);
     const [subscribers, setSubscribers] = useState([]);
-    // const [isConnect, setIsConnect] = useState(false);
-    // const [connectObj, setConnectObj] = useState("");
-    // const [otherClose, setOtherClose] = useState(false);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
 
     console.log("mainSM --->", mainStreamManager);
     console.log("session--->", session);
+
+    const [number, setNumber] = useState(3);
+    const number_ref = useRef(3);
 
     const outRoomsHandler = (roomId) => {
         Swal.fire({
@@ -76,24 +72,42 @@ const PhotoShoot = () => {
             text: "다시 되돌릴 수 없습니다",
             icon: "warning",
 
-            showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
-            confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
-            cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
-            confirmButtonText: "방 나가기", // confirm 버튼 텍스트 지정
-            cancelButtonText: "그대로 있기", // cancel 버튼 텍스트 지정
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "방 나가기",
+            cancelButtonText: "그대로 있기",
 
-            reverseButtons: true, // 버튼 순서 거꾸로
+            reverseButtons: true,
         }).then((result) => {
-            // 만약 Promise리턴을 받으면,
             if (result.isConfirmed) {
-                // 만약 모달창에서 confirm 버튼을 눌렀다면
                 dispatch(__outPhotoRoom(roomId)).then((res) => {
                     console.log("res--->", res);
                     if (res.payload.statusCode === 200) {
-                        Swal.fire("Success", res.payload.statusMsg, "success");
+                        toast.success(res.payload.statusMsg, {
+                            style: {
+                                borderRadius: "10px",
+                                background: "#3a3232",
+                                color: "#fffaf2",
+                            },
+                            iconTheme: {
+                                primary: "#fffaf2",
+                                secondary: "#3a3232",
+                            },
+                        });
                         navigate("/roomOpen");
                     } else if (res.payload.data.statusCode === 400) {
-                        Swal.fire("Error", res.payload.data.statusMsg, "error");
+                        toast.error(res.payload.data.statusMsg, {
+                            style: {
+                                borderRadius: "10px",
+                                background: "#fffaf2",
+                                color: "#3a3232",
+                            },
+                            iconTheme: {
+                                primary: "#3a3232",
+                                secondary: "#fffaf2",
+                            },
+                        });
                         navigate("/roomOpen");
                     }
                 });
@@ -114,9 +128,17 @@ const PhotoShoot = () => {
         const preventGoBack = () => {
             // change start
             window.history.pushState(null, "", window.location.href);
-            alert("방 나가기를 눌러주세요!");
-            // change end
-            console.log("prevent go back!");
+            toast.error("방 나가기를 눌러주세요!", {
+                style: {
+                    borderRadius: "10px",
+                    background: "#fffaf2",
+                    color: "#3a3232",
+                },
+                iconTheme: {
+                    primary: "#3a3232",
+                    secondary: "#fffaf2",
+                },
+            });
         };
 
         window.history.pushState(null, "", window.location.href);
@@ -215,7 +237,6 @@ const PhotoShoot = () => {
 
         setSession(undefined);
         setSubscribers([]);
-        // setMySessionId("");
         setPublisher(undefined);
     };
 
@@ -227,9 +248,30 @@ const PhotoShoot = () => {
     const copyClipBoard = async (roomCode) => {
         try {
             await navigator.clipboard.writeText(roomCode);
-            alert("클립보드에 링크가 복사되었습니다");
+            toast.success("초대코드가 복사되었습니다!", {
+                style: {
+                    borderRadius: "10px",
+                    background: "#3a3232",
+                    color: "#fffaf2",
+                },
+                iconTheme: {
+                    primary: "#fffaf2",
+                    secondary: "#3a3232",
+                },
+                duration: 4000,
+            });
         } catch (e) {
-            alert("복사에 실패하였습니다");
+            toast.error("복사에 실패하였습니다!", {
+                style: {
+                    borderRadius: "10px",
+                    background: "#fffaf2",
+                    color: "#3a3232",
+                },
+                iconTheme: {
+                    primary: "#3a3232",
+                    secondary: "#fffaf2",
+                },
+            });
         }
     };
 
@@ -240,27 +282,39 @@ const PhotoShoot = () => {
             .then((canvas) => {
                 let photo_one =
                     (canvas.toDataURL("image/jpg"), "photo_one.jpg");
-                photo_one = photo_one.replace("data:image/jpg;base64,", "");
-                //console.log(canvas.toDataURL(photo_one));
+                // photo_one = photo_one.replace("data:image/jpg;base64,", "");
                 setPhoto_one(canvas.toDataURL(photo_one));
-                // saveAs(canvas.toDataURL("image/jpg"), "photo_one.jpg");
-                // 사진을 저장함과 동시에 state에 넣어주기...
             })
             .then(() => {
                 const file = dataURLtoFile(photo_one, "photo_one.jpg");
-                // console.log(file);
 
                 const photo_1 = new FormData();
 
-                // photo_1.append("file", file === "" ? new File([], "") : file);
                 photo_1.append("photo_1", file);
 
-                // setShowCount(true);
+                const cameraCount = setInterval(() => {
+                    number_ref.current -= 1;
+                    setNumber(number_ref.current);
+                    console.log("number", number);
+                    if (number_ref.current === 0) {
+                        clearInterval(cameraCount);
+                        setNumber((number_ref.current = 3));
+                    }
+                }, 1000);
+
                 setTimeout(() => {
                     dispatch(__takePhoto({ roomId, formdata: photo_1 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
-                            alert("1번사진 촬영완료!");
+                            toast.success("1번 사진 촬영 완료!", {
+                                icon: "📸",
+                                style: {
+                                    borderRadius: "10px",
+                                    background: "#3a3232",
+                                    color: "#fffaf2",
+                                },
+                                duration: 2000,
+                            });
                             setOneDis(true);
                         }
                     );
@@ -273,27 +327,39 @@ const PhotoShoot = () => {
             .then((canvas) => {
                 let photo_two =
                     (canvas.toDataURL("image/jpg"), "photo_two.jpg");
-                photo_two = photo_two.replace("data:image/jpg;base64,", "");
-                //console.log(canvas.toDataURL(photo_two));
+                // photo_two = photo_two.replace("data:image/jpg;base64,", "");
                 setPhoto_two(canvas.toDataURL(photo_two));
-                // saveAs(canvas.toDataURL("image/jpg"), "photo_two.jpg");
-                // 사진을 저장함과 동시에 state에 넣어주기...
             })
             .then(() => {
                 const file = dataURLtoFile(photo_two, "photo_two.jpg");
-                // console.log(file);
 
                 const photo_2 = new FormData();
 
-                // photo_2.append("file", file === "" ? new File([], "") : file);
                 photo_2.append("photo_2", file);
 
-                // setShowCount(true);
+                const cameraCount = setInterval(() => {
+                    number_ref.current -= 1;
+                    setNumber(number_ref.current);
+                    console.log("number", number);
+                    if (number_ref.current === 0) {
+                        clearInterval(cameraCount);
+                        setNumber((number_ref.current = 3));
+                    }
+                }, 1000);
+
                 setTimeout(() => {
                     dispatch(__takePhoto({ roomId, formdata: photo_2 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
-                            alert("2번사진 촬영완료!");
+                            toast.success("2번 사진 촬영 완료!", {
+                                icon: "📸",
+                                style: {
+                                    borderRadius: "10px",
+                                    background: "#3a3232",
+                                    color: "#fffaf2",
+                                },
+                                duration: 2000,
+                            });
                             setTwoDis(true);
                         }
                     );
@@ -307,26 +373,38 @@ const PhotoShoot = () => {
                 let photo_three =
                     (canvas.toDataURL("image/jpg"), "photo_three.jpg");
                 photo_three = photo_three.replace("data:image/jpg;base64,", "");
-                //console.log(canvas.toDataURL(photo_three));
                 setPhoto_three(canvas.toDataURL(photo_three));
-                //saveAs(canvas.toDataURL("image/jpg"), "photo_three.jpg");
-                // 사진을 저장함과 동시에 state에 넣어주기...
             })
             .then(() => {
                 const file = dataURLtoFile(photo_three, "photo_three.jpg");
-                // console.log(file);
 
                 const photo_3 = new FormData();
 
-                // photo_3.append("file", file === "" ? new File([], "") : file);
                 photo_3.append("photo_3", file);
 
-                // setShowCount(true);
+                const cameraCount = setInterval(() => {
+                    number_ref.current -= 1;
+                    setNumber(number_ref.current);
+                    console.log("number", number);
+                    if (number_ref.current === 0) {
+                        clearInterval(cameraCount);
+                        setNumber((number_ref.current = 3));
+                    }
+                }, 1000);
+
                 setTimeout(() => {
                     dispatch(__takePhoto({ roomId, formdata: photo_3 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
-                            alert("3번사진 촬영완료!");
+                            toast.success("3번 사진 촬영 완료!", {
+                                icon: "📸",
+                                style: {
+                                    borderRadius: "10px",
+                                    background: "#3a3232",
+                                    color: "#fffaf2",
+                                },
+                                duration: 2000,
+                            });
                             setThreeDis(true);
                         }
                     );
@@ -340,27 +418,39 @@ const PhotoShoot = () => {
                 let photo_four =
                     (canvas.toDataURL("image/jpg"), "photo_four.jpg");
                 photo_four = photo_four.replace("data:image/jpg;base64,", "");
-                //console.log(canvas.toDataURL(photo_four));
                 setPhoto_four(canvas.toDataURL(photo_four));
-                //saveAs(canvas.toDataURL("image/jpg"), "photo_four.jpg");
-                // 사진을 저장함과 동시에 state에 넣어주기...
             })
             .then(() => {
                 const file = dataURLtoFile(photo_four, "photo_four.jpg");
-                // console.log(file);
 
                 const photo_4 = new FormData();
 
-                // photo_4.append("file", file === "" ? new File([], "") : file);
                 photo_4.append("photo_4", file);
 
-                // setShowCount(true);
+                const cameraCount = setInterval(() => {
+                    number_ref.current -= 1;
+                    setNumber(number_ref.current);
+                    console.log("number", number);
+                    if (number_ref.current === 0) {
+                        clearInterval(cameraCount);
+                        setNumber((number_ref.current = 3));
+                    }
+                }, 1000);
+
                 setTimeout(() => {
                     dispatch(__takePhoto({ roomId, formdata: photo_4 })).then(
                         (res) => {
                             console.log("사진전송 res --->", res);
                             setFourDis(true);
-                            alert("4번사진 촬영완료!");
+                            toast.success("4번 사진 촬영 완료!", {
+                                icon: "📸",
+                                style: {
+                                    borderRadius: "10px",
+                                    background: "#3a3232",
+                                    color: "#fffaf2",
+                                },
+                                duration: 2000,
+                            });
                             setSaveDisabled(false);
                         }
                     );
@@ -370,6 +460,7 @@ const PhotoShoot = () => {
 
     return (
         <StDiv photo_shoot>
+            <Toaster />
             <StDiv capture_area>
                 <StDiv frame_box>
                     <StImg src={rooms?.frameUrl} alt="frame url" />
@@ -416,19 +507,32 @@ const PhotoShoot = () => {
                         <MdMeetingRoom size={40} />
                         <Span room_name>{videoRooms.roomName}</Span>
                     </StDiv>
-                    <StP>
+                    <StP
+                        invite_code
+                        onClick={() => copyClipBoard(videoRooms.roomCode)}
+                    >
                         초대코드 복사
-                        <BiCopy
-                            onClick={() => copyClipBoard(videoRooms.roomCode)}
-                            style={{ cursor: "pointer" }}
-                        />
+                        <BiCopy />
                     </StP>
                 </StDiv>
-                {/* {showCount && (
-                    <StDiv Count>
-                        <Count />
+                {role === "leader" ? (
+                    <StDiv counter>
+                        <StP counter_txt>
+                            🚨 현재 방장에게만 촬영 버튼과
+                            <br />
+                            카운터 버튼이 보여집니다
+                            <br />
+                            숫자가 줄어들 때마다 화면에 보이는 숫자를
+                            <br />큰 소리로 친구들에게 외쳐주세요!
+                            <br />
+                            <br />
+                            혹시 숫자가 줄어들지 않으면
+                            <br />
+                            한번 더 클릭해주세요!
+                        </StP>
+                        <StP count_num>{number}</StP>
                     </StDiv>
-                )} */}
+                ) : null}
                 <StDiv all_btn>
                     {role === "leader" ? (
                         // {role === "leader" && subscribers.length === 3 ? (
@@ -442,7 +546,7 @@ const PhotoShoot = () => {
                                     onSubmitHandler_1(roomId);
                                 }}
                             >
-                                내꺼다이씌
+                                나 촬영하기
                             </Button>
                             <Button
                                 camera_btn2
@@ -452,7 +556,7 @@ const PhotoShoot = () => {
                                     onSubmitHandler_2(roomId);
                                 }}
                             >
-                                김치해새꺄
+                                옆에 친구
                             </Button>
                             <Button
                                 camera_btn3
@@ -462,7 +566,7 @@ const PhotoShoot = () => {
                                     onSubmitHandler_3(roomId);
                                 }}
                             >
-                                다음나와이씌
+                                아래 친구
                             </Button>
                             <Button
                                 camera_btn4
@@ -472,7 +576,7 @@ const PhotoShoot = () => {
                                     onSubmitHandler_4(roomId);
                                 }}
                             >
-                                마지막김치해
+                                대각선 친구
                             </Button>
                         </StDiv>
                     ) : null}
@@ -556,7 +660,7 @@ const StDiv = styled.div`
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            gap: 160px;
+            /* gap: 10px; */
             width: 300px;
             height: 750px;
         `}
@@ -565,6 +669,13 @@ const StDiv = styled.div`
         css`
             margin-bottom: 200px;
         `} */
+    ${(props) =>
+        props.counter &&
+        css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `}
     ${(props) =>
         props.Count &&
         css`
@@ -612,12 +723,35 @@ const StImg = styled.img`
 `;
 
 const StP = styled.p`
-    border-radius: 10px;
-    background-color: #402c00;
-    color: white;
-    width: 200px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
+    ${(props) =>
+        props.invite_code &&
+        css`
+            border-radius: 10px;
+            background-color: #3a3232;
+            color: #fffaf2;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        `}
+    ${(props) =>
+        props.counter_txt &&
+        css`
+            margin: 0;
+            padding: 0 10px;
+            color: #3a3232;
+            border: 1px solid #3a3232
+            border-radius: 10px;
+            text-align: center;
+            font-size: 13px;
+        `}
+        ${(props) =>
+        props.count_num &&
+        css`
+            margin: 10px 0 30px 0;
+            font-size: 50px;
+            font-weight: bold;
+        `}
 `;
 export default PhotoShoot;
