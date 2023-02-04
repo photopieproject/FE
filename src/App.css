@@ -1,4 +1,24 @@
 @font-face {
-    font-family: "HELVETICA";
-    src: url("./fonts/HELVETICA\ BLACK\ OBLIQUE.TTF");
+  font-family: "HELVETICA";
+  src: url("./assets/fonts/HELVETICA\ BLACK\ OBLIQUE.TTF");
+}
+
+@font-face {
+  font-family: "Belleza";
+  src: url(./assets/fonts/Belleza-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Buda";
+  src: url(./assets/fonts/Buda-Light.ttf);
+}
+
+@font-face {
+  font-family: "NanumMyeongjo_Regular";
+  src: url(./assets/fonts/NanumMyeongjo_Regular.ttf);
+}
+
+@font-face {
+  font-family: "NanumMyeongjo_Bold";
+  src: url(./assets/fonts/NanumMyeongjo_Bold.ttf);
 }

@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
     const navigate = useNavigate();
+    if (window.location.pathname === "/login") return null;
+    if (window.location.pathname === "/signup") return null;
+    if (window.location.pathname === "/findid") return null;
+    if (window.location.pathname === "/findpw") return null;
+    if (window.location.pathname === "/resetpw") return null;
 
     return (
         <StDiv style={{ backgroundColor: "#fffaf2" }}>

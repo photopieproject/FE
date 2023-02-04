@@ -6,6 +6,13 @@ import toast, { Toaster } from "react-hot-toast";
 const Header = () => {
     const navigate = useNavigate();
     const nickname = localStorage.getItem("nickname");
+
+    if (window.location.pathname === "/login") return null;
+    if (window.location.pathname === "/signup") return null;
+    if (window.location.pathname === "/findid") return null;
+    if (window.location.pathname === "/findpw") return null;
+    if (window.location.pathname === "/resetpw") return null;
+
     const logout = () => {
         toast.success("로그아웃 되었습니다", {
             icon: "👋🏻",
@@ -61,6 +68,24 @@ const Header = () => {
 };
 
 const StDiv = styled.div`
+    ${(props) =>
+        props.nav_main &&
+        css`
+            max-width: 1200px;
+            width: 95%;
+            height: 55px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 0 auto;
+        `}
+    ${(props) =>
+        props.cate_gory &&
+        css`
+            display: flex;
+            gap: 30px;
+        `}
     ${(props) =>
         props.nav_main &&
         css`
