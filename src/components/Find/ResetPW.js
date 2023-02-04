@@ -64,9 +64,9 @@ function ResetPW({ userId, setUserId }) {
 
   return (
     <div>
-      <StDiv ResetPWBox>
+      <StDiv ResetPWPage>
         <StDiv FindPWMsg>
-          <StDiv FindPw>비밀번호 변경하기</StDiv>
+          <StDiv FindPw>Reset Password</StDiv>
           <StDiv IdPw>
             Password
             <br />
@@ -112,7 +112,16 @@ function ResetPW({ userId, setUserId }) {
               name="checkbutton"
               value=""
             >
-              다음
+              비밀번호 변경하기
+            </StBtn>
+          </StDiv>
+        </StDiv>
+        <StDiv RightBox>
+          <StPRight RightTxt1>Welcome Back!</StPRight>
+          <StPRight RightTxt2>안녕하세요. 포토파이입니다.</StPRight>
+          <StDiv>
+            <StBtn RightLoginbtn onClick={() => navigate("/login")}>
+              Login
             </StBtn>
           </StDiv>
         </StDiv>
@@ -123,42 +132,52 @@ function ResetPW({ userId, setUserId }) {
 
 const StDiv = styled.div`
   ${(props) =>
-    props.ResetPWBox &&
+    props.ResetPWPage &&
     css`
-      width: 500px;
-      height: 600px;
-      border: 1px solid black;
-      color: black;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
     `}
   ${(props) =>
     props.FindPWMsg &&
     css`
       width: 500px;
       height: 600px;
-      border: 1px solid black;
       color: black;
       display: flex;
       flex-direction: column;
       align-items: center;
     `}
-
+    ${(props) =>
+    props.RightBox &&
+    css`
+      width: 45%;
+      height: 100%;
+      background: #3a3232;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `}
   ${(props) =>
     props.FindPw &&
     css`
-      font-size: 30px;
-      font-weight: bold;
+      font-size: 70px;
       display: flex;
       justify-content: center;
-      margin: 50px 0 20px 0;
-      color: #7d6945;
+      margin: 30px 0 0px 0;
+      color: black;
+      font-family: Belleza;
     `}
     ${(props) =>
     props.IdPw &&
     css`
       font-size: 15px;
       font-weight: bold;
-      color: gray;
-      margin-top: 20px;
+      color: #6b6462;
+      padding-top: 20px;
     `}
      ${(props) =>
     props.NextGoBtnBox &&
@@ -172,29 +191,68 @@ const StBtn = styled.button`
   ${(props) =>
     props.NextGoBtn &&
     css`
+      width: 160px;
+      height: 40px;
+      border-radius: 20px;
+      margin-top: 10px;
+      /*background-color: #fffaf2;*/
+      /* border: 2px solid #3a3232; */
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+        background-color: #3a3232;
+        color: #fffaf2;
+      }
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 90px;
-      height: 40px;
-      border-radius: 15px;
       background: ${({ nextDisabled }) =>
-        nextDisabled
-          ? "#d9d9d9"
-          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-            "#402c00"};
-      &:hover {
-        background-color: #af9462;
-      }
-      color: ${({ nextDisabled }) => (nextDisabled ? "#402c00" : "white")};
-      background-size: 200%;
-      transition: 500ms;
-      border: none;
+        nextDisabled ? "#d9d9d9" : "#fffaf2"};
+      color: ${({ nextDisabled }) => (nextDisabled ? "#fffaf2" : "#3a3232")};
+      border: ${({ nextDisabled }) =>
+        nextDisabled ? "none" : "2px solid #3a3232"};
       font-weight: bold;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
       &:disabled {
         background-color: #ddd8d8;
+      }
+    `}
+
+  ${(props) =>
+    props.RightFindIdBtn &&
+    css`
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      top: 610px;
+      left: 1371px;
+      border-radius: 50px;
+      border: 1px solid #fffaf2;
+      background-color: #3a3232;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background-color: #fffaf2;
+        color: #3a3232;
+      }
+    `}
+    ${(props) =>
+    props.RightLoginbtn &&
+    css`
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      top: 610px;
+      left: 1371px;
+      border-radius: 50px;
+      border: 1px solid #fffaf2;
+      background-color: #3a3232;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background-color: #fffaf2;
+        color: #3a3232;
       }
     `}
 `;
@@ -204,33 +262,53 @@ const StInput = styled.input`
     props.LoginInput &&
     css`
       ::placeholder {
-        color: #cacaca;
+        color: #b9b8b8;
       }
+      background-color: #f2eeee;
+      border-radius: 10px;
       border: none;
-      border-bottom: solid 2px black;
       width: 300px;
       height: 40px;
       &:focus {
         outline: none;
-        border-bottom: solid 4px #ecdfc8;
       }
     `}
   ${(props) =>
     props.LoginInput2 &&
     css`
       ::placeholder {
-        color: #cacaca;
+        color: #b9b8b8;
       }
+      background-color: #f2eeee;
+      border-radius: 10px;
       border: none;
-      border-bottom: solid 2px black;
-      width: 200px;
+      width: 300px;
       height: 40px;
       &:focus {
         outline: none;
-        border-bottom: solid 4px #ecdfc8;
       }
     `}
 `;
+
+const StPRight = styled.p`
+  ${(props) =>
+    props.RightTxt1 &&
+    css`
+      font-size: 50px;
+      color: white;
+      margin-top: -60px;
+      font-family: "Belleza";
+    `}
+
+  ${(props) =>
+    props.RightTxt2 &&
+    css`
+      font-size: 40px;
+      color: white;
+      margin: 0px auto 60px auto;
+    `}
+`;
+
 const StP = styled.p`
   font-size: 13px;
   font-weight: lighter;

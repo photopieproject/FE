@@ -5,6 +5,7 @@ import { useInput } from "../../lib/utils/useInput";
 import { useState } from "react";
 import { useEffect } from "react";
 import SmsMessage from "../SMS/SmsMessage";
+import toast, { Toaster } from "react-hot-toast";
 
 const Registration = () => {
   const [userId, setUserId] = useInput();
@@ -86,13 +87,36 @@ const Registration = () => {
       .then((res) => {
         //서버에서 받아온 부분
 
-        console.log("signup res: ", res);
-        // alert(res.data.msg);
-        localStorage.setItem("id", res.headers.authorization);
-        navigate("/login");
+        toast.success("test", {
+          style: {
+            borderRadius: "10px",
+            background: "#3a3232",
+            color: "#fffaf2",
+          },
+          iconTheme: {
+            primary: "#fffaf2",
+            secondary: "#3a3232",
+          },
+        });
+
+        // console.log("signup res: ", res);
+        // // alert(res.data.msg);
+        // localStorage.setItem("id", res.headers.authorization);
+        // navigate("/login");
       })
       .catch((err) => {
         console.log("error: ", err);
+        toast.error("error test", {
+          style: {
+            borderRadius: "10px",
+            background: "#3a3232",
+            color: "#fffaf2",
+          },
+          iconTheme: {
+            primary: "#fffaf2",
+            secondary: "#3a3232",
+          },
+        });
       });
   };
 
@@ -115,13 +139,24 @@ const Registration = () => {
   };
 
   return (
-    <div>
+    <StDiv SignupPage>
+      <StDiv LeftBox>
+        <Toaster />
+        <StPLeft LeftTxt1>Welcome To</StPLeft>
+        <StPLeft LeftTxt1>Photo-Pie</StPLeft>
+        <StPLeft LeftTxt2>안녕하세요. 포토파이입니다.</StPLeft>
+        <StDiv>
+          <StBtn LeftSignUpbtn onClick={() => navigate("/login")}>
+            Login
+          </StBtn>
+        </StDiv>
+      </StDiv>
       <StDiv SingUpBox>
-        <StDiv SingUp>회원가입</StDiv>
+        <StDiv SingUp>Create Account</StDiv>
         <StDiv IDPWBox>
           <div>
             <StDiv IdPw>
-              ID
+              아이디
               <br />
               <StInput
                 LoginInput2
@@ -138,13 +173,13 @@ const Registration = () => {
                 checkUserId={checkUserId}
                 onClick={() => checkUserIdHandler(userId)}
               >
-                중복체크
+                중복확인
               </StBtn>
               <StP>{checkP}</StP>
             </StDiv>
 
             <StDiv IdPw>
-              Nickname
+              닉네임
               <br />
               <StInput
                 LoginInput
@@ -156,7 +191,7 @@ const Registration = () => {
               />
             </StDiv>
             <StDiv IdPw>
-              Password
+              비밀번호
               <br />
               <StInput
                 LoginInput
@@ -171,8 +206,7 @@ const Registration = () => {
               <StP>{PWPtag}</StP>
             </StDiv>
             <StDiv IdPw>
-              Password Check
-              <br />
+              비밀번호 확인 <br />
               <StInput
                 LoginInput
                 onBlur={PWConfirmChk}
@@ -206,39 +240,64 @@ const Registration = () => {
             registDisabled={registDisabled}
             onClick={onSubmitSignup}
           >
-            회원가입
+            Sign Up
           </StBtn>
         </StDiv>
 
-        <StDiv SignUpGoBox>
+        {/* <StDiv SignUpGoBox>
           계정이 이미 있으신가요?
           <StBtn SignUpGoBtn onClick={() => navigate("/login")}>
             로그인
           </StBtn>
-        </StDiv>
+        </StDiv> */}
       </StDiv>
-    </div>
+    </StDiv>
   );
 };
 
 const StDiv = styled.div`
   ${(props) =>
+    props.SignupPage &&
+    css`
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    `}
+
+  ${(props) =>
+    props.LeftBox &&
+    css`
+      width: 45%;
+      height: 100vh;
+      background: #3a3232;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `}
+
+  ${(props) =>
     props.SingUpBox &&
     css`
-      width: 500px;
-      border: 1px solid black;
+      width: 55%;
+      height: 100vh;
       color: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     `}
 
   ${(props) =>
     props.SingUp &&
     css`
-      font-size: 30px;
-      font-weight: bold;
+      font-size: 70px;
       display: flex;
       justify-content: center;
       margin: 30px 0 0px 0;
-      color: #7d6945;
+      color: black;
     `}
 
   ${(props) =>
@@ -254,7 +313,7 @@ const StDiv = styled.div`
     css`
       font-size: 15px;
       font-weight: bold;
-      color: gray;
+      color: #6b6462;
       padding-top: 20px;
     `}
 
@@ -274,6 +333,24 @@ ${(props) =>
       display: flex;
       justify-content: center;
       margin-top: 10px;
+    `}
+`;
+
+const StPLeft = styled.p`
+  ${(props) =>
+    props.LeftTxt1 &&
+    css`
+      font-size: 50px;
+      color: white;
+      margin-top: -60px;
+    `}
+
+  ${(props) =>
+    props.LeftTxt2 &&
+    css`
+      font-size: 25px;
+      color: white;
+      margin: 0px auto 60px auto;
     `}
 `;
 
@@ -302,101 +379,112 @@ const StInput = styled.input`
     props.LoginInput &&
     css`
       ::placeholder {
-        color: #cacaca;
+        color: #b9b8b8;
       }
+      background-color: #f2eeee;
+      border-radius: 10px;
+
       border: none;
-      border-bottom: solid 2px black;
       width: 300px;
       height: 40px;
       &:focus {
         outline: none;
-        border-bottom: solid 4px #ecdfc8;
       }
     `}
   ${(props) =>
     props.LoginInput2 &&
     css`
       ::placeholder {
-        color: #cacaca;
+        color: #b9b8b8;
       }
+      background-color: #f2eeee;
       border: none;
-      border-bottom: solid 2px black;
       width: 200px;
       height: 40px;
       &:focus {
         outline: none;
-        border-bottom: solid 4px #ecdfc8;
       }
     `}
 `;
 
 const StBtn = styled.button`
-  /* ${(props) =>
-    props.Forgot &&
+  ${(props) =>
+    props.LeftSignUpbtn &&
     css`
-      background-color: transparent;
-      color: #9f8759;
-      border: none;
-      margin: 10px 0px 10px 220px;
-      font-weight: bold;
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      top: 610px;
+      left: 1371px;
+      border-radius: 50px;
+      border: 1px solid #fffaf2;
+      background-color: #3a3232;
+      color: white;
       &:hover {
         cursor: pointer;
-        text-decoration: underline;
+        background-color: #fffaf2;
+        color: #3a3232;
       }
-    `} */
+    `}
 
   ${(props) =>
     props.IdCheckBtn &&
     css`
-      width: 80px;
-      height: 35px;
+      width: 100px;
+      height: 40px;
       border-radius: 10px;
-      margin: 0 0 0 20px;
-      /* background: linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945); */
-      background-size: 200%;
-      border: none;
-      transition: 500ms;
-      /* color: white; */
+      margin-top: 10px;
+      /*background-color: #fffaf2;*/
+      /* border: 2px solid #3a3232; */
       font-weight: bold;
-      /* background: ${({ checkUserId }) =>
-        checkUserId
-          ? "#d9d9d9"
-          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ checkUserId }) => (checkUserId ? "#7d6945" : "white")}; */
-      background: ${({ checkUserId }) =>
-        checkUserId
-          ? "#d9d9d9"
-          : // : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-            "#402c00"};
-      &:hover {
-        background-color: #af9462;
-      }
-      color: ${({ checkUserId }) => (checkUserId ? "#402c00" : "white")};
       &:hover {
         cursor: pointer;
-        background-position: right;
+        background-color: #3a3232;
+        color: #fffaf2;
+      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: ${({ checkUserId }) => (checkUserId ? "#d9d9d9" : "#fffaf2")};
+      color: ${({ checkUserId }) => (checkUserId ? "#fffaf2" : "#3a3232")};
+      border: ${({ checkUserId }) =>
+        checkUserId ? "none" : "2px solid #3a3232"};
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      &:disabled {
+        background-color: #ddd8d8;
       }
     `}
   ${(props) =>
     props.LoginBtn &&
     css`
-      width: 300px;
+      width: 150px;
       height: 40px;
-      border-radius: 15px;
-      margin: 10px auto;
-      background: ${({ registDisabled }) =>
-        registDisabled
-          ? "#d9d9d9"
-          : "linear-gradient(120deg, #7d6945, #ecdfc8, #7d6945)"};
-      color: ${({ registDisabled }) => (registDisabled ? "#7d6945" : "white")};
-      background-size: 200%;
-      transition: 500ms;
-      border: none;
+      border-radius: 10px;
+      margin-top: 10px;
+      /*background-color: #fffaf2;*/
+      /* border: 2px solid #3a3232; */
       font-weight: bold;
       &:hover {
         cursor: pointer;
-        background-position: right;
-        /* font-size: 15px; */
+        background-color: #3a3232;
+        color: #fffaf2;
+      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: ${({ registDisabled }) =>
+        registDisabled ? "#d9d9d9" : "#fffaf2"};
+      color: ${({ registDisabled }) =>
+        registDisabled ? "#fffaf2" : "#3a3232"};
+      border: ${({ registDisabled }) =>
+        registDisabled ? "none" : "2px solid #3a3232"};
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      &:disabled {
+        background-color: #ddd8d8;
       }
     `}
 
