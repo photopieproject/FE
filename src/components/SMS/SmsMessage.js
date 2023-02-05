@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useInput } from "../../lib/utils/useInput";
 import SmsCount from "../Count/SmsCount";
 import { __findID, __findPW, __SMSSend } from "../../redux/modules/loginSlice";
+import { useEffect } from "react";
 
 const SmsMessage = ({
   setOkConfirm,
@@ -24,12 +25,6 @@ const SmsMessage = ({
 
   console.log(codeNumber); //찐인증번호
   console.log(confirmNumber); //내가 입력한 인증번호
-
-  // 백에서 data1에 넣어주면 안돼고
-  // 프론트에서 휴대폰번호랑 인증번호를 보냈을 때
-  // 그 휴대폰번호에 대한 인증번호를 둘 다 백이 갖고있으면
-  // 휴대폰이랑 인증번호를 우리한테 보내서
-  // 그게 대조했을 떄 맞으면 빽에서 ㅇㅋ 해야함
 
   // function checkPhone(phoneNumber) {
   //   var regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
@@ -70,12 +65,12 @@ const SmsMessage = ({
         console.log("findid res: ", res.data);
         setIsUserId(res.data.data2);
         if (res.data.statusCode === 200) {
-          console.log("1234");
+          // console.log("1234");
           // alert(res.data.msg);
           // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
           alert(res.data.statusMsg, res.data.statusCode, "success");
         } else {
-          alert(res.data.msg, "아이디가 없습니다.", "error");
+          alert("핸드폰 번호를 입력해주세요.");
           // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
           // navigate("/login");
         }
@@ -85,6 +80,14 @@ const SmsMessage = ({
       });
   };
 
+  // useEffect(() => {
+  //   if (setPhoneNumber !== null) {
+  //     setPnDisabled(false);
+  //   } else {
+  //     setPnDisabled(true);
+  //   }
+  // }, [setPhoneNumber]);
+
   const findPwHandler = () => {
     __findPW({
       //서버로 요청하는 부분
@@ -93,7 +96,8 @@ const SmsMessage = ({
     })
       .then((res) => {
         //서버에서 받아온 부분
-        console.log(userId);
+        // console.log(userId);
+
         setCodeNumber(res.data.data1);
         setShowInput(true);
         console.log("findid res: ", res.data);
@@ -102,7 +106,7 @@ const SmsMessage = ({
           alert(res.data.statusMsg, res.data.statusCode, "success");
           setIsShow(true);
         } else {
-          alert(res.data.msg, "아이디가 없습니다.", "error");
+          alert("아이디를 입력해주세요.");
         }
       })
       .catch((err) => {
@@ -212,6 +216,11 @@ const StDiv = styled.div`
       width: 100%;
       height: 131px;
     `}
+  ${(props) =>
+    props.ShowInputBox &&
+    css`
+      margin-top: 10px;
+    `}
 `;
 const StInput = styled.input`
   ${(props) =>
@@ -251,7 +260,7 @@ const StBtn = styled.button`
       width: 120px;
       height: 40px;
       border-radius: 10px;
-      margin-top: 10px;
+      margin-left: 10px;
       /*background-color: #fffaf2;*/
       /* border: 2px solid #3a3232; */
       font-weight: bold;
@@ -260,9 +269,9 @@ const StBtn = styled.button`
         background-color: #3a3232;
         color: #fffaf2;
       }
-      display: flex;
+      /* display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: center; */
       background: ${({ pnDisabled }) => (pnDisabled ? "#d9d9d9" : "#fffaf2")};
       color: ${({ pnDisabled }) => (pnDisabled ? "#fffaf2" : "#3a3232")};
       border: ${({ pnDisabled }) =>
@@ -278,10 +287,10 @@ const StBtn = styled.button`
   ${(props) =>
     props.SMSBtn &&
     css`
-      width: 150px;
+      width: 120px;
       height: 40px;
-      border-radius: 20px;
-      margin-top: 10px;
+      border-radius: 10px;
+      margin-left: 10px;
       /*background-color: #fffaf2;*/
       /* border: 2px solid #3a3232; */
       font-weight: bold;
@@ -290,9 +299,6 @@ const StBtn = styled.button`
         background-color: #3a3232;
         color: #fffaf2;
       }
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: ${({ msgDisabled }) => (msgDisabled ? "#d9d9d9" : "#fffaf2")};
       color: ${({ msgDisabled }) => (msgDisabled ? "#fffaf2" : "#3a3232")};
       border: ${({ msgDisabled }) =>

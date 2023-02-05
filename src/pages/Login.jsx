@@ -108,14 +108,18 @@ const Login = () => {
         </form>
       </StDiv>
       <StDiv RightBox>
-        <img
-          src="/image/photopie_logo_1.png"
-          alt="home_logo"
-          style={{ width: "140px" }}
-          onClick={() => navigate("/")}
-        />
-        <StP RightTxt1>Welcome Back!</StP>
-        <StP RightTxt2>안녕하세요. 포토파이입니다.</StP>
+        <StDiv LogoBox>
+          <img
+            src="/image/photopie_logo_1.png"
+            alt="home_logo"
+            style={{ width: "140px" }}
+            onClick={() => navigate("/")}
+          />
+        </StDiv>
+        <StDiv TxtBox>
+          <StP RightTxt1>Welcome Back!</StP>
+          <StP RightTxt2>안녕하세요. 포토파이입니다.</StP>
+        </StDiv>
         <StDiv>
           <StBtn RightSignUpbtn onClick={() => navigate("/signup")}>
             Sign Up
@@ -168,6 +172,18 @@ const StDiv = styled.div`
       margin: 30px 0 0px 0;
       color: black;
       font-family: Belleza;
+    `}
+  ${(props) =>
+    props.LogoBox &&
+    css`
+      margin-bottom: 80px;
+    `}
+  ${(props) =>
+    props.TxtBox &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     `}
 
   ${(props) =>
@@ -247,13 +263,14 @@ const StP = styled.p`
       font-size: 50px;
       color: white;
       margin-top: -60px;
-      font-family: Belleza;
+      font-family: "Belleza";
+      margin-bottom: 10px;
     `}
 
   ${(props) =>
     props.RightTxt2 &&
     css`
-      font-size: 40px;
+      font-size: 24px;
       color: white;
       margin: 0px auto 60px auto;
     `}
@@ -262,11 +279,11 @@ const StBtn = styled.button`
   ${(props) =>
     props.RightSignUpbtn &&
     css`
+      font-family: "Belleza";
       font-size: 20px;
       width: 250px;
       height: 60px;
-      top: 610px;
-      left: 1371px;
+      margin-top: -10px;
       border-radius: 50px;
       border: 1px solid #fffaf2;
       background-color: #3a3232;
@@ -312,15 +329,16 @@ const StBtn = styled.button`
   ${(props) =>
     props.LoginBtn &&
     css`
-      width: 150px;
-      height: 40px;
-      border-radius: 20px;
+      font-family: "Belleza";
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      border-radius: 50px;
       margin-bottom: 10px;
       background-color: #fffaf2;
       border: 2px solid #3a3232;
       /* transition: 500ms; */
       color: #3a3232;
-      font-weight: bold;
       &:hover {
         cursor: pointer;
         background-color: #3a3232;

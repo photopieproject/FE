@@ -63,70 +63,78 @@ function ResetPW({ userId, setUserId }) {
   };
 
   return (
-    <div>
-      <StDiv ResetPWPage>
-        <StDiv FindPWMsg>
-          <StDiv FindPw>Reset Password</StDiv>
-          <StDiv IdPw>
-            Password
-            <br />
-            <StInput
-              LoginInput
-              type="password"
-              id="password"
-              onBlur={PWChk}
-              value={password}
-              onChange={setPassword}
-              autoComplete="off"
-              placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
-            />
-            <StP>{PWPtag}</StP>
-          </StDiv>
-          <StDiv IdPw>
-            Password Check
-            <br />
-            <StInput
-              LoginInput
-              onBlur={PWConfirmChk}
-              type="password"
-              id="password"
-              required
-              // value={passwordCheck}
-              // onChange={setPasswordCheck}
-              value={PWConfirm}
-              onChange={(e) => {
-                setPWConfirm(e.target.value);
-              }}
-              autoComplete="off"
-              placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
-            />
-          </StDiv>
-          <StP>{PWConfirmP}</StP>
-          <StDiv NextGoBtnBox>
-            <StBtn
-              NextGoBtn
-              onClick={() => ResetPWHandler(password, userId)}
-              disabled={nextDisabled}
-              nextDisabled={nextDisabled}
-              type="button"
-              name="checkbutton"
-              value=""
-            >
-              비밀번호 변경하기
-            </StBtn>
-          </StDiv>
+    <StDiv ResetPWPage>
+      <StDiv FindPWMsg>
+        <StDiv FindPw>Reset Password</StDiv>
+        <StDiv IdPw>
+          Password
+          <br />
+          <StInput
+            LoginInput
+            type="password"
+            id="password"
+            onBlur={PWChk}
+            value={password}
+            onChange={setPassword}
+            autoComplete="off"
+            placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
+          />
+          <StP>{PWPtag}</StP>
         </StDiv>
-        <StDiv RightBox>
-          <StPRight RightTxt1>Welcome Back!</StPRight>
-          <StPRight RightTxt2>안녕하세요. 포토파이입니다.</StPRight>
-          <StDiv>
-            <StBtn RightLoginbtn onClick={() => navigate("/login")}>
-              Login
-            </StBtn>
-          </StDiv>
+        <StDiv IdPw>
+          Password Check
+          <br />
+          <StInput
+            LoginInput
+            onBlur={PWConfirmChk}
+            type="password"
+            id="password"
+            required
+            // value={passwordCheck}
+            // onChange={setPasswordCheck}
+            value={PWConfirm}
+            onChange={(e) => {
+              setPWConfirm(e.target.value);
+            }}
+            autoComplete="off"
+            placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
+          />
+        </StDiv>
+        <StP>{PWConfirmP}</StP>
+        <StDiv NextGoBtnBox>
+          <StBtn
+            NextGoBtn
+            onClick={() => ResetPWHandler(password, userId)}
+            disabled={nextDisabled}
+            nextDisabled={nextDisabled}
+            type="button"
+            name="checkbutton"
+            value=""
+          >
+            Go Login
+          </StBtn>
         </StDiv>
       </StDiv>
-    </div>
+      <StDiv RightBox>
+        <StDiv LogoBox>
+          <img
+            src="/image/photopie_logo_1.png"
+            alt="home_logo"
+            style={{ width: "140px" }}
+            onClick={() => navigate("/")}
+          />
+        </StDiv>
+        <StDiv TxtBox>
+          <StPRight RightTxt1>Welcome Back!</StPRight>
+          <StPRight RightTxt2>안녕하세요. 포토파이입니다.</StPRight>
+        </StDiv>
+        <StDiv>
+          <StBtn RightLoginbtn onClick={() => navigate("/login")}>
+            Login
+          </StBtn>
+        </StDiv>
+      </StDiv>
+    </StDiv>
   );
 }
 
@@ -143,22 +151,35 @@ const StDiv = styled.div`
   ${(props) =>
     props.FindPWMsg &&
     css`
-      width: 500px;
-      height: 600px;
+      width: 55%;
+      height: 100vh;
       color: black;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     `}
     ${(props) =>
     props.RightBox &&
     css`
       width: 45%;
-      height: 100%;
+      height: 100vh;
       background: #3a3232;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+    `}
+    ${(props) =>
+    props.LogoBox &&
+    css`
+      margin-bottom: 80px;
+    `}
+  ${(props) =>
+    props.TxtBox &&
+    css`
+      display: flex;
+      flex-direction: column;
       align-items: center;
     `}
   ${(props) =>
@@ -169,7 +190,7 @@ const StDiv = styled.div`
       justify-content: center;
       margin: 30px 0 0px 0;
       color: black;
-      font-family: Belleza;
+      font-family: "Belleza";
     `}
     ${(props) =>
     props.IdPw &&
@@ -191,13 +212,12 @@ const StBtn = styled.button`
   ${(props) =>
     props.NextGoBtn &&
     css`
-      width: 160px;
-      height: 40px;
-      border-radius: 20px;
-      margin-top: 10px;
-      /*background-color: #fffaf2;*/
-      /* border: 2px solid #3a3232; */
-      font-weight: bold;
+      font-family: "Belleza";
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      border-radius: 50px;
+      margin-bottom: 10px;
       &:hover {
         cursor: pointer;
         background-color: #3a3232;
@@ -211,8 +231,7 @@ const StBtn = styled.button`
       color: ${({ nextDisabled }) => (nextDisabled ? "#fffaf2" : "#3a3232")};
       border: ${({ nextDisabled }) =>
         nextDisabled ? "none" : "2px solid #3a3232"};
-      font-weight: bold;
-      font-size: 14px;
+
       cursor: pointer;
       &:disabled {
         background-color: #ddd8d8;
@@ -298,12 +317,13 @@ const StPRight = styled.p`
       color: white;
       margin-top: -60px;
       font-family: "Belleza";
+      margin-bottom: 10px;
     `}
 
   ${(props) =>
     props.RightTxt2 &&
     css`
-      font-size: 40px;
+      font-size: 24px;
       color: white;
       margin: 0px auto 60px auto;
     `}

@@ -154,10 +154,10 @@ const Registration = () => {
       <StDiv SingUpBox>
         <StDiv SingUp>Create Account</StDiv>
         <StDiv IDPWBox>
-          <div>
-            <StDiv IdPw>
-              아이디
-              <br />
+          <StDiv IdPw>
+            아이디
+            <br />
+            <stDiv InputIDCheckBtn>
               <StInput
                 LoginInput2
                 type="text"
@@ -175,56 +175,56 @@ const Registration = () => {
               >
                 중복확인
               </StBtn>
-              <StP>{checkP}</StP>
-            </StDiv>
+            </stDiv>
+            <StP>{checkP}</StP>
+          </StDiv>
 
-            <StDiv IdPw>
-              닉네임
-              <br />
-              <StInput
-                LoginInput
-                type="text"
-                id="nickname"
-                value={nickname}
-                onChange={setNickName}
-                placeholder="닉네임을 입력해주세요."
-              />
-            </StDiv>
-            <StDiv IdPw>
-              비밀번호
-              <br />
-              <StInput
-                LoginInput
-                type="password"
-                id="password"
-                onBlur={PWChk}
-                value={password}
-                onChange={setPassword}
-                autoComplete="off"
-                placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
-              />
-              <StP>{PWPtag}</StP>
-            </StDiv>
-            <StDiv IdPw>
-              비밀번호 확인 <br />
-              <StInput
-                LoginInput
-                onBlur={PWConfirmChk}
-                type="password"
-                id="password"
-                required
-                // value={passwordCheck}
-                // onChange={setPasswordCheck}
-                value={PWConfirm}
-                onChange={(e) => {
-                  setPWConfirm(e.target.value);
-                }}
-                autoComplete="off"
-                placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
-              />
-            </StDiv>
-            <StP>{PWConfirmP}</StP>
-          </div>
+          <StDiv IdPw>
+            닉네임
+            <br />
+            <StInput
+              LoginInput
+              type="text"
+              id="nickname"
+              value={nickname}
+              onChange={setNickName}
+              placeholder="닉네임을 입력해주세요."
+            />
+          </StDiv>
+          <StDiv IdPw>
+            비밀번호
+            <br />
+            <StInput
+              LoginInput
+              type="password"
+              id="password"
+              onBlur={PWChk}
+              value={password}
+              onChange={setPassword}
+              autoComplete="off"
+              placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
+            />
+            <StP>{PWPtag}</StP>
+          </StDiv>
+          <StDiv IdPw>
+            비밀번호 확인 <br />
+            <StInput
+              LoginInput
+              onBlur={PWConfirmChk}
+              type="password"
+              id="password"
+              required
+              // value={passwordCheck}
+              // onChange={setPasswordCheck}
+              value={PWConfirm}
+              onChange={(e) => {
+                setPWConfirm(e.target.value);
+              }}
+              autoComplete="off"
+              placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
+            />
+          </StDiv>
+          <StP>{PWConfirmP}</StP>
         </StDiv>
 
         <SmsMessage
@@ -304,6 +304,7 @@ const StDiv = styled.div`
     props.IDPWBox &&
     css`
       display: flex;
+      width: 400px;
       flex-direction: column;
       align-items: center;
     `}
@@ -311,10 +312,18 @@ const StDiv = styled.div`
   ${(props) =>
     props.IdPw &&
     css`
+      width: 350px;
+      /* display: flex; */
       font-size: 15px;
       font-weight: bold;
       color: #6b6462;
       padding-top: 20px;
+    `}
+
+  ${(props) =>
+    props.InputIDCheckBtn &&
+    css`
+      display: flex;
     `}
 
   ${(props) =>
@@ -433,7 +442,7 @@ const StBtn = styled.button`
       width: 100px;
       height: 40px;
       border-radius: 10px;
-      margin-top: 10px;
+      margin-left: 10px;
       /*background-color: #fffaf2;*/
       /* border: 2px solid #3a3232; */
       font-weight: bold;
@@ -442,9 +451,9 @@ const StBtn = styled.button`
         background-color: #3a3232;
         color: #fffaf2;
       }
-      display: flex;
+      /* display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: center; */
       background: ${({ checkUserId }) => (checkUserId ? "#d9d9d9" : "#fffaf2")};
       color: ${({ checkUserId }) => (checkUserId ? "#fffaf2" : "#3a3232")};
       border: ${({ checkUserId }) =>

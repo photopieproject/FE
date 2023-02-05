@@ -14,11 +14,11 @@
 }
 
 @font-face {
-  font-family: "NanumMyeongjo_Regular";
-  src: url(./assets/fonts/NanumMyeongjo_Regular.ttf);
+  font-family: "NanumMyeongjo-Regular";
+  src: url(./assets/fonts/NanumMyeongjo-Regular.ttf);
 }
 
 @font-face {
-  font-family: "NanumMyeongjo_Bold";
-  src: url(./assets/fonts/NanumMyeongjo_Bold.ttf);
+  font-family: "NanumMyeongjo-Bold";
+  src: url(./assets/fonts/NanumMyeongjo-Bold.ttf);
 }
