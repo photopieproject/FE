@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 const Span = (props) => {
-    const { children, onClick, nav_logo, qrcode, nick, hello, room_name } =
+    const { children, onClick, nav_logo, qrcode, nick, hello, room_name, red } =
         props;
     return (
         <StSpan
@@ -11,6 +11,7 @@ const Span = (props) => {
             nick={nick}
             hello={hello}
             room_name={room_name}
+            red={red}
         >
             {children}
         </StSpan>
@@ -53,6 +54,11 @@ const StSpan = styled.span`
             cursor: default;
             font-weight: bold;
             margin-left: 10px;
+        `}
+    ${(props) =>
+        props.red &&
+        css`
+            color: red;
         `}
 `;
 
