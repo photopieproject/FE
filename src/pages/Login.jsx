@@ -50,7 +50,7 @@ const Login = () => {
                 <img
                   src="/image/kakao_login2.png"
                   alt="kakao_login2"
-                  style={{ width: "190px" }}
+                  style={{ width: "195px" }}
                 />
                 {/* Kakao 로그인 */}
                 {/* </StBtn> */}
@@ -112,7 +112,7 @@ const Login = () => {
           <img
             src="/image/photopie_logo_1.png"
             alt="home_logo"
-            style={{ width: "140px" }}
+            style={{ width: "140px", cursor: "pointer" }}
             onClick={() => navigate("/")}
           />
         </StDiv>
@@ -283,8 +283,8 @@ const StBtn = styled.button`
       font-size: 20px;
       width: 250px;
       height: 60px;
-      margin-top: -10px;
       border-radius: 50px;
+      margin-top: -10px;
       border: 1px solid #fffaf2;
       background-color: #3a3232;
       color: white;

@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
 import { useInput } from "../../lib/utils/useInput";
-import SmsCount from "../Count/SmsCount";
 import { __findID, __findPW, __SMSSend } from "../../redux/modules/loginSlice";
 import { useEffect } from "react";
+import Button from "../button/Button";
 
 const SmsMessage = ({
   setOkConfirm,
@@ -13,10 +13,10 @@ const SmsMessage = ({
   setIsUserId,
   userId,
 }) => {
-  console.log(setOkConfirm);
+  // console.log(setOkConfirm);
   const [msgDisabled, setMsgDisabled] = useState(false);
   const [showInput, setShowInput] = useState(false);
-  const [pnDisabled, setPnDisabled] = useState(false);
+  const [pnDisabled, setPnDisabled] = useState(true);
   const [confirmNumber, setConfirmNumber] = useInput();
   const [checkP, setCheckP] = useState();
   const [codeNumber, setCodeNumber] = useState();
@@ -39,8 +39,8 @@ const SmsMessage = ({
   const sendMessageHandler = (phoneNumber) => {
     __SMSSend(phoneNumber)
       .then((res) => {
-        setCodeNumber(res.data.data1);
         setPnDisabled(true);
+        setCodeNumber(res.data.data1);
         setShowInput(true);
         console.log(res.data.data1);
       })
@@ -62,8 +62,8 @@ const SmsMessage = ({
         //서버에서 받아온 부분
         setCodeNumber(res.data.data1);
         setShowInput(true);
-        console.log("findid res: ", res.data);
         setIsUserId(res.data.data2);
+        console.log("findid res: ", res.data);
         if (res.data.statusCode === 200) {
           // console.log("1234");
           // alert(res.data.msg);
@@ -80,13 +80,16 @@ const SmsMessage = ({
       });
   };
 
-  // useEffect(() => {
-  //   if (setPhoneNumber !== null) {
-  //     setPnDisabled(false);
-  //   } else {
-  //     setPnDisabled(true);
-  //   }
-  // }, [setPhoneNumber]);
+  useEffect(() => {
+    if (phoneNumber === undefined || phoneNumber === null) {
+      alert("폰넘이 비어있음");
+      setPnDisabled(true);
+      // setShowInput(false);
+    } else {
+      setPnDisabled(false);
+      // setShowInput(true);
+    }
+  }, [pnDisabled]);
 
   const findPwHandler = () => {
     __findPW({
@@ -138,21 +141,21 @@ const SmsMessage = ({
           placeholder="'-' 없이 기입해주세요"
           onChange={setPhoneNumber}
           value={phoneNumber}
-          disabled={pnDisabled}
-          pnDisabled={pnDisabled}
+          disabled={!pnDisabled}
+          pnDisabled={!pnDisabled}
         ></StInput>
         {window.location.href === "http://localhost:3000/findid" ? (
-          <StBtn
+          <Button
             PnBtn
-            disabled={pnDisabled}
-            pnDisabled={pnDisabled}
+            disabled={!pnDisabled}
+            pnDisabled={!pnDisabled}
             onClick={() => findIdHandler(phoneNumber)}
           >
             인증번호 전송
-          </StBtn>
+          </Button>
         ) : window.location.href === "http://localhost:3000/signup" ? (
           //사항연산자 안되면 if
-          <StBtn
+          <Button
             PnBtn
             disabled={pnDisabled}
             pnDisabled={pnDisabled}
@@ -160,16 +163,16 @@ const SmsMessage = ({
           >
             인증번호 전송
             {/* 다 하고나서 전송으로 바꾸기 */}
-          </StBtn>
+          </Button>
         ) : (
-          <StBtn
+          <Button
             PnBtn
             disabled={pnDisabled}
             pnDisabled={pnDisabled}
             onClick={findPwHandler}
           >
             인증번호 전송
-          </StBtn>
+          </Button>
         )}
       </div>
       {showInput && (
@@ -261,17 +264,12 @@ const StBtn = styled.button`
       height: 40px;
       border-radius: 10px;
       margin-left: 10px;
-      /*background-color: #fffaf2;*/
-      /* border: 2px solid #3a3232; */
       font-weight: bold;
       &:hover {
         cursor: pointer;
         background-color: #3a3232;
         color: #fffaf2;
       }
-      /* display: flex;
-      justify-content: center;
-      align-items: center; */
       background: ${({ pnDisabled }) => (pnDisabled ? "#d9d9d9" : "#fffaf2")};
       color: ${({ pnDisabled }) => (pnDisabled ? "#fffaf2" : "#3a3232")};
       border: ${({ pnDisabled }) =>
