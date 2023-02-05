@@ -5,6 +5,12 @@ import "slick-carousel/slick/slick-theme.css";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import Span from "../button/Span";
+import frameBlackV2 from "../../assets/frame/frame_black_v2.png";
+import frameWhiteV0 from "../../assets/frame/frame_white_v0.png";
+import frameGraV1 from "../../assets/frame/frame_gra_v1.png";
+import framePink from "../../assets/frame/frame_pink.png";
+import frameMint from "../../assets/frame/frame_mint.png";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
@@ -110,121 +116,77 @@ export const MainSlider = () => {
                         </StDiv>
                     </StDiv>
                 </StDiv>
+
                 <StDiv Slider2>
                     <StDiv Slider2Box>
-                        <StMain>
-                            <StDiv main_cont>
-                                <StSection main_left>
-                                    <StDiv tit1>
-                                        PHOTO-PIE
-                                        <br />
-                                        COURSE
-                                    </StDiv>
-                                    <StDiv thin_line></StDiv>
-                                    <StDiv tit2>SHARE YOUR MOMENT</StDiv>
-                                </StSection>
-                                <StSection main_right>
-                                    <StDiv cont>
-                                        <StUl>
-                                            <StLi>
-                                                <StDiv li_cont>
-                                                    <StDiv sub_title>ONE</StDiv>
-                                                    <StDiv
-                                                        mw70_op30_thin_line
-                                                    ></StDiv>
-                                                    <StDiv txt_3>
-                                                        촬영한 사진을 저장하고
-                                                        <br />
-                                                        친구들과 추억을
-                                                        공유하세요!
-                                                    </StDiv>
-                                                    <StP big_txt>1</StP>
-                                                </StDiv>
-                                            </StLi>
-                                            <StLi>
-                                                <StDiv li_cont>
-                                                    <StDiv sub_title>TWO</StDiv>
-                                                    <StDiv
-                                                        mw70_op30_thin_line
-                                                    ></StDiv>
-                                                    <StDiv txt_3>
-                                                        촬영한 사진을 저장하고
-                                                        <br />
-                                                        친구들과 추억을
-                                                        공유하세요!
-                                                    </StDiv>
-                                                    <StP big_txt>2</StP>
-                                                </StDiv>
-                                            </StLi>
-                                            <StLi>
-                                                <StDiv li_cont>
-                                                    <StDiv sub_title>
-                                                        THREE
-                                                    </StDiv>
-                                                    <StDiv
-                                                        mw70_op30_thin_line
-                                                    ></StDiv>
-                                                    <StDiv txt_3>
-                                                        촬영한 사진을 저장하고
-                                                        <br />
-                                                        친구들과 추억을
-                                                        공유하세요!
-                                                    </StDiv>
-                                                    <StP big_txt>3</StP>
-                                                </StDiv>
-                                            </StLi>
-                                            <StLi>
-                                                <StDiv li_cont>
-                                                    <StDiv sub_title>
-                                                        FOUR
-                                                    </StDiv>
-                                                    <StDiv
-                                                        mw70_op30_thin_line
-                                                    ></StDiv>
-                                                    <StDiv txt_3>
-                                                        촬영한 사진을 저장하고
-                                                        <br />
-                                                        친구들과 추억을
-                                                        공유하세요!
-                                                    </StDiv>
-                                                    <StP big_txt>4</StP>
-                                                </StDiv>
-                                            </StLi>
-                                            <StLi>
-                                                <StDiv li_cont>
-                                                    <StDiv sub_title>
-                                                        FIVE
-                                                    </StDiv>
-                                                    <StDiv
-                                                        mw70_op30_thin_line
-                                                    ></StDiv>
-                                                    <StDiv txt_3>
-                                                        촬영한 사진을 저장하고
-                                                        <br />
-                                                        친구들과 추억을
-                                                        공유하세요!
-                                                    </StDiv>
-                                                    <StP big_txt>5</StP>
-                                                </StDiv>
-                                            </StLi>
-                                            <StLi>
-                                                <StDiv li_cont>
-                                                    <StDiv sub_title>SIX</StDiv>
-                                                    <StDiv
-                                                        mw70_op30_thin_line
-                                                    ></StDiv>
-                                                    <StDiv txt_3>
-                                                        촬영한 사진을 저장하고
-                                                        <br />
-                                                        친구들과 추억을
-                                                        공유하세요!
-                                                    </StDiv>
-                                                    <StP big_txt>6</StP>
-                                                </StDiv>
-                                            </StLi>
-                                        </StUl>
-                                    </StDiv>
-                                </StSection>
+                        <StMain main_2>
+                            <StDiv txt_box>
+                                <StDiv txtbox2>
+                                    <StDiv tit>COURSE</StDiv>
+                                    <StP main_1_txt>SHARE YOUR MOMENT</StP>
+                                    <StBtn
+                                        MainTopStartBtn3
+                                        onClick={noKeyLogin}
+                                    >
+                                        사진 촬영하러가기
+                                    </StBtn>
+                                </StDiv>
+                            </StDiv>
+                            <StDiv ul_wrap2>
+                                <StUl main_ul2>
+                                    <StLi main2_li>
+                                        <StP sub_title>One</StP>
+                                        <StDiv line></StDiv>
+                                        <StP txt>
+                                            회원가입 및 로그인을 해주세요.
+                                        </StP>
+                                    </StLi>
+                                    <StLi main2_li>
+                                        <StP sub_title>Two</StP>
+                                        <StDiv line></StDiv>
+                                        <StP txt>
+                                            새로고침 버튼 왼쪽에 자물쇠를 눌러서
+                                            카메라와 마이크 접근을
+                                            <Span red> 허용</Span>으로
+                                            바꿔주세요.
+                                        </StP>
+                                    </StLi>
+                                    <StLi main2_li>
+                                        <StP sub_title>Three</StP>
+                                        <StDiv line></StDiv>
+                                        <StP txt>
+                                            방을 만든 후 초대코드로 친구들을
+                                            초대하거나 친구가 보내준 초대코드를
+                                            입력해주세요.
+                                        </StP>
+                                    </StLi>
+                                    <StLi main2_li>
+                                        <StP sub_title>Four</StP>
+                                        <StDiv line></StDiv>
+                                        <StP txt>
+                                            4명이 모였으면 방장에게 촬영버튼이
+                                            생성됩니다.
+                                            <br />
+                                            한명씩 촬영을 해주세요!
+                                        </StP>
+                                    </StLi>
+                                    <StLi main2_li>
+                                        <StP sub_title>Five</StP>
+                                        <StDiv line></StDiv>
+                                        <StP txt>
+                                            촬영이 끝난 후 다같이 사진전송 하러
+                                            가기를 눌러 이동해 주세요.
+                                        </StP>
+                                    </StLi>
+                                    <StLi main2_li>
+                                        <StP sub_title>Six</StP>
+                                        <StDiv line></StDiv>
+                                        <StP txt>
+                                            촬영한 사진을 저장하고 친구들과
+                                            추억을 공유하세요!
+                                        </StP>
+                                    </StLi>
+                                </StUl>
                             </StDiv>
                         </StMain>
                     </StDiv>
@@ -232,39 +194,65 @@ export const MainSlider = () => {
 
                 <StDiv Slider3>
                     <StDiv Slider3Box>
-                        <StDiv Slider3Left>
-                            <StDiv LeftPBox>
-                                <StP Piece>A PIECE OF PIE FOR EVERYONE</StP>
-                                <StDiv txt_box>
-                                    <StP Piece2>
-                                        서로 다른 공간에 있지만 그 순간을 함께
-                                        남겨둘 수 있다면?
-                                    </StP>
-                                    <StP Piece2>
-                                        포토파이에서 일상을 나누는 즐거움을
-                                        경험해보세요 !
-                                    </StP>
-                                </StDiv>
-                                <StDiv txt_box>
-                                    <StP Piece3>
-                                        Different spaces, same memory.
-                                    </StP>
-                                    <StP Piece3>
-                                        Experience the joy of sharing your daily
-                                        moments
-                                    </StP>
-                                </StDiv>
-                                <StP Piece4>with Photo Pie.</StP>
+                        <StMain main_3>
+                            <StDiv txt_box3>
+                                <StDiv tit>Best Frame</StDiv>
+                                <StP main_1_txt>SHARE YOUR MOMENT</StP>
+                                <StBtn MainTopStartBtn3 onClick={noKeyLogin}>
+                                    사진 촬영하러가기
+                                </StBtn>
                             </StDiv>
-                        </StDiv>
-                        <StDiv Slider3Right>
-                            <StImg
-                                Frame3
-                                alt="Frame"
-                                src="/image/frame_gra.png"
-                                // src="/image/frame_black2.png"
-                            />
-                        </StDiv>
+                            <StDiv ul_wrap3>
+                                <StP rec>Recommend</StP>
+                                <StUl main_ul3>
+                                    <StLi main3_li>
+                                        <StP main3_mini_sub_tit>1위</StP>
+                                        <StP main3_sub_tit>Black</StP>
+                                        <StImg
+                                            frame_photo
+                                            src={frameBlackV2}
+                                            alt="black"
+                                        />
+                                    </StLi>
+                                    <StLi main3_li>
+                                        <StP main3_mini_sub_tit>2위</StP>
+                                        <StP main3_sub_tit>White</StP>
+                                        <StImg
+                                            frame_photo
+                                            src={frameWhiteV0}
+                                            alt="white"
+                                        />
+                                    </StLi>
+                                    <StLi main3_li>
+                                        <StP main3_mini_sub_tit>3위</StP>
+                                        <StP main3_sub_tit>Sunset</StP>
+                                        <StImg
+                                            frame_photo
+                                            src={frameGraV1}
+                                            alt="gradation"
+                                        />
+                                    </StLi>
+                                    <StLi main3_li>
+                                        <StP main3_mini_sub_tit>4위</StP>
+                                        <StP main3_sub_tit>Pink</StP>
+                                        <StImg
+                                            frame_photo
+                                            src={framePink}
+                                            alt="pink"
+                                        />
+                                    </StLi>
+                                    <StLi main3_li>
+                                        <StP main3_mini_sub_tit>5위</StP>
+                                        <StP main3_sub_tit>Mint</StP>
+                                        <StImg
+                                            frame_photo
+                                            src={frameMint}
+                                            alt="mint"
+                                        />
+                                    </StLi>
+                                </StUl>
+                            </StDiv>
+                        </StMain>
                     </StDiv>
                 </StDiv>
             </Slider>
@@ -330,80 +318,30 @@ const StDiv = styled.div`
             margin: 0 auto;
         `}
     ${(props) =>
-        props.main_cont &&
+        props.tit &&
         css`
-            max-width: 1920px;
-            margin: 0 auto;
+            font-size: 90px;
+            font-weight: bold;
         `}
     ${(props) =>
-        props.tit1 &&
+        props.ul_wrap2 &&
         css`
-            font-size: 65px;
-            margin: 0 0 175px;
+            margin-top: 150px;
         `}
     ${(props) =>
-        props.thin_line &&
+        props.ul_wrap3 &&
         css`
-            height: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        `}
+    ${(props) =>
+        props.line &&
+        css`
             width: 100%;
-            background-color: #3a3232;
-        `}
-    ${(props) =>
-        props.tit2 &&
-        css`
+            height: 2px;
             margin: 15px 0 0;
-            font-size: 25px;
-            text-align: right;
-        `}
-    ${(props) =>
-        props.cont &&
-        css`
-            position: relative;
-            height: 600px;
-        `}
-    ${(props) =>
-        props.li_cont &&
-        css`
-            position: relative;
-            width: 100%;
-            height: 100%;
-        `}
-    ${(props) =>
-        props.sub_title &&
-        css`
-            font-size: 20px;
-        `}
-    ${(props) =>
-        props.txt_1 &&
-        css`
-            max-width: 210px;
-            margin: 75px 0 0;
-            font-size: 16px;
-        `}
-    ${(props) =>
-        props.txt_2 &&
-        css`
-            font-size: 32px;
-        `}
-    ${(props) =>
-        props.mw70_op30_thin_line &&
-        css`
-            max-width: 70%;
-            opacity: 0.3;
-            height: 1px;
-            width: 100%;
             background-color: #3a3232;
-            position: relative;
-            margin: 80px 0;
-        `}
-    ${(props) =>
-        props.txt_3 &&
-        css`
-            max-width: 210px;
-            margin: 75px 0 0;
-            font-size: 16px;
-            font-family: "Nanum Myeongjo", serif;
-            text-align: right;
         `}
     ${(props) =>
         props.Slider3 &&
@@ -439,19 +377,74 @@ const StDiv = styled.div`
             justify-content: center;
             font-weight: bold;
         `}
-    ${(props) =>
+            ${(props) =>
         props.txt_box &&
         css`
-            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        `}
+            ${(props) =>
+        props.txtbox2 &&
+        css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 180px;
+        `}
+        
+            ${(props) =>
+        props.txt_box3 &&
+        css`
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         `}
 `;
 
 const StP = styled.p`
     ${(props) =>
+        props.sub_title &&
+        css`
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+        `}
+    ${(props) =>
+        props.txt &&
+        css`
+            margin: 0;
+            margin: 40px 0 0;
+            font-family: "Nanum Myeongjo", serif;
+            font-size: 16px;
+            line-height: 24px;
+        `}
+    ${(props) =>
+        props.main3_mini_sub_tit &&
+        css`
+            margin: 0;
+            font-size: 18px;
+            text-align: left;
+        `}
+    ${(props) =>
+        props.main3_sub_tit &&
+        css`
+            margin: 0;
+            font-size: 28px;
+            text-align: left;
+        `}
+    ${(props) =>
+        props.rec &&
+        css`
+            font-size: 26px;
+            margin: 0;
+        `}
+    ${(props) =>
         props.Piece &&
         css`
             font-family: "Belleza", sans-serif;
-            font-size: 45px;txt_box
+            font-size: 45px;
             margin: 50px 0;
         `}
     ${(props) =>
@@ -515,6 +508,15 @@ const StImg = styled.img`
         css`
             height: 600px;
         `}
+    ${(props) =>
+        props.frame_photo &&
+        css`
+            width: 200px;
+            margin-top: 10px;
+            @media (max-width: 1919px) {
+                width: 120px;
+            }
+        `}
 `;
 
 const StBtn = styled.button`
@@ -532,7 +534,20 @@ const StBtn = styled.button`
             border-radius: 50px;
             color: #fffaf2;
         `}
-
+    ${(props) =>
+        props.MainTopStartBtn3 &&
+        css`
+            font-family: "Nanum Myeongjo", serif;
+            width: 200px;
+            height: 35px;
+            font-size: 14px;
+            margin-top: 40px;
+            cursor: pointer;
+            background-color: #3a3232;
+            border: 0;
+            border-radius: 50px;
+            color: #fffaf2;
+        `}
     ${(props) =>
         props.MainMiddleGoBtn &&
         css`
@@ -549,71 +564,69 @@ const StBtn = styled.button`
 `;
 
 const StMain = styled.main`
-    width: 100%;
-    height: 700px;
-    background-color: #fffaf2;
-    font-family: "Belleza", sans-serif;
-    color: #3a3232;
-`;
-
-const StSection = styled.section`
     ${(props) =>
-        props.main_left &&
+        props.main_2 &&
         css`
-            float: left;
-            padding: 90px 95px 0;
-            /* padding: 80px 85px 0 0; */
-            width: 50%;
-            max-width: 960px;
+            width: 100%;
+            padding: 60px;
+            margin: 0 auto;
             box-sizing: border-box;
+            background-color: #fffaf2;
+            font-family: "Belleza", sans-serif;
+            color: #3a3232;
         `}
     ${(props) =>
-        props.main_right &&
+        props.main_3 &&
         css`
-            float: right;
-            width: 50%;
-            max-width: 960px;
+            width: 100%;
+            padding: 60px 10px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            background-color: #fffaf2;
+            font-family: "Belleza", sans-serif;
+            color: #3a3232;
+            @media (max-width: 1919px) {
+                padding: 100px 10px;
+            }
         `}
 `;
 
 const StUl = styled.ul`
-    margin: 0;
-    padding: 0;
+    ${(props) =>
+        props.main_ul2 &&
+        css`
+            margin: -30px 0 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        `}
+    ${(props) =>
+        props.main_ul3 &&
+        css`
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        `}
 `;
 
 const StLi = styled.li`
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    max-width: 360px;
-    padding: 85px 25px 0;
-    box-sizing: border-box;
-    list-style: none;
-    cursor: pointer;
-    &:nth-child(2n-1) {
-        background-color: #3a3232;
-        color: #fffaf2;
-    }
-    &:nth-child(2n) {
-        background-color: #fffaf2;
-        color: #3a3232;
-    }
-    &:nth-child(2) {
-        left: 120px;
-    }
-    &:nth-child(3) {
-        left: 240px;
-    }
-    &:nth-child(4) {
-        left: 360px;
-    }
-    &:nth-child(5) {
-        left: 480px;
-    }
-    &:nth-child(6) {
-        left: 600px;
-    }
+    ${(props) =>
+        props.main2_li &&
+        css`
+            position: relative;
+            width: 100%;
+            max-width: 220px;
+            height: 200px;
+            margin: 0 30px 0 0;
+            list-style: none;
+        `}
+    ${(props) =>
+        props.main3_li &&
+        css`
+            list-style: none;
+        `}
 `;
 
 const StH1 = styled.h1`
