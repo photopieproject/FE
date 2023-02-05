@@ -27,7 +27,7 @@ const PhotoSave = () => {
     const [photo_pie, setPhoto_pie] = useState("");
 
     const [qrcode, setQrcode] = useState("");
-    console.log(qrcode);
+    // console.log(qrcode);
 
     useEffect(() => {
         //카카오톡 sdk 추가
@@ -38,6 +38,24 @@ const PhotoSave = () => {
         return () => {
             document.body.removeChild(script);
         };
+    }, []);
+
+    useEffect(() => {
+        toast.success(
+            "현재 자동으로 이미지 생성이 되지 않아\n 아래 이미지 생성 버튼을 꼭! 클릭해주세요!\n빠르게 해결하겠습니다!\n- Photo-Pie -",
+            {
+                style: {
+                    borderRadius: "10px",
+                    background: "#3a3232",
+                    color: "#fffaf2",
+                },
+                iconTheme: {
+                    primary: "#fffaf2",
+                    secondary: "#3a3232",
+                },
+                duration: 6000,
+            }
+        );
     }, []);
 
     const onbeforeunload = (event) => {
@@ -82,8 +100,9 @@ const PhotoSave = () => {
     const roomPhotos = useSelector((state) => state.photos.loadRoomInfo.data1);
     console.log(roomPhotos);
 
-    useEffect(() => {
-        // const qrcodeSend = () => {
+    const role = useSelector((state) => state.videos.videoInfos[0].role);
+
+    const qrcodeSend = () => {
         html2canvas(document.querySelector("#frame_box"))
             .then((canvas) => {
                 let photo_pie =
@@ -98,26 +117,24 @@ const PhotoSave = () => {
 
                 completePhoto.append("completePhoto", file);
 
-                dispatch(__qrcodeSend({ roomId, formdata: completePhoto }));
-
-                setTimeout(() => {
-                    dispatch(
-                        __qrcodeSend({ roomId, formdata: completePhoto })
-                    ).then((res) => {
-                        console.log("사진전송 res --->", res);
-                        toast.success("QR Code 이미지를 생성해보세요!", {
-                            icon: "📸",
-                            style: {
-                                borderRadius: "10px",
-                                background: "#3a3232",
-                                color: "#fffaf2",
-                            },
-                            duration: 2000,
-                        });
+                dispatch(
+                    __qrcodeSend({ roomId, formdata: completePhoto })
+                ).then((res) => {
+                    console.log("사진전송 res --->", res);
+                    toast.success("QR Code 이미지를 생성해보세요!", {
+                        icon: "📸",
+                        style: {
+                            borderRadius: "10px",
+                            background: "#3a3232",
+                            color: "#fffaf2",
+                        },
+                        duration: 2000,
                     });
-                }, 3000);
+                });
+
+                console.log("3초 후 데이터 보내기");
             });
-    }, []);
+    };
 
     const pictureSaveHandler = () => {
         html2canvas(document.querySelector("#frame_box")).then((canvas) => {
@@ -254,6 +271,11 @@ const PhotoSave = () => {
                     </StDiv>
                 </StDiv>
                 <StDiv down_btn>
+                    {role === "leader" ? (
+                        <Button create_img onClick={qrcodeSend}>
+                            이미지 생성하기
+                        </Button>
+                    ) : null}
                     <StDiv qrcode_box>
                         {!!qrcode ? (
                             <StImg
@@ -316,7 +338,6 @@ const StDiv = styled.div`
             ${(props) =>
         props.frame_box &&
         css`
-            background-color: #0048ff;
             position: relative;
             width: 500px;
             height: 750px;

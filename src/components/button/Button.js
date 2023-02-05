@@ -19,6 +19,7 @@ const Button = (props) => {
         threeDis,
         fourDis,
         saveDisabled,
+        create_img,
     } = props;
     return (
         <StButton
@@ -38,6 +39,7 @@ const Button = (props) => {
             threeDis={threeDis}
             fourDis={fourDis}
             saveDisabled={saveDisabled}
+            create_img={create_img}
         >
             {children}
         </StButton>
@@ -164,7 +166,25 @@ const StButton = styled.button`
                 saveDisabled ? "defalut" : "pointer"};
             width: 200px;
             height: 50px;
+        `}
+        ${(props) =>
+        props.create_img &&
+        css`
+            border-radius: 10px;
+            background-color: #e2d6c5;
+            color: #3a3232;
+            width: 200px;
+            height: 50px;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
             transition: background-color 0.25s ease-in-out;
+            &:hover {
+                background-color: #3a3232;
+                color: #fffaf2;
+            }
         `}
 `;
 
