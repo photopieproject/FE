@@ -16,7 +16,8 @@ const SmsMessage = ({
   // console.log(setOkConfirm);
   const [msgDisabled, setMsgDisabled] = useState(false);
   const [showInput, setShowInput] = useState(false);
-  const [pnDisabled, setPnDisabled] = useState(true);
+  const [pnDisabled, setPnDisabled] = useState(false);
+  const [pnBtnDisabled, setPnBtnDisabled] = useState(false);
   const [confirmNumber, setConfirmNumber] = useInput();
   const [checkP, setCheckP] = useState();
   const [codeNumber, setCodeNumber] = useState();
@@ -26,33 +27,39 @@ const SmsMessage = ({
   console.log(codeNumber); //찐인증번호
   console.log(confirmNumber); //내가 입력한 인증번호
 
-  // function checkPhone(phoneNumber) {
-  //   var regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
-  //   return regExp.test(phoneNumber);
-  // }
-  // const checkPhoneNum = (phoneNumber) => {
-  //   if (checkPhone(phoneNumber) === false) {
-  //     alert("'-'를 뺀 숫자만 입력해주세요.");
-  //   }
-  // };
+  function checkPhone(phoneNumber) {
+    var regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+    return regExp.test(phoneNumber);
+  }
+
+  useEffect(() => {
+    if (checkPhone(phoneNumber) === false) {
+      // alert("폰넘이 비어있음");
+      setPnBtnDisabled(true);
+      // setPnDisabled(true);
+      // setShowInput(false);
+    } else {
+      setPnBtnDisabled(false);
+      // setPnDisabled(false);
+      // setShowInput(true);
+    }
+  }, [phoneNumber]);
 
   const sendMessageHandler = (phoneNumber) => {
+    //회원가입
     __SMSSend(phoneNumber)
       .then((res) => {
+        setPnBtnDisabled(true);
         setPnDisabled(true);
         setCodeNumber(res.data.data1);
         setShowInput(true);
         console.log(res.data.data1);
       })
       .catch((error) => console.log(error));
-    // dispatch(__SMSSend(Number(message)));
-    // console.log(message);
-    // if(res === 200){
-    //   setShowInput()
-    // }
   };
 
   const findIdHandler = (phoneNumber) => {
+    //id찾기
     __findID({
       //서버로 요청하는 부분
       // codeNumber,
@@ -60,6 +67,7 @@ const SmsMessage = ({
     })
       .then((res) => {
         //서버에서 받아온 부분
+        setPnBtnDisabled(true);
         setCodeNumber(res.data.data1);
         setShowInput(true);
         setIsUserId(res.data.data2);
@@ -69,29 +77,22 @@ const SmsMessage = ({
           // alert(res.data.msg);
           // Swal.fire(res.data.statusMsg, res.data.statusCode, "success");
           alert(res.data.statusMsg, res.data.statusCode, "success");
-        } else {
-          alert("핸드폰 번호를 입력해주세요.");
-          // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
-          // navigate("/login");
+        } else if (checkPhone(phoneNumber) === false) {
+          alert("'-'를 뺀 숫자를 정확히 입력해주세요.");
         }
+        // {
+        // alert("핸드폰 번호를 입력해주세요.");
+        // Swal.fire(res.data.msg, "아이디가 없습니다.", "error");
+        // navigate("/login");
+        // }
       })
       .catch((err) => {
         console.log("error: ", err);
       });
   };
 
-  useEffect(() => {
-    if (phoneNumber === undefined || phoneNumber === null) {
-      alert("폰넘이 비어있음");
-      setPnDisabled(true);
-      // setShowInput(false);
-    } else {
-      setPnDisabled(false);
-      // setShowInput(true);
-    }
-  }, [pnDisabled]);
-
   const findPwHandler = () => {
+    //pw찾기
     __findPW({
       //서버로 요청하는 부분
       userId,
@@ -100,7 +101,7 @@ const SmsMessage = ({
       .then((res) => {
         //서버에서 받아온 부분
         // console.log(userId);
-
+        setPnBtnDisabled(true);
         setCodeNumber(res.data.data1);
         setShowInput(true);
         console.log("findid res: ", res.data);
@@ -118,6 +119,7 @@ const SmsMessage = ({
   };
 
   const MessageConfirmHandler = () => {
+    //인증버튼
     console.log("codeNumber : ", codeNumber);
     console.log("confirmNumber : ", confirmNumber);
     if (codeNumber !== confirmNumber) {
@@ -141,14 +143,14 @@ const SmsMessage = ({
           placeholder="'-' 없이 기입해주세요"
           onChange={setPhoneNumber}
           value={phoneNumber}
-          disabled={!pnDisabled}
-          pnDisabled={!pnDisabled}
+          disabled={pnDisabled}
+          pnDisabled={pnDisabled}
         ></StInput>
         {window.location.href === "http://localhost:3000/findid" ? (
           <Button
             PnBtn
-            disabled={!pnDisabled}
-            pnDisabled={!pnDisabled}
+            disabled={pnBtnDisabled}
+            pnDisabled={pnBtnDisabled}
             onClick={() => findIdHandler(phoneNumber)}
           >
             인증번호 전송
@@ -157,8 +159,8 @@ const SmsMessage = ({
           //사항연산자 안되면 if
           <Button
             PnBtn
-            disabled={pnDisabled}
-            pnDisabled={pnDisabled}
+            disabled={pnBtnDisabled}
+            pnDisabled={pnBtnDisabled}
             onClick={() => sendMessageHandler(phoneNumber)}
           >
             인증번호 전송
@@ -167,8 +169,8 @@ const SmsMessage = ({
         ) : (
           <Button
             PnBtn
-            disabled={pnDisabled}
-            pnDisabled={pnDisabled}
+            disabled={pnBtnDisabled}
+            pnDisabled={pnBtnDisabled}
             onClick={findPwHandler}
           >
             인증번호 전송
@@ -253,6 +255,7 @@ const StP = styled.p`
       font-size: 13px;
       color: gray;
       margin: 0 auto;
+      /* display: flex; */
     `}
 `;
 

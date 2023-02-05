@@ -78,7 +78,7 @@ export const __SMSSend = async (post) => {
 export const __findID = async (post) => {
   try {
     const data = await apis.findID(post);
-    Swal.fire("Success", data.data.msg, "success");
+    // Swal.fire("Success", data.data.msg, "success");
     console.log(data);
     return data;
   } catch (error) {
