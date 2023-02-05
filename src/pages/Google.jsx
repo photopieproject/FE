@@ -2,7 +2,7 @@ import React from "react";
 import Main from "./Main";
 import { apis } from "../lib/axios";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 // 리다이렉트될 화면
 const Google = () => {
@@ -73,9 +73,7 @@ const Google = () => {
             imgWidth="25%"
             height="100vh"
             text="로그인 중입니다."
-        >
-            <Toaster />
-        </Main>
+        />
     );
 };
 
