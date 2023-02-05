@@ -3,6 +3,7 @@ import { useInput } from "../../lib/utils/useInput";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { __resetPW } from "../../redux/modules/loginSlice";
+import toast, { Toaster } from "react-hot-toast";
 
 function ResetPW({ userId, setUserId }) {
   const [password, setPassword] = useInput();
@@ -13,7 +14,7 @@ function ResetPW({ userId, setUserId }) {
   const [nextDisabled, setNextDisabled] = useState(true);
   const navigate = useNavigate();
 
-  console.log("userId : ", userId);
+  console.log("pass : ", password);
 
   function isPassword(asValue) {
     const regExp =
@@ -41,29 +42,38 @@ function ResetPW({ userId, setUserId }) {
   };
 
   const ResetPWHandler = (password, userId) => {
-    console.log(userId);
-
-    navigate("/login");
     __resetPW({
       //서버로 요청하는 부분
       userId,
       password, //나중에 없애야함, 나중에 phoneNumber랑 CodeNumber를 백한테 같이보내줘야함 백은 트루, 폴스를 보내줌 status===200 인증성공, statusCode로 판단
     })
       .then((res) => {
-        if (res === 200) {
+        console.log(res);
+        if (res.data.statusCode === 200) {
+          toast.success(res.data.statusMsg, {
+            style: {
+              borderRadius: "10px",
+              background: "#3a3232",
+              color: "#fffaf2",
+            },
+            iconTheme: {
+              primary: "#fffaf2",
+              secondary: "#3a3232",
+            },
+            duration: 4000,
+          });
           setUserId();
-          // setCheckP("사용 가능한 ID입니다");
-        } else if (res === 400) {
-          // setCheckP("이미 사용중인 ID입니다");
         }
       })
       .catch((err) => {
         console.log("error: ", err);
       });
+    navigate("/login");
   };
 
   return (
     <StDiv ResetPWPage>
+      <Toaster />
       <StDiv FindPWMsg>
         <StDiv FindPw>Reset Password</StDiv>
         <StDiv IdPw>
@@ -79,7 +89,7 @@ function ResetPW({ userId, setUserId }) {
             autoComplete="off"
             placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
           />
-          <StP>{PWPtag}</StP>
+          {PWPtag}
         </StDiv>
         <StDiv IdPw>
           Password Check
@@ -99,7 +109,7 @@ function ResetPW({ userId, setUserId }) {
             autoComplete="off"
             placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
           />
-          <StP>{PWConfirmP}</StP>
+          {PWConfirmP}
         </StDiv>
         <StDiv NextGoBtnBox>
           <StBtn
@@ -329,14 +339,6 @@ const StPRight = styled.p`
     `}
 `;
 
-const StP = styled.p`
-  font-size: 13px;
-  font-weight: lighter;
-  margin-top: 5px;
-  color: gray;
-  margin-bottom: -10px;
-`;
-
 const StPs = styled.p`
   margin-top: 7px;
   font-size: 12px;
@@ -346,6 +348,7 @@ const StPs = styled.p`
 const StPs2 = styled.p`
   margin-top: 7px;
   font-size: 12px;
-  color: limegreen;
+  color: #3a3232;
+  font-weight: bold;
 `;
 export default ResetPW;

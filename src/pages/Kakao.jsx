@@ -32,6 +32,7 @@ const Kakao = () => {
                         primary: "#fffaf2",
                         secondary: "#3a3232",
                     },
+                    duration: 4000,
                 });
 
                 // Swal.fire(
@@ -56,6 +57,7 @@ const Kakao = () => {
                         primary: "#3a3232",
                         secondary: "#fffaf2",
                     },
+                    duration: 4000,
                 });
 
                 // Swal.fire(
