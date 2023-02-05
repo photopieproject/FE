@@ -169,7 +169,7 @@ const StDiv = styled.div`
       font-size: 70px;
       display: flex;
       justify-content: center;
-      margin: 30px 0 0px 0;
+      margin: 30px 0 30px 0;
       color: black;
       font-family: Belleza;
     `}

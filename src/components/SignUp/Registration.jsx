@@ -161,8 +161,8 @@ const Registration = () => {
           </StBtn>
         </StDiv>
       </StDiv>
-      <StDiv SingUpBox>
-        <StDiv SingUp>Create Account</StDiv>
+      <StDiv SignUpBox>
+        <StDiv SignUp>Create Account</StDiv>
         <StDiv IDPWBox>
           <StDiv IdPw>
             아이디
@@ -210,7 +210,7 @@ const Registration = () => {
               value={password}
               onChange={setPassword}
               autoComplete="off"
-              placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
+              placeholder="8~15자 영문 대+소문자, 숫자, 특수문자"
             />
             <StP>{PWPtag}</StP>
           </StDiv>
@@ -229,7 +229,7 @@ const Registration = () => {
                 setPWConfirm(e.target.value);
               }}
               autoComplete="off"
-              placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
+              placeholder="8~15자 영문 대+소문자, 숫자, 특수문자"
             />
           </StDiv>
           <StP>{PWConfirmP}</StP>
@@ -300,7 +300,7 @@ const StDiv = styled.div`
     `}
 
   ${(props) =>
-    props.SingUpBox &&
+    props.SignUpBox &&
     css`
       width: 55%;
       height: 100vh;
@@ -312,12 +312,12 @@ const StDiv = styled.div`
     `}
 
   ${(props) =>
-    props.SingUp &&
+    props.SignUp &&
     css`
       font-size: 70px;
       display: flex;
       justify-content: center;
-      margin: 30px 0 0px 0;
+      margin: -10px 0 0px 0;
       color: black;
     `}
 
@@ -348,7 +348,7 @@ const StDiv = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 10px;
+      margin-top: 20px;
     `}
 
 ${(props) =>
@@ -393,12 +393,14 @@ const StPs = styled.p`
   margin-top: 7px;
   font-size: 12px;
   color: red;
+  margin-bottom: 0px;
 `;
 
 const StPs2 = styled.p`
   margin-top: 7px;
   font-size: 12px;
   color: limegreen;
+  margin-bottom: 0px;
 `;
 
 const StInput = styled.input`
