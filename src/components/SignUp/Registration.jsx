@@ -82,15 +82,10 @@ const Registration = () => {
             return;
         }
         __postSignup({
-            //서버로 요청하는 부분
             userId,
             nickname,
             password,
-            // passwordCheck,
-            // PWConfirm,
             phoneNumber,
-            // 전역상태
-            // 부모컴포넌트에서 자식컴포넌트 useState
         })
             .then((res) => {
                 console.log("signup res: ", res);
@@ -169,8 +164,8 @@ const Registration = () => {
                     </StBtn>
                 </StDiv>
             </StDiv>
-            <StDiv SingUpBox>
-                <StDiv SingUp>Create Account</StDiv>
+            <StDiv SignUpBox>
+                <StDiv SignUp>Create Account</StDiv>
                 <StDiv IDPWBox>
                     <StDiv IdPw>
                         아이디
@@ -218,7 +213,7 @@ const Registration = () => {
                             value={password}
                             onChange={setPassword}
                             autoComplete="off"
-                            placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
+                            placeholder="8~15자 영문 대+소문자, 숫자, 특수문자"
                         />
                         {PWPtag}
                     </StDiv>
@@ -230,19 +225,16 @@ const Registration = () => {
                             type="password"
                             id="password"
                             required
-                            // value={passwordCheck}
-                            // onChange={setPasswordCheck}
                             value={PWConfirm}
                             onChange={(e) => {
                                 setPWConfirm(e.target.value);
                             }}
                             autoComplete="off"
-                            placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
+                            placeholder="8~15자 영문 대+소문자, 숫자, 특수문자"
                         />
                         {PWConfirmP}
                     </StDiv>
                 </StDiv>
-
                 <SmsMessage
                     setOkConfirm={setOkConfirm}
                     setPhoneNumber={setPhoneNumber}
@@ -259,13 +251,6 @@ const Registration = () => {
                         Sign Up
                     </StBtn>
                 </StDiv>
-
-                {/* <StDiv SignUpGoBox>
-          계정이 이미 있으신가요?
-          <StBtn SignUpGoBtn onClick={() => navigate("/login")}>
-            로그인
-          </StBtn>
-        </StDiv> */}
             </StDiv>
         </StDiv>
     );
@@ -281,6 +266,7 @@ const StDiv = styled.div`
             flex-direction: row;
             align-items: center;
         `}
+
     ${(props) =>
         props.LeftBox &&
         css`
@@ -304,8 +290,9 @@ const StDiv = styled.div`
             flex-direction: column;
             align-items: center;
         `}
+
     ${(props) =>
-        props.SingUpBox &&
+        props.SignUpBox &&
         css`
             width: 55%;
             height: 100vh;
@@ -315,15 +302,17 @@ const StDiv = styled.div`
             justify-content: center;
             align-items: center;
         `}
+
     ${(props) =>
-        props.SingUp &&
+        props.SignUp &&
         css`
             font-size: 70px;
             display: flex;
             justify-content: center;
-            margin: 30px 0 0px 0;
+            margin: -10px 0 0px 0;
             color: black;
         `}
+
     ${(props) =>
         props.IDPWBox &&
         css`
@@ -332,6 +321,7 @@ const StDiv = styled.div`
             flex-direction: column;
             align-items: center;
         `}
+
     ${(props) =>
         props.IdPw &&
         css`
@@ -342,15 +332,18 @@ const StDiv = styled.div`
             color: #6b6462;
             padding-top: 20px;
         `}
+
+
     ${(props) =>
         props.LoginBtnBox &&
         css`
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 20px;
         `}
-    ${(props) =>
+
+${(props) =>
         props.SignUpGoBox &&
         css`
             font-size: 13px;
@@ -399,6 +392,7 @@ const StPs = styled.p`
     margin-top: 7px;
     font-size: 12px;
     color: red;
+    font-weight: bold;
 `;
 
 const StPs2 = styled.p`
@@ -445,22 +439,21 @@ const StBtn = styled.button`
     ${(props) =>
         props.LeftSignUpbtn &&
         css`
-      font-family: "Belleza";
-      font-size: 20px;
-      width: 250px;
-      height: 60px;
-      margin-top: -10px;
-      border-radius: 50px;
-      border: 1px solid #fffaf2;
-      background-color: #3a3232;
-      color: white;
-      &:hover {
-        cursor: pointer;
-        background-color: #fffaf2;
-        color: #3a3232;
-      }
-      }
-    `}
+            font-family: "Belleza";
+            font-size: 20px;
+            width: 250px;
+            height: 60px;
+            margin-top: -10px;
+            border-radius: 50px;
+            border: 1px solid #fffaf2;
+            background-color: #3a3232;
+            color: white;
+            &:hover {
+                cursor: pointer;
+                background-color: #fffaf2;
+                color: #3a3232;
+            }
+        `}
 
     ${(props) =>
         props.IdCheckBtn &&
@@ -469,17 +462,12 @@ const StBtn = styled.button`
             height: 40px;
             border-radius: 10px;
             margin-left: 10px;
-            /*background-color: #fffaf2;*/
-            /* border: 2px solid #3a3232; */
             font-weight: bold;
             &:hover {
                 cursor: pointer;
                 background-color: #3a3232;
                 color: #fffaf2;
             }
-            /* display: flex;
-      justify-content: center;
-      align-items: center; */
             background: ${({ checkUserId }) =>
                 checkUserId ? "#d9d9d9" : "#fffaf2"};
             color: ${({ checkUserId }) =>
@@ -493,7 +481,7 @@ const StBtn = styled.button`
                 background-color: #ddd8d8;
             }
         `}
-  ${(props) =>
+    ${(props) =>
         props.LoginBtn &&
         css`
             font-family: "Belleza";
@@ -519,8 +507,7 @@ const StBtn = styled.button`
                 background-color: #ddd8d8;
             }
         `}
-
-  ${(props) =>
+    ${(props) =>
         props.SignUpGoBtn &&
         css`
             border: none;

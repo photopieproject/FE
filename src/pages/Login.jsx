@@ -37,12 +37,14 @@ const Login = () => {
                     });
                     localStorage.setItem("id", res.headers.authorization);
                     localStorage.setItem("nickname", res.data.data1.nickname);
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 1000);
                 }
             })
             .catch((err) => {
                 console.log(err);
             });
-        navigate("/");
     };
 
     return (
@@ -170,7 +172,7 @@ const StDiv = styled.div`
             font-size: 70px;
             display: flex;
             justify-content: center;
-            margin: 30px 0 0px 0;
+            margin: 30px 0;
             color: black;
             font-family: Belleza;
         `}

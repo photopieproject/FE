@@ -17,7 +17,8 @@ const SmsMessage = ({
     // console.log(setOkConfirm);
     const [msgDisabled, setMsgDisabled] = useState(false);
     const [showInput, setShowInput] = useState(false);
-    const [pnDisabled, setPnDisabled] = useState(true);
+    const [pnDisabled, setPnDisabled] = useState(false);
+    const [pnBtnDisabled, setPnBtnDisabled] = useState(false);
     const [confirmNumber, setConfirmNumber] = useInput();
     const [checkP, setCheckP] = useState();
     const [codeNumber, setCodeNumber] = useState();
@@ -27,30 +28,35 @@ const SmsMessage = ({
     console.log(codeNumber); //찐인증번호
     console.log(confirmNumber); //내가 입력한 인증번호
 
-    // function checkPhone(phoneNumber) {
-    //   var regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
-    //   return regExp.test(phoneNumber);
-    // }
-    // const checkPhoneNum = (phoneNumber) => {
-    //   if (checkPhone(phoneNumber) === false) {
-    //     alert("'-'를 뺀 숫자만 입력해주세요.");
-    //   }
-    // };
+    function checkPhone(phoneNumber) {
+        var regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+        return regExp.test(phoneNumber);
+    }
+
+    useEffect(() => {
+        if (checkPhone(phoneNumber) === false) {
+            // alert("폰넘이 비어있음");
+            setPnBtnDisabled(true);
+            // setPnDisabled(true);
+            // setShowInput(false);
+        } else {
+            setPnBtnDisabled(false);
+            // setPnDisabled(false);
+            // setShowInput(true);
+        }
+    }, [phoneNumber]);
 
     const sendMessageHandler = (phoneNumber) => {
+        //회원가입
         __SMSSend(phoneNumber)
             .then((res) => {
+                setPnBtnDisabled(true);
                 setPnDisabled(true);
                 setCodeNumber(res.data.data1);
                 setShowInput(true);
                 console.log(res.data.data1);
             })
             .catch((error) => console.log(error));
-        // dispatch(__SMSSend(Number(message)));
-        // console.log(message);
-        // if(res === 200){
-        //   setShowInput()
-        // }
     };
 
     const findIdHandler = (phoneNumber) => {
@@ -61,6 +67,7 @@ const SmsMessage = ({
         })
             .then((res) => {
                 //서버에서 받아온 부분
+                setPnBtnDisabled(true);
                 setCodeNumber(res.data.data1);
                 setPnDisabled(true);
                 setShowInput(true);
@@ -79,6 +86,18 @@ const SmsMessage = ({
                         },
                         duration: 4000,
                     });
+                } else if (checkPhone(phoneNumber) === false) {
+                    toast.error("'-'를 뺀 숫자를 정확히 입력해주세요.", {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#fffaf2",
+                            color: "#3a3232",
+                        },
+                        iconTheme: {
+                            primary: "#3a3232",
+                            secondary: "#fffaf2",
+                        },
+                    });
                 } else {
                     toast.error("핸드폰 번호를 입력해주세요", {
                         style: {
@@ -91,6 +110,7 @@ const SmsMessage = ({
                             secondary: "#fffaf2",
                         },
                     });
+                    setPnBtnDisabled(false);
                     setPnDisabled(false);
                     setShowInput(false);
                     // navigate("/login");
@@ -101,17 +121,6 @@ const SmsMessage = ({
             });
     };
 
-    useEffect(() => {
-        if (phoneNumber === undefined || phoneNumber === null) {
-            alert("폰넘이 비어있음");
-            setPnDisabled(true);
-            // setShowInput(false);
-        } else {
-            setPnDisabled(false);
-            // setShowInput(true);
-        }
-    }, [pnDisabled]);
-
     const findPwHandler = () => {
         __findPW({
             //서버로 요청하는 부분
@@ -120,7 +129,7 @@ const SmsMessage = ({
         })
             .then((res) => {
                 //서버에서 받아온 부분
-
+                setPnBtnDisabled(true);
                 setCodeNumber(res.data.data1);
                 setShowInput(true);
                 console.log("findid res: ", res.data);
@@ -154,6 +163,7 @@ const SmsMessage = ({
                             secondary: "#fffaf2",
                         },
                     });
+                    setPnBtnDisabled(false);
                     setPnDisabled(false);
                     setShowInput(false);
                 }
@@ -195,8 +205,8 @@ const SmsMessage = ({
                     {window.location.href === "http://localhost:3000/findid" ? (
                         <Button
                             PnBtn
-                            disabled={pnDisabled}
-                            pnDisabled={pnDisabled}
+                            disabled={pnBtnDisabled}
+                            pnDisabled={pnBtnDisabled}
                             onClick={() => findIdHandler(phoneNumber)}
                         >
                             인증번호 전송
@@ -206,8 +216,8 @@ const SmsMessage = ({
                         //사항연산자 안되면 if
                         <Button
                             PnBtn
-                            disabled={pnDisabled}
-                            pnDisabled={pnDisabled}
+                            disabled={pnBtnDisabled}
+                            pnDisabled={pnBtnDisabled}
                             onClick={() => sendMessageHandler(phoneNumber)}
                         >
                             인증번호 전송
@@ -217,8 +227,8 @@ const SmsMessage = ({
                       "http://localhost:3000/findpw" ? (
                         <Button
                             PnBtn
-                            disabled={pnDisabled}
-                            pnDisabled={pnDisabled}
+                            disabled={pnBtnDisabled}
+                            pnDisabled={pnBtnDisabled}
                             onClick={findPwHandler}
                         >
                             인증번호 전송
@@ -274,6 +284,7 @@ const StDiv = styled.div`
             margin-top: 10px;
         `}
 `;
+
 const StInput = styled.input`
     ${(props) =>
         props.SMSInput &&
