@@ -6,17 +6,28 @@ import { MdQrCode2, MdCloudDownload } from "react-icons/md";
 import { ShareKakao } from "../components/Kakao/ShareKakao";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __completePhoto } from "../redux/modules/photoSlice";
+import {
+    __completePhoto,
+    __qrcodeGet,
+    __qrcodeSend,
+} from "../redux/modules/photoSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { __outPhotoRoom } from "../redux/modules/videoSlice";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import { dataURLtoFile } from "../components/file/dataURLtoFile";
 
 const PhotoSave = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { roomId } = useParams();
     console.log(roomId);
+
+    const [photo_pie, setPhoto_pie] = useState("");
+
+    const [qrcode, setQrcode] = useState("");
+    console.log(qrcode);
 
     useEffect(() => {
         //카카오톡 sdk 추가
@@ -70,6 +81,43 @@ const PhotoSave = () => {
 
     const roomPhotos = useSelector((state) => state.photos.loadRoomInfo.data1);
     console.log(roomPhotos);
+
+    useEffect(() => {
+        // const qrcodeSend = () => {
+        html2canvas(document.querySelector("#frame_box"))
+            .then((canvas) => {
+                let photo_pie =
+                    (canvas.toDataURL("image/jpg"), "photo_pie.jpg");
+                // photo_two = photo_two.replace("data:image/jpg;base64,", "");
+                setPhoto_pie(canvas.toDataURL(photo_pie));
+            })
+            .then(() => {
+                const file = dataURLtoFile(photo_pie, "photo_pie.jpg");
+
+                const completePhoto = new FormData();
+
+                completePhoto.append("completePhoto", file);
+
+                dispatch(__qrcodeSend({ roomId, formdata: completePhoto }));
+
+                setTimeout(() => {
+                    dispatch(
+                        __qrcodeSend({ roomId, formdata: completePhoto })
+                    ).then((res) => {
+                        console.log("사진전송 res --->", res);
+                        toast.success("QR Code 이미지를 생성해보세요!", {
+                            icon: "📸",
+                            style: {
+                                borderRadius: "10px",
+                                background: "#3a3232",
+                                color: "#fffaf2",
+                            },
+                            duration: 2000,
+                        });
+                    });
+                }, 3000);
+            });
+    }, []);
 
     const pictureSaveHandler = () => {
         html2canvas(document.querySelector("#frame_box")).then((canvas) => {
@@ -142,6 +190,41 @@ const PhotoSave = () => {
         });
     };
 
+    const qrcodeGetHandler = (roomId) => {
+        dispatch(__qrcodeGet(roomId))
+            .then((res) => {
+                console.log("qr get res ---> ", res);
+                if (res.payload.statusCode === 200) {
+                    toast.success(res.payload.statusMsg, {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#3a3232",
+                            color: "#fffaf2",
+                        },
+                        iconTheme: {
+                            primary: "#fffaf2",
+                            secondary: "#3a3232",
+                        },
+                        duration: 4000,
+                    });
+                } else if (res.payload.statusCode === 400) {
+                    toast.error(res.payload.statusMsg, {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#fffaf2",
+                            color: "#3a3232",
+                        },
+                        iconTheme: {
+                            primary: "#3a3232",
+                            secondary: "#fffaf2",
+                        },
+                    });
+                }
+                setQrcode(res.payload.data1);
+            })
+            .catch((err) => console.log(err));
+    };
+
     return (
         <>
             {/* <input type="radio" id="mono" />
@@ -172,10 +255,16 @@ const PhotoSave = () => {
                 </StDiv>
                 <StDiv down_btn>
                     <StDiv qrcode_box>
-                        <StImg qrimg src="/image/qrcode.png" alt="QR Code" />
-                        <Span qrcode>
+                        {!!qrcode ? (
+                            <StImg
+                                qrimg
+                                src={`data:image/png;base64,${qrcode}`}
+                                alt="QR Code"
+                            />
+                        ) : null}
+                        <Span qrcode onClick={() => qrcodeGetHandler(roomId)}>
                             <MdQrCode2 size={25} />
-                            QR Code
+                            QR Code 생성하기
                         </Span>
                     </StDiv>
                     <ShareKakao />
@@ -286,6 +375,8 @@ const StImg = styled.img`
     ${(props) =>
         props.qrimg &&
         css`
+            background-color: #fffaf2;
+            border-radius: 10px;
             width: 200px;
             height: 200px;
             border: 1px solid gray;
