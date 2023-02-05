@@ -30,6 +30,7 @@ const Google = () => {
                         primary: "#fffaf2",
                         secondary: "#3a3232",
                     },
+                    duration: 4000,
                 });
 
                 // Swal.fire(
@@ -53,6 +54,7 @@ const Google = () => {
                         primary: "#3a3232",
                         secondary: "#fffaf2",
                     },
+                    duration: 4000,
                 });
 
                 console.log("소셜로그인 에러", err);
