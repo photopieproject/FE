@@ -96,13 +96,23 @@ function FindPWMsg({ setShow, userId, setUserId }) {
             name="checkbutton"
             value=""
           >
-            비밀번호 재설정하기
+            Next
           </StBtn>
         </StDiv>
       </StDiv>
       <StDiv RightBox>
-        <StP RightTxt1>Welcome Back!</StP>
-        <StP RightTxt2>안녕하세요. 포토파이입니다.</StP>
+        <StDiv LogoBox>
+          <img
+            src="/image/photopie_logo_1.png"
+            alt="home_logo"
+            style={{ width: "140px" }}
+            onClick={() => navigate("/")}
+          />
+        </StDiv>
+        <StDiv TxtBox>
+          <StP RightTxt1>Welcome Back!</StP>
+          <StP RightTxt2>안녕하세요. 포토파이입니다.</StP>
+        </StDiv>
         <StDiv>
           <StBtn RightLoginbtn onClick={() => navigate("/login")}>
             Login
@@ -145,13 +155,25 @@ const StDiv = styled.div`
       justify-content: center;
       align-items: center;
     `}
-
+    ${(props) =>
+    props.LogoBox &&
+    css`
+      margin-bottom: 80px;
+    `}
+  ${(props) =>
+    props.TxtBox &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `}
   ${(props) =>
     props.FindPw &&
     css`
       font-size: 70px;
       display: flex;
       justify-content: center;
+      font-family: "Belleza";
       margin: 30px 0 0px 0;
       color: black;
     `}
@@ -207,26 +229,27 @@ const StP = styled.p`
       font-size: 50px;
       color: white;
       margin-top: -60px;
+      font-family: Belleza;
+      margin-bottom: 10px;
     `}
 
   ${(props) =>
     props.RightTxt2 &&
     css`
-      font-size: 40px;
+      font-size: 24px;
       color: white;
       margin: 0px auto 60px auto;
     `}
 `;
-
 const StBtn = styled.button`
   ${(props) =>
     props.RightFindIdBtn &&
     css`
+      font-family: "Belleza";
       font-size: 20px;
       width: 250px;
       height: 60px;
-      top: 610px;
-      left: 1371px;
+      margin-top: -10px;
       border-radius: 50px;
       border: 1px solid #fffaf2;
       background-color: #3a3232;
@@ -241,13 +264,12 @@ const StBtn = styled.button`
   ${(props) =>
     props.NextGoBtn &&
     css`
-      width: 150px;
-      height: 40px;
-      border-radius: 20px;
+      font-family: "Belleza";
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      border-radius: 50px;
       margin-top: 10px;
-      /*background-color: #fffaf2;*/
-      /* border: 2px solid #3a3232; */
-      font-weight: bold;
       &:hover {
         cursor: pointer;
         background-color: #3a3232;
@@ -261,8 +283,6 @@ const StBtn = styled.button`
       color: ${({ nextDisabled }) => (nextDisabled ? "#fffaf2" : "#3a3232")};
       border: ${({ nextDisabled }) =>
         nextDisabled ? "none" : "2px solid #3a3232"};
-      font-weight: bold;
-      font-size: 14px;
       cursor: pointer;
       &:disabled {
         background-color: #ddd8d8;
