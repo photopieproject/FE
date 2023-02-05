@@ -99,8 +99,8 @@ function ResetPW({ userId, setUserId }) {
             autoComplete="off"
             placeholder="8~15자 영문 대 소문자, 숫자, 특수문자"
           />
+          <StP>{PWConfirmP}</StP>
         </StDiv>
-        <StP>{PWConfirmP}</StP>
         <StDiv NextGoBtnBox>
           <StBtn
             NextGoBtn

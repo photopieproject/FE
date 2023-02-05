@@ -32,7 +32,7 @@ const Registration = () => {
   const PWChk = () => {
     if (!isPassword(password)) {
       setPWPtag(
-        <StPs>영문대문자+소문자/숫자/특수문자를 모두포함한, 8-15자</StPs>
+        <StPs>영문대문자+소문자/숫자/특수문자를 모두 포함한, 8-15자</StPs>
       );
     } else {
       setPWPtag(<StPs2>사용가능한 비밀번호 입니다</StPs2>);
@@ -231,8 +231,8 @@ const Registration = () => {
               autoComplete="off"
               placeholder="8~15자 영문 대+소문자, 숫자, 특수문자"
             />
+            <StP>{PWConfirmP}</StP>
           </StDiv>
-          <StP>{PWConfirmP}</StP>
         </StDiv>
 
         <SmsMessage
