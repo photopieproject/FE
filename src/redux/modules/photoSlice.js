@@ -10,6 +10,8 @@ const initialState = {
     photos: [],
     photoinfo: [],
     loadRoomInfo: [],
+    qrcodeSend: [],
+    getQrcode: [],
     isLoading: true,
     error: null,
 };
@@ -20,10 +22,6 @@ export const __takePhoto = createAsyncThunk(
     async (payload, thunkAPI) => {
         console.log("payload :", payload);
         try {
-            // const form = new FormData();
-            // form.append("file", payload.file); //form데이터가 객체라 form만 보내면됨
-            // form.append("roomId", payload.roomId);
-
             const data = await apis.Shoot_Photo(payload);
 
             console.log("POST 추가 데이터", data);
@@ -75,6 +73,38 @@ export const __completePhoto = createAsyncThunk(
         console.log("payload :", payload);
         try {
             const data = await apis.completePhoto(payload);
+            console.log("POST 추가 데이터", data);
+            return thunkAPI.fulfillWithValue(data.data);
+        } catch (err) {
+            console.log(err);
+            return thunkAPI.rejectWithValue(err);
+        }
+    }
+);
+
+export const __qrcodeSend = createAsyncThunk(
+    "qrcodeSend",
+    async (payload, thunkAPI) => {
+        console.log("payload--->", payload);
+        try {
+            const data = await apis.qrcodeSend(payload);
+
+            console.log("qrsend data--->", data);
+            return thunkAPI.fulfillWithValue(data);
+        } catch (err) {
+            console.log(err);
+
+            return thunkAPI.rejectWithValue(err);
+        }
+    }
+);
+
+export const __qrcodeGet = createAsyncThunk(
+    "qrcodeGet",
+    async (payload, thunkAPI) => {
+        console.log("payload :", payload);
+        try {
+            const data = await apis.qrcodeGet(payload);
             console.log("POST 추가 데이터", data);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
@@ -145,6 +175,36 @@ export const photoSlice = createSlice({
             // console.log("state값", state);
         },
         [__completePhoto.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        // qrcode 저장 관련
+        [__qrcodeSend.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__qrcodeSend.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.qrcodeSend = action.payload;
+            console.log("action-서버값", action.payload);
+            // console.log("state값", state);
+        },
+        [__qrcodeSend.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        // qrcode 가져오기 관련
+        [__qrcodeGet.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__qrcodeGet.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.getQrcode = action.payload;
+            console.log("action-서버값", action.payload);
+            // console.log("state값", state);
+        },
+        [__qrcodeGet.rejected]: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         },

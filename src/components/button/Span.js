@@ -34,7 +34,6 @@ const StSpan = styled.span`
             align-items: center;
             gap: 5px;
             margin-top: 10px;
-            cursor: default;
         `}
     ${(props) =>
         props.nick &&
