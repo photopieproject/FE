@@ -142,9 +142,19 @@ const Registration = () => {
     <StDiv SignupPage>
       <StDiv LeftBox>
         <Toaster />
-        <StPLeft LeftTxt1>Welcome To</StPLeft>
-        <StPLeft LeftTxt1>Photo-Pie</StPLeft>
-        <StPLeft LeftTxt2>안녕하세요. 포토파이입니다.</StPLeft>
+        <StDiv LogoBox>
+          <img
+            src="/image/photopie_logo_1.png"
+            alt="home_logo"
+            style={{ width: "140px", cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          />
+        </StDiv>
+        <StDiv TxtBox>
+          <StPLeft LeftTxt1>Welcome To</StPLeft>
+          <StPLeft LeftTxt1>Photo-Pie</StPLeft>
+          <StPLeft LeftTxt2>안녕하세요. 포토파이입니다.</StPLeft>
+        </StDiv>
         <StDiv>
           <StBtn LeftSignUpbtn onClick={() => navigate("/login")}>
             Login
@@ -157,25 +167,23 @@ const Registration = () => {
           <StDiv IdPw>
             아이디
             <br />
-            <stDiv InputIDCheckBtn>
-              <StInput
-                LoginInput2
-                type="text"
-                id="userId"
-                value={userId}
-                disabled={checkUserId}
-                onChange={setUserId}
-                placeholder="5~10자 영문 소문자, 숫자"
-              />
-              <StBtn
-                IdCheckBtn
-                disabled={checkUserId}
-                checkUserId={checkUserId}
-                onClick={() => checkUserIdHandler(userId)}
-              >
-                중복확인
-              </StBtn>
-            </stDiv>
+            <StInput
+              LoginInput2
+              type="text"
+              id="userId"
+              value={userId}
+              disabled={checkUserId}
+              onChange={setUserId}
+              placeholder="5~10자 영문 소문자, 숫자"
+            />
+            <StBtn
+              IdCheckBtn
+              disabled={checkUserId}
+              checkUserId={checkUserId}
+              onClick={() => checkUserIdHandler(userId)}
+            >
+              중복확인
+            </StBtn>
             <StP>{checkP}</StP>
           </StDiv>
 
@@ -278,6 +286,19 @@ const StDiv = styled.div`
       align-items: center;
     `}
 
+    ${(props) =>
+    props.LogoBox &&
+    css`
+      margin-bottom: 80px;
+    `}
+  ${(props) =>
+    props.TxtBox &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `}
+
   ${(props) =>
     props.SingUpBox &&
     css`
@@ -320,12 +341,7 @@ const StDiv = styled.div`
       padding-top: 20px;
     `}
 
-  ${(props) =>
-    props.InputIDCheckBtn &&
-    css`
-      display: flex;
-    `}
-
+ 
   ${(props) =>
     props.LoginBtnBox &&
     css`
@@ -352,14 +368,16 @@ const StPLeft = styled.p`
       font-size: 50px;
       color: white;
       margin-top: -60px;
+      font-family: "Belleza";
+      margin-bottom: 55px;
     `}
 
   ${(props) =>
     props.LeftTxt2 &&
     css`
-      font-size: 25px;
+      font-size: 24px;
       color: white;
-      margin: 0px auto 60px auto;
+      margin: -20px auto 60px auto;
     `}
 `;
 
@@ -420,11 +438,11 @@ const StBtn = styled.button`
   ${(props) =>
     props.LeftSignUpbtn &&
     css`
+     font-family: "Belleza";
       font-size: 20px;
       width: 250px;
       height: 60px;
-      top: 610px;
-      left: 1371px;
+      margin-top: -10px;
       border-radius: 50px;
       border: 1px solid #fffaf2;
       background-color: #3a3232;
@@ -433,6 +451,7 @@ const StBtn = styled.button`
         cursor: pointer;
         background-color: #fffaf2;
         color: #3a3232;
+      }
       }
     `}
 
@@ -468,29 +487,24 @@ const StBtn = styled.button`
   ${(props) =>
     props.LoginBtn &&
     css`
-      width: 150px;
-      height: 40px;
-      border-radius: 10px;
+      font-family: "Belleza";
+      font-size: 20px;
+      width: 250px;
+      height: 60px;
+      border-radius: 50px;
       margin-top: 10px;
-      /*background-color: #fffaf2;*/
-      /* border: 2px solid #3a3232; */
       font-weight: bold;
       &:hover {
         cursor: pointer;
         background-color: #3a3232;
         color: #fffaf2;
       }
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: ${({ registDisabled }) =>
         registDisabled ? "#d9d9d9" : "#fffaf2"};
       color: ${({ registDisabled }) =>
         registDisabled ? "#fffaf2" : "#3a3232"};
       border: ${({ registDisabled }) =>
         registDisabled ? "none" : "2px solid #3a3232"};
-      font-weight: bold;
-      font-size: 14px;
       cursor: pointer;
       &:disabled {
         background-color: #ddd8d8;

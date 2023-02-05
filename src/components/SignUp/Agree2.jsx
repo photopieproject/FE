@@ -102,15 +102,19 @@ function Agree2({ setShow }) {
   return (
     <StDiv AgreePage>
       <StDiv LeftBox>
-        <img
-          src="/image/photopie_logo_1.png"
-          alt="home_logo"
-          style={{ width: "140px" }}
-          onClick={() => navigate("/")}
-        />
-        <StP LeftTxt1>WelCome To</StP>
-        <StP LeftTxt1>Photo-Pie</StP>
-        <StP LeftTxt2>안녕하세요. 포토파이입니다.</StP>
+        <StDiv LogoBox>
+          <img
+            src="/image/photopie_logo_1.png"
+            alt="home_logo"
+            style={{ width: "140px", cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          />
+        </StDiv>
+        <StDiv TxtBox>
+          <StP LeftTxt1>WelCome To</StP>
+          <StP LeftTxt1>Photo-Pie</StP>
+          <StP LeftTxt2>안녕하세요. 포토파이입니다.</StP>
+        </StDiv>
         <StDiv>
           <StBtn LeftSignUpbtn onClick={() => navigate("/login")}>
             Login
@@ -296,7 +300,18 @@ const StDiv = styled.div`
       justify-content: center;
       align-items: center;
     `}
-
+    ${(props) =>
+    props.LogoBox &&
+    css`
+      margin-bottom: 80px;
+    `}
+  ${(props) =>
+    props.TxtBox &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `}
     ${(props) =>
     props.CenterBox &&
     css`
@@ -426,14 +441,15 @@ const StP = styled.p`
       color: white;
       margin-top: -60px;
       font-family: "Belleza";
+      margin-bottom: 55px;
     `}
 
   ${(props) =>
     props.LeftTxt2 &&
     css`
-      font-size: 25px;
+      font-size: 24px;
       color: white;
-      margin: 0px auto 60px auto;
+      margin: -20px auto 60px auto;
     `}
 `;
 
@@ -474,11 +490,11 @@ const StBtn = styled.button`
   ${(props) =>
     props.LeftSignUpbtn &&
     css`
+      font-family: "Belleza";
       font-size: 20px;
       width: 250px;
       height: 60px;
-      top: 610px;
-      left: 1371px;
+      margin-top: -10px;
       border-radius: 50px;
       border: 1px solid #fffaf2;
       background-color: #3a3232;

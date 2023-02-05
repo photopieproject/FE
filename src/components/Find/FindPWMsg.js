@@ -105,7 +105,7 @@ function FindPWMsg({ setShow, userId, setUserId }) {
           <img
             src="/image/photopie_logo_1.png"
             alt="home_logo"
-            style={{ width: "140px" }}
+            style={{ width: "140px", cursor: "pointer" }}
             onClick={() => navigate("/")}
           />
         </StDiv>
