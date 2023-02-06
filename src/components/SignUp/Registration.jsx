@@ -6,8 +6,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import SmsMessage from "../SMS/SmsMessage";
 import toast, { Toaster } from "react-hot-toast";
+import Button from "../button/Button";
 
 const Registration = () => {
+    const navigate = useNavigate();
+
     const [userId, setUserId] = useInput();
     const [nickname, setNickName] = useInput();
     const [password, setPassword] = useInput();
@@ -20,35 +23,40 @@ const Registration = () => {
     const [okConfirm, setOkConfirm] = useState(false);
     const [checkP, setCheckP] = useState();
 
-    function isPassword(asValue) {
-        //정규식, 유효성검사
+    const isId = (userId) => {
+        var regExp = /^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{5,10}$/g;
+        return regExp.test(userId);
+    };
+
+    const isPassword = (asValue) => {
         const regExp =
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
         return regExp.test(asValue);
-    }
+    };
 
     const PWChk = () => {
         if (!isPassword(password)) {
             setPWPtag(
-                <StPs>
+                <StP notGood>
                     영문대문자+소문자/숫자/특수문자를 모두포함한, 8-15자
-                </StPs>
+                </StP>
             );
         } else {
-            setPWPtag(<StPs2>사용가능한 비밀번호 입니다</StPs2>);
+            setPWPtag(<StP good>사용가능한 비밀번호 입니다</StP>);
         }
     };
 
     const PWConfirmChk = () => {
         if (password !== PWConfirm || password === "") {
-            setPWConfirmP(<StPs>입력한 비밀번호와 일치하지 않습니다.</StPs>);
+            setPWConfirmP(
+                <StP notGood>입력한 비밀번호와 일치하지 않습니다.</StP>
+            );
         } else if (password === PWConfirm) {
-            setPWConfirmP(<StPs2>비밀번호 확인되었습니다.</StPs2>);
+            setPWConfirmP(<StP good>비밀번호 확인되었습니다.</StP>);
         }
     };
 
     useEffect(() => {
-        console.log(okConfirm);
         if (okConfirm === true) {
             setRegistDisabled(!setRegistDisabled);
         } else {
@@ -56,15 +64,7 @@ const Registration = () => {
         }
     }, [okConfirm]);
 
-    const navigate = useNavigate();
-
-    function isId(userId) {
-        var regExp = /^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{5,10}$/g;
-        return regExp.test(userId);
-    }
-
     const onSubmitSignup = (e) => {
-        console.log("checkUserId:", checkUserId);
         e.preventDefault();
         if (checkUserId === false) {
             toast.error("중복체크를 확인해주세요!", {
@@ -88,8 +88,6 @@ const Registration = () => {
             phoneNumber,
         })
             .then((res) => {
-                console.log("signup res: ", res);
-
                 if (res.data.statusCode === 200) {
                     toast.success(res.data.statusMsg, {
                         style: {
@@ -107,13 +105,11 @@ const Registration = () => {
                     }, 1000);
                 }
             })
-
             .catch((err) => {
                 console.log("error: ", err);
             });
     };
 
-    ///^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{5,10}$/g 아이디정규식
     const checkUserIdHandler = (userId) => {
         __checkUserId(userId).then((res) => {
             if (isId(userId) === false) {
@@ -129,13 +125,12 @@ const Registration = () => {
                     },
                 });
             } else {
-                console.log(res);
                 if (res === 200) {
                     setCheckUserId(true);
-                    setCheckP(<CheP>사용 가능한 ID입니다</CheP>);
+                    setCheckP(<StP CheP>사용 가능한 ID입니다</StP>);
                 } else if (res === 400) {
                     setCheckUserId(false);
-                    setCheckP(<CheP2>이미 사용중인 ID입니다</CheP2>);
+                    setCheckP(<StP CheP2>이미 사용중인 ID입니다</StP>);
                 }
             }
         });
@@ -146,30 +141,28 @@ const Registration = () => {
             <StDiv LeftBox>
                 <Toaster />
                 <StDiv LogoBox>
-                    <img
+                    <StImg
                         src="/image/photopie_logo_1.png"
                         alt="home_logo"
-                        style={{ width: "140px", cursor: "pointer" }}
                         onClick={() => navigate("/")}
                     />
                 </StDiv>
                 <StDiv TxtBox>
-                    <StPLeft LeftTxt1>Welcome To</StPLeft>
-                    <StPLeft LeftTxt1>Photo-Pie</StPLeft>
-                    <StPLeft LeftTxt2>안녕하세요. 포토파이입니다.</StPLeft>
+                    <StP LeftTxt1>WelCome To</StP>
+                    <StP LeftTxt1>Photo-Pie</StP>
+                    <StP LeftTxt2>안녕하세요. 포토파이입니다.</StP>
                 </StDiv>
                 <StDiv>
-                    <StBtn LeftSignUpbtn onClick={() => navigate("/login")}>
+                    <Button LeftSignUpbtn onClick={() => navigate("/login")}>
                         Login
-                    </StBtn>
+                    </Button>
                 </StDiv>
             </StDiv>
             <StDiv SignUpBox>
                 <StDiv SignUp>Create Account</StDiv>
                 <StDiv IDPWBox>
                     <StDiv IdPw>
-                        아이디
-                        <br />
+                        <StP subTit>아이디</StP>
                         <StInput
                             LoginInput2
                             type="text"
@@ -179,20 +172,19 @@ const Registration = () => {
                             onChange={setUserId}
                             placeholder="5~10자 영문 소문자, 숫자"
                         />
-                        <StBtn
+                        <Button
                             IdCheckBtn
                             disabled={checkUserId}
                             checkUserId={checkUserId}
                             onClick={() => checkUserIdHandler(userId)}
                         >
                             중복확인
-                        </StBtn>
+                        </Button>
                         {checkP}
                     </StDiv>
 
                     <StDiv IdPw>
-                        닉네임
-                        <br />
+                        <StP subTit>닉네임</StP>
                         <StInput
                             LoginInput
                             type="text"
@@ -203,8 +195,7 @@ const Registration = () => {
                         />
                     </StDiv>
                     <StDiv IdPw>
-                        비밀번호
-                        <br />
+                        <StP subTit>비밀번호</StP>
                         <StInput
                             LoginInput
                             type="password"
@@ -218,7 +209,7 @@ const Registration = () => {
                         {PWPtag}
                     </StDiv>
                     <StDiv IdPw>
-                        비밀번호 확인 <br />
+                        <StP subTit>비밀번호 확인</StP>
                         <StInput
                             LoginInput
                             onBlur={PWConfirmChk}
@@ -240,16 +231,15 @@ const Registration = () => {
                     setPhoneNumber={setPhoneNumber}
                     phoneNumber={phoneNumber}
                 />
-
                 <StDiv LoginBtnBox>
-                    <StBtn
+                    <Button
                         LoginBtn
                         disabled={registDisabled}
                         registDisabled={registDisabled}
                         onClick={onSubmitSignup}
                     >
                         Sign Up
-                    </StBtn>
+                    </Button>
                 </StDiv>
             </StDiv>
         </StDiv>
@@ -266,7 +256,6 @@ const StDiv = styled.div`
             flex-direction: row;
             align-items: center;
         `}
-
     ${(props) =>
         props.LeftBox &&
         css`
@@ -290,19 +279,16 @@ const StDiv = styled.div`
             flex-direction: column;
             align-items: center;
         `}
-
     ${(props) =>
         props.SignUpBox &&
         css`
             width: 55%;
             height: 100vh;
-            color: black;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         `}
-
     ${(props) =>
         props.SignUp &&
         css`
@@ -310,9 +296,7 @@ const StDiv = styled.div`
             display: flex;
             justify-content: center;
             margin: -10px 0 0px 0;
-            color: black;
         `}
-
     ${(props) =>
         props.IDPWBox &&
         css`
@@ -321,19 +305,14 @@ const StDiv = styled.div`
             flex-direction: column;
             align-items: center;
         `}
-
     ${(props) =>
         props.IdPw &&
         css`
             width: 350px;
-            /* display: flex; */
             font-size: 15px;
             font-weight: bold;
-            color: #6b6462;
             padding-top: 20px;
         `}
-
-
     ${(props) =>
         props.LoginBtnBox &&
         css`
@@ -342,8 +321,7 @@ const StDiv = styled.div`
             align-items: center;
             margin-top: 20px;
         `}
-
-${(props) =>
+    ${(props) =>
         props.SignUpGoBox &&
         css`
             font-size: 13px;
@@ -353,12 +331,17 @@ ${(props) =>
         `}
 `;
 
-const StPLeft = styled.p`
+const StImg = styled.img`
+    width: 140px;
+    cursor: pointer;
+`;
+
+const StP = styled.p`
     ${(props) =>
         props.LeftTxt1 &&
         css`
             font-size: 50px;
-            color: white;
+            color: #fffaf2;
             margin-top: -60px;
             font-family: "Belleza";
             margin-bottom: 55px;
@@ -367,39 +350,48 @@ const StPLeft = styled.p`
         props.LeftTxt2 &&
         css`
             font-size: 24px;
-            color: white;
+            color: #fffaf2;
             margin: -20px auto 60px auto;
         `}
-`;
-
-const CheP = styled.p`
-    font-size: 13px;
-    font-weight: bold;
-    margin-top: 5px;
-    color: #3a3232;
-    margin-bottom: -10px;
-`;
-
-const CheP2 = styled.p`
-    font-size: 13px;
-    font-weight: bold;
-    margin-top: 5px;
-    color: red;
-    margin-bottom: -10px;
-`;
-
-const StPs = styled.p`
-    margin-top: 7px;
-    font-size: 12px;
-    color: red;
-    font-weight: bold;
-`;
-
-const StPs2 = styled.p`
-    margin-top: 7px;
-    font-size: 12px;
-    color: #3a3232;
-    font-weight: bold;
+    ${(props) =>
+        props.CheP &&
+        css`
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 5px;
+            color: #3a3232;
+            margin-bottom: -10px;
+        `}
+    ${(props) =>
+        props.CheP2 &&
+        css`
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 5px;
+            color: red;
+            margin-bottom: -10px;
+        `}
+    ${(props) =>
+        props.good &&
+        css`
+            margin-top: 7px;
+            font-size: 12px;
+            color: #3a3232;
+            font-weight: bold;
+        `}
+    ${(props) =>
+        props.notGood &&
+        css`
+            margin-top: 7px;
+            font-size: 12px;
+            color: red;
+            font-weight: bold;
+        `}
+    ${(props) =>
+        props.subTit &&
+        css`
+            margin: 0 0 5px 0;
+        `}
 `;
 
 const StInput = styled.input`
@@ -411,7 +403,6 @@ const StInput = styled.input`
             }
             background-color: #f2eeee;
             border-radius: 10px;
-
             border: none;
             width: 300px;
             height: 40px;
@@ -432,92 +423,6 @@ const StInput = styled.input`
             border-radius: 10px;
             &:focus {
                 outline: none;
-            }
-        `}
-`;
-
-const StBtn = styled.button`
-    ${(props) =>
-        props.LeftSignUpbtn &&
-        css`
-            font-family: "Belleza";
-            font-size: 20px;
-            width: 250px;
-            height: 60px;
-            margin-top: -10px;
-            border-radius: 50px;
-            border: 1px solid #fffaf2;
-            background-color: #3a3232;
-            color: white;
-            &:hover {
-                cursor: pointer;
-                background-color: #fffaf2;
-                color: #3a3232;
-            }
-        `}
-
-    ${(props) =>
-        props.IdCheckBtn &&
-        css`
-            width: 100px;
-            height: 40px;
-            border-radius: 10px;
-            margin-left: 10px;
-            font-weight: bold;
-            &:hover {
-                cursor: pointer;
-                background-color: #3a3232;
-                color: #fffaf2;
-            }
-            background: ${({ checkUserId }) =>
-                checkUserId ? "#d9d9d9" : "#fffaf2"};
-            color: ${({ checkUserId }) =>
-                checkUserId ? "#fffaf2" : "#3a3232"};
-            border: ${({ checkUserId }) =>
-                checkUserId ? "none" : "2px solid #3a3232"};
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            &:disabled {
-                background-color: #ddd8d8;
-            }
-        `}
-    ${(props) =>
-        props.LoginBtn &&
-        css`
-            font-family: "Belleza";
-            font-size: 20px;
-            width: 250px;
-            height: 60px;
-            border-radius: 50px;
-            margin-top: 10px;
-            font-weight: bold;
-            &:hover {
-                cursor: pointer;
-                background-color: #3a3232;
-                color: #fffaf2;
-            }
-            background: ${({ registDisabled }) =>
-                registDisabled ? "#d9d9d9" : "#fffaf2"};
-            color: ${({ registDisabled }) =>
-                registDisabled ? "#fffaf2" : "#3a3232"};
-            border: ${({ registDisabled }) =>
-                registDisabled ? "none" : "2px solid #3a3232"};
-            cursor: pointer;
-            &:disabled {
-                background-color: #ddd8d8;
-            }
-        `}
-    ${(props) =>
-        props.SignUpGoBtn &&
-        css`
-            border: none;
-            background-color: transparent;
-            font-weight: bold;
-            color: #7d6945;
-            &:hover {
-                cursor: pointer;
-                text-decoration: underline;
             }
         `}
 `;

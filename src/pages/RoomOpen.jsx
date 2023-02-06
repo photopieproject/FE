@@ -33,10 +33,10 @@ const RoomOpen = () => {
         );
     }, []);
 
+    // 방 만들기
     const createRoomSubmit = () => {
         dispatch(__createRoom({ roomName }))
             .then((res) => {
-                console.log("createRoom res---->", res);
                 if (res.payload.statusCode === 200) {
                     toast.success(res.payload.statusMsg, {
                         style: {
@@ -50,8 +50,6 @@ const RoomOpen = () => {
                         },
                     });
                     navigate(`/frame/${res.payload.data1.id}`);
-                    // setTimeout(() => {
-                    // }, 1000);
                 } else if (res.payload.data.statusCode === 400) {
                     toast.error(res.payload.data.statusMsg, {
                         style: {
@@ -85,19 +83,17 @@ const RoomOpen = () => {
                     localStorage.removeItem("Authorization");
 
                     navigate("/login");
-                    // setTimeout(() => {
-                    // }, 1000);
                 }
             })
             .catch((err) => {
-                console.log("createRoom err---->", err.payload.response.data);
+                console.log("error", err);
             });
     };
 
+    // 코드로 방 입장
     const enterRoomSubmit = () => {
         dispatch(__enterPhotoRoom({ roomCode }))
             .then((res) => {
-                console.log("enterRoom res--->", res);
                 if (res.payload.statusCode === 200) {
                     toast.success(res.payload.statusMsg, {
                         style: {
@@ -111,8 +107,6 @@ const RoomOpen = () => {
                         },
                     });
                     navigate(`/photoshoot/${res.payload.data1.id}`);
-                    // setTimeout(() => {
-                    // }, 1000);
                 } else if (res.payload.data.statusCode === 400) {
                     toast.error(res.payload.data.statusMsg, {
                         style: {
@@ -150,33 +144,33 @@ const RoomOpen = () => {
                     }, 1000);
                 }
             })
-            .catch((err) => console.log("enterRoom err--->", err));
+            .catch((err) => console.log("error", err));
     };
 
     return (
-        <StDiv room_open>
+        <StDiv roomOpen>
             <Toaster />
             <StP>방 만들기</StP>
-            <StDiv room_box>
+            <StDiv roomBox>
                 <StInput
                     type="text"
                     placeholder="방 이름을 입력하세요"
                     value={roomName}
                     onChange={setRoomName}
                 />
-                <Button room_btn onClick={createRoomSubmit}>
+                <Button roomBtn onClick={createRoomSubmit}>
                     방 개설하기
                 </Button>
             </StDiv>
-            <StP code_para>코드로 방 찾기</StP>
-            <StDiv room_box>
+            <StP codePara>코드로 방 찾기</StP>
+            <StDiv roomBox>
                 <StInput
                     type="text"
                     placeholder="방 코드를 입력하세요"
                     value={roomCode}
                     onChange={setRoomCode}
                 />
-                <Button room_btn onClick={enterRoomSubmit}>
+                <Button roomBtn onClick={enterRoomSubmit}>
                     방 입장하기
                 </Button>
             </StDiv>
@@ -186,7 +180,7 @@ const RoomOpen = () => {
 
 const StDiv = styled.div`
     ${(props) =>
-        props.room_open &&
+        props.roomOpen &&
         css`
             width: 95%;
             max-width: 500px;
@@ -194,7 +188,7 @@ const StDiv = styled.div`
             box-sizing: border-box;
         `}
     ${(props) =>
-        props.room_box &&
+        props.roomBox &&
         css`
             width: 95%;
             display: flex;
@@ -205,8 +199,6 @@ const StDiv = styled.div`
 
 const StInput = styled.input`
     width: 100%;
-    /* width: 500px;
-    height: 35px; */
     font-size: 16px;
     background-color: #fffaf2;
     color: #3a3232;
@@ -222,7 +214,7 @@ const StP = styled.p`
     font-weight: bold;
     font-size: 18px;
     ${(props) =>
-        props.code_para &&
+        props.codePara &&
         css`
             margin-top: 70px;
         `}

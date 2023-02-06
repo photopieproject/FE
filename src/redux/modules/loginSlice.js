@@ -5,20 +5,18 @@ import toast from "react-hot-toast";
 export const __checkUserId = async (userId) => {
     try {
         const data = await apis.checkUserId(userId);
-        console.log("userId: ", userId);
-        console.log("data: ", data);
         return data.data.statusCode;
     } catch (error) {
         console.log(error);
     }
 };
 
+// 로그인
 export const __postLogin = async (post) => {
     try {
         const data = await apis.postLogin(post);
         return data;
     } catch (error) {
-        console.log("error", error);
         toast.error(error.response.data.statusMsg, {
             style: {
                 borderRadius: "10px",
@@ -33,10 +31,10 @@ export const __postLogin = async (post) => {
     }
 };
 
+// 회원가입
 export const __postSignup = async (post) => {
     try {
         const data = await apis.postSignup(post);
-
         return data;
     } catch (error) {
         toast.error(error.response.data.statusMsg, {
@@ -53,10 +51,10 @@ export const __postSignup = async (post) => {
     }
 };
 
+// 인증번호 보내기
 export const __SMSSend = async (post) => {
     try {
         const data = await apis.smsSend(post);
-
         if (data.data.statusCode === 200) {
             toast.success(data.data.statusMsg, {
                 style: {
@@ -88,11 +86,10 @@ export const __SMSSend = async (post) => {
     }
 };
 
+// 아이디 찾기
 export const __findID = async (post) => {
     try {
         const data = await apis.findID(post);
-
-        console.log(data);
         return data;
     } catch (error) {
         toast.error(error.response.data.statusMsg, {
@@ -109,11 +106,10 @@ export const __findID = async (post) => {
     }
 };
 
+// 비밀번호 찾기
 export const __findPW = async (post) => {
     try {
         const data = await apis.findPW(post);
-
-        console.log(data);
         return data;
     } catch (error) {
         toast.error(error.response.data.statusMsg, {
@@ -130,11 +126,10 @@ export const __findPW = async (post) => {
     }
 };
 
+// 비밀번호 재설정
 export const __resetPW = async (put) => {
     try {
         const data = await apis.resetPW(put);
-
-        console.log(data);
         return data;
     } catch (error) {
         toast.error(error.response.data.statusMsg, {

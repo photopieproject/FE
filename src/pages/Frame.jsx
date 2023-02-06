@@ -13,20 +13,14 @@ const Frame = () => {
 
     const [frameNum, setFrameNum] = useState([]);
     const { roomId } = useParams();
-    console.log(roomId);
-    console.log("chooseFrame--->", frameNum);
 
-    // 오류 수정
     const chooseFramehandler = (e) => {
         setFrameNum(e.target.value);
     };
-    console.log("change after chooseFrame--->", frameNum);
 
     const chooseFrameCheckBtn = () => {
         dispatch(__chooseFrame({ roomId, frameNum }))
             .then((res) => {
-                console.log(res);
-
                 if (res.payload.statusCode === 200) {
                     toast.success(res.payload.statusMsg, {
                         style: {
@@ -41,8 +35,6 @@ const Frame = () => {
                         duration: 4000,
                     });
                     navigate(`/photoshoot/${roomId}`);
-                    // setTimeout(() => {
-                    // }, 1000);
                 } else if (res.payload.response.status === 400) {
                     toast.error("Frame을 선택해주세요!", {
                         style: {
@@ -62,14 +54,15 @@ const Frame = () => {
     };
 
     return (
-        <StDiv choose_frame>
+        <StDiv chooseFrame>
             <Toaster />
+
             {/* 단색 프레임 */}
             <StH3>ONE COLOR</StH3>
-            <StDiv frame_set>
+            <StDiv frameSet>
                 {oneColorFrame.map((kind) => (
                     <label htmlFor={kind.name} key={kind.frameNum}>
-                        <StDiv frame_check>
+                        <StDiv frameCheck>
                             <StInput
                                 type="radio"
                                 id={kind.name}
@@ -85,10 +78,10 @@ const Frame = () => {
 
             {/* 패턴 프레임 */}
             <StH3>PATTERN COLOR</StH3>
-            <StDiv frame_set>
+            <StDiv frameSet>
                 {patternColorFrame.map((kind) => (
                     <label htmlFor={kind.name} key={kind.frameNum}>
-                        <StDiv frame_check>
+                        <StDiv frameCheck>
                             <StInput
                                 type="radio"
                                 id={kind.name}
@@ -102,7 +95,7 @@ const Frame = () => {
                 ))}
             </StDiv>
             <Button
-                start_camera
+                startCamera
                 onClick={() => chooseFrameCheckBtn(roomId, Number(frameNum))}
             >
                 촬영 시작하기
@@ -113,7 +106,7 @@ const Frame = () => {
 
 const StDiv = styled.div`
     ${(props) =>
-        props.choose_frame &&
+        props.chooseFrame &&
         css`
             width: 95%
             max-width: 1200px;
@@ -122,7 +115,7 @@ const StDiv = styled.div`
             align-items: center;
         `}
     ${(props) =>
-        props.frame_set &&
+        props.frameSet &&
         css`
             max-width: 1400px;
             display: flex;
@@ -131,7 +124,7 @@ const StDiv = styled.div`
             gap: 20px;
         `}
     ${(props) =>
-        props.frame_check &&
+        props.frameCheck &&
         css`
             position: relative;
         `}
@@ -146,11 +139,6 @@ const StImg = styled.img`
     width: 200px;
     margin: 5px;
     cursor: pointer;
-    ${(props) =>
-        props.f_white &&
-        css`
-            border: 1px solid black;
-        `}
 `;
 
 const StInput = styled.input.attrs({ type: "radio" })`
@@ -161,4 +149,5 @@ const StInput = styled.input.attrs({ type: "radio" })`
         box-sizing: border-box;
     }
 `;
+
 export default Frame;

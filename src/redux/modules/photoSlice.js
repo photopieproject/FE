@@ -12,6 +12,7 @@ const initialState = {
     loadRoomInfo: [],
     qrcodeSend: [],
     getQrcode: [],
+    kakaoMsg: [],
     isLoading: true,
     error: null,
 };
@@ -20,15 +21,11 @@ const initialState = {
 export const __takePhoto = createAsyncThunk(
     "takePhoto",
     async (payload, thunkAPI) => {
-        console.log("payload :", payload);
         try {
             const data = await apis.Shoot_Photo(payload);
-
-            console.log("POST 추가 데이터", data);
             return thunkAPI.fulfillWithValue(data);
         } catch (err) {
             console.log(err);
-
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -38,10 +35,8 @@ export const __takePhoto = createAsyncThunk(
 export const __chooseFrame = createAsyncThunk(
     "chooseFrame",
     async (payload, thunkAPI) => {
-        console.log("payload :", payload);
         try {
             const data = await apis.chooseFrame(payload);
-            console.log("POST 추가 데이터", data);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
             console.log(err);
@@ -54,10 +49,8 @@ export const __chooseFrame = createAsyncThunk(
 export const __takeFrame = createAsyncThunk(
     "takeFrame",
     async (payload, thunkAPI) => {
-        console.log("payload :", payload);
         try {
             const data = await apis.takeFrame(payload);
-            console.log("POST 추가 데이터", data);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
             console.log(err);
@@ -70,10 +63,8 @@ export const __takeFrame = createAsyncThunk(
 export const __completePhoto = createAsyncThunk(
     "completePhoto",
     async (payload, thunkAPI) => {
-        console.log("payload :", payload);
         try {
             const data = await apis.completePhoto(payload);
-            console.log("POST 추가 데이터", data);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
             console.log(err);
@@ -82,10 +73,10 @@ export const __completePhoto = createAsyncThunk(
     }
 );
 
+// 전체 사진 QR 코드 생성 관련
 export const __qrcodeSend = createAsyncThunk(
     "qrcodeSend",
     async (payload, thunkAPI) => {
-        console.log("payload--->", payload);
         try {
             const data = await apis.qrcodeSend(payload);
 
@@ -99,13 +90,26 @@ export const __qrcodeSend = createAsyncThunk(
     }
 );
 
+// 생성된 QR 코드 불러오기
 export const __qrcodeGet = createAsyncThunk(
     "qrcodeGet",
     async (payload, thunkAPI) => {
-        console.log("payload :", payload);
         try {
             const data = await apis.qrcodeGet(payload);
-            console.log("POST 추가 데이터", data);
+            return thunkAPI.fulfillWithValue(data.data);
+        } catch (err) {
+            console.log(err);
+            return thunkAPI.rejectWithValue(err);
+        }
+    }
+);
+
+// 생성된 이미지 카카오 전송하기
+export const __kakaoMsgSend = createAsyncThunk(
+    "kakaoMsgSend",
+    async (payload, thunkAPI) => {
+        try {
+            const data = await apis.kakaoMsgSend(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
             console.log(err);
@@ -126,8 +130,6 @@ export const photoSlice = createSlice({
         [__takePhoto.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.photos = action.payload;
-            console.log("action-서버값", action.payload);
-            // console.log("state값", state);
         },
         [__takePhoto.rejected]: (state, action) => {
             state.isLoading = false;
@@ -141,8 +143,6 @@ export const photoSlice = createSlice({
         [__chooseFrame.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.frames = action.payload;
-            console.log("action-서버값", action.payload);
-            // console.log("state값", state);
         },
         [__chooseFrame.rejected]: (state, action) => {
             state.isLoading = false;
@@ -156,8 +156,6 @@ export const photoSlice = createSlice({
         [__takeFrame.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.photoinfo = action.payload;
-            console.log("action-서버값", action.payload);
-            // console.log("state값", state);
         },
         [__takeFrame.rejected]: (state, action) => {
             state.isLoading = false;
@@ -171,38 +169,45 @@ export const photoSlice = createSlice({
         [__completePhoto.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.loadRoomInfo = action.payload;
-            console.log("action-서버값", action.payload);
-            // console.log("state값", state);
         },
         [__completePhoto.rejected]: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         },
 
-        // qrcode 저장 관련
+        // 전체 사진 QR 코드 생성 관련
         [__qrcodeSend.pending]: (state) => {
             state.isLoading = true;
         },
         [__qrcodeSend.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.qrcodeSend = action.payload;
-            console.log("action-서버값", action.payload);
-            // console.log("state값", state);
         },
         [__qrcodeSend.rejected]: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         },
 
-        // qrcode 가져오기 관련
+        // 생성된 QR 코드 불러오기
         [__qrcodeGet.pending]: (state) => {
             state.isLoading = true;
         },
         [__qrcodeGet.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.getQrcode = action.payload;
-            console.log("action-서버값", action.payload);
-            // console.log("state값", state);
+        },
+        [__qrcodeGet.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        // 생성된 이미지 카카오 전송하기
+        [__qrcodeGet.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__qrcodeGet.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.kakaoMsg = action.payload;
         },
         [__qrcodeGet.rejected]: (state, action) => {
             state.isLoading = false;

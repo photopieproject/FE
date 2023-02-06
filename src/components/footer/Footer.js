@@ -10,10 +10,10 @@ const Footer = () => {
     if (window.location.pathname === "/resetpw") return null;
 
     return (
-        <StDiv style={{ backgroundColor: "#fffaf2" }}>
-            <StDiv footer_box>
-                <StP copy_right>copyright ©️ PHOTO-PIE</StP>
-                <StDiv agree_box>
+        <StDiv topBox>
+            <StDiv footerBox>
+                <StP copyRight>copyright ©️ PHOTO-PIE</StP>
+                <StDiv agreeBox>
                     <StP agree onClick={() => navigate("/terms")}>
                         이용약관
                     </StP>
@@ -31,7 +31,12 @@ const Footer = () => {
 
 const StDiv = styled.div`
     ${(props) =>
-        props.footer_box &&
+        props.topBox &&
+        css`
+            background-color: #fffaf2;
+        `}
+    ${(props) =>
+        props.footerBox &&
         css`
             max-width: 1200px;
             width: 95%;
@@ -45,7 +50,7 @@ const StDiv = styled.div`
             padding: 12px 16px;
         `}
     ${(props) =>
-        props.agree_box &&
+        props.agreeBox &&
         css`
             display: flex;
             gap: 30px;
@@ -56,7 +61,7 @@ const StP = styled.p`
     margin: 0;
 
     ${(props) =>
-        props.copy_right &&
+        props.copyRight &&
         css`
             font-family: "Belleza", sans-serif;
             color: #3a3232;

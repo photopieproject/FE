@@ -8,7 +8,7 @@ const OpenViduVideoComponent = (props) => {
             props.streamManager.addVideoElement(videoRef.current);
         }
         return () => {};
-    }, []);
+    }, [props.streamManager, videoRef]);
 
     return <video autoPlay={true} ref={videoRef} />;
 };
