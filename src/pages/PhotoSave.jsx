@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     __completePhoto,
-    __kakaoMsgSend,
+    // __kakaoMsgSend,
     __qrcodeGet,
     __qrcodeSend,
 } from "../redux/modules/photoSlice";
@@ -16,7 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
-import { KakaoTest } from "../components/Kakao/KakaoTest";
+// import { KakaoTest } from "../components/Kakao/KakaoTest";
 
 const PhotoSave = () => {
     const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const PhotoSave = () => {
 
     useEffect(() => {
         toast.success(
-            "현재 자동으로 이미지 생성이 되지 않아\n 아래 이미지 생성 버튼을 꼭! 두 번 클릭해주세요!\n이미지 생성 완료 팝업이 뜨지 않으면\n버튼을 한 번 더 눌러주세요 ㅠㅠ\n빠르게 해결하겠습니다!\n 📷Photo-Pie",
+            "현재 자동으로 이미지 생성이 되지 않아\n 아래 QR코드 생성 버튼을 꼭!\n✌️두 번 클릭해주세요!\n이미지 생성 완료 팝업이 뜨지 않으면\n버튼을 한 번 더 눌러주세요 ㅠㅠ\n빠르게 해결하겠습니다!\n 📷Photo-Pie",
             {
                 style: {
                     borderRadius: "10px",
@@ -50,7 +50,7 @@ const PhotoSave = () => {
                     primary: "#fffaf2",
                     secondary: "#3a3232",
                 },
-                duration: 6000,
+                duration: 7000,
             }
         );
     }, []);
@@ -195,8 +195,8 @@ const PhotoSave = () => {
 
     const qrcodeGetHandler = (roomId) => {
         Swal.fire({
-            title: "이미지 생성하기 버튼을 눌렀나요?",
-            text: "안 누르셨다면 원할한 이용이 어려워요!",
+            title: "QR Code 생성하기 버튼을 눌렀나요?",
+            text: "안 누르셨다면 원활한 이용이 어려워요!",
             icon: "warning",
 
             showCancelButton: true,
@@ -247,23 +247,23 @@ const PhotoSave = () => {
     // console.log("kakao?", kakaoImg);
 
     // const kakaoUrlHandler = (roomId) => {
-    // dispatch(__kakaoMsgSend(roomId)).then((res) => {
-    //     toast.success(
-    //         "카톡이미지가 생성되었어요!\n카카오톡 전송하기를 눌러 친구들에게 공유해 보세요!",
-    //         {
-    //             style: {
-    //                 borderRadius: "10px",
-    //                 background: "#3a3232",
-    //                 color: "#fffaf2",
-    //             },
-    //             iconTheme: {
-    //                 primary: "#fffaf2",
-    //                 secondary: "#3a3232",
-    //             },
-    //             duration: 4000,
-    //         }
-    //     );
-    // });
+    //     dispatch(__kakaoMsgSend(roomId)).then((res) => {
+    //         toast.success(
+    //             "카톡이미지가 생성되었어요!\n카카오톡 전송하기를 눌러 친구들에게 공유해 보세요!",
+    //             {
+    //                 style: {
+    //                     borderRadius: "10px",
+    //                     background: "#3a3232",
+    //                     color: "#fffaf2",
+    //                 },
+    //                 iconTheme: {
+    //                     primary: "#fffaf2",
+    //                     secondary: "#3a3232",
+    //                 },
+    //                 duration: 4000,
+    //             }
+    //         );
+    //     });
     // };
 
     const inspectionToast = () => {

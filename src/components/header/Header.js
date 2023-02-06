@@ -62,7 +62,12 @@ const Header = () => {
                             <Toaster />
                         </>
                     )}
-                    <Span onClick={() => navigate("/signup")}>회원가입</Span>
+                    {!localStorage.getItem("id") &&
+                    !localStorage.getItem("Authorization") ? (
+                        <Span onClick={() => navigate("/signup")}>
+                            회원가입
+                        </Span>
+                    ) : null}
                 </StDiv>
             </StDiv>
         </StDiv>
