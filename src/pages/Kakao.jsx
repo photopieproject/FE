@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 // 리다이렉트될 화면
 const Kakao = () => {
     const navigate = useNavigate();
+
     let code = new URL(window.location.href).searchParams.get("code");
-    console.log(code);
 
     apis.kakaoLogin(code)
         .then((res) => {
@@ -31,13 +31,13 @@ const Kakao = () => {
                     },
                     duration: 4000,
                 });
-
-                navigate("/");
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
             }
         })
         .catch((err) => {
             if (err.response.data.status === 500) {
-                console.log("소셜로그인 에러", err);
                 toast.error("카카오 로그인에 실패했습니다!", {
                     style: {
                         borderRadius: "10px",

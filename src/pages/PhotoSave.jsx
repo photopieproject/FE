@@ -2,11 +2,11 @@ import html2canvas from "html2canvas";
 import styled, { css } from "styled-components";
 import Button from "../components/button/Button";
 import { MdQrCode2, MdCloudDownload } from "react-icons/md";
-import { ShareKakao } from "../components/Kakao/ShareKakao";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     __completePhoto,
+    __kakaoMsgSend,
     __qrcodeGet,
     __qrcodeSend,
 } from "../redux/modules/photoSlice";
@@ -16,6 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
+import { KakaoTest } from "../components/Kakao/KakaoTest";
 
 const PhotoSave = () => {
     const dispatch = useDispatch();
@@ -63,7 +64,6 @@ const PhotoSave = () => {
         window.addEventListener("beforeunload", onbeforeunload);
 
         const preventGoBack = () => {
-            // change start
             window.history.pushState(null, "", window.location.href);
             toast.error("방 나가기를 눌러주세요!", {
                 style: {
@@ -103,8 +103,6 @@ const PhotoSave = () => {
             })
             .then(() => {
                 const file = dataURLtoFile(photo_pie, "photo_pie.png");
-                console.log("file", file);
-                console.log("base64", photo_pie);
 
                 const completePhoto = new FormData();
 
@@ -245,6 +243,47 @@ const PhotoSave = () => {
         });
     };
 
+    // const [kakaoImg, setKakaoImg] = useState("");
+    // console.log("kakao?", kakaoImg);
+
+    // const kakaoUrlHandler = (roomId) => {
+    // dispatch(__kakaoMsgSend(roomId)).then((res) => {
+    //     toast.success(
+    //         "카톡이미지가 생성되었어요!\n카카오톡 전송하기를 눌러 친구들에게 공유해 보세요!",
+    //         {
+    //             style: {
+    //                 borderRadius: "10px",
+    //                 background: "#3a3232",
+    //                 color: "#fffaf2",
+    //             },
+    //             iconTheme: {
+    //                 primary: "#fffaf2",
+    //                 secondary: "#3a3232",
+    //             },
+    //             duration: 4000,
+    //         }
+    //     );
+    // });
+    // };
+
+    const inspectionToast = () => {
+        toast.success(
+            "현재 기능 점검중입니다😭\n 빠른 시일 안에 해결하겠습니다!",
+            {
+                style: {
+                    borderRadius: "10px",
+                    background: "#3a3232",
+                    color: "#fffaf2",
+                },
+                iconTheme: {
+                    primary: "#fffaf2",
+                    secondary: "#3a3232",
+                },
+                duration: 4000,
+            }
+        );
+    };
+
     return (
         <>
             <StDiv photoShoot>
@@ -292,7 +331,21 @@ const PhotoSave = () => {
                             </Button>
                         </StDiv>
                     </StDiv>
-                    <ShareKakao />
+                    <StDiv kakaoSendBox>
+                        <Button
+                            kakaoUrl
+                            onClick={inspectionToast}
+                            // onClick={() => kakaoUrlHandler(roomId)}
+                        >
+                            카톡이미지
+                            <br /> 생성하기
+                        </Button>
+                        {/* <Button kakaoDown onClick={() => KakaoTest(kakaoImg)}> */}
+                        <Button kakaoDown onClick={inspectionToast}>
+                            카카오톡
+                            <br /> 공유하기
+                        </Button>
+                    </StDiv>
                     <Button savePhoto onClick={pictureSaveHandler}>
                         <MdCloudDownload size={22} />
                         PC에 다운로드하기
@@ -365,6 +418,12 @@ const StDiv = styled.div`
         `}
         ${(props) =>
         props.createQrcode &&
+        css`
+            display: flex;
+            gap: 5px;
+        `}
+        ${(props) =>
+        props.kakaoSendBox &&
         css`
             display: flex;
             gap: 5px;
