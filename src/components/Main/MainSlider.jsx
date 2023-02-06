@@ -11,6 +11,7 @@ import deepblue from "../../assets/new_frame/deepblue.png";
 import patternCity from "../../assets/new_frame/pattern_city.png";
 import blackOrange from "../../assets/new_frame/black_orange.png";
 import patternSunset from "../../assets/new_frame/pattern_sunset.png";
+import Button from "../button/Button";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
@@ -53,62 +54,62 @@ export const MainSlider = () => {
             <Toaster />
             <Slider {...settings} style={{ height: "660px" }}>
                 <StDiv Slider1>
-                    <StDiv main_1>
-                        <StDiv main_txt>
+                    <StDiv main1>
+                        <StDiv mainTxt>
                             <StH1>Photo-Pie</StH1>
-                            <StP main_1_txt>SHARE YOUR MOMENT</StP>
-                            <StBtn MainTopStartBtn onClick={noKeyLogin}>
+                            <StP main1Txt>SHARE YOUR MOMENT</StP>
+                            <Button MainTopStartBtn onClick={noKeyLogin}>
                                 사진 촬영하러가기
-                            </StBtn>
+                            </Button>
                         </StDiv>
-                        <StDiv main_photobox>
+                        <StDiv mainPhotobox>
                             <div>
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group.png"
                                     alt="group"
                                 />
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group.png"
                                     alt="group"
                                 />
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group.png"
                                     alt="group"
                                 />
                             </div>
                             <div>
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group2.png"
                                     alt="group2"
                                 />
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group2.png"
                                     alt="group2"
                                 />
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group2.png"
                                     alt="group2"
                                 />
                             </div>
                             <div>
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group3.png"
                                     alt="group3"
                                 />
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group3.png"
                                     alt="group3"
                                 />
                                 <StImg
-                                    main1_photo
+                                    main1Photo
                                     src="/image/group3.png"
                                     alt="group3"
                                 />
@@ -119,30 +120,30 @@ export const MainSlider = () => {
 
                 <StDiv Slider2>
                     <StDiv Slider2Box>
-                        <StMain main_2>
-                            <StDiv txt_box>
-                                <StDiv txtbox2>
+                        <StMain main2>
+                            <StDiv txtBox>
+                                <StDiv txtBox2>
                                     <StDiv tit>COURSE</StDiv>
-                                    <StP main_1_txt>SHARE YOUR MOMENT</StP>
-                                    <StBtn
+                                    <StP main1Txt>SHARE YOUR MOMENT</StP>
+                                    <Button
                                         MainTopStartBtn3
                                         onClick={noKeyLogin}
                                     >
                                         사진 촬영하러가기
-                                    </StBtn>
+                                    </Button>
                                 </StDiv>
                             </StDiv>
-                            <StDiv ul_wrap2>
-                                <StUl main_ul2>
-                                    <StLi main2_li>
-                                        <StP sub_title>One</StP>
+                            <StDiv ulWrap2>
+                                <StUl mainUl2>
+                                    <StLi main2Li>
+                                        <StP subTitle>One</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
                                             회원가입 및 로그인을 해주세요.
                                         </StP>
                                     </StLi>
-                                    <StLi main2_li>
-                                        <StP sub_title>Two</StP>
+                                    <StLi main2Li>
+                                        <StP subTitle>Two</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
                                             새로고침 버튼 왼쪽에 자물쇠를 눌러서
@@ -151,8 +152,8 @@ export const MainSlider = () => {
                                             바꿔주세요.
                                         </StP>
                                     </StLi>
-                                    <StLi main2_li>
-                                        <StP sub_title>Three</StP>
+                                    <StLi main2Li>
+                                        <StP subTitle>Three</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
                                             방을 만든 후 초대코드로 친구들을
@@ -160,8 +161,8 @@ export const MainSlider = () => {
                                             입력해주세요.
                                         </StP>
                                     </StLi>
-                                    <StLi main2_li>
-                                        <StP sub_title>Four</StP>
+                                    <StLi main2Li>
+                                        <StP subTitle>Four</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
                                             4명이 모였으면 방장에게 촬영버튼이
@@ -170,16 +171,16 @@ export const MainSlider = () => {
                                             한명씩 촬영을 해주세요!
                                         </StP>
                                     </StLi>
-                                    <StLi main2_li>
-                                        <StP sub_title>Five</StP>
+                                    <StLi main2Li>
+                                        <StP subTitle>Five</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
                                             촬영이 끝난 후 다같이 사진전송 하러
                                             가기를 눌러 이동해 주세요.
                                         </StP>
                                     </StLi>
-                                    <StLi main2_li>
-                                        <StP sub_title>Six</StP>
+                                    <StLi main2Li>
+                                        <StP subTitle>Six</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
                                             촬영한 사진을 저장하고 친구들과
@@ -194,58 +195,58 @@ export const MainSlider = () => {
 
                 <StDiv Slider3>
                     <StDiv Slider3Box>
-                        <StMain main_3>
-                            <StDiv txt_box3>
+                        <StMain main3>
+                            <StDiv txtBox3>
                                 <StDiv tit>Best Frame</StDiv>
-                                <StP main_1_txt>SHARE YOUR MOMENT</StP>
-                                <StBtn MainTopStartBtn3 onClick={noKeyLogin}>
+                                <StP main1Txt>SHARE YOUR MOMENT</StP>
+                                <Button MainTopStartBtn3 onClick={noKeyLogin}>
                                     사진 촬영하러가기
-                                </StBtn>
+                                </Button>
                             </StDiv>
-                            <StDiv ul_wrap3>
+                            <StDiv ulWrap3>
                                 <StP rec>Recommend</StP>
-                                <StUl main_ul3>
-                                    <StLi main3_li>
-                                        <StP main3_mini_sub_tit>1위</StP>
-                                        <StP main3_sub_tit>Black</StP>
+                                <StUl mainUl3>
+                                    <StLi main3Li>
+                                        <StP main3MiniSubTit>1위</StP>
+                                        <StP main3SubTit>Black</StP>
                                         <StImg
-                                            frame_photo
+                                            framePhoto
                                             src={patternChan}
                                             alt="black"
                                         />
                                     </StLi>
-                                    <StLi main3_li>
-                                        <StP main3_mini_sub_tit>2위</StP>
-                                        <StP main3_sub_tit>White</StP>
+                                    <StLi main3Li>
+                                        <StP main3MiniSubTit>2위</StP>
+                                        <StP main3SubTit>White</StP>
                                         <StImg
-                                            frame_photo
+                                            framePhoto
                                             src={deepblue}
                                             alt="white"
                                         />
                                     </StLi>
-                                    <StLi main3_li>
-                                        <StP main3_mini_sub_tit>3위</StP>
-                                        <StP main3_sub_tit>Sunset</StP>
+                                    <StLi main3Li>
+                                        <StP main3MiniSubTit>3위</StP>
+                                        <StP main3SubTit>Sunset</StP>
                                         <StImg
-                                            frame_photo
+                                            framePhoto
                                             src={patternCity}
                                             alt="gradation"
                                         />
                                     </StLi>
-                                    <StLi main3_li>
-                                        <StP main3_mini_sub_tit>4위</StP>
-                                        <StP main3_sub_tit>Pink</StP>
+                                    <StLi main3Li>
+                                        <StP main3MiniSubTit>4위</StP>
+                                        <StP main3SubTit>Pink</StP>
                                         <StImg
-                                            frame_photo
+                                            framePhoto
                                             src={blackOrange}
                                             alt="pink"
                                         />
                                     </StLi>
-                                    <StLi main3_li>
-                                        <StP main3_mini_sub_tit>5위</StP>
-                                        <StP main3_sub_tit>Mint</StP>
+                                    <StLi main3Li>
+                                        <StP main3MiniSubTit>5위</StP>
+                                        <StP main3SubTit>Mint</StP>
                                         <StImg
-                                            frame_photo
+                                            framePhoto
                                             src={patternSunset}
                                             alt="mint"
                                         />
@@ -277,7 +278,7 @@ const StDiv = styled.div`
             overflow: hidden;
         `}
     ${(props) =>
-        props.main_1 &&
+        props.main1 &&
         css`
             display: flex;
             justify-content: space-around;
@@ -286,14 +287,14 @@ const StDiv = styled.div`
             gap: 250px;
         `}
     ${(props) =>
-        props.main_txt &&
+        props.mainTxt &&
         css`
             display: flex;
             flex-direction: column;
             align-items: center;
         `}
     ${(props) =>
-        props.main_photobox &&
+        props.mainPhotobox &&
         css`
             display: flex;
             gap: 30px;
@@ -324,12 +325,12 @@ const StDiv = styled.div`
             font-weight: bold;
         `}
     ${(props) =>
-        props.ul_wrap2 &&
+        props.ulWrap2 &&
         css`
             margin-top: 150px;
         `}
     ${(props) =>
-        props.ul_wrap3 &&
+        props.ulWrap3 &&
         css`
             display: flex;
             justify-content: space-between;
@@ -377,25 +378,24 @@ const StDiv = styled.div`
             justify-content: center;
             font-weight: bold;
         `}
-            ${(props) =>
-        props.txt_box &&
+    ${(props) =>
+        props.txtBox &&
         css`
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             justify-content: center;
         `}
-            ${(props) =>
-        props.txtbox2 &&
+    ${(props) =>
+        props.txtBox2 &&
         css`
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-left: 180px;
-        `}
-        
-            ${(props) =>
-        props.txt_box3 &&
+        `}    
+    ${(props) =>
+        props.txtBox3 &&
         css`
             display: flex;
             flex-direction: column;
@@ -405,7 +405,7 @@ const StDiv = styled.div`
 
 const StP = styled.p`
     ${(props) =>
-        props.sub_title &&
+        props.subTitle &&
         css`
             margin: 0;
             font-size: 24px;
@@ -421,14 +421,14 @@ const StP = styled.p`
             line-height: 24px;
         `}
     ${(props) =>
-        props.main3_mini_sub_tit &&
+        props.main3MiniSubTit &&
         css`
             margin: 0;
             font-size: 18px;
             text-align: left;
         `}
     ${(props) =>
-        props.main3_sub_tit &&
+        props.main3SubTit &&
         css`
             margin: 0;
             font-size: 28px;
@@ -476,7 +476,7 @@ const StP = styled.p`
             margin: 0;
         `}
     ${(props) =>
-        props.main_1_txt &&
+        props.main1Txt &&
         css`
             font-family: "Belleza", sans-serif;
             margin: 0;
@@ -498,7 +498,7 @@ const StP = styled.p`
 
 const StImg = styled.img`
     ${(props) =>
-        props.main1_photo &&
+        props.main1Photo &&
         css`
             width: 200px;
             margin-top: 30px;
@@ -509,7 +509,7 @@ const StImg = styled.img`
             height: 600px;
         `}
     ${(props) =>
-        props.frame_photo &&
+        props.framePhoto &&
         css`
             width: 200px;
             margin-top: 10px;
@@ -519,53 +519,9 @@ const StImg = styled.img`
         `}
 `;
 
-const StBtn = styled.button`
-    ${(props) =>
-        props.MainTopStartBtn &&
-        css`
-            font-family: "Nanum Myeongjo", serif;
-            width: 200px;
-            height: 35px;
-            font-size: 14px;
-            margin-top: 60px;
-            cursor: pointer;
-            background-color: #3a3232;
-            border: 0;
-            border-radius: 50px;
-            color: #fffaf2;
-        `}
-    ${(props) =>
-        props.MainTopStartBtn3 &&
-        css`
-            font-family: "Nanum Myeongjo", serif;
-            width: 200px;
-            height: 35px;
-            font-size: 14px;
-            margin-top: 40px;
-            cursor: pointer;
-            background-color: #3a3232;
-            border: 0;
-            border-radius: 50px;
-            color: #fffaf2;
-        `}
-    ${(props) =>
-        props.MainMiddleGoBtn &&
-        css`
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 350px;
-            height: 50px;
-            background-color: white;
-            box-shadow: 7px 7px 0px 1px black;
-            font-size: 30px;
-            cursor: pointer;
-        `}
-`;
-
 const StMain = styled.main`
     ${(props) =>
-        props.main_2 &&
+        props.main2 &&
         css`
             width: 100%;
             padding: 60px;
@@ -576,7 +532,7 @@ const StMain = styled.main`
             color: #3a3232;
         `}
     ${(props) =>
-        props.main_3 &&
+        props.main3 &&
         css`
             width: 100%;
             padding: 60px 10px;
@@ -593,7 +549,7 @@ const StMain = styled.main`
 
 const StUl = styled.ul`
     ${(props) =>
-        props.main_ul2 &&
+        props.mainUl2 &&
         css`
             margin: -30px 0 0;
             padding: 0;
@@ -601,7 +557,7 @@ const StUl = styled.ul`
             justify-content: center;
         `}
     ${(props) =>
-        props.main_ul3 &&
+        props.mainUl3 &&
         css`
             margin: 0;
             padding: 0;
@@ -613,7 +569,7 @@ const StUl = styled.ul`
 
 const StLi = styled.li`
     ${(props) =>
-        props.main2_li &&
+        props.main2Li &&
         css`
             position: relative;
             width: 100%;
@@ -623,7 +579,7 @@ const StLi = styled.li`
             list-style: none;
         `}
     ${(props) =>
-        props.main3_li &&
+        props.main3Li &&
         css`
             list-style: none;
         `}

@@ -20,6 +20,7 @@ export const baseURL = axios.create({
     },
 });
 
+// social 로그인
 export const socialLogin = axios.create({
     baseURL: "https://photo-pie.shop/api",
     headers: {
@@ -59,13 +60,6 @@ export const apis = {
     resetPW: (password, userId) =>
         instance.put("/user/reset-pw", password, userId),
 
-    // resetPW: (payload) =>
-    // instance.put(
-    //   "/user/reset-pw",
-    //   { password: payload.password },
-    //   { userId: payload.userId }
-    // ),
-
     // 소셜 로그인 관련
     kakaoLogin: (code) => socialLogin.get(`/user/kakao/callback?code=${code}`),
     googleLogin: (code) =>
@@ -97,4 +91,5 @@ export const apis = {
         );
     },
     qrcodeGet: (roomId) => baseURL.get(`/photo/room/${roomId}/qrCode`),
+    kakaoMsgSend: (roomId) => baseURL.get(`/photo/room/${roomId}/kakaoUrl`),
 };

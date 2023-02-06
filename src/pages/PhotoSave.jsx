@@ -1,7 +1,6 @@
 import html2canvas from "html2canvas";
 import styled, { css } from "styled-components";
 import Button from "../components/button/Button";
-import Span from "../components/button/Span";
 import { MdQrCode2, MdCloudDownload } from "react-icons/md";
 import { ShareKakao } from "../components/Kakao/ShareKakao";
 import { useEffect } from "react";
@@ -22,15 +21,12 @@ const PhotoSave = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { roomId } = useParams();
-    console.log(roomId);
 
     const [photo_pie, setPhoto_pie] = useState("");
 
     const [qrcode, setQrcode] = useState("");
-    // console.log(qrcode);
 
     useEffect(() => {
-        //카카오톡 sdk 추가
         const script = document.createElement("script");
         script.src = "https://developers.kakao.com/sdk/js/kakao.js";
         script.async = true;
@@ -42,7 +38,7 @@ const PhotoSave = () => {
 
     useEffect(() => {
         toast.success(
-            "현재 자동으로 이미지 생성이 되지 않아\n 아래 이미지 생성 버튼을 꼭! 클릭해주세요!\nQR생성 이미지 팝업이 뜨지 않으면\n한 번 더 눌러주세요 ㅠㅠ\n빠르게 해결하겠습니다!\n 📷Photo-Pie",
+            "현재 자동으로 이미지 생성이 되지 않아\n 아래 이미지 생성 버튼을 꼭! 두 번 클릭해주세요!\n이미지 생성 완료 팝업이 뜨지 않으면\n버튼을 한 번 더 눌러주세요 ㅠㅠ\n빠르게 해결하겠습니다!\n 📷Photo-Pie",
             {
                 style: {
                     borderRadius: "10px",
@@ -95,16 +91,10 @@ const PhotoSave = () => {
     }, [dispatch, roomId]);
 
     const roomInfo = useSelector((state) => state.photos.loadRoomInfo);
-    console.log("roomInfo --->", roomInfo);
-
     const roomPhotos = useSelector((state) => state.photos.loadRoomInfo.data1);
-    console.log(roomPhotos);
-
-    const complete = useSelector((state) => state.photos);
-    console.log("com---", complete);
 
     const qrcodeSend = () => {
-        html2canvas(document.querySelector("#frame_box"))
+        html2canvas(document.querySelector("#frameBox"))
             .then((canvas) => {
                 let photo_pie =
                     (canvas.toDataURL("image/png"), "photo_pie.png");
@@ -123,7 +113,6 @@ const PhotoSave = () => {
                 dispatch(
                     __qrcodeSend({ roomId, formdata: completePhoto })
                 ).then((res) => {
-                    console.log("사진전송 res --->", res);
                     toast.success("QR Code 이미지를 생성해보세요!", {
                         icon: "📸",
                         style: {
@@ -134,16 +123,13 @@ const PhotoSave = () => {
                         duration: 2000,
                     });
                 });
-
-                console.log("3초 후 데이터 보내기");
             });
     };
 
     const pictureSaveHandler = () => {
-        html2canvas(document.querySelector("#frame_box")).then((canvas) => {
+        html2canvas(document.querySelector("#frameBox")).then((canvas) => {
             let completePhoto =
                 (canvas.toDataURL("image/jpg"), "Photo-Pie.jpg");
-            // completePhoto = completePhoto.replace("data:image/jpg;base64,", "");
             saveAs(canvas.toDataURL("image/jpg"), "Photo-Pie.jpg");
         });
     };
@@ -173,11 +159,10 @@ const PhotoSave = () => {
             confirmButtonText: "방 나가기",
             cancelButtonText: "그대로 있기",
 
-            reverseButtons: true, // 버튼 순서 거꾸로
+            reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(__outPhotoRoom(roomId)).then((res) => {
-                    console.log("res--->", res);
                     if (res.payload.statusCode === 200) {
                         toast.success(res.payload.statusMsg, {
                             style: {
@@ -222,12 +207,11 @@ const PhotoSave = () => {
             confirmButtonText: "눌렀어요!",
             cancelButtonText: "다시하기",
 
-            reverseButtons: true, // 버튼 순서 거꾸로
+            reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(__qrcodeGet(roomId))
                     .then((res) => {
-                        console.log("qr get res ---> ", res);
                         if (res.payload.statusCode === 200) {
                             toast.success(res.payload.statusMsg, {
                                 style: {
@@ -263,24 +247,20 @@ const PhotoSave = () => {
 
     return (
         <>
-            {/* <input type="radio" id="mono" />
-            <label htmlFor="mono">흑백</label>
-            <input type="radio" id="color" />
-            <label htmlFor="color">뽀샤시</label> */}
-            <StDiv photo_shoot>
+            <StDiv photoShoot>
                 <Toaster />
-                <StDiv capture_area id="capture_area">
-                    <StDiv frame_box id="frame_box">
+                <StDiv captureArea>
+                    <StDiv frameBox id="frameBox">
                         <StImg
                             abImg
                             src={`data:image/png;base64,${roomInfo.data2?.frameUrl}`}
                             alt="frame url"
                         />
-                        <StDiv picture_box id="picture_box">
+                        <StDiv pictureBox>
                             {roomPhotos?.map((photo, i) => (
                                 <StDiv picture key={i}>
                                     <StImg
-                                        photo_img
+                                        photoImg
                                         src={`data:image/png;base64,${photo}`}
                                         alt={`photo_${i + 1}`}
                                     />
@@ -289,13 +269,8 @@ const PhotoSave = () => {
                         </StDiv>
                     </StDiv>
                 </StDiv>
-                <StDiv down_btn>
-                    {/* {role === "leader" ? ( */}
-                    <Button create_img onClick={qrcodeSend}>
-                        이미지 생성하기
-                    </Button>
-                    {/* ) : null} */}
-                    <StDiv qrcode_box>
+                <StDiv downBtns>
+                    <StDiv qrcodeBox>
                         {!!qrcode ? (
                             <StImg
                                 qrimg
@@ -303,34 +278,26 @@ const PhotoSave = () => {
                                 alt="QR Code"
                             />
                         ) : null}
-                        <Span qrcode onClick={() => qrcodeGetHandler(roomId)}>
-                            <MdQrCode2 size={25} />
-                            QR Code 생성하기
-                        </Span>
+                        <StDiv createQrcode>
+                            <Button createImg onClick={qrcodeSend}>
+                                <MdQrCode2 size={25} />
+                                QR Code 생성하기
+                            </Button>
+                            <Button
+                                qrcode
+                                onClick={() => qrcodeGetHandler(roomId)}
+                            >
+                                <MdQrCode2 size={25} />
+                                QR Code 불러오기
+                            </Button>
+                        </StDiv>
                     </StDiv>
                     <ShareKakao />
-                    <button
-                        onClick={pictureSaveHandler}
-                        style={{
-                            borderRadius: "10px",
-                            backgroundColor: "#3a3232",
-                            color: "#fffaf2",
-                            width: "200px",
-                            height: "50px",
-                            fontSize: "15px",
-                            cursor: "pointer",
-                            border: 0,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            gap: "5px",
-                        }}
-                        id="download"
-                    >
+                    <Button savePhoto onClick={pictureSaveHandler}>
                         <MdCloudDownload size={22} />
                         PC에 다운로드하기
-                    </button>
-                    <Button photo_trans onClick={() => outRoomsHandler(roomId)}>
+                    </Button>
+                    <Button photoTrans onClick={() => outRoomsHandler(roomId)}>
                         방 나가기
                     </Button>
                 </StDiv>
@@ -341,28 +308,28 @@ const PhotoSave = () => {
 
 const StDiv = styled.div`
     ${(props) =>
-        props.photo_shoot &&
+        props.photoShoot &&
         css`
             display: flex;
             align-items: center;
             gap: 20px;
         `}
     ${(props) =>
-        props.capture_area &&
+        props.captureArea &&
         css`
             width: 500px;
             height: 750px;
             margin-bottom: 20px;
         `}
             ${(props) =>
-        props.frame_box &&
+        props.frameBox &&
         css`
             position: relative;
             width: 500px;
             height: 750px;
         `}
     ${(props) =>
-        props.picture_box &&
+        props.pictureBox &&
         css`
             position: absolute;
             top: 85px;
@@ -382,19 +349,25 @@ const StDiv = styled.div`
             line-height: 300px;
         `}
         ${(props) =>
-        props.down_btn &&
+        props.downBtns &&
         css`
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
             width: 300px;
         `}
         ${(props) =>
-        props.qrcode_box &&
+        props.qrcodeBox &&
         css`
             display: flex;
             flex-direction: column;
+        `}
+        ${(props) =>
+        props.createQrcode &&
+        css`
+            display: flex;
+            gap: 5px;
         `}
 `;
 
@@ -407,7 +380,7 @@ const StImg = styled.img`
             left: 0;
         `}
     ${(props) =>
-        props.photo_img &&
+        props.photoImg &&
         css`
             width: 200px;
             height: 300px;
@@ -420,6 +393,7 @@ const StImg = styled.img`
             width: 200px;
             height: 200px;
             border: 1px solid gray;
+            margin-bottom: 10px;
         `}
 `;
 

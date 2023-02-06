@@ -5,12 +5,11 @@ import styled, { css } from "styled-components";
 const Loading = () => {
     const navigate = useNavigate();
     const { roomId } = useParams();
-    console.log(roomId);
 
     useEffect(() => {
         setTimeout(() => {
             navigate(`/photosave/${roomId}`);
-        }, 5000);
+        }, 6000);
     });
 
     return (
