@@ -140,7 +140,6 @@ const PhotoShoot = () => {
 
     // 새로고침 막기 핸들러
     const onbeforeunload = (event) => {
-        console.log(event);
         event.preventDefault();
         event.returnValue = "";
         leaveSession();

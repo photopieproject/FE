@@ -79,8 +79,6 @@ export const __qrcodeSend = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const data = await apis.qrcodeSend(payload);
-
-            console.log("qrsend data--->", data);
             return thunkAPI.fulfillWithValue(data);
         } catch (err) {
             console.log(err);
