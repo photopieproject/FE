@@ -180,7 +180,7 @@ const SmsMessage = ({
                         disabled={pnDisabled}
                         pnDisabled={pnDisabled}
                     ></StInput>
-                    {window.location.href === "http://localhost:3000/findid" ? (
+                    {window.location.pathname === "/findid" ? (
                         <Button
                             PnBtn
                             disabled={pnBtnDisabled}
@@ -189,8 +189,7 @@ const SmsMessage = ({
                         >
                             인증번호 전송
                         </Button>
-                    ) : window.location.href ===
-                      "http://localhost:3000/signup" ? (
+                    ) : window.location.pathname === "/signup" ? (
                         <Button
                             PnBtn
                             disabled={pnBtnDisabled}
@@ -199,8 +198,7 @@ const SmsMessage = ({
                         >
                             인증번호 전송
                         </Button>
-                    ) : window.location.href ===
-                      "http://localhost:3000/findpw" ? (
+                    ) : window.location.pathname === "/findpw" ? (
                         <Button
                             PnBtn
                             disabled={pnBtnDisabled}
