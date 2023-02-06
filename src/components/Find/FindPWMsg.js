@@ -189,7 +189,7 @@ const StInput = styled.input`
             background-color: #f2eeee;
             border-radius: 10px;
             border: none;
-            width: 300px;
+            width: 335px;
             height: 40px;
             &:focus {
                 outline: none;
