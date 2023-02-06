@@ -2,19 +2,10 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
-import frameBlack from "../assets/frame/frame_black.png";
-import frameMint from "../assets/frame/frame_mint.png";
-import framePink from "../assets/frame/frame_pink.png";
-import framePupple from "../assets/frame/frame_pupple.png";
-import frameWhiteV0 from "../assets/frame/frame_white_v0.png";
-import frameBlackV2 from "../assets/frame/frame_black_v2.png";
-import frameGraV1 from "../assets/frame/frame_gra_v1.png";
-import frameGraV2 from "../assets/frame/frame_gra_v2.png";
-import frameGraV3 from "../assets/frame/frame_gra_v3.png";
-import frameGraV4 from "../assets/frame/frame_gra_v4.png";
 import Button from "../components/button/Button";
 import { __chooseFrame } from "../redux/modules/photoSlice";
 import toast, { Toaster } from "react-hot-toast";
+import { oneColorFrame, patternColorFrame } from "../components/frame/NewFrame";
 
 const Frame = () => {
     const navigate = useNavigate();
@@ -24,62 +15,6 @@ const Frame = () => {
     const { roomId } = useParams();
     console.log(roomId);
     console.log("chooseFrame--->", frameNum);
-
-    const oneColorFrame = [
-        {
-            name: "frame_black",
-            img: frameBlack,
-            frameNum: 1,
-        },
-        {
-            name: "frame_mint",
-            img: frameMint,
-            frameNum: 2,
-        },
-        {
-            name: "frame_pink",
-            img: framePink,
-            frameNum: 3,
-        },
-        {
-            name: "frame_pupple",
-            img: framePupple,
-            frameNum: 4,
-        },
-        {
-            name: "frame_white_v0",
-            img: frameWhiteV0,
-            frameNum: 5,
-        },
-    ];
-
-    const patternColorFrame = [
-        {
-            name: "frame_black_v2",
-            img: frameBlackV2,
-            frameNum: 6,
-        },
-        {
-            name: "frame_gra_v1",
-            img: frameGraV1,
-            frameNum: 7,
-        },
-        {
-            name: "frame_gra_v2",
-            img: frameGraV2,
-            frameNum: 8,
-        },
-        {
-            name: "frame_gra_v3",
-            img: frameGraV3,
-            frameNum: 9,
-        },
-        {
-            name: "frame_gra_v4",
-            img: frameGraV4,
-            frameNum: 10,
-        },
-    ];
 
     // 오류 수정
     const chooseFramehandler = (e) => {
@@ -189,7 +124,10 @@ const StDiv = styled.div`
     ${(props) =>
         props.frame_set &&
         css`
+            max-width: 1400px;
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 20px;
         `}
     ${(props) =>
@@ -205,7 +143,7 @@ const StH3 = styled.h3`
 `;
 
 const StImg = styled.img`
-    width: 250px;
+    width: 200px;
     margin: 5px;
     cursor: pointer;
     ${(props) =>

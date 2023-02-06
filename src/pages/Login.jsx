@@ -254,7 +254,6 @@ const StInput = styled.input`
             border-radius: 10px;
             &:focus {
                 outline: none;
-                border-bottom: solid 4px #ecdfc8;
             }
         `}
 `;

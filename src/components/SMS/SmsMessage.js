@@ -308,6 +308,7 @@ const StP = styled.p`
             margin: 15px 0 5px 0;
             font-weight: bold;
             font-size: 18px;
+            color: #3a3232;
         `}
 `;
 

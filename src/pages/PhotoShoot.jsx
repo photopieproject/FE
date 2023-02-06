@@ -115,6 +115,37 @@ const PhotoShoot = () => {
         });
     };
 
+    const pageMoveHandler = () => {
+        Swal.fire({
+            title: "방장이 사진을 다 찍었나요?",
+            text: "사진을 다 찍지 않았으면 사진이 저장되지 않습니다",
+            icon: "warning",
+
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "전송하러 가기",
+            cancelButtonText: "그대로 있기",
+
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                toast.success("사진을 저장중입니다", {
+                    style: {
+                        borderRadius: "10px",
+                        background: "#3a3232",
+                        color: "#fffaf2",
+                    },
+                    iconTheme: {
+                        primary: "#fffaf2",
+                        secondary: "#3a3232",
+                    },
+                });
+                navigate(`/loading/${roomId}`);
+            }
+        });
+    };
+
     const onbeforeunload = (event) => {
         console.log(event);
         event.preventDefault();
@@ -586,15 +617,12 @@ const PhotoShoot = () => {
                                 photo_trans
                                 disabled={saveDisabled}
                                 saveDisabled={saveDisabled}
-                                onClick={() => navigate(`/loading/${roomId}`)}
+                                onClick={pageMoveHandler}
                             >
                                 사진 전송하러 가기
                             </Button>
                         ) : (
-                            <Button
-                                photo_trans
-                                onClick={() => navigate(`/loading/${roomId}`)}
-                            >
+                            <Button photo_trans onClick={pageMoveHandler}>
                                 사진 전송하러 가기
                             </Button>
                         )}

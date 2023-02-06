@@ -429,6 +429,7 @@ const StInput = styled.input`
             border: none;
             width: 200px;
             height: 40px;
+            border-radius: 10px;
             &:focus {
                 outline: none;
             }

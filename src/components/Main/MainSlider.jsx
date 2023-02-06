@@ -6,11 +6,11 @@ import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Span from "../button/Span";
-import frameBlackV2 from "../../assets/frame/frame_black_v2.png";
-import frameWhiteV0 from "../../assets/frame/frame_white_v0.png";
-import frameGraV1 from "../../assets/frame/frame_gra_v1.png";
-import framePink from "../../assets/frame/frame_pink.png";
-import frameMint from "../../assets/frame/frame_mint.png";
+import patternChan from "../../assets/new_frame/pattern_chan.png";
+import deepblue from "../../assets/new_frame/deepblue.png";
+import patternCity from "../../assets/new_frame/pattern_city.png";
+import blackOrange from "../../assets/new_frame/black_orange.png";
+import patternSunset from "../../assets/new_frame/pattern_sunset.png";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
@@ -65,51 +65,51 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1_photo
-                                    src="/image/group.jpg"
+                                    src="/image/group.png"
                                     alt="group"
                                 />
                                 <StImg
                                     main1_photo
-                                    src="/image/group.jpg"
+                                    src="/image/group.png"
                                     alt="group"
                                 />
                                 <StImg
                                     main1_photo
-                                    src="/image/group.jpg"
+                                    src="/image/group.png"
                                     alt="group"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1_photo
-                                    src="/image/group2.jpg"
+                                    src="/image/group2.png"
                                     alt="group2"
                                 />
                                 <StImg
                                     main1_photo
-                                    src="/image/group2.jpg"
+                                    src="/image/group2.png"
                                     alt="group2"
                                 />
                                 <StImg
                                     main1_photo
-                                    src="/image/group2.jpg"
+                                    src="/image/group2.png"
                                     alt="group2"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1_photo
-                                    src="/image/group3.jpg"
+                                    src="/image/group3.png"
                                     alt="group3"
                                 />
                                 <StImg
                                     main1_photo
-                                    src="/image/group3.jpg"
+                                    src="/image/group3.png"
                                     alt="group3"
                                 />
                                 <StImg
                                     main1_photo
-                                    src="/image/group3.jpg"
+                                    src="/image/group3.png"
                                     alt="group3"
                                 />
                             </div>
@@ -210,7 +210,7 @@ export const MainSlider = () => {
                                         <StP main3_sub_tit>Black</StP>
                                         <StImg
                                             frame_photo
-                                            src={frameBlackV2}
+                                            src={patternChan}
                                             alt="black"
                                         />
                                     </StLi>
@@ -219,7 +219,7 @@ export const MainSlider = () => {
                                         <StP main3_sub_tit>White</StP>
                                         <StImg
                                             frame_photo
-                                            src={frameWhiteV0}
+                                            src={deepblue}
                                             alt="white"
                                         />
                                     </StLi>
@@ -228,7 +228,7 @@ export const MainSlider = () => {
                                         <StP main3_sub_tit>Sunset</StP>
                                         <StImg
                                             frame_photo
-                                            src={frameGraV1}
+                                            src={patternCity}
                                             alt="gradation"
                                         />
                                     </StLi>
@@ -237,7 +237,7 @@ export const MainSlider = () => {
                                         <StP main3_sub_tit>Pink</StP>
                                         <StImg
                                             frame_photo
-                                            src={framePink}
+                                            src={blackOrange}
                                             alt="pink"
                                         />
                                     </StLi>
@@ -246,7 +246,7 @@ export const MainSlider = () => {
                                         <StP main3_sub_tit>Mint</StP>
                                         <StImg
                                             frame_photo
-                                            src={frameMint}
+                                            src={patternSunset}
                                             alt="mint"
                                         />
                                     </StLi>
