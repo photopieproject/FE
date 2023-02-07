@@ -248,6 +248,8 @@ const PhotoSave = () => {
 
     // const kakaoUrlHandler = (roomId) => {
     //     dispatch(__kakaoMsgSend(roomId)).then((res) => {
+    //         console.log("res---> ", res);
+    //         setKakaoImg(res.payload.data1);
     //         toast.success(
     //             "카톡이미지가 생성되었어요!\n카카오톡 전송하기를 눌러 친구들에게 공유해 보세요!",
     //             {
@@ -265,6 +267,7 @@ const PhotoSave = () => {
     //         );
     //     });
     // };
+    // console.log("kakao send?", kakaoImg);
 
     const inspectionToast = () => {
         toast.success(

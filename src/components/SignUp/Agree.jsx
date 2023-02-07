@@ -365,9 +365,6 @@ const StDiv = styled.div`
             overflow: scroll;
             margin-top: -290px;
             display: flex;
-            ::-webkit-scrollbar {
-                display: none;
-            }
         `}
     ${(props) =>
         props.Modal2 &&
@@ -382,9 +379,6 @@ const StDiv = styled.div`
             overflow: scroll;
             margin-top: -340px;
             display: flex;
-            ::-webkit-scrollbar {
-                display: none;
-            }
         `}
     ${(props) =>
         props.Modal3 &&
@@ -399,9 +393,6 @@ const StDiv = styled.div`
             overflow: scroll;
             margin-top: -380px;
             display: flex;
-            ::-webkit-scrollbar {
-                display: none;
-            }
         `}
     ${(props) =>
         props.NextGoBtnBox &&

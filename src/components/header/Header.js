@@ -2,10 +2,13 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Span from "../button/Span";
 import toast, { Toaster } from "react-hot-toast";
+// import MyPageModal from "../modal/MyPageModal";
+// import { useState } from "react";
 
 const Header = () => {
     const navigate = useNavigate();
     const nickname = localStorage.getItem("nickname");
+    // const [myPageModal, setMyPageModal] = useState(false);
 
     if (window.location.pathname === "/login") return null;
     if (window.location.pathname === "/signup") return null;
@@ -32,8 +35,17 @@ const Header = () => {
         navigate("/");
     };
 
+    // const modalTest = () => {
+    //     if (myPageModal === false) {
+    //         setMyPageModal(true);
+    //     } else {
+    //         setMyPageModal(false);
+    //     }
+    // };
+
     return (
         <StDiv topBox>
+            <Toaster />
             <StDiv navMain>
                 <Span onClick={() => navigate("/")}>
                     <StImg src="/image/photopie_logo_1.png" alt="logo" />
@@ -59,7 +71,6 @@ const Header = () => {
                             >
                                 로그아웃
                             </Span>
-                            <Toaster />
                         </>
                     )}
                     {!localStorage.getItem("id") &&
@@ -68,6 +79,8 @@ const Header = () => {
                             회원가입
                         </Span>
                     ) : null}
+                    {/* <Span onClick={modalTest}>MyPage</Span>
+                    {myPageModal && <MyPageModal />} */}
                 </StDiv>
             </StDiv>
         </StDiv>
@@ -92,7 +105,7 @@ const StDiv = styled.div`
             padding: 12px 16px;
             margin: 0 auto;
         `}
-  ${(props) =>
+    ${(props) =>
         props.cateGory &&
         css`
             display: flex;

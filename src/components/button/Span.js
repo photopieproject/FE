@@ -22,6 +22,7 @@ const StSpan = styled.span`
         props.nick &&
         css`
             cursor: default;
+            margin-left: 10px;
         `}
     ${(props) =>
         props.hello &&
