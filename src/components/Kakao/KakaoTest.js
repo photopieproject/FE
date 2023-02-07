@@ -1,5 +1,7 @@
 export const KakaoTest = (kakaoImg) => {
+    console.log("test");
     // url이 id값에 따라 변경되기 때문에 route를 인자값으로 받아줌
+    console.log("what??", kakaoImg);
     if (window.Kakao) {
         const kakao = window.Kakao;
         if (!kakao.isInitialized()) {
