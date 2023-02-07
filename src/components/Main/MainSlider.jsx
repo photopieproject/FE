@@ -215,7 +215,7 @@ export const MainSlider = () => {
                                         <StImg
                                             framePhoto
                                             src={patternChan}
-                                            alt="black"
+                                            alt="Bridge"
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -224,7 +224,7 @@ export const MainSlider = () => {
                                         <StImg
                                             framePhoto
                                             src={deepblue}
-                                            alt="white"
+                                            alt="Deep Blue"
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -233,7 +233,7 @@ export const MainSlider = () => {
                                         <StImg
                                             framePhoto
                                             src={patternCity}
-                                            alt="gradation"
+                                            alt="City"
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -242,7 +242,7 @@ export const MainSlider = () => {
                                         <StImg
                                             framePhoto
                                             src={blackOrange}
-                                            alt="pink"
+                                            alt="Black Orange"
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -251,7 +251,7 @@ export const MainSlider = () => {
                                         <StImg
                                             framePhoto
                                             src={patternSunset}
-                                            alt="mint"
+                                            alt="Sunset"
                                         />
                                     </StLi>
                                 </StUl>
