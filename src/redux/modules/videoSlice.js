@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { apis } from "../../lib/axios";
 
 const initialState = {
@@ -37,6 +39,19 @@ export const __enterPhotoRoom = createAsyncThunk(
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
             console.log(err);
+            if (err.response.status === 500) {
+                toast.error("방 코드를 확인해주세요", {
+                    style: {
+                        borderRadius: "10px",
+                        background: "#fffaf2",
+                        color: "#3a3232",
+                    },
+                    iconTheme: {
+                        primary: "#3a3232",
+                        secondary: "#fffaf2",
+                    },
+                });
+            }
             return thunkAPI.rejectWithValue(err.response);
         }
     }
@@ -50,7 +65,22 @@ export const __outPhotoRoom = createAsyncThunk(
             const data = await apis.outPhotoRoom(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
+            const navigate = useNavigate();
             console.log(err);
+            if (err.response.status === 500) {
+                toast.error("존재하지 않는 방입니다", {
+                    style: {
+                        borderRadius: "10px",
+                        background: "#fffaf2",
+                        color: "#3a3232",
+                    },
+                    iconTheme: {
+                        primary: "#3a3232",
+                        secondary: "#fffaf2",
+                    },
+                });
+                navigate("/");
+            }
             return thunkAPI.rejectWithValue(err.response);
         }
     }

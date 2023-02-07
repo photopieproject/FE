@@ -23,6 +23,9 @@ export const MainSlider = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         arrow: false,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        pauseOnHover: false,
     };
 
     const noKeyLogin = () => {

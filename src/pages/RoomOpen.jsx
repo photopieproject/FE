@@ -108,17 +108,31 @@ const RoomOpen = () => {
                     });
                     navigate(`/photoshoot/${res.payload.data1.id}`);
                 } else if (res.payload.data.statusCode === 400) {
-                    toast.error(res.payload.data.statusMsg, {
-                        style: {
-                            borderRadius: "10px",
-                            background: "#fffaf2",
-                            color: "#3a3232",
-                        },
-                        iconTheme: {
-                            primary: "#3a3232",
-                            secondary: "#fffaf2",
-                        },
-                    });
+                    if (roomCode === "") {
+                        toast.error("방 코드를 입력해주세요", {
+                            style: {
+                                borderRadius: "10px",
+                                background: "#fffaf2",
+                                color: "#3a3232",
+                            },
+                            iconTheme: {
+                                primary: "#3a3232",
+                                secondary: "#fffaf2",
+                            },
+                        });
+                    } else {
+                        toast.error(res.payload.data.statusMsg, {
+                            style: {
+                                borderRadius: "10px",
+                                background: "#fffaf2",
+                                color: "#3a3232",
+                            },
+                            iconTheme: {
+                                primary: "#3a3232",
+                                secondary: "#fffaf2",
+                            },
+                        });
+                    }
                 } else if (
                     res.payload.data.statusCode === 401 ||
                     res.payload.status === 403
@@ -157,6 +171,7 @@ const RoomOpen = () => {
                     placeholder="방 이름을 입력하세요"
                     value={roomName}
                     onChange={setRoomName}
+                    maxLength={10}
                 />
                 <Button roomBtn onClick={createRoomSubmit}>
                     방 개설하기
@@ -169,6 +184,7 @@ const RoomOpen = () => {
                     placeholder="방 코드를 입력하세요"
                     value={roomCode}
                     onChange={setRoomCode}
+                    maxLength={10}
                 />
                 <Button roomBtn onClick={enterRoomSubmit}>
                     방 입장하기

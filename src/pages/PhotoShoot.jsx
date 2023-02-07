@@ -455,30 +455,30 @@ const PhotoShoot = () => {
                     <StImg src={rooms?.frameUrl} alt="frame url" />
                     {subscribers.length > 0 ? (
                         <StDiv pictureBox>
-                            {publisher !== undefined ? (
-                                <>
-                                    <StDiv picture id="picture1">
-                                        <UserVideoComponent
-                                            streamManager={mainStreamManager}
-                                        />
-                                    </StDiv>
-                                    <StDiv picture id="picture2">
-                                        <UserVideoComponent
-                                            streamManager={subscribers[0]}
-                                        />
-                                    </StDiv>
-                                    <StDiv picture id="picture3">
-                                        <UserVideoComponent
-                                            streamManager={subscribers[1]}
-                                        />
-                                    </StDiv>
-                                    <StDiv picture id="picture4">
-                                        <UserVideoComponent
-                                            streamManager={subscribers[2]}
-                                        />
-                                    </StDiv>
-                                </>
-                            ) : null}
+                            {/* {role === "leader" && publisher !== undefined ? ( */}
+                            {/* <> */}
+                            <StDiv picture id="picture1">
+                                <UserVideoComponent
+                                    streamManager={mainStreamManager}
+                                />
+                            </StDiv>
+                            <StDiv picture id="picture2">
+                                <UserVideoComponent
+                                    streamManager={subscribers[0]}
+                                />
+                            </StDiv>
+                            <StDiv picture id="picture3">
+                                <UserVideoComponent
+                                    streamManager={subscribers[1]}
+                                />
+                            </StDiv>
+                            <StDiv picture id="picture4">
+                                <UserVideoComponent
+                                    streamManager={subscribers[2]}
+                                />
+                            </StDiv>
+                            {/* </> */}
+                            {/* ) : null} */}
                         </StDiv>
                     ) : (
                         <StDiv pictureBox>
@@ -491,7 +491,7 @@ const PhotoShoot = () => {
                 </StDiv>
             </StDiv>
             <StDiv downBtns>
-                <StDiv>
+                <StDiv setBox>
                     <StDiv nameIcon>
                         <MdMeetingRoom size={40} />
                         <Span roomName>{videoRooms.roomName}</Span>
@@ -503,25 +503,24 @@ const PhotoShoot = () => {
                         초대코드 복사
                         <BiCopy />
                     </StP>
+                    <StP counterTxt>
+                        🚨 방에 처음 입장 시 대기중만 출력됩니다!
+                        <br />
+                        2명 이상 입장 후 서로 화면이 출력됩니다!
+                        <br />
+                        🚨 현재 방장에게만 촬영 버튼과
+                        <br />
+                        카운터 버튼이 보여집니다
+                        <br />
+                        🚨 숫자가 줄어들 때마다 화면에 보이는 숫자를
+                        <br />큰 소리로 친구들에게 외쳐주세요!
+                        <br />
+                        🚨 혹시 숫자가 줄어들지 않으면
+                        <br />
+                        한번 더 클릭해주세요!
+                    </StP>
                 </StDiv>
-                {role === "leader" ? (
-                    <StDiv counter>
-                        <StP counterTxt>
-                            🚨 현재 방장에게만 촬영 버튼과
-                            <br />
-                            카운터 버튼이 보여집니다
-                            <br />
-                            숫자가 줄어들 때마다 화면에 보이는 숫자를
-                            <br />큰 소리로 친구들에게 외쳐주세요!
-                            <br />
-                            <br />
-                            혹시 숫자가 줄어들지 않으면
-                            <br />
-                            한번 더 클릭해주세요!
-                        </StP>
-                        <StP countNum>{number}</StP>
-                    </StDiv>
-                ) : null}
+                {role === "leader" ? <StP countNum>{number}</StP> : null}
                 <StDiv allBtn>
                     {role === "leader" ? (
                         <StDiv btnBox>
@@ -638,6 +637,14 @@ const StDiv = styled.div`
             font-size: 20px;
         `}
     ${(props) =>
+        props.setBox &&
+        css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0;
+        `}
+    ${(props) =>
         props.downBtns &&
         css`
             display: flex;
@@ -655,19 +662,12 @@ const StDiv = styled.div`
             align-items: center;
         `}
     ${(props) =>
-        props.Count &&
-        css`
-            width: 150px;
-            height: 50px;
-            display: flex;
-        `}
-        ${(props) =>
         props.allBtn &&
         css`
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 50px;
+            gap: 10px;
         `}
         ${(props) =>
         props.btnBox &&
@@ -676,7 +676,7 @@ const StDiv = styled.div`
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
+            gap: 10px;
         `}
         ${(props) =>
         props.otherBtn &&
