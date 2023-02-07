@@ -11,7 +11,8 @@ export const KakaoTest = (kakaoImg) => {
             content: {
                 title: "Photo-Pie",
                 description: "함께 찍은 사진을 공유하고 다운로드 해보세요!",
-                imageUrl: process.env.REACT_APP_IMAGE_URL,
+                imageUrl:
+                    "https://my-photopie-github-actions-s3-bucket.s3.ap-northeast-2.amazonaws.com/photopie-logo.png",
                 link: {
                     mobileWebUrl: kakaoImg,
                     webUrl: kakaoImg,
