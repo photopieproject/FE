@@ -51,17 +51,31 @@ const RoomOpen = () => {
                     });
                     navigate(`/frame/${res.payload.data1.id}`);
                 } else if (res.payload.data.statusCode === 400) {
-                    toast.error(res.payload.data.statusMsg, {
-                        style: {
-                            borderRadius: "10px",
-                            background: "#fffaf2",
-                            color: "#3a3232",
-                        },
-                        iconTheme: {
-                            primary: "#3a3232",
-                            secondary: "#fffaf2",
-                        },
-                    });
+                    if (roomCode === "") {
+                        toast.error("방 코드를 입력해주세요", {
+                            style: {
+                                borderRadius: "10px",
+                                background: "#fffaf2",
+                                color: "#3a3232",
+                            },
+                            iconTheme: {
+                                primary: "#3a3232",
+                                secondary: "#fffaf2",
+                            },
+                        });
+                    } else {
+                        toast.error(res.payload.data.statusMsg, {
+                            style: {
+                                borderRadius: "10px",
+                                background: "#fffaf2",
+                                color: "#3a3232",
+                            },
+                            iconTheme: {
+                                primary: "#3a3232",
+                                secondary: "#fffaf2",
+                            },
+                        });
+                    }
                 } else if (
                     res.payload.data.statusCode === 401 ||
                     res.payload.status === 403
