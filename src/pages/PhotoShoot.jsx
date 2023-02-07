@@ -506,18 +506,20 @@ const PhotoShoot = () => {
                     <StP counterTxt>
                         🚨 방에 처음 입장 시 대기중만 출력됩니다!
                         <br />
-                        2명 이상 입장 후 서로 화면이 출력됩니다!
+                        <Span txtBold>2명 이상 입장 후</Span> 서로 화면이
+                        출력됩니다!
                         <br />
-                        🚨 현재 방장에게만 촬영 버튼과
+                        🚨 현재 <Span txtBold>방장에게만</Span> 촬영 버튼과
                         <br />
                         카운터 버튼이 보여집니다
                         <br />
                         🚨 숫자가 줄어들 때마다 화면에 보이는 숫자를
-                        <br />큰 소리로 친구들에게 외쳐주세요!
+                        <br />
+                        <Span txtBold>큰 소리로</Span> 친구들에게 외쳐주세요!
                         <br />
                         🚨 혹시 숫자가 줄어들지 않으면
                         <br />
-                        한번 더 클릭해주세요!
+                        <Span txtBold>한번 더 클릭</Span>해주세요!
                     </StP>
                 </StDiv>
                 {role === "leader" ? <StP countNum>{number}</StP> : null}

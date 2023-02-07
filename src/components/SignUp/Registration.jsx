@@ -192,6 +192,7 @@ const Registration = () => {
                             value={nickname}
                             onChange={setNickName}
                             placeholder="닉네임을 입력해주세요."
+                            maxLength={10}
                         />
                     </StDiv>
                     <StDiv IdPw>
