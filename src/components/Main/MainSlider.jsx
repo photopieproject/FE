@@ -12,9 +12,13 @@ import patternCity from "../../assets/new_frame/pattern_city.png";
 import blackOrange from "../../assets/new_frame/black_orange.png";
 import patternSunset from "../../assets/new_frame/pattern_sunset.png";
 import Button from "../button/Button";
+// import { useState } from "react";
+// import GuideModal from "../modal/GuideModal";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
+
+    // const [guideModal, setGuideModal] = useState(false);
 
     const settings = {
         dots: true,
@@ -25,8 +29,12 @@ export const MainSlider = () => {
         arrow: false,
         autoplay: true,
         autoplaySpeed: 5000,
-        pauseOnHover: false,
+        pauseOnHover: true,
     };
+
+    // const guideModalHandler = () => {
+    //     setGuideModal(true);
+    // };
 
     const noKeyLogin = () => {
         if (
@@ -128,12 +136,25 @@ export const MainSlider = () => {
                                 <StDiv txtBox2>
                                     <StDiv tit>COURSE</StDiv>
                                     <StP main1Txt>SHARE YOUR MOMENT</StP>
+                                    {/* <StDiv slierbtnBox> */}
                                     <Button
                                         MainTopStartBtn3
                                         onClick={noKeyLogin}
                                     >
                                         사진 촬영하러가기
                                     </Button>
+                                    {/* <Button
+                                            MainTopStartBtn3
+                                            onClick={guideModalHandler}
+                                        >
+                                            사용 방법 가이드
+                                        </Button>
+                                        {guideModal && (
+                                            <GuideModal
+                                                setGuideModal={setGuideModal}
+                                            />
+                                        )}
+                                    </StDiv> */}
                                 </StDiv>
                             </StDiv>
                             <StDiv ulWrap2>
@@ -331,6 +352,13 @@ const StDiv = styled.div`
         props.ulWrap2 &&
         css`
             margin-top: 150px;
+        `}
+    ${(props) =>
+        props.slierbtnBox &&
+        css`
+            position: relative;
+            display: flex;
+            gap: 10px;
         `}
     ${(props) =>
         props.ulWrap3 &&

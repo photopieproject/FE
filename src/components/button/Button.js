@@ -44,6 +44,7 @@ const Button = (props) => {
         ForgotID,
         ForgotPW,
         RightSignUpbtn,
+        // guideModalCancel,
     } = props;
     return (
         <StButton
@@ -88,6 +89,7 @@ const Button = (props) => {
             ForgotID={ForgotID}
             ForgotPW={ForgotPW}
             RightSignUpbtn={RightSignUpbtn}
+            // guideModalCancel={guideModalCancel}
         >
             {children}
         </StButton>
@@ -425,17 +427,18 @@ const StButton = styled.button`
                 background-color: #af9462;
             }
         `}
-    ${(props) =>
+        ${(props) =>
         props.ModalCancleBtn &&
         css`
             position: fixed;
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             border-radius: 50px;
-            margin-top: 10px;
+            margin: 10px 0 0 -15px;
             background-color: #3a3232;
-            color: #fffaf2
-            }
+            color: #fffaf2;
+            display: flex;
+            align-items: center;
         `}
     ${(props) =>
         props.IdCheckBtn &&
@@ -566,7 +569,25 @@ const StButton = styled.button`
                 background-color: #fffaf2;
                 color: #3a3232;
             }
-        `}
+        `} /* ${(props) =>
+        props.guideModalCancel &&
+        css`
+            position: absolute;
+            right: 10px;
+            top: 20px;
+            background-color: #3a3232;
+            color: #fffaf2;
+            border-radius: 10px;
+            width: 80px;
+            height: 30px;
+            font-weight: bold;
+            transition: background-color 0.35s ease-in-out;
+            &:hover {
+                background-color: #fffaf2;
+                color: #3a3232;
+                border: 1px solid #3a3232;
+            }
+        `} */
 `;
 
 export default Button;
