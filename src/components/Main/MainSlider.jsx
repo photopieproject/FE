@@ -211,7 +211,7 @@ export const MainSlider = () => {
                                 <StUl mainUl3>
                                     <StLi main3Li>
                                         <StP main3MiniSubTit>1위</StP>
-                                        <StP main3SubTit>Black</StP>
+                                        <StP main3SubTit>Bridge</StP>
                                         <StImg
                                             framePhoto
                                             src={patternChan}
@@ -220,7 +220,7 @@ export const MainSlider = () => {
                                     </StLi>
                                     <StLi main3Li>
                                         <StP main3MiniSubTit>2위</StP>
-                                        <StP main3SubTit>White</StP>
+                                        <StP main3SubTit>Deep Blue</StP>
                                         <StImg
                                             framePhoto
                                             src={deepblue}
@@ -229,7 +229,7 @@ export const MainSlider = () => {
                                     </StLi>
                                     <StLi main3Li>
                                         <StP main3MiniSubTit>3위</StP>
-                                        <StP main3SubTit>Sunset</StP>
+                                        <StP main3SubTit>City</StP>
                                         <StImg
                                             framePhoto
                                             src={patternCity}
@@ -238,7 +238,7 @@ export const MainSlider = () => {
                                     </StLi>
                                     <StLi main3Li>
                                         <StP main3MiniSubTit>4위</StP>
-                                        <StP main3SubTit>Pink</StP>
+                                        <StP main3SubTit>Black Orange</StP>
                                         <StImg
                                             framePhoto
                                             src={blackOrange}
@@ -247,7 +247,7 @@ export const MainSlider = () => {
                                     </StLi>
                                     <StLi main3Li>
                                         <StP main3MiniSubTit>5위</StP>
-                                        <StP main3SubTit>Mint</StP>
+                                        <StP main3SubTit>Sunset</StP>
                                         <StImg
                                             framePhoto
                                             src={patternSunset}
