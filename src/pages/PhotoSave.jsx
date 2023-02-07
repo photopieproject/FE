@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     __completePhoto,
-    // __kakaoMsgSend,
+    __kakaoMsgSend,
     __qrcodeGet,
     __qrcodeSend,
 } from "../redux/modules/photoSlice";
@@ -16,7 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
-// import { KakaoTest } from "../components/Kakao/KakaoTest";
+import { KakaoTest } from "../components/Kakao/KakaoTest";
 
 const PhotoSave = () => {
     const dispatch = useDispatch();
@@ -243,28 +243,28 @@ const PhotoSave = () => {
         });
     };
 
-    // const [kakaoImg, setKakaoImg] = useState("");
-    // console.log("kakao?", kakaoImg);
+    const [kakaoImg, setKakaoImg] = useState("");
+    console.log("kakao?", kakaoImg);
 
-    // const kakaoUrlHandler = (roomId) => {
-    //     dispatch(__kakaoMsgSend(roomId)).then((res) => {
-    //         toast.success(
-    //             "카톡이미지가 생성되었어요!\n카카오톡 전송하기를 눌러 친구들에게 공유해 보세요!",
-    //             {
-    //                 style: {
-    //                     borderRadius: "10px",
-    //                     background: "#3a3232",
-    //                     color: "#fffaf2",
-    //                 },
-    //                 iconTheme: {
-    //                     primary: "#fffaf2",
-    //                     secondary: "#3a3232",
-    //                 },
-    //                 duration: 4000,
-    //             }
-    //         );
-    //     });
-    // };
+    const kakaoUrlHandler = (roomId) => {
+        dispatch(__kakaoMsgSend(roomId)).then((res) => {
+            toast.success(
+                "카톡이미지가 생성되었어요!\n카카오톡 전송하기를 눌러 친구들에게 공유해 보세요!",
+                {
+                    style: {
+                        borderRadius: "10px",
+                        background: "#3a3232",
+                        color: "#fffaf2",
+                    },
+                    iconTheme: {
+                        primary: "#fffaf2",
+                        secondary: "#3a3232",
+                    },
+                    duration: 4000,
+                }
+            );
+        });
+    };
 
     const inspectionToast = () => {
         toast.success(
@@ -334,14 +334,14 @@ const PhotoSave = () => {
                     <StDiv kakaoSendBox>
                         <Button
                             kakaoUrl
-                            onClick={inspectionToast}
-                            // onClick={() => kakaoUrlHandler(roomId)}
+                            // onClick={inspectionToast}
+                            onClick={() => kakaoUrlHandler(roomId)}
                         >
                             카톡이미지
                             <br /> 생성하기
                         </Button>
-                        {/* <Button kakaoDown onClick={() => KakaoTest(kakaoImg)}> */}
-                        <Button kakaoDown onClick={inspectionToast}>
+                        <Button kakaoDown onClick={() => KakaoTest(kakaoImg)}>
+                            {/* <Button kakaoDown onClick={inspectionToast}> */}
                             카카오톡
                             <br /> 공유하기
                         </Button>
