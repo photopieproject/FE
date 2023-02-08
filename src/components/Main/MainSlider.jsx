@@ -12,13 +12,13 @@ import patternCity from "../../assets/new_frame/pattern_city.png";
 import blackOrange from "../../assets/new_frame/black_orange.png";
 import patternSunset from "../../assets/new_frame/pattern_sunset.png";
 import Button from "../button/Button";
-// import { useState } from "react";
-// import GuideModal from "../modal/GuideModal";
+import { useState } from "react";
+import GuideModal from "../modal/GuideModal";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
 
-    // const [guideModal, setGuideModal] = useState(false);
+    const [guideModal, setGuideModal] = useState(false);
 
     const settings = {
         dots: true,
@@ -28,13 +28,13 @@ export const MainSlider = () => {
         slidesToScroll: 1,
         arrow: false,
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 8000,
         pauseOnHover: true,
     };
 
-    // const guideModalHandler = () => {
-    //     setGuideModal(true);
-    // };
+    const guideModalHandler = () => {
+        setGuideModal(true);
+    };
 
     const noKeyLogin = () => {
         if (
@@ -136,14 +136,14 @@ export const MainSlider = () => {
                                 <StDiv txtBox2>
                                     <StDiv tit>COURSE</StDiv>
                                     <StP main1Txt>SHARE YOUR MOMENT</StP>
-                                    {/* <StDiv slierbtnBox> */}
-                                    <Button
-                                        MainTopStartBtn3
-                                        onClick={noKeyLogin}
-                                    >
-                                        사진 촬영하러가기
-                                    </Button>
-                                    {/* <Button
+                                    <StDiv slierbtnBox>
+                                        <Button
+                                            MainTopStartBtn3
+                                            onClick={noKeyLogin}
+                                        >
+                                            사진 촬영하러가기
+                                        </Button>
+                                        <Button
                                             MainTopStartBtn3
                                             onClick={guideModalHandler}
                                         >
@@ -154,7 +154,7 @@ export const MainSlider = () => {
                                                 setGuideModal={setGuideModal}
                                             />
                                         )}
-                                    </StDiv> */}
+                                    </StDiv>
                                 </StDiv>
                             </StDiv>
                             <StDiv ulWrap2>
@@ -172,7 +172,7 @@ export const MainSlider = () => {
                                         <StP txt>
                                             새로고침 버튼 왼쪽에 자물쇠를 눌러서
                                             카메라와 마이크 접근을
-                                            <Span red> 허용</Span>으로
+                                            <Span txtBold> 허용</Span>으로
                                             바꿔주세요.
                                         </StP>
                                     </StLi>
@@ -199,8 +199,12 @@ export const MainSlider = () => {
                                         <StP subTitle>Five</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
-                                            촬영이 끝난 후 다같이 사진전송 하러
-                                            가기를 눌러 이동해 주세요.
+                                            촬영이 끝난 후 다같이
+                                            <br />
+                                            <Span txtBold>
+                                                사진전송 하러 가기
+                                            </Span>
+                                            를 눌러 이동해 주세요.
                                         </StP>
                                     </StLi>
                                     <StLi main2Li>
@@ -209,6 +213,12 @@ export const MainSlider = () => {
                                         <StP txt>
                                             촬영한 사진을 저장하고 친구들과
                                             추억을 공유하세요!
+                                            <br /> 저장된 사진은{" "}
+                                            <Span txtBold>
+                                                {" "}
+                                                24시간이 지나면 자동 삭제
+                                            </Span>
+                                            됩니다!
                                         </StP>
                                     </StLi>
                                 </StUl>

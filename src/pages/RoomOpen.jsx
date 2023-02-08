@@ -52,7 +52,7 @@ const RoomOpen = () => {
                     navigate(`/frame/${res.payload.data1.id}`);
                 } else if (res.payload.data.statusCode === 400) {
                     if (roomCode === "") {
-                        toast.error("방 코드를 입력해주세요", {
+                        toast.error("방 이름을 입력해주세요", {
                             style: {
                                 borderRadius: "10px",
                                 background: "#fffaf2",
