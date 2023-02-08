@@ -12,13 +12,13 @@ import patternCity from "../../assets/new_frame/pattern_city.png";
 import blackOrange from "../../assets/new_frame/black_orange.png";
 import patternSunset from "../../assets/new_frame/pattern_sunset.png";
 import Button from "../button/Button";
-// import { useState } from "react";
-// import GuideModal from "../modal/GuideModal";
+import { useState } from "react";
+import GuideModal from "../modal/GuideModal";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
 
-    // const [guideModal, setGuideModal] = useState(false);
+    const [guideModal, setGuideModal] = useState(false);
 
     const settings = {
         dots: true,
@@ -28,13 +28,13 @@ export const MainSlider = () => {
         slidesToScroll: 1,
         arrow: false,
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 8000,
         pauseOnHover: true,
     };
 
-    // const guideModalHandler = () => {
-    //     setGuideModal(true);
-    // };
+    const guideModalHandler = () => {
+        setGuideModal(true);
+    };
 
     const noKeyLogin = () => {
         if (
@@ -136,14 +136,14 @@ export const MainSlider = () => {
                                 <StDiv txtBox2>
                                     <StDiv tit>COURSE</StDiv>
                                     <StP main1Txt>SHARE YOUR MOMENT</StP>
-                                    {/* <StDiv slierbtnBox> */}
-                                    <Button
-                                        MainTopStartBtn3
-                                        onClick={noKeyLogin}
-                                    >
-                                        사진 촬영하러가기
-                                    </Button>
-                                    {/* <Button
+                                    <StDiv slierbtnBox>
+                                        <Button
+                                            MainTopStartBtn3
+                                            onClick={noKeyLogin}
+                                        >
+                                            사진 촬영하러가기
+                                        </Button>
+                                        <Button
                                             MainTopStartBtn3
                                             onClick={guideModalHandler}
                                         >
@@ -154,7 +154,7 @@ export const MainSlider = () => {
                                                 setGuideModal={setGuideModal}
                                             />
                                         )}
-                                    </StDiv> */}
+                                    </StDiv>
                                 </StDiv>
                             </StDiv>
                             <StDiv ulWrap2>
