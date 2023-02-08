@@ -172,7 +172,7 @@ export const MainSlider = () => {
                                         <StP txt>
                                             새로고침 버튼 왼쪽에 자물쇠를 눌러서
                                             카메라와 마이크 접근을
-                                            <Span red> 허용</Span>으로
+                                            <Span txtBold> 허용</Span>으로
                                             바꿔주세요.
                                         </StP>
                                     </StLi>
@@ -199,8 +199,12 @@ export const MainSlider = () => {
                                         <StP subTitle>Five</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
-                                            촬영이 끝난 후 다같이 사진전송 하러
-                                            가기를 눌러 이동해 주세요.
+                                            촬영이 끝난 후 다같이
+                                            <br />
+                                            <Span txtBold>
+                                                사진전송 하러 가기
+                                            </Span>
+                                            를 눌러 이동해 주세요.
                                         </StP>
                                     </StLi>
                                     <StLi main2Li>
@@ -209,6 +213,12 @@ export const MainSlider = () => {
                                         <StP txt>
                                             촬영한 사진을 저장하고 친구들과
                                             추억을 공유하세요!
+                                            <br /> 저장된 사진은{" "}
+                                            <Span txtBold>
+                                                {" "}
+                                                24시간이 지나면 자동 삭제
+                                            </Span>
+                                            됩니다!
                                         </StP>
                                     </StLi>
                                 </StUl>
