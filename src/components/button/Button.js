@@ -569,25 +569,7 @@ const StButton = styled.button`
                 background-color: #fffaf2;
                 color: #3a3232;
             }
-        `} /* ${(props) =>
-        props.guideModalCancel &&
-        css`
-            position: absolute;
-            right: 10px;
-            top: 20px;
-            background-color: #3a3232;
-            color: #fffaf2;
-            border-radius: 10px;
-            width: 80px;
-            height: 30px;
-            font-weight: bold;
-            transition: background-color 0.35s ease-in-out;
-            &:hover {
-                background-color: #fffaf2;
-                color: #3a3232;
-                border: 1px solid #3a3232;
-            }
-        `} */
+        `}
 `;
 
 export default Button;

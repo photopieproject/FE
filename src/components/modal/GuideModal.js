@@ -1,36 +1,53 @@
+import { useEffect } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
-import guideVideo from "../../assets/video/guide.mov";
-import Button from "../button/Button";
 
 const GuideModal = ({ setGuideModal }) => {
-    const closeModalHandler = () => {
-        setGuideModal(false);
-    };
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handler = (e) => {
+            if (modalRef.current && !modalRef.current.contains(e.target)) {
+                setGuideModal(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        };
+    });
+
     return (
-        <StDiv>
-            <StVideo controls autoPlay muted loop>
-                <source src={guideVideo}></source>
-            </StVideo>
-            <Button guideModalCancel onClick={closeModalHandler}>
-                닫기
-            </Button>
+        <StDiv ref={modalRef}>
+            <StIframe
+                title="guide"
+                src="https://www.youtube.com/embed/GnHNPWCSCYY"
+                width="800px"
+                height="100%"
+            ></StIframe>
         </StDiv>
     );
 };
 
 const StDiv = styled.div`
-    width: 800px;
-    height: 422px;
+    width: 1000px;
+    height: 550px;
     z-index: 999;
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 60%;
-    transform: translate(-25%, -25%);
+    transform: translate(-25%, -35%);
     border: 3px solid #3a3232;
     border-radius: 10px;
 `;
-const StVideo = styled.video`
-    width: 800px;
+
+const StIframe = styled.iframe`
+    width: 1000px;
     height: 100%;
+    border-radius: 10px;
+    position: relative;
 `;
+
 export default GuideModal;
