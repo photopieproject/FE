@@ -18,34 +18,31 @@ const Span = (props) => {
 
 const StSpan = styled.span`
     cursor: pointer;
+    font-family: "Nanum Myeongjo", serif;
     ${(props) =>
         props.nick &&
         css`
-            cursor: default;
+            cursor: auto;
             margin-left: 10px;
         `}
     ${(props) =>
         props.hello &&
         css`
-            cursor: default;
+            cursor: auto;
             margin-right: 30px;
         `}
     ${(props) =>
         props.roomName &&
         css`
+            cursor: auto;
             font-size: 24px;
-            cursor: default;
             font-weight: bold;
             margin-left: 10px;
         `}
     ${(props) =>
-        props.red &&
-        css`
-            color: red;
-        `}
-    ${(props) =>
         props.txtBold &&
         css`
+            cursor: auto;
             font-weight: bold;
             color: red;
         `}

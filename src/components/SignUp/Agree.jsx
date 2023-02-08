@@ -123,7 +123,9 @@ function Agree({ setShow }) {
                         checked={allCheck}
                         onChange={allBtnEvent}
                     />
-                    <label htmlFor="all-check">전체 동의</label>
+                    <label htmlFor="all-check" style={{ marginLeft: "8px" }}>
+                        모두 동의하기
+                    </label>
                 </StDiv>
                 <div>
                     <StDiv AgreeBody>
@@ -136,7 +138,7 @@ function Agree({ setShow }) {
                                 onChange={ageBtnEvent}
                             />
                             <Stlabel StChecklabel htmlFor="check1">
-                                <span>(필수)</span>만 14세 이상
+                                <span>(필수) </span>만 14세 이상
                             </Stlabel>
                         </StDiv>
                         <StDiv CheckBox>
@@ -148,7 +150,7 @@ function Agree({ setShow }) {
                                 onChange={usePrivacyEvent}
                             />
                             <Stlabel StChecklabel htmlFor="check2">
-                                <span>(필수)</span>개인정보 취급 방침
+                                <span>(필수) </span>개인정보 취급 방침
                                 <Button
                                     AgreeBtn
                                     onClick={() => setModal1(true)}
@@ -186,7 +188,7 @@ function Agree({ setShow }) {
                                 onChange={useBtnEvent}
                             />
                             <Stlabel StChecklabel htmlFor="check3">
-                                <span>(필수)</span>이용약관
+                                <span>(필수) </span>이용약관
                                 <Button
                                     AgreeBtn
                                     onClick={() => setModal2(true)}
@@ -224,7 +226,7 @@ function Agree({ setShow }) {
                                 onChange={marketingBtnEvent}
                             />
                             <Stlabel StChecklabel htmlFor="check4">
-                                <span>(선택)</span>광고성 정보 수신 및 마케팅
+                                <span>(선택) </span>광고성 정보 수신 및 마케팅
                                 활용동의
                                 <Button
                                     AgreeBtn
