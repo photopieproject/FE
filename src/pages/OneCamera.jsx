@@ -5,12 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { __takeFrame, __takePhoto } from "../redux/modules/photoSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
-import { BiCopy } from "react-icons/bi";
 import { MdMeetingRoom } from "react-icons/md";
 import Button from "../components/button/Button";
-import { OpenVidu } from "openvidu-browser";
-import UserVideoComponent from "../components/OvVideo/UserVideoComponent";
-import { __outPhotoRoom } from "../redux/modules/videoSlice";
 import Swal from "sweetalert2";
 import Span from "../components/button/Span";
 import toast, { Toaster } from "react-hot-toast";
@@ -23,38 +19,18 @@ const OneCamera = () => {
     const { roomId } = useParams();
 
     const videoRef = useRef(null);
-    const videoRef2 = useRef(null);
-    const videoRef3 = useRef(null);
-    const videoRef4 = useRef(null);
 
     useEffect(() => {
         const getUserMedia = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { width: 200, height: 300 },
+                    video: { width: 430, height: 630 },
                     audio: true,
                 });
                 videoRef.current.srcObject = stream;
-            } catch (err) {
-                console.log(err);
-            }
+            } catch (err) {}
         };
         getUserMedia();
-    }, []);
-
-    useEffect(() => {
-        const getUserMedia2 = async () => {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { width: 200, height: 300 },
-                    audio: true,
-                });
-                videoRef2.current.srcObject = stream;
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getUserMedia2();
     }, []);
 
     // 사진 각각 저장 관련
@@ -82,7 +58,6 @@ const OneCamera = () => {
     // 데이터 불러오기
     const rooms = useSelector((state) => state.photos.photoinfo.data1);
     const videoRooms = useSelector((state) => state.videos.videoRooms);
-    const role = useSelector((state) => state.videos.videoInfos[0].role);
 
     // 방 나가기 핸들러
     const outRoomsHandler = (roomId) => {
@@ -100,35 +75,7 @@ const OneCamera = () => {
             reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(__outPhotoRoom(roomId)).then((res) => {
-                    if (res.payload.statusCode === 200) {
-                        toast.success(res.payload.statusMsg, {
-                            style: {
-                                borderRadius: "10px",
-                                background: "#3a3232",
-                                color: "#fffaf2",
-                            },
-                            iconTheme: {
-                                primary: "#fffaf2",
-                                secondary: "#3a3232",
-                            },
-                        });
-                        navigate("/roomOpen");
-                    } else if (res.payload.data.statusCode === 400) {
-                        toast.error(res.payload.data.statusMsg, {
-                            style: {
-                                borderRadius: "10px",
-                                background: "#fffaf2",
-                                color: "#3a3232",
-                            },
-                            iconTheme: {
-                                primary: "#3a3232",
-                                secondary: "#fffaf2",
-                            },
-                        });
-                        navigate("/roomOpen");
-                    }
-                });
+                navigate("/roomOpen");
             }
         });
     };
@@ -136,7 +83,7 @@ const OneCamera = () => {
     // 사진 전송하러 가기 버튼 핸들러
     const pageMoveHandler = () => {
         Swal.fire({
-            title: "방장이 사진을 다 찍었나요?",
+            title: "사진을 네장 다 찍었나요?",
             text: "사진을 다 찍지 않았으면 사진이 저장되지 않습니다",
             icon: "warning",
 
@@ -171,7 +118,6 @@ const OneCamera = () => {
         event.returnValue = "";
     };
 
-    // OpenVidu Connecting 관련
     useEffect(() => {
         window.addEventListener("beforeunload", onbeforeunload);
 
@@ -200,39 +146,9 @@ const OneCamera = () => {
         };
     }, []);
 
-    // 초대 코드 복사 관련
-    const copyClipBoard = async (roomCode) => {
-        try {
-            await navigator.clipboard.writeText(roomCode);
-            toast.success("초대코드가 복사되었습니다!", {
-                style: {
-                    borderRadius: "10px",
-                    background: "#3a3232",
-                    color: "#fffaf2",
-                },
-                iconTheme: {
-                    primary: "#fffaf2",
-                    secondary: "#3a3232",
-                },
-                duration: 4000,
-            });
-        } catch (e) {
-            toast.error("복사에 실패하였습니다!", {
-                style: {
-                    borderRadius: "10px",
-                    background: "#fffaf2",
-                    color: "#3a3232",
-                },
-                iconTheme: {
-                    primary: "#3a3232",
-                    secondary: "#fffaf2",
-                },
-            });
-        }
-    };
-
     // 화면 스크린샷 및 server에 데이터 전송 관련 각 핸들러
     const onSubmitHandler_1 = () => {
+        // 3초 후 서버에 데이터 전송
         html2canvas(document.querySelector("#picture1"))
             .then((canvas) => {
                 let photo_one =
@@ -256,7 +172,6 @@ const OneCamera = () => {
                     }
                 }, 1000);
 
-                // 3초 후 서버에 데이터 전송
                 setTimeout(() => {
                     dispatch(__takePhoto({ roomId, formdata: photo_1 })).then(
                         (res) => {
@@ -277,29 +192,29 @@ const OneCamera = () => {
     };
 
     const onSubmitHandler_2 = () => {
-        html2canvas(document.querySelector("#picture2"))
+        html2canvas(document.querySelector("#picture1"))
             .then((canvas) => {
                 let photo_two =
                     (canvas.toDataURL("image/jpg"), "photo_two.jpg");
                 setPhoto_two(canvas.toDataURL(photo_two));
             })
             .then(() => {
-                const file = dataURLtoFile(photo_two, "photo_two.jpg");
-
-                const photo_2 = new FormData();
-
-                photo_2.append("photo_2", file);
-
-                const cameraCount = setInterval(() => {
-                    number_ref.current -= 1;
-                    setNumber(number_ref.current);
-                    if (number_ref.current === 0) {
-                        clearInterval(cameraCount);
-                        setNumber((number_ref.current = 3));
-                    }
-                }, 1000);
-
                 setTimeout(() => {
+                    const file = dataURLtoFile(photo_two, "photo_two.jpg");
+
+                    const photo_2 = new FormData();
+
+                    photo_2.append("photo_2", file);
+
+                    const cameraCount = setInterval(() => {
+                        number_ref.current -= 1;
+                        setNumber(number_ref.current);
+                        if (number_ref.current === 0) {
+                            clearInterval(cameraCount);
+                            setNumber((number_ref.current = 3));
+                        }
+                    }, 1000);
+
                     dispatch(__takePhoto({ roomId, formdata: photo_2 })).then(
                         (res) => {
                             toast.success("2번 사진 촬영 완료!", {
@@ -319,7 +234,7 @@ const OneCamera = () => {
     };
 
     const onSubmitHandler_3 = () => {
-        html2canvas(document.querySelector("#picture3"))
+        html2canvas(document.querySelector("#picture1"))
             .then((canvas) => {
                 let photo_three =
                     (canvas.toDataURL("image/jpg"), "photo_three.jpg");
@@ -361,7 +276,7 @@ const OneCamera = () => {
     };
 
     const onSubmitHandler_4 = () => {
-        html2canvas(document.querySelector("#picture4"))
+        html2canvas(document.querySelector("#picture1"))
             .then((canvas) => {
                 let photo_four =
                     (canvas.toDataURL("image/jpg"), "photo_four.jpg");
@@ -410,13 +325,13 @@ const OneCamera = () => {
                 <StDiv frameBox>
                     <StImg src={rooms?.frameUrl} alt="frame url" />
                     <StDiv pictureBox>
-                        <video
+                        <StVideo
+                            picture
                             id="picture1"
                             ref={videoRef}
                             autoPlay
                             playsInline
-                            width={"200px"}
-                            height={"300px"}
+                            muted
                         />
                     </StDiv>
                 </StDiv>
@@ -427,22 +342,17 @@ const OneCamera = () => {
                         <MdMeetingRoom size={40} />
                         <Span roomName>{videoRooms.roomName}</Span>
                     </StDiv>
-                    <StP
-                        inviteCode
-                        onClick={() => copyClipBoard(videoRooms.roomCode)}
-                    >
-                        초대코드 복사
-                        <BiCopy />
-                    </StP>
                     <StP counterTxt>
-                        🚨 방에 처음 입장 시 대기중만 출력됩니다!
+                        🚨 1인용은 4개 버튼을 차례로 눌러
                         <br />
-                        <Span txtBold>2명 이상 입장 후</Span> 서로 화면이
-                        출력됩니다!
+                        <Span txtBold>총 4장의 사진</Span>을 찍은 후
+                        <br /> 전송하기 페이지에서
                         <br />
-                        🚨 현재 <Span txtBold>방장에게만</Span> 촬영 버튼과
+                        전체 사진을 확인할 수 있습니다!
                         <br />
-                        카운터 버튼이 보여집니다
+                        🚨 <Span txtBold>버튼을 누르기 전</Span> 포즈를
+                        취해주세요! <br /> 현재 버튼을 누르자마자 사진이
+                        촬영됩니다 <br /> 오류 수정중에 있습니다 ㅠㅠ
                         <br />
                         🚨 숫자가 줄어들 때마다 화면에 보이는 숫자를
                         <br />
@@ -453,67 +363,59 @@ const OneCamera = () => {
                         <Span txtBold>한번 더 클릭</Span>해주세요!
                     </StP>
                 </StDiv>
-                {role === "leader" ? <StP countNum>{number}</StP> : null}
+                <StP countNum>{number}</StP>
                 <StDiv allBtn>
-                    {role === "leader" ? (
-                        <StDiv btnBox>
-                            <Button
-                                cameraBtn1
-                                disabled={oneDis}
-                                oneDis={oneDis}
-                                onClick={() => {
-                                    onSubmitHandler_1(roomId);
-                                }}
-                            >
-                                나 촬영하기
-                            </Button>
-                            <Button
-                                cameraBtn2
-                                disabled={twoDis}
-                                twoDis={twoDis}
-                                onClick={() => {
-                                    onSubmitHandler_2(roomId);
-                                }}
-                            >
-                                옆에 친구
-                            </Button>
-                            <Button
-                                cameraBtn3
-                                disabled={threeDis}
-                                threeDis={threeDis}
-                                onClick={() => {
-                                    onSubmitHandler_3(roomId);
-                                }}
-                            >
-                                아래 친구
-                            </Button>
-                            <Button
-                                cameraBtn4
-                                disabled={fourDis}
-                                fourDis={fourDis}
-                                onClick={() => {
-                                    onSubmitHandler_4(roomId);
-                                }}
-                            >
-                                대각선 친구
-                            </Button>
-                        </StDiv>
-                    ) : null}
+                    <StDiv btnBox>
+                        <Button
+                            cameraBtn1
+                            disabled={oneDis}
+                            oneDis={oneDis}
+                            onClick={() => {
+                                onSubmitHandler_1(roomId);
+                            }}
+                        >
+                            1번 사진 촬영
+                        </Button>
+                        <Button
+                            cameraBtn2
+                            disabled={twoDis}
+                            twoDis={twoDis}
+                            onClick={() => {
+                                onSubmitHandler_2(roomId);
+                            }}
+                        >
+                            2번 사진 촬영
+                        </Button>
+                        <Button
+                            cameraBtn3
+                            disabled={threeDis}
+                            threeDis={threeDis}
+                            onClick={() => {
+                                onSubmitHandler_3(roomId);
+                            }}
+                        >
+                            3번 사진 촬영
+                        </Button>
+                        <Button
+                            cameraBtn4
+                            disabled={fourDis}
+                            fourDis={fourDis}
+                            onClick={() => {
+                                onSubmitHandler_4(roomId);
+                            }}
+                        >
+                            4번 사진 촬영
+                        </Button>
+                    </StDiv>
                     <StDiv otherBtn>
-                        {role === "leader" ? (
-                            <Button
-                                photoTrans
-                                disabled={saveDisabled}
-                                saveDisabled={saveDisabled}
-                                onClick={pageMoveHandler}
-                            >
-                                사진 전송하러 가기
-                            </Button>
-                        ) : (
-                            <Button photoTrans onClick={pageMoveHandler}>
-                                사진 전송하러 가기
-                            </Button>
-                        )}
+                        <Button
+                            photoTrans
+                            disabled={saveDisabled}
+                            saveDisabled={saveDisabled}
+                            onClick={pageMoveHandler}
+                        >
+                            사진 전송하러 가기
+                        </Button>
                         <Button
                             photoTrans
                             onClick={() => outRoomsHandler(roomId)}
@@ -553,21 +455,8 @@ const StDiv = styled.div`
         css`
             position: absolute;
             top: 85px;
-            left: 0;
+            left: 35px;
             z-index: 100;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-        `}
-    ${(props) =>
-        props.picture &&
-        css`
-            width: 200px;
-            height: 300px;
-            text-align: center;
-            line-height: 300px;
-            font-size: 20px;
         `}
     ${(props) =>
         props.setBox &&
@@ -631,6 +520,15 @@ const StImg = styled.img`
     position: absolute;
     top: 0;
     left: 0;
+`;
+
+const StVideo = styled.video`
+    ${(props) =>
+        props.picture &&
+        css`
+            width: 430px;
+            height: 630px;
+        `}
 `;
 
 const StP = styled.p`

@@ -42,6 +42,7 @@ const StSpan = styled.span`
     ${(props) =>
         props.txtBold &&
         css`
+            font-family: "HELVETICA";
             cursor: auto;
             font-weight: bold;
             color: red;

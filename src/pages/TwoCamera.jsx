@@ -16,7 +16,7 @@ import Span from "../components/button/Span";
 import toast, { Toaster } from "react-hot-toast";
 import { useRef } from "react";
 
-const PhotoShoot = () => {
+const TwoCamera = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -215,9 +215,7 @@ const PhotoShoot = () => {
                     mysession.publish(publisher);
                     setMainStreamManager(publisher);
                 })
-                .catch((err) => {
-                    console.log(err);
-                });
+                .catch((err) => {});
         };
 
         connectSession();
@@ -453,41 +451,28 @@ const PhotoShoot = () => {
             <StDiv captureArea>
                 <StDiv frameBox>
                     <StImg src={rooms?.frameUrl} alt="frame url" />
-                    {subscribers.length > 0 ? (
-                        <StDiv pictureBox>
-                            {/* {role === "leader" && publisher !== undefined ? ( */}
-                            {/* <> */}
-                            <StDiv picture id="picture1">
-                                <UserVideoComponent
-                                    streamManager={mainStreamManager}
-                                />
-                            </StDiv>
-                            <StDiv picture id="picture2">
-                                <UserVideoComponent
-                                    streamManager={subscribers[0]}
-                                />
-                            </StDiv>
-                            <StDiv picture id="picture3">
-                                <UserVideoComponent
-                                    streamManager={subscribers[1]}
-                                />
-                            </StDiv>
-                            <StDiv picture id="picture4">
-                                <UserVideoComponent
-                                    streamManager={subscribers[2]}
-                                />
-                            </StDiv>
-                            {/* </> */}
-                            {/* ) : null} */}
+                    <StDiv pictureBox>
+                        <StDiv picture id="picture1">
+                            <UserVideoComponent
+                                streamManager={mainStreamManager}
+                            />
                         </StDiv>
-                    ) : (
-                        <StDiv pictureBox>
-                            <StDiv picture>대기중... </StDiv>
-                            <StDiv picture>대기중...</StDiv>
-                            <StDiv picture>대기중...</StDiv>
-                            <StDiv picture>대기중...</StDiv>
+                        <StDiv picture id="picture2">
+                            <UserVideoComponent
+                                streamManager={subscribers[0]}
+                            />
                         </StDiv>
-                    )}
+                        <StDiv picture id="picture3">
+                            <UserVideoComponent
+                                streamManager={mainStreamManager}
+                            />
+                        </StDiv>
+                        <StDiv picture id="picture4">
+                            <UserVideoComponent
+                                streamManager={subscribers[0]}
+                            />
+                        </StDiv>
+                    </StDiv>
                 </StDiv>
             </StDiv>
             <StDiv downBtns>
@@ -504,14 +489,17 @@ const PhotoShoot = () => {
                         <BiCopy />
                     </StP>
                     <StP counterTxt>
-                        🚨 방에 처음 입장 시 대기중만 출력됩니다!
-                        <br />
-                        <Span txtBold>2명 이상 입장 후</Span> 서로 화면이
-                        출력됩니다!
+                        🚨 2인용 주의사항! <br />
+                        같은 화면 이여도 각 버튼에 따라 <br />
+                        <Span txtBold>4장을 찍어주어야</Span> 합니다!
                         <br />
                         🚨 현재 <Span txtBold>방장에게만</Span> 촬영 버튼과
                         <br />
                         카운터 버튼이 보여집니다
+                        <br />
+                        🚨 <Span txtBold>버튼을 누르기 전</Span> 포즈를
+                        취해주세요! <br /> 현재 버튼을 누르자마자 사진이
+                        촬영됩니다 <br /> 오류 수정중에 있습니다 ㅠㅠ
                         <br />
                         🚨 숫자가 줄어들 때마다 화면에 보이는 숫자를
                         <br />
@@ -544,7 +532,7 @@ const PhotoShoot = () => {
                                     onSubmitHandler_2(roomId);
                                 }}
                             >
-                                옆에 친구
+                                친구 촬영하기
                             </Button>
                             <Button
                                 cameraBtn3
@@ -554,7 +542,7 @@ const PhotoShoot = () => {
                                     onSubmitHandler_3(roomId);
                                 }}
                             >
-                                아래 친구
+                                나 한번더!
                             </Button>
                             <Button
                                 cameraBtn4
@@ -564,7 +552,7 @@ const PhotoShoot = () => {
                                     onSubmitHandler_4(roomId);
                                 }}
                             >
-                                대각선 친구
+                                친구 한번더!
                             </Button>
                         </StDiv>
                     ) : null}
@@ -644,7 +632,7 @@ const StDiv = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 10px 0;
+            margin: 0;
         `}
     ${(props) =>
         props.downBtns &&
@@ -706,6 +694,7 @@ const StP = styled.p`
     ${(props) =>
         props.inviteCode &&
         css`
+            margin: 5px 0px 10px 0;
             border-radius: 10px;
             background-color: #3a3232;
             color: #fffaf2;
@@ -724,7 +713,7 @@ const StP = styled.p`
             border: 1px solid #3a3232
             border-radius: 10px;
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
         `}
         ${(props) =>
         props.countNum &&
@@ -734,4 +723,4 @@ const StP = styled.p`
             font-weight: bold;
         `}
 `;
-export default PhotoShoot;
+export default TwoCamera;

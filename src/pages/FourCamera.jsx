@@ -16,7 +16,7 @@ import Span from "../components/button/Span";
 import toast, { Toaster } from "react-hot-toast";
 import { useRef } from "react";
 
-const CameraTest = () => {
+const PhotoShoot = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -215,9 +215,7 @@ const CameraTest = () => {
                     mysession.publish(publisher);
                     setMainStreamManager(publisher);
                 })
-                .catch((err) => {
-                    console.log(err);
-                });
+                .catch((err) => {});
         };
 
         connectSession();
@@ -458,7 +456,9 @@ const CameraTest = () => {
                             {/* {role === "leader" && publisher !== undefined ? ( */}
                             {/* <> */}
                             <StDiv picture id="picture1">
-                                <UserVideoComponent streamManager={publisher} />
+                                <UserVideoComponent
+                                    streamManager={mainStreamManager}
+                                />
                             </StDiv>
                             <StDiv picture id="picture2">
                                 <UserVideoComponent
@@ -466,11 +466,13 @@ const CameraTest = () => {
                                 />
                             </StDiv>
                             <StDiv picture id="picture3">
-                                <UserVideoComponent streamManager={publisher} />
+                                <UserVideoComponent
+                                    streamManager={subscribers[1]}
+                                />
                             </StDiv>
                             <StDiv picture id="picture4">
                                 <UserVideoComponent
-                                    streamManager={subscribers[0]}
+                                    streamManager={subscribers[2]}
                                 />
                             </StDiv>
                             {/* </> */}
@@ -508,6 +510,10 @@ const CameraTest = () => {
                         🚨 현재 <Span txtBold>방장에게만</Span> 촬영 버튼과
                         <br />
                         카운터 버튼이 보여집니다
+                        <br />
+                        🚨 <Span txtBold>버튼을 누르기 전</Span> 포즈를
+                        취해주세요! <br /> 현재 버튼을 누르자마자 사진이
+                        촬영됩니다 <br /> 오류 수정중에 있습니다 ㅠㅠ
                         <br />
                         🚨 숫자가 줄어들 때마다 화면에 보이는 숫자를
                         <br />
@@ -640,7 +646,7 @@ const StDiv = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 10px 0;
+            margin: 0;
         `}
     ${(props) =>
         props.downBtns &&
@@ -730,4 +736,4 @@ const StP = styled.p`
             font-weight: bold;
         `}
 `;
-export default CameraTest;
+export default PhotoShoot;

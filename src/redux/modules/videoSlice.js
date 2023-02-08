@@ -24,7 +24,6 @@ export const __createRoom = createAsyncThunk(
             const data = await apis.createRoom(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
-            console.log(err);
             return thunkAPI.rejectWithValue(err.response);
         }
     }
@@ -38,7 +37,6 @@ export const __enterPhotoRoom = createAsyncThunk(
             const data = await apis.enterPhotoRoom(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
-            console.log(err);
             if (err.response.status === 500) {
                 toast.error("방 코드를 확인해주세요", {
                     style: {
@@ -66,7 +64,6 @@ export const __outPhotoRoom = createAsyncThunk(
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
             const navigate = useNavigate();
-            console.log(err);
             if (err.response.status === 500) {
                 toast.error("존재하지 않는 방입니다", {
                     style: {
