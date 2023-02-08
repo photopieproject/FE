@@ -710,7 +710,6 @@ const StP = styled.p`
             margin: 0;
             padding: 0 10px;
             color: #3a3232;
-            border: 1px solid #3a3232
             border-radius: 10px;
             text-align: center;
             font-size: 12px;

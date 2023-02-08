@@ -25,7 +25,6 @@ export const __takePhoto = createAsyncThunk(
             const data = await apis.Shoot_Photo(payload);
             return thunkAPI.fulfillWithValue(data);
         } catch (err) {
-            console.log(err);
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -39,7 +38,6 @@ export const __chooseFrame = createAsyncThunk(
             const data = await apis.chooseFrame(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
-            console.log(err);
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -53,7 +51,6 @@ export const __takeFrame = createAsyncThunk(
             const data = await apis.takeFrame(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
-            console.log(err);
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -67,7 +64,6 @@ export const __completePhoto = createAsyncThunk(
             const data = await apis.completePhoto(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
-            console.log(err);
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -81,8 +77,6 @@ export const __qrcodeSend = createAsyncThunk(
             const data = await apis.qrcodeSend(payload);
             return thunkAPI.fulfillWithValue(data);
         } catch (err) {
-            console.log(err);
-
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -96,7 +90,6 @@ export const __qrcodeGet = createAsyncThunk(
             const data = await apis.qrcodeGet(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
-            console.log(err);
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -110,7 +103,6 @@ export const __kakaoMsgSend = createAsyncThunk(
             const data = await apis.kakaoMsgSend(payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (err) {
-            console.log(err);
             return thunkAPI.rejectWithValue(err);
         }
     }

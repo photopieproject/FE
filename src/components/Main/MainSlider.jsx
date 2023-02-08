@@ -172,7 +172,7 @@ export const MainSlider = () => {
                                         <StP txt>
                                             새로고침 버튼 왼쪽에 자물쇠를 눌러서
                                             카메라와 마이크 접근을
-                                            <Span txtBold> 허용</Span>으로
+                                            <Span bold> 허용</Span>으로
                                             바꿔주세요.
                                         </StP>
                                     </StLi>
@@ -189,8 +189,11 @@ export const MainSlider = () => {
                                         <StP subTitle>Four</StP>
                                         <StDiv line></StDiv>
                                         <StP txt>
-                                            4명이 모였으면 방장에게 촬영버튼이
-                                            생성됩니다.
+                                            1인용 - 차례로 사진을 4번 촬영
+                                            해주세요!
+                                            <br />
+                                            2명 혹은 4명이 모였으면 방장에게
+                                            촬영버튼이 생성됩니다.
                                             <br />
                                             한명씩 촬영을 해주세요!
                                         </StP>
@@ -201,9 +204,7 @@ export const MainSlider = () => {
                                         <StP txt>
                                             촬영이 끝난 후 다같이
                                             <br />
-                                            <Span txtBold>
-                                                사진전송 하러 가기
-                                            </Span>
+                                            <Span bold>사진전송 하러 가기</Span>
                                             를 눌러 이동해 주세요.
                                         </StP>
                                     </StLi>
@@ -214,7 +215,7 @@ export const MainSlider = () => {
                                             촬영한 사진을 저장하고 친구들과
                                             추억을 공유하세요!
                                             <br /> 저장된 사진은{" "}
-                                            <Span txtBold>
+                                            <Span bold>
                                                 {" "}
                                                 24시간이 지나면 자동 삭제
                                             </Span>
