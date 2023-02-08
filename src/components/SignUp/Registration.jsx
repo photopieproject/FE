@@ -16,6 +16,8 @@ const Registration = () => {
   const [nickname, setNickName] = useInput();
   const [password, setPassword] = useInput();
   const [checkUserId, setCheckUserId] = useState(false);
+  const [resetCheckUserId, setResetCheckUserId] = useState(false);
+  const [showResetBtn, setShowResetBtn] = useState(false);
   const [registDisabled, setRegistDisabled] = useState(true);
   const [PWPtag, setPWPtag] = useState();
   const [PWConfirm, setPWConfirm] = useState("");
@@ -129,6 +131,11 @@ const Registration = () => {
     });
   };
 
+  const resetCheckUserIdHandler = () => {
+    setResetCheckUserId(false);
+    setCheckUserId(false);
+  };
+
   const checkUserIdHandler = (userId) => {
     __checkUserId(userId).then((res) => {
       if (isId(userId) === false) {
@@ -146,6 +153,7 @@ const Registration = () => {
       } else {
         if (res === 200) {
           setCheckUserId(true);
+          setShowResetBtn(true);
           setCheckP(<StP CheP>사용 가능한 ID입니다</StP>);
         } else if (res === 400) {
           setCheckUserId(false);
@@ -198,6 +206,16 @@ const Registration = () => {
             >
               중복확인
             </Button>
+            {showResetBtn && (
+              <Button
+                IdCheckBtn
+                disabled={resetCheckUserId}
+                checkUserId={resetCheckUserId}
+                onClick={() => resetCheckUserIdHandler()}
+              >
+                수정
+              </Button>
+            )}
             {checkP}
           </StDiv>
 
@@ -478,7 +496,7 @@ const StInput = styled.input`
       }
       background-color: #f2eeee;
       border: none;
-      width: 200px;
+      width: 150px;
       height: 40px;
       border-radius: 10px;
       &:focus {
