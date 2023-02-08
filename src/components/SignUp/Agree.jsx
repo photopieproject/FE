@@ -11,6 +11,24 @@ function Agree({ setShow }) {
   const navigate = useNavigate();
   const outside = useRef();
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+  const handleClickOutside = (event) => {
+    if (outside && !outside.current.contains(event.target)) {
+      setModal1(false);
+    }
+    if (outside && !outside.current.contains(event.target)) {
+      setModal2(false);
+    }
+    if (outside && !outside.current.contains(event.target)) {
+      setModal3(false);
+    }
+  };
+
   const [allCheck, setAllCheck] = useState(false);
   const [ageCheck, setAgeCheck] = useState(false);
   const [useCheck, setUseCheck] = useState(false);
@@ -217,20 +235,21 @@ function Agree({ setShow }) {
                 약관보기
               </Button>
               {modal3 && (
-                // <StDiv
-                //   ModalBg
-                // ref={outside}
-                // onClick={(e) => {
-                //   if (e.target === outside.current) setModal3(false);
-                // }}
-                // >
-                <StDiv Modal3>
-                  <Button ModalCancleBtn onClick={() => setModal3(false)}>
-                    <MdClose color="#fffaf2" />
-                  </Button>
-                  <Marketing />
+                <StDiv
+                  ModalBg
+                  ref={outside}
+                  onClick={(e) => {
+                    if (e.target === outside.current) setModal3(false);
+                  }}
+                >
+                  <StDiv Modal3>
+                    <Button ModalCancleBtn onClick={() => setModal3(false)}>
+                      <MdClose color="#fffaf2" />
+                    </Button>
+                    <Marketing />
+                  </StDiv>
+                  //{" "}
                 </StDiv>
-                // </StDiv>
               )}
             </StDiv>
           </StDiv>

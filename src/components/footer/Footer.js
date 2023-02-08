@@ -11,6 +11,24 @@ import { useEffect } from "react";
 const Footer = () => {
   const outside = useRef();
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+  const handleClickOutside = (event) => {
+    if (outside && !outside.current.contains(event.target)) {
+      setModalOpen1(false);
+    }
+    if (outside && !outside.current.contains(event.target)) {
+      setModalOpen2(false);
+    }
+    if (outside && !outside.current.contains(event.target)) {
+      setModalOpen3(false);
+    }
+  };
+
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
   const [modalOpen3, setModalOpen3] = useState(false);
@@ -59,22 +77,38 @@ const Footer = () => {
             개인정보처리방침
           </StBtn>
           {modalOpen2 && (
-            <StDiv Modal>
-              <StBtn ModalCancleBtn onClick={() => setModalOpen2(false)}>
-                <MdClose color="#fffaf2" />
-              </StBtn>
-              <Private />
+            <StDiv
+              ModalBg
+              ref={outside}
+              onClick={(e) => {
+                if (e.target === outside.current) setModalOpen2(false);
+              }}
+            >
+              <StDiv Modal>
+                <StBtn ModalCancleBtn onClick={() => setModalOpen2(false)}>
+                  <MdClose color="#fffaf2" />
+                </StBtn>
+                <Private />
+              </StDiv>
             </StDiv>
           )}
           <StBtn agreeBtn onClick={showModal3}>
             마케팅
           </StBtn>
           {modalOpen3 && (
-            <StDiv Modal>
-              <StBtn ModalCancleBtn onClick={() => setModalOpen3(false)}>
-                <MdClose color="#fffaf2" />
-              </StBtn>
-              <Marketing />
+            <StDiv
+              ModalBg
+              ref={outside}
+              onClick={(e) => {
+                if (e.target === outside.current) setModalOpen3(false);
+              }}
+            >
+              <StDiv Modal>
+                <StBtn ModalCancleBtn onClick={() => setModalOpen3(false)}>
+                  <MdClose color="#fffaf2" />
+                </StBtn>
+                <Marketing />
+              </StDiv>
             </StDiv>
           )}
         </StDiv>
