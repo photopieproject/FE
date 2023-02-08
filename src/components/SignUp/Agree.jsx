@@ -12,18 +12,34 @@ function Agree({ setShow }) {
   const outside = useRef();
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside1);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside1);
     };
   });
-  const handleClickOutside = (event) => {
+  const handleClickOutside1 = (event) => {
     if (outside && !outside.current.contains(event.target)) {
       setModal1(false);
     }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside2);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside2);
+    };
+  });
+  const handleClickOutside2 = (event) => {
     if (outside && !outside.current.contains(event.target)) {
       setModal2(false);
     }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside3);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside3);
+    };
+  });
+  const handleClickOutside3 = (event) => {
     if (outside && !outside.current.contains(event.target)) {
       setModal3(false);
     }
