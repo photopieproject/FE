@@ -42,9 +42,7 @@ const Login = () => {
                     }, 1000);
                 }
             })
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch((err) => {});
     };
 
     return (

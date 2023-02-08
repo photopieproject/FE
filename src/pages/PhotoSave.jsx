@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 import { dataURLtoFile } from "../components/file/dataURLtoFile";
 import { KakaoTest } from "../components/Kakao/KakaoTest";
+import Span from "../components/button/Span";
 
 const PhotoSave = () => {
     const dispatch = useDispatch();
@@ -291,6 +292,15 @@ const PhotoSave = () => {
                     </StDiv>
                 </StDiv>
                 <StDiv downBtns>
+                    <StP>
+                        🚨 현재 <Span txtBold>카카오톡 공유하기</Span>를 하려면{" "}
+                        <br />
+                        QR코드를 먼저 생성해야 합니다
+                        <br />
+                        🚨 <Span txtBold>QR코드 생성</Span>을 먼저 눌러주세요!
+                        <br />
+                        빠른 시일내에 수정하겠습니다!
+                    </StP>
                     <StDiv qrcodeBox>
                         {!!qrcode ? (
                             <StImg
@@ -434,6 +444,15 @@ const StImg = styled.img`
             border: 1px solid gray;
             margin-bottom: 10px;
         `}
+`;
+
+const StP = styled.p`
+    margin: 0;
+    padding: 0 10px;
+    color: #3a3232;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 13px;
 `;
 
 export default PhotoSave;

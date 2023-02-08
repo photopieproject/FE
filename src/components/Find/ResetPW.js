@@ -65,9 +65,7 @@ function ResetPW({ userId, setUserId }) {
                     setUserId();
                 }
             })
-            .catch((err) => {
-                console.log("error: ", err);
-            });
+            .catch((err) => {});
         navigate("/login");
     };
 
