@@ -15,6 +15,24 @@ import patternSnow from "../../assets/new_frame/pattern_snow.png";
 import patternSunset from "../../assets/new_frame/pattern_sunset.png";
 import patternTulip from "../../assets/new_frame/pattern_tulip.png";
 
+export const maxCounter = [
+    {
+        name: "1인용",
+        maxPeople: 1,
+        id: 1,
+    },
+    {
+        name: "2인용",
+        maxPeople: 2,
+        id: 2,
+    },
+    {
+        name: "4인용",
+        maxPeople: 4,
+        id: 3,
+    },
+];
+
 export const oneColorFrame = [
     {
         name: "mint",

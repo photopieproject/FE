@@ -1,25 +1,27 @@
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import Button from "../components/button/Button";
 import { __chooseFrame } from "../redux/modules/photoSlice";
 import toast, { Toaster } from "react-hot-toast";
-import { oneColorFrame, patternColorFrame } from "../components/frame/NewFrame";
+import {
+    oneColorFrame,
+    patternColorFrame,
+    maxCounter,
+} from "../components/frame/NewFrame";
+import { useInput } from "../lib/utils/useInput";
 
 const Frame = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [frameNum, setFrameNum] = useState([]);
+    // const [frameNum, setFrameNum] = useState([]);
     const { roomId } = useParams();
-
-    const chooseFramehandler = (e) => {
-        setFrameNum(e.target.value);
-    };
+    const [frameNum, setFrameNum] = useInput();
+    const [maxPeople, setMaxPeople] = useInput();
 
     const chooseFrameCheckBtn = () => {
-        dispatch(__chooseFrame({ roomId, frameNum }))
+        dispatch(__chooseFrame({ roomId, frameNum, maxPeople }))
             .then((res) => {
                 if (res.payload.statusCode === 200) {
                     toast.success(res.payload.statusMsg, {
@@ -34,7 +36,13 @@ const Frame = () => {
                         },
                         duration: 4000,
                     });
-                    navigate(`/photoshoot/${roomId}`);
+                    if (res.payload.data1.maxPeople === 1) {
+                        navigate(`/onecamera/${roomId}`);
+                    } else if (res.payload.data1.maxPeople === 2) {
+                        navigate(`/twocamera/${roomId}`);
+                    } else if (res.payload.data1.maxPeople === 4) {
+                        navigate(`/fourcamera/${roomId}`);
+                    }
                 } else if (res.payload.response.status === 400) {
                     toast.error("Frame을 선택해주세요!", {
                         style: {
@@ -50,12 +58,29 @@ const Frame = () => {
                     });
                 }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {});
     };
 
     return (
         <StDiv chooseFrame>
             <Toaster />
+
+            {/* 인원 수 고르기 */}
+            <StH3>People</StH3>
+            <StDiv countSet>
+                {maxCounter.map((count) => (
+                    <StLabel htmlFor={count.name} key={count.id}>
+                        <UserCountRadio
+                            type="radio"
+                            id={count.name}
+                            value={count.maxPeople}
+                            checked={maxPeople === `${count.maxPeople}`}
+                            onChange={setMaxPeople}
+                        />
+                        <StP maxPeople>{count.name}</StP>
+                    </StLabel>
+                ))}
+            </StDiv>
 
             {/* 단색 프레임 */}
             <StH3>ONE COLOR</StH3>
@@ -68,7 +93,7 @@ const Frame = () => {
                                 id={kind.name}
                                 value={kind.frameNum}
                                 checked={frameNum === `${kind.frameNum}`}
-                                onChange={chooseFramehandler}
+                                onChange={setFrameNum}
                             />
                             <StImg src={kind.img} alt={kind.name} />
                         </StDiv>
@@ -87,7 +112,7 @@ const Frame = () => {
                                 id={kind.name}
                                 value={kind.frameNum}
                                 checked={frameNum === `${kind.frameNum}`}
-                                onChange={chooseFramehandler}
+                                onChange={setFrameNum}
                             />
                             <StImg src={kind.img} alt={kind.name} />
                         </StDiv>
@@ -113,6 +138,15 @@ const StDiv = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
+        `}
+    ${(props) =>
+        props.countSet &&
+        css`
+            width: 95%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
         `}
     ${(props) =>
         props.frameSet &&
@@ -148,6 +182,34 @@ const StInput = styled.input.attrs({ type: "radio" })`
         border-radius: 20px;
         box-sizing: border-box;
     }
+`;
+
+const StP = styled.p`
+    font-weight: bold;
+    font-size: 18px;
+    ${(props) =>
+        props.maxPeople &&
+        css`
+            cursor: pointer;
+            margin: 0;
+            text-align: center;
+        `}
+`;
+
+const UserCountRadio = styled.input.attrs({ type: "radio" })`
+    visibility: hidden;
+    &:checked + p {
+        border: 3px solid #3a3232;
+        background-color: #3a3232;
+        color: #fffaf2;
+        border-radius: 20px;
+        padding: 3px 10px;
+        box-sizing: border-box;
+    }
+`;
+
+const StLabel = styled.label`
+    width: 100px;
 `;
 
 export default Frame;

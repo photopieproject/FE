@@ -99,9 +99,7 @@ const RoomOpen = () => {
                     navigate("/login");
                 }
             })
-            .catch((err) => {
-                console.log("error", err);
-            });
+            .catch((err) => {});
     };
 
     // 코드로 방 입장
@@ -120,7 +118,11 @@ const RoomOpen = () => {
                             secondary: "#3a3232",
                         },
                     });
-                    navigate(`/photoshoot/${res.payload.data1.id}`);
+                    if (res.payload.data1.maxPeople === 2) {
+                        navigate(`/twocamera/${res.payload.data1.id}`);
+                    } else if (res.payload.data1.maxPeople === 4) {
+                        navigate(`/fourcamera/${res.payload.data1.id}`);
+                    }
                 } else if (res.payload.data.statusCode === 400) {
                     if (roomCode === "") {
                         toast.error("방 코드를 입력해주세요", {
@@ -172,7 +174,7 @@ const RoomOpen = () => {
                     }, 1000);
                 }
             })
-            .catch((err) => console.log("error", err));
+            .catch((err) => {});
     };
 
     return (
