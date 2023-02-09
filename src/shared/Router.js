@@ -4,20 +4,21 @@ import Layout from "../components/layout/Layout";
 import Main from "../pages/Main";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
-import RoomOpen from "../pages/RoomOpen";
-import Frame from "../pages/Frame";
-import Loading from "../pages/Loading";
-import PhotoSave from "../pages/PhotoSave";
-import Kakao from "../pages/Kakao";
-import Private from "../pages/Private";
-import Terms from "../pages/Terms";
-import Marketing from "../pages/Marketing";
-import Google from "../pages/Google";
 import FindPW from "../pages/FindPW";
 import FindID from "../pages/FindID";
-import TwoCamera from "../pages/TwoCamera";
+import RoomOpen from "../pages/RoomOpen";
+import Frame from "../pages/Frame";
 import OneCamera from "../pages/OneCamera";
+import TwoCamera from "../pages/TwoCamera";
 import FourCamera from "../pages/FourCamera";
+import Loading from "../pages/Loading";
+import PhotoSave from "../pages/PhotoSave";
+import Terms from "../pages/Terms";
+import Private from "../pages/Private";
+import Marketing from "../pages/Marketing";
+import Kakao from "../pages/Kakao";
+import Google from "../pages/Google";
+import SharePage from "../pages/SharePage";
 
 const Router = () => {
     return (
@@ -47,6 +48,7 @@ const Router = () => {
                         path="api/user/google/callback"
                         element={<Google />}
                     ></Route>
+                    <Route path="sharepage" element={<SharePage />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

@@ -15,12 +15,25 @@ const Frame = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // const [frameNum, setFrameNum] = useState([]);
     const { roomId } = useParams();
     const [frameNum, setFrameNum] = useInput();
     const [maxPeople, setMaxPeople] = useInput();
 
     const chooseFrameCheckBtn = () => {
+        if (!maxPeople || !frameNum) {
+            toast.error("인원 수 또는 Frame을 선택해주세요!", {
+                style: {
+                    borderRadius: "10px",
+                    background: "#fffaf2",
+                    color: "#3a3232",
+                },
+                iconTheme: {
+                    primary: "#3a3232",
+                    secondary: "#fffaf2",
+                },
+                duration: 4000,
+            });
+        }
         dispatch(__chooseFrame({ roomId, frameNum, maxPeople }))
             .then((res) => {
                 if (res.payload.statusCode === 200) {

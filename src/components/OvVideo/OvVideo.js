@@ -10,6 +10,19 @@ const OpenViduVideoComponent = (props) => {
         return () => {};
     }, [props.streamManager, videoRef]);
 
+    // React.useEffect(() => {
+    //     const getUserMedia = async () => {
+    //         try {
+    //             const stream = await navigator.mediaDevices.getUserMedia({
+    //                 video: { width: 200, height: 300 },
+    //                 audio: true,
+    //             });
+    //             videoRef.current.srcObject = stream;
+    //         } catch (err) {}
+    //     };
+    //     getUserMedia();
+    // }, []);
+
     return <video autoPlay={true} ref={videoRef} />;
 };
 

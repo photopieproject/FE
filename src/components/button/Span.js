@@ -42,16 +42,8 @@ const StSpan = styled.span`
             margin-left: 10px;
         `}
     ${(props) =>
-        props.bold &&
-        css`
-            cursor: auto;
-            font-weight: bold;
-            color: red;
-        `}
-    ${(props) =>
         props.txtBold &&
         css`
-            font-family: "HELVETICA";
             cursor: auto;
             font-weight: bold;
             color: red;

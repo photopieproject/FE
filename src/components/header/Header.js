@@ -15,6 +15,7 @@ const Header = () => {
     if (window.location.pathname === "/findid") return null;
     if (window.location.pathname === "/findpw") return null;
     if (window.location.pathname === "/resetpw") return null;
+    if (window.location.pathname === "/sharepage") return null;
 
     const logout = () => {
         toast.success("로그아웃 되었습니다", {
