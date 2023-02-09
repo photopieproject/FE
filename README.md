@@ -1,3 +1,6 @@
+![Header](https://cdn.discordapp.com/attachments/1037267111585792020/1073301454418366654/KakaoTalk_Photo_2023-02-10-02-56-35.jpeg)
+<br />
+
 # Photo-Pie 📷
 
 ## 주요 기능
@@ -17,23 +20,24 @@
 
 > <br /> **Photo-Pie Project**
 >
-> 서로 다른 공간에 있지만 그 순간을 함께 남겨둘 수 있다면 ?
-> 포토 파이에서 일상을 나누는 즐거움을 경험해보세요 !
-> Different spaces, same memory.
-> Experience the joy of sharing your daily moments with Photo Pie.
-> &nbsp;
+> 서로 다른 공간에 있지만 그 순간을 함께 남겨둘 수 있다면 ?<br />
+> 포토 파이에서 일상을 나누는 즐거움을 경험해보세요 !<br />
+> Different spaces, same memory.<br />
+> Experience the joy of sharing your daily moments with Photo Pie.<br /> > &nbsp;
 
-📷 [Photo-Pie 구경하러 가기](https://photo-pie.store)
-📒 [Notion: Photo-Pie Project](https://www.notion.so/yjuu/2-e2370506d53d45df9a48424f42dc996b)
-📱 [Front-End Repository](https://github.com/photopieproject/FE)
-📲 [Back-End Repository](https://github.com/photopieproject/BE)
-🎥 [프로젝트 시연영상 보러가기](https://youtu.be/m_LBckOKPBo)
+📷 [Photo-Pie 구경하러 가기](https://photo-pie.store)<br />
+📒 [Notion: Photo-Pie Project](https://www.notion.so/yjuu/2-e2370506d53d45df9a48424f42dc996b)<br />
+📱 [Front-End Repository](https://github.com/photopieproject/FE)<br />
+📲 [Back-End Repository](https://github.com/photopieproject/BE)<br />
+🎥 [프로젝트 시연영상 보러가기](https://youtu.be/m_LBckOKPBo)<br />
 
 ---
 
 ## 개발 일정
 
 📅 2022년 12월 30일 ~ 📅 2023년 2월 10일
+
+---
 
 ## 서비스 아키텍쳐
 
@@ -48,8 +52,6 @@
 |                          ![Redux](https://img.shields.io/badge/Redux-764ABC.svg?style=for-the-badge&logo=Redux&logoColor=white)                          |                ![AmazonEC2](https://img.shields.io/badge/Amazon_EC2-FF9900.svg?style=for-the-badge&logo=AmazonEC2&logoColor=white)                 |
 |             ![styled](https://img.shields.io/badge/styeld_components-DB7093.svg?style=for-the-badge&logo=styled-components&logoColor=white)              |                  ![AmazonS3](https://img.shields.io/badge/Amazon_S3-569A31.svg?style=for-the-badge&logo=AmazonS3&logoColor=white)                  |
 |                 ![AWSAmplify](https://img.shields.io/badge/AWS_Amplify-FF9900.svg?style=for-the-badge&logo=AWS-Amplify&logoColor=white)                  |          ![GitHubActions](https://img.shields.io/badge/GitHub_Actions-2088FF.svg?style=for-the-badge&logo=GitHubActions&logoColor=white)           |
-
----
 
 | ![Swagger](https://img.shields.io/badge/Swagger-85EA2D.svg?style=for-the-badge&logo=Swagger&logoColor=white) | ![openvidu](https://img.shields.io/badge/openvidu-6DB33F.svg?style=for-the-badge&logoColor=white) | ![WebRTC](https://img.shields.io/badge/WebRTC-333333.svg?style=for-the-badge&logo=WebRTC&logoColor=white) | ![Docker](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white) | ![NGINX](https://img.shields.io/badge/NGINX-009639.svg?style=for-the-badge&logo=NGINX&logoColor=white) |
 | :----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------: |
@@ -96,8 +98,8 @@
 
 ## Trouble Shooting
 
-`Front_End`
+`Front_End`<br />
 ![프론트트러블슈팅](https://cdn.discordapp.com/attachments/1037267111585792020/1073285974014054450/2023-02-10_1.54.53.png)
 <br />
-`Back_End`
+`Back_End`<br />
 ![백트러블슈팅](https://cdn.discordapp.com/attachments/1037267111585792020/1073285974274084956/2023-02-10_1.55.09.png)
