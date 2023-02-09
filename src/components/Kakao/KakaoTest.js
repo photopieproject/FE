@@ -3,7 +3,7 @@ export const KakaoTest = (kakaoImg) => {
     if (window.Kakao) {
         const kakao = window.Kakao;
         if (!kakao.isInitialized()) {
-            kakao.init("8b4bfa212ce98720d4df490e0758420e");
+            kakao.init(process.env.REACT_APP_KAKAO_SHARE);
         }
 
         kakao.Link.sendDefault({
@@ -11,8 +11,7 @@ export const KakaoTest = (kakaoImg) => {
             content: {
                 title: "Photo-Pie",
                 description: "함께 찍은 사진을 공유하고 다운로드 해보세요!",
-                imageUrl:
-                    "https://my-photopie-github-actions-s3-bucket.s3.ap-northeast-2.amazonaws.com/photopie-logo.png",
+                imageUrl: process.env.REACT_APP_IMAGE_URL,
                 link: {
                     mobileWebUrl: kakaoImg,
                     webUrl: kakaoImg,
