@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 // 기본 URL
 const instance = axios.create({
-    baseURL: "https://photo-pie.shop/api",
+    baseURL: BASE_URL,
     header: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -12,7 +14,7 @@ const instance = axios.create({
 
 // baseURL
 export const baseURL = axios.create({
-    baseURL: "https://photo-pie.shop/api",
+    baseURL: BASE_URL,
     headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -22,7 +24,7 @@ export const baseURL = axios.create({
 
 // social 로그인
 export const socialLogin = axios.create({
-    baseURL: "https://photo-pie.shop/api",
+    baseURL: BASE_URL,
     headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
