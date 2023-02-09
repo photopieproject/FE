@@ -72,7 +72,7 @@ const StDiv = styled.div`
             &::after {
                 content: "LOADING ...";
                 color: #c8c6c6;
-                font-family: Lato, "Helvetica Neue";
+                font-family: "Belleza";
                 font-weight: 200;
                 font-size: 20px;
                 position: absolute;

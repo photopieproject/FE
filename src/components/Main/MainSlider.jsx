@@ -172,7 +172,7 @@ export const MainSlider = () => {
                                         <StP txt>
                                             새로고침 버튼 왼쪽에 자물쇠를 눌러서
                                             카메라와 마이크 접근을
-                                            <Span bold> 허용</Span>으로
+                                            <Span txtBold> 허용</Span>으로
                                             바꿔주세요.
                                         </StP>
                                     </StLi>
@@ -204,7 +204,9 @@ export const MainSlider = () => {
                                         <StP txt>
                                             촬영이 끝난 후 다같이
                                             <br />
-                                            <Span bold>사진전송 하러 가기</Span>
+                                            <Span txtBold>
+                                                사진전송 하러 가기
+                                            </Span>
                                             를 눌러 이동해 주세요.
                                         </StP>
                                     </StLi>
@@ -215,7 +217,7 @@ export const MainSlider = () => {
                                             촬영한 사진을 저장하고 친구들과
                                             추억을 공유하세요!
                                             <br /> 저장된 사진은{" "}
-                                            <Span bold>
+                                            <Span txtBold>
                                                 {" "}
                                                 24시간이 지나면 자동 삭제
                                             </Span>
