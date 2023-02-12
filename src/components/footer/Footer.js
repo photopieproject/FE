@@ -174,8 +174,8 @@ const Footer = () => {
                             </StDiv>
                         </StDiv>
                     )}
-                    {!!localStorage.getItem("id") &&
-                    !!localStorage.getItem("Authorization") ? (
+                    {localStorage.getItem("id") ||
+                    localStorage.getItem("Authorization") ? (
                         <StBtn agreeBtn onClick={outUserHandler}>
                             회원탈퇴
                         </StBtn>
