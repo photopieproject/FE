@@ -174,10 +174,12 @@ const Footer = () => {
                             </StDiv>
                         </StDiv>
                     )}
-                    {/* <StBtn agreeBtn onClick={preparingHandler}> */}
-                    <StBtn agreeBtn onClick={outUserHandler}>
-                        회원탈퇴
-                    </StBtn>
+                    {!!localStorage.getItem("id") &&
+                    !!localStorage.getItem("Authorization") ? (
+                        <StBtn agreeBtn onClick={outUserHandler}>
+                            회원탈퇴
+                        </StBtn>
+                    ) : null}
                 </StDiv>
             </StDiv>
         </StDiv>

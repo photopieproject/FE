@@ -64,7 +64,9 @@ export const apis = {
     outUser: () =>
         baseURL.delete("user/mypage/deleteUser", {
             headers: {
-                Authorization: localStorage.getItem("id"),
+                Authorization:
+                    localStorage.getItem("id") ||
+                    localStorage.getItem("Authorization"),
             },
         }),
 
