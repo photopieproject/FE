@@ -172,6 +172,16 @@ export const __outUser = async () => {
         console.log("data?", data);
         return data;
     } catch (error) {
-        console.log("err", error);
+        toast.error("유저 정보가 없습니다!", {
+            style: {
+                borderRadius: "10px",
+                background: "#fffaf2",
+                color: "#3a3232",
+            },
+            iconTheme: {
+                primary: "#3a3232",
+                secondary: "#fffaf2",
+            },
+        });
     }
 };
