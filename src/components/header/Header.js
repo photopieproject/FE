@@ -1,75 +1,87 @@
-// import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Span from "../button/Span";
-import Swal from "sweetalert2";
-import { GiPieSlice } from "react-icons/gi";
+import toast, { Toaster } from "react-hot-toast";
+// import MyPageModal from "../modal/MyPageModal";
+// import { useState } from "react";
 
 const Header = () => {
     const navigate = useNavigate();
+    const nickname = localStorage.getItem("nickname");
+    // const [myPageModal, setMyPageModal] = useState(false);
+
+    if (window.location.pathname === "/login") return null;
+    if (window.location.pathname === "/signup") return null;
+    if (window.location.pathname === "/findid") return null;
+    if (window.location.pathname === "/findpw") return null;
+    if (window.location.pathname === "/resetpw") return null;
+    if (window.location.pathname === "/sharepage") return null;
+
+    const logout = () => {
+        toast.success("로그아웃 되었습니다", {
+            icon: "👋🏻",
+            style: {
+                borderRadius: "50px",
+                background: "#3a3232",
+                color: "#fffaf2",
+            },
+        });
+    };
+
+    const removeStorage = () => {
+        localStorage.removeItem("id");
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("Authorization");
+
+        navigate("/");
+    };
+
+    // const modalTest = () => {
+    //     if (myPageModal === false) {
+    //         setMyPageModal(true);
+    //     } else {
+    //         setMyPageModal(false);
+    //     }
+    // };
 
     return (
-        <StDiv nav_main>
-            <div>
-                <Span nav_logo onClick={() => navigate("/")}>
-                    {/* <GiPieSlice /> */}
-                    Photo-Pie
+        <StDiv topBox>
+            <Toaster />
+            <StDiv navMain>
+                <Span onClick={() => navigate("/")}>
+                    <StImg src="/image/photopie_logo_1.png" alt="logo" />
                 </Span>
-            </div>
-            <StDiv nav_category>
-                <StDiv cate_gory>
-                    <Span cate_txt active_txt onClick={() => navigate("/")}>
-                        Home
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/howto")}>
-                        HowTo
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/roomopen")}>
-                        RoomOpen
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/roomwaiting")}>
-                        RoomWaiting
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/frame")}>
-                        Frame
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/photoshoot")}>
-                        PhotoShoot
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/loading")}>
-                        Loading
-                    </Span>
-                    <Span cate_txt onClick={() => navigate("/photosave")}>
-                        PhotoSave
-                    </Span>
-                </StDiv>
-                <StDiv log_sign>
-                    {/* <StSpan onClick={() => navigate("/login")}>로그인</StSpan> */}
+                <StDiv logSign>
+                    {nickname ? (
+                        <Span hello>
+                            Hello!
+                            <Span nick>{nickname}님</Span>
+                        </Span>
+                    ) : null}
                     {/* 토큰이 있으면 로그아웃으로 버튼 변경(누르면 쿠키삭제) / 토큰 없으면 로그인 버튼 */}
-                    {/*  */}
                     {!localStorage.getItem("id") &&
                     !localStorage.getItem("Authorization") ? (
                         <Span onClick={() => navigate("/login")}>로그인</Span>
                     ) : (
-                        <Span
-                            onClick={() => {
-                                // __postLogout();
-                                Swal.fire(
-                                    "Logout",
-                                    "로그아웃 되었습니다",
-                                    "success"
-                                );
-                                // alert("로그아웃 되었습니다!");
-                                localStorage.removeItem("id");
-                                localStorage.removeItem("nickname");
-                                localStorage.removeItem("Authorization");
-                                navigate("/login");
-                            }}
-                        >
-                            로그아웃
-                        </Span>
+                        <>
+                            <Span
+                                onClick={() => {
+                                    logout();
+                                    removeStorage();
+                                }}
+                            >
+                                로그아웃
+                            </Span>
+                        </>
                     )}
-                    <Span onClick={() => navigate("/signup")}>회원가입</Span>
+                    {!localStorage.getItem("id") &&
+                    !localStorage.getItem("Authorization") ? (
+                        <Span onClick={() => navigate("/signup")}>
+                            회원가입
+                        </Span>
+                    ) : null}
+                    {/* <Span onClick={modalTest}>MyPage</Span>
+                    {myPageModal && <MyPageModal />} */}
                 </StDiv>
             </StDiv>
         </StDiv>
@@ -78,11 +90,16 @@ const Header = () => {
 
 const StDiv = styled.div`
     ${(props) =>
-        props.nav_main &&
+        props.topBox &&
+        css`
+            background-color: #fffaf2;
+        `}
+    ${(props) =>
+        props.navMain &&
         css`
             max-width: 1200px;
             width: 95%;
-            height: 65px;
+            height: 55px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -90,24 +107,40 @@ const StDiv = styled.div`
             margin: 0 auto;
         `}
     ${(props) =>
-        props.nav_category &&
-        css`
-            display: flex;
-            gap: 60px;
-            align-items: baseline;
-        `}
-  ${(props) =>
-        props.cate_gory &&
+        props.cateGory &&
         css`
             display: flex;
             gap: 30px;
         `}
-  ${(props) =>
-        props.log_sign &&
+    ${(props) =>
+        props.navMain &&
+        css`
+            width: 1200px;
+            height: 55px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 0 auto;
+        `}
+    ${(props) =>
+        props.cateGory &&
         css`
             display: flex;
+            gap: 30px;
+        `}
+    ${(props) =>
+        props.logSign &&
+        css`
+            display: flex;
+            align-items: center;
             gap: 15px;
         `}
+`;
+
+const StImg = styled.img`
+    margin: 10px;
+    width: 100px;
 `;
 
 export default Header;

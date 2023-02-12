@@ -7,7 +7,10 @@ const layoutStyles = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    minHeight: "82.5vh",
+    minHeight: "80vh",
+    backgroundColor: "#fffaf2",
+    width: "100%",
+    maxWidth: "1920px",
 };
 
 const Layout = ({ children }) => {

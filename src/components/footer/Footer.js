@@ -1,147 +1,230 @@
 import styled, { css } from "styled-components";
-import { GiFluffyWing, GiCherry } from "react-icons/gi";
-import { FaTrophy, FaLeaf, FaLemon } from "react-icons/fa";
-import { BsFacebook, BsInstagram, BsYoutube } from "react-icons/bs";
-import { SiNotion } from "react-icons/si";
-import { IoDiamond } from "react-icons/io5";
-import Button from "../button/Button";
+import { useState, useRef } from "react";
+import { MdClose } from "react-icons/md";
+import Private from "../../pages/Private";
+import Terms from "../../pages/Terms";
+import Marketing from "../../pages/Marketing";
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
+// import { __outUser } from "../../redux/modules/loginSlice";
 
 const Footer = () => {
-    const chan = "https://github.com/front-chan";
-    const jungeun = "https://github.com/wjddms0501";
-    const yeonju = "https://github.com/OhYeonJu";
-    const crystal = "https://github.com/Hwangbambi";
-    const suyeah = "https://github.com/010me";
-    const kim = "https://www.behance.net/jiwontheone";
-    const notion =
-        "https://www.notion.so/yjuu/2-e2370506d53d45df9a48424f42dc996b";
+    const outside = useRef();
 
-    const facebook = "https://www.facebook.com";
-    const instagram = "https://www.instagram.com";
-    const youtube = "https://www.youtube.com";
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (outside && !outside.current.contains(event.target)) {
+                setModalOpen1(false);
+            }
+            if (outside && !outside.current.contains(event.target)) {
+                setModalOpen2(false);
+            }
+            if (outside && !outside.current.contains(event.target)) {
+                setModalOpen3(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    });
+
+    const [modalOpen1, setModalOpen1] = useState(false);
+    const [modalOpen2, setModalOpen2] = useState(false);
+    const [modalOpen3, setModalOpen3] = useState(false);
+
+    const showModal1 = () => {
+        setModalOpen1(true);
+    };
+    const showModal2 = () => {
+        setModalOpen2(true);
+    };
+    const showModal3 = () => {
+        setModalOpen3(true);
+    };
+
+    if (window.location.pathname === "/login") return null;
+    if (window.location.pathname === "/signup") return null;
+    if (window.location.pathname === "/findid") return null;
+    if (window.location.pathname === "/findpw") return null;
+    if (window.location.pathname === "/resetpw") return null;
+    if (window.location.pathname === "/sharepage") return null;
+
+    const preparingHandler = () => {
+        toast.error("현재 점검중입니다!", {
+            style: {
+                borderRadius: "10px",
+                background: "#fffaf2",
+                color: "#3a3232",
+            },
+            iconTheme: {
+                primary: "#3a3232",
+                secondary: "#fffaf2",
+            },
+            duration: 4000,
+        });
+    };
+
+    // const outUserHandler = () => {
+    //     __outUser()
+    //         .then((res) => console.log("outUser res?", res))
+    //         .catch((err) => console.log("outUser err?", err));
+    // };
 
     return (
-        <StDiv footer_box>
-            <StDiv copy_box>
-                <StP copy_right>copyright ©️ Photo-Pie</StP>
-                <div>
-                    <Button
-                        onClick={() => {
-                            window.open(yeonju);
-                        }}
-                    >
-                        <FaLeaf size="25" color="yellowgreen" />
-                        <StP>실세 부팀장 _ 연듀곤듀</StP>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            window.open(crystal);
-                        }}
-                    >
-                        <IoDiamond size="25" color="skyblue" />
-                        <StP>회계 밤비쌤 _ Crystal 황</StP>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            window.open(suyeah);
-                        }}
-                    >
-                        <FaLemon size="25" color="#fff200" />
-                        <StP>대표 관리자 _ 레모나 킴</StP>
-                    </Button>
-                </div>
-                <div>
-                    <Button
-                        onClick={() => {
-                            window.open(chan);
-                        }}
-                    >
-                        <FaTrophy size="25" color="#004c8c" />
-                        <StP>쩌리 최팀장 _ 최삐삐</StP>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            window.open(jungeun);
-                        }}
-                    >
-                        <GiCherry size="25" color="red" />
-                        <StP>잡심 부름꾼 _ 햅삐-졍</StP>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            window.open(kim);
-                        }}
-                    >
-                        <GiFluffyWing size="25" color="#eaa4f9" />
-                        <StP>천지 창조좌 _ Kim 미쉘</StP>
-                    </Button>
-                </div>
+        <StDiv topBox ref={outside}>
+            <StDiv footerBox>
+                <StP copyRight>copyright ©️ PHOTO-PIE</StP>
+                <StDiv agreeBox>
+                    <StBtn agreeBtn onClick={showModal1}>
+                        이용약관
+                    </StBtn>
+                    {modalOpen1 && (
+                        <StDiv
+                            ModalBg
+                            ref={outside}
+                            onClick={(e) => {
+                                if (e.target === outside.current)
+                                    setModalOpen1(false);
+                            }}
+                        >
+                            <StDiv Modal>
+                                <StBtn
+                                    ModalCancleBtn
+                                    onClick={() => setModalOpen1(false)}
+                                >
+                                    <MdClose color="#fffaf2" />
+                                </StBtn>
+                                <Terms />
+                            </StDiv>
+                        </StDiv>
+                    )}
+                    <StBtn agreeBtn onClick={showModal2}>
+                        개인정보처리방침
+                    </StBtn>
+                    {modalOpen2 && (
+                        <StDiv
+                            ModalBg
+                            ref={outside}
+                            onClick={(e) => {
+                                if (e.target === outside.current)
+                                    setModalOpen2(false);
+                            }}
+                        >
+                            <StDiv Modal>
+                                <StBtn
+                                    ModalCancleBtn
+                                    onClick={() => setModalOpen2(false)}
+                                >
+                                    <MdClose color="#fffaf2" />
+                                </StBtn>
+                                <Private />
+                            </StDiv>
+                        </StDiv>
+                    )}
+                    <StBtn agreeBtn onClick={showModal3}>
+                        마케팅
+                    </StBtn>
+                    {modalOpen3 && (
+                        <StDiv
+                            ModalBg
+                            ref={outside}
+                            onClick={(e) => {
+                                if (e.target === outside.current)
+                                    setModalOpen3(false);
+                            }}
+                        >
+                            <StDiv Modal>
+                                <StBtn
+                                    ModalCancleBtn
+                                    onClick={() => setModalOpen3(false)}
+                                >
+                                    <MdClose color="#fffaf2" />
+                                </StBtn>
+                                <Marketing />
+                            </StDiv>
+                        </StDiv>
+                    )}
+                    <StBtn agreeBtn onClick={preparingHandler}>
+                        {/* <StBtn agreeBtn onClick={outUserHandler}> */}
+                        회원탈퇴
+                    </StBtn>
+                </StDiv>
             </StDiv>
-            <div>
-                <Button
-                    onClick={() => {
-                        window.open(notion);
-                    }}
-                >
-                    <SiNotion size="25" color="black" />
-                </Button>
-                <Button
-                    onClick={() => {
-                        window.open(facebook);
-                    }}
-                >
-                    <BsFacebook size="25" color="#1877f2" />
-                </Button>
-                <Button
-                    onClick={() => {
-                        window.open(instagram);
-                    }}
-                >
-                    <BsInstagram size="25" color="#fc00eb" />
-                </Button>
-                <Button
-                    onClick={() => {
-                        window.open(youtube);
-                    }}
-                >
-                    <BsYoutube size="25" color="red" />
-                </Button>
-            </div>
         </StDiv>
     );
 };
 
+const StBtn = styled.button`
+    ${(props) =>
+        props.agreeBtn &&
+        css`
+            border: 0;
+            background-color: transparent;
+            color: #7a7575;
+            cursor: pointer;
+        `}
+    ${(props) =>
+        props.ModalCancleBtn &&
+        css`
+            position: fixed;
+            width: 25px;
+            height: 25px;
+            border-radius: 50px;
+            margin: 10px 0 0 -15px;
+            background-color: #3a3232;
+            color: #fffaf2;
+            display: flex;
+            align-items: center;
+        `}
+`;
+
 const StDiv = styled.div`
     ${(props) =>
-        props.footer_box &&
+        props.Modal &&
+        css`
+            width: 600px;
+            height: 600px;
+            padding: 5px 20px;
+            border: 1px solid #3a3232;
+            background-color: #faf7f2;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 100%;
+            flex-direction: column;
+            overflow: scroll;
+            display: flex;
+            position: absolute;
+            z-index: 999;
+        `}
+    ${(props) =>
+        props.topBox &&
+        css`
+            background-color: #fffaf2;
+        `}
+  ${(props) =>
+        props.footerBox &&
         css`
             max-width: 1200px;
             width: 95%;
-            height: 150px;
+            height: 70px;
             display: flex;
             color: #868b94;
-            align-items: flex-start;
+            align-items: flex-end;
             justify-content: space-between;
             font-size: 14px;
-            margin: 0 auto 10px auto;
+            margin: 0 auto 0px auto;
             padding: 12px 16px;
         `}
     ${(props) =>
-        props.back_front_txt &&
+        props.agreeBox &&
         css`
             display: flex;
-            justify-content: flex-start;
-            margin-left: 10px;
-            gap: 130px;
-        `}
-        ${(props) =>
-        props.copy_box &&
-        css`
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
+            gap: 30px;
         `}
 `;
 
@@ -149,13 +232,20 @@ const StP = styled.p`
     margin: 0;
 
     ${(props) =>
-        props.copy_right &&
+        props.copyRight &&
         css`
-            color: #706fd3;
-            margin-left: -200px;
-            margin-bottom: 20px;
+            font-family: "Belleza", sans-serif;
+            color: #3a3232;
+            margin: 10px 0;
             font-size: 18px;
             font-weight: bold;
+        `}
+    ${(props) =>
+        props.agree &&
+        css`
+            cursor: pointer;
+            margin: 10px 0;
+            text-align: right;
         `}
 `;
 

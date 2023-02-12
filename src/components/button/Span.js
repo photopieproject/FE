@@ -1,13 +1,17 @@
 import styled, { css } from "styled-components";
 
 const Span = (props) => {
-    const { children, onClick, nav_logo, active_txt, cate_txt } = props;
+    const { children, onClick, nick, hello, roomName, red, bold, txtBold } =
+        props;
     return (
         <StSpan
             onClick={onClick}
-            nav_logo={nav_logo}
-            active_txt={active_txt}
-            cate_txt={cate_txt}
+            nick={nick}
+            hello={hello}
+            roomName={roomName}
+            red={red}
+            bold={bold}
+            txtBold={txtBold}
         >
             {children}
         </StSpan>
@@ -16,24 +20,33 @@ const Span = (props) => {
 
 const StSpan = styled.span`
     cursor: pointer;
+    font-family: "Nanum Myeongjo", serif;
     ${(props) =>
-        props.nav_logo &&
+        props.nick &&
         css`
-            color: #706fd3;
-            font-size: 30px;
-            font-weight: bold;
-            display: flex;
+            cursor: auto;
+            margin-left: 10px;
         `}
     ${(props) =>
-        props.cate_txt &&
+        props.hello &&
         css`
-            font-size: 18px;
+            cursor: auto;
+            margin-right: 30px;
         `}
     ${(props) =>
-        props.active_txt &&
+        props.roomName &&
         css`
-            color: #706fd3;
+            cursor: auto;
+            font-size: 24px;
             font-weight: bold;
+            margin-left: 10px;
+        `}
+    ${(props) =>
+        props.txtBold &&
+        css`
+            cursor: auto;
+            font-weight: bold;
+            color: red;
         `}
 `;
 
