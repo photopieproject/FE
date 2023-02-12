@@ -1,5 +1,5 @@
 import Slider from "react-slick";
-import React from "react";
+import React, { useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled, { css } from "styled-components";
@@ -14,9 +14,12 @@ import patternSunset from "../../assets/new_frame/pattern_sunset.png";
 import Button from "../button/Button";
 import { useState } from "react";
 import GuideModal from "../modal/GuideModal";
+import { useDispatch } from "react-redux";
+import { __mainTopFrame } from "../../redux/modules/photoSlice";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [guideModal, setGuideModal] = useState(false);
 
@@ -31,6 +34,12 @@ export const MainSlider = () => {
         autoplaySpeed: 8000,
         pauseOnHover: true,
     };
+
+    useEffect(() => {
+        dispatch(__mainTopFrame())
+            .then((res) => console.log("main res?", res))
+            .catch((err) => console.log(err));
+    });
 
     const guideModalHandler = () => {
         setGuideModal(true);

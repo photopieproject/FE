@@ -5,6 +5,7 @@ const initialState = {
     videoRooms: [],
     videoRoomLists: [],
     frames: [],
+    topFrames: [],
     sessionId: [],
     token: [],
     photos: [],
@@ -16,6 +17,19 @@ const initialState = {
     isLoading: true,
     error: null,
 };
+
+// Main Top 5 Frame
+export const __mainTopFrame = createAsyncThunk(
+    "mainTopFrame",
+    async (payload, thunkAPI) => {
+        try {
+            const data = await apis.mainTopFrame(payload);
+            return thunkAPI.fulfillWithValue(data.data);
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err);
+        }
+    }
+);
 
 // photo 저장 관련
 export const __takePhoto = createAsyncThunk(
@@ -113,6 +127,19 @@ export const photoSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
+        // photo 저장 관련
+        [__mainTopFrame.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__mainTopFrame.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.topFrames = action.payload;
+        },
+        [__mainTopFrame.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
         // photo 저장 관련
         [__takePhoto.pending]: (state) => {
             state.isLoading = true;
