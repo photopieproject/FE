@@ -5,11 +5,15 @@ import Private from "../../pages/Private";
 import Terms from "../../pages/Terms";
 import Marketing from "../../pages/Marketing";
 import { useEffect } from "react";
-import { toast } from "react-hot-toast";
-// import { __outUser } from "../../redux/modules/loginSlice";
+// import { toast } from "react-hot-toast";
+import { __outUser } from "../../redux/modules/loginSlice";
+import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
     const outside = useRef();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -52,29 +56,52 @@ const Footer = () => {
     if (window.location.pathname === "/resetpw") return null;
     if (window.location.pathname === "/sharepage") return null;
 
-    const preparingHandler = () => {
-        toast.error("현재 점검중입니다!", {
-            style: {
-                borderRadius: "10px",
-                background: "#fffaf2",
-                color: "#3a3232",
-            },
-            iconTheme: {
-                primary: "#3a3232",
-                secondary: "#fffaf2",
-            },
-            duration: 4000,
+    const outUserHandler = (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: "탈퇴 시 모든 정보가 삭제됩니다!",
+            text: "탈퇴하기를 누르면 되돌릴 수 없습니다!",
+            icon: "warning",
+
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "탈퇴하기",
+            cancelButtonText: "취소하기",
+
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                __outUser()
+                    .then((res) => {
+                        if (res.data.statusCode === 200) {
+                            console.log(res);
+                            toast.success("그동안 이용해주셔서 감사합니다.", {
+                                style: {
+                                    borderRadius: "10px",
+                                    background: "#3a3232",
+                                    color: "#fffaf2",
+                                },
+                                iconTheme: {
+                                    primary: "#fffaf2",
+                                    secondary: "#3a3232",
+                                },
+                                duration: 4000,
+                            });
+                            localStorage.clear();
+                            navigate("/");
+                        } else {
+                            return;
+                        }
+                    })
+                    .catch((err) => {});
+            }
         });
     };
 
-    // const outUserHandler = () => {
-    //     __outUser()
-    //         .then((res) => console.log("outUser res?", res))
-    //         .catch((err) => console.log("outUser err?", err));
-    // };
-
     return (
         <StDiv topBox ref={outside}>
+            <Toaster />
             <StDiv footerBox>
                 <StP copyRight>copyright ©️ PHOTO-PIE</StP>
                 <StDiv agreeBox>
@@ -147,8 +174,8 @@ const Footer = () => {
                             </StDiv>
                         </StDiv>
                     )}
-                    <StBtn agreeBtn onClick={preparingHandler}>
-                        {/* <StBtn agreeBtn onClick={outUserHandler}> */}
+                    {/* <StBtn agreeBtn onClick={preparingHandler}> */}
+                    <StBtn agreeBtn onClick={outUserHandler}>
                         회원탈퇴
                     </StBtn>
                 </StDiv>

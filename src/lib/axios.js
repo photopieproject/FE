@@ -61,7 +61,12 @@ export const apis = {
         }),
     resetPW: (password, userId) =>
         instance.put("/user/reset-pw", password, userId),
-    outUser: () => instance.delete("user/mypage/deleteUser"),
+    outUser: () =>
+        baseURL.delete("user/mypage/deleteUser", {
+            headers: {
+                Authorization: localStorage.getItem("id"),
+            },
+        }),
 
     // 소셜 로그인 관련
     kakaoLogin: (code) => socialLogin.get(`/user/kakao/callback?code=${code}`),

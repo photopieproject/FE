@@ -29,9 +29,7 @@ const Header = () => {
     };
 
     const removeStorage = () => {
-        localStorage.removeItem("id");
-        localStorage.removeItem("nickname");
-        localStorage.removeItem("Authorization");
+        localStorage.clear();
 
         navigate("/");
     };
