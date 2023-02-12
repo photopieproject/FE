@@ -209,7 +209,7 @@ const PhotoShoot = () => {
                         resolution: "200x300",
                         frameRate: 30,
                         insertMode: "APPEND",
-                        mirror: false,
+                        mirror: true,
                     });
 
                     mysession.publish(publisher);

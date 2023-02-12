@@ -149,7 +149,7 @@ export const __emailsend = async (email) => {
     try {
         const data = await apis.sendEmail(email);
         return data;
-    } catch (res) {}
+    } catch (error) {}
 };
 
 // 인증번호 확인
@@ -163,4 +163,15 @@ export const __emailcode = async (emailcode) => {
 
         return data;
     } catch (error) {}
+};
+
+// 회원 탈퇴
+export const __outUser = async () => {
+    try {
+        const data = await apis.outUser();
+        console.log("data?", data);
+        return data;
+    } catch (error) {
+        console.log("err", error);
+    }
 };
