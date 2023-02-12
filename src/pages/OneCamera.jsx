@@ -26,6 +26,7 @@ const OneCamera = () => {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: { width: 430, height: 630 },
                     audio: true,
+                    // mirror: true, 확인 후 적용
                 });
                 videoRef.current.srcObject = stream;
             } catch (err) {}
@@ -199,22 +200,22 @@ const OneCamera = () => {
                 setPhoto_two(canvas.toDataURL(photo_two));
             })
             .then(() => {
+                const file = dataURLtoFile(photo_two, "photo_two.jpg");
+
+                const photo_2 = new FormData();
+
+                photo_2.append("photo_2", file);
+
+                const cameraCount = setInterval(() => {
+                    number_ref.current -= 1;
+                    setNumber(number_ref.current);
+                    if (number_ref.current === 0) {
+                        clearInterval(cameraCount);
+                        setNumber((number_ref.current = 3));
+                    }
+                }, 1000);
+
                 setTimeout(() => {
-                    const file = dataURLtoFile(photo_two, "photo_two.jpg");
-
-                    const photo_2 = new FormData();
-
-                    photo_2.append("photo_2", file);
-
-                    const cameraCount = setInterval(() => {
-                        number_ref.current -= 1;
-                        setNumber(number_ref.current);
-                        if (number_ref.current === 0) {
-                            clearInterval(cameraCount);
-                            setNumber((number_ref.current = 3));
-                        }
-                    }, 1000);
-
                     dispatch(__takePhoto({ roomId, formdata: photo_2 })).then(
                         (res) => {
                             toast.success("2번 사진 촬영 완료!", {
