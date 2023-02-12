@@ -6,6 +6,7 @@ import Terms from "../../pages/Terms";
 import Marketing from "../../pages/Marketing";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
+// import { __outUser } from "../../redux/modules/loginSlice";
 
 const Footer = () => {
     const outside = useRef();
@@ -52,7 +53,7 @@ const Footer = () => {
     if (window.location.pathname === "/sharepage") return null;
 
     const preparingHandler = () => {
-        toast.error("현재 준비중입니다!", {
+        toast.error("현재 점검중입니다!", {
             style: {
                 borderRadius: "10px",
                 background: "#fffaf2",
@@ -65,6 +66,13 @@ const Footer = () => {
             duration: 4000,
         });
     };
+
+    // const outUserHandler = () => {
+    //     __outUser()
+    //         .then((res) => console.log("outUser res?", res))
+    //         .catch((err) => console.log("outUser err?", err));
+    // };
+
     return (
         <StDiv topBox ref={outside}>
             <StDiv footerBox>
@@ -140,6 +148,7 @@ const Footer = () => {
                         </StDiv>
                     )}
                     <StBtn agreeBtn onClick={preparingHandler}>
+                        {/* <StBtn agreeBtn onClick={outUserHandler}> */}
                         회원탈퇴
                     </StBtn>
                 </StDiv>

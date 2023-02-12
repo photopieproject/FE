@@ -48,7 +48,6 @@ export const apis = {
     postLogin: (login) => instance.post("/user/login", login),
     postSignup: (signup) => instance.post("/user/signup", signup),
     checkUserId: (userId) => instance.get(`/user/id-check/${userId}`),
-    checkOkConfirm: () => instance.post("/user/smsmessage"),
     smsSend: (phoneNumber) =>
         instance.post(`/user/smsmessage?phoneNumber=${phoneNumber}`),
     sendEmail: (email) => instance.post("/user/emailCheck/", email),
@@ -62,6 +61,7 @@ export const apis = {
         }),
     resetPW: (password, userId) =>
         instance.put("/user/reset-pw", password, userId),
+    outUser: () => instance.delete("user/mypage/deleteUser"),
 
     // 소셜 로그인 관련
     kakaoLogin: (code) => socialLogin.get(`/user/kakao/callback?code=${code}`),
@@ -75,6 +75,8 @@ export const apis = {
     outPhotoRoom: (roomId) => baseURL.delete(`/photo/room/${roomId}/exit`),
 
     // 사진촬영 관련
+    // 403 error 토큰 에러 / baseURL 적용하면 잘됨
+    mainTopFrame: () => instance.get("photo/frameRanking"),
     Shoot_Photo: (payload) => {
         baseURL.post(`/photo/room/${payload.roomId}/shoot`, payload.formdata, {
             headers: { "Content-Type": "multipart/form-data" },
