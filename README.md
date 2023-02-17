@@ -3,6 +3,9 @@
 
 # Photo-Pie 📷
 
+<img src="https://cdn.discordapp.com/attachments/1037267111585792020/1076141995963203615/2.jpg"/>
+<br />
+
 ## 주요 기능
 
 <div>
@@ -99,9 +102,11 @@
 ## Trouble Shooting
 
 `Front_End`<br />
+<br />
 ![프론트트러블슈팅](https://cdn.discordapp.com/attachments/1037267111585792020/1073285974014054450/2023-02-10_1.54.53.png)
 <br />
 `Back_End`<br />
+<br />
 ![백트러블슈팅](https://cdn.discordapp.com/attachments/1037267111585792020/1073285974274084956/2023-02-10_1.55.09.png)
 
 ## 이후 추가하고 싶은 기능
