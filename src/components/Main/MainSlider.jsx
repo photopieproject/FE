@@ -7,11 +7,11 @@ import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Span from "../button/Span";
-import patternChan from "../../assets/new_frame/pattern_chan.webp";
-import deepblue from "../../assets/new_frame/deepblue.webp";
-import patternCity from "../../assets/new_frame/pattern_city.webp";
-import blackOrange from "../../assets/new_frame/black_orange.webp";
-import patternSunset from "../../assets/new_frame/pattern_sunset.webp";
+import patternChan from "../../assets/new_frame/pattern_chan.avif";
+import deepblue from "../../assets/new_frame/deepblue.avif";
+import patternCity from "../../assets/new_frame/pattern_city.avif";
+import blackOrange from "../../assets/new_frame/black_orange.avif";
+import patternSunset from "../../assets/new_frame/pattern_sunset.avif";
 import Button from "../button/Button";
 import { useState } from "react";
 import GuideModal from "../modal/GuideModal";
@@ -87,51 +87,51 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group.webp"
+                                    src="/image/group.avif"
                                     alt="group"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group.webp"
+                                    src="/image/group.avif"
                                     alt="group"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group.webp"
+                                    src="/image/group.avif"
                                     alt="group"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.webp"
+                                    src="/image/group2.avif"
                                     alt="group2"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.webp"
+                                    src="/image/group2.avif"
                                     alt="group2"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.webp"
+                                    src="/image/group2.avif"
                                     alt="group2"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.webp"
+                                    src="/image/group3.avif"
                                     alt="group3"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.webp"
+                                    src="/image/group3.avif"
                                     alt="group3"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.webp"
+                                    src="/image/group3.avif"
                                     alt="group3"
                                 />
                             </div>
