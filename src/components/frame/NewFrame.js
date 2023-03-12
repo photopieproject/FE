@@ -1,19 +1,19 @@
-import blackOrange from "../../assets/new_frame/black_orange.png";
-import deepblue from "../../assets/new_frame/deepblue.png";
-import mint from "../../assets/new_frame/mint.png";
-import pupple from "../../assets/new_frame/pupple.png";
-import white from "../../assets/new_frame/white.png";
+import blackOrange from "../../assets/new_frame/black_orange.webp";
+import deepblue from "../../assets/new_frame/deepblue.webp";
+import mint from "../../assets/new_frame/mint.webp";
+import pupple from "../../assets/new_frame/pupple.webp";
+import white from "../../assets/new_frame/white.webp";
 
-import patternChan from "../../assets/new_frame/pattern_chan.png";
-import patternAurora from "../../assets/new_frame/pattern_aurora.png";
-import patternCity from "../../assets/new_frame/pattern_city.png";
-import patternflower from "../../assets/new_frame/pattern_flower.png";
-import patternForest from "../../assets/new_frame/pattern_forest.png";
-import patternhigh from "../../assets/new_frame/pattern_high.png";
-import patternSea from "../../assets/new_frame/pattern_sea.png";
-import patternSnow from "../../assets/new_frame/pattern_snow.png";
-import patternSunset from "../../assets/new_frame/pattern_sunset.png";
-import patternTulip from "../../assets/new_frame/pattern_tulip.png";
+import patternChan from "../../assets/new_frame/pattern_chan.webp";
+import patternAurora from "../../assets/new_frame/pattern_aurora.webp";
+import patternCity from "../../assets/new_frame/pattern_city.webp";
+import patternflower from "../../assets/new_frame/pattern_flower.webp";
+import patternForest from "../../assets/new_frame/pattern_forest.webp";
+import patternhigh from "../../assets/new_frame/pattern_high.webp";
+import patternSea from "../../assets/new_frame/pattern_sea.webp";
+import patternSnow from "../../assets/new_frame/pattern_snow.webp";
+import patternSunset from "../../assets/new_frame/pattern_sunset.webp";
+import patternTulip from "../../assets/new_frame/pattern_tulip.webp";
 
 export const maxCounter = [
     {

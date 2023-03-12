@@ -1,25 +1,26 @@
 import Slider from "react-slick";
-import React, { useEffect } from "react";
+import React from "react";
+// import React, { useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Span from "../button/Span";
-import patternChan from "../../assets/new_frame/pattern_chan.png";
-import deepblue from "../../assets/new_frame/deepblue.png";
-import patternCity from "../../assets/new_frame/pattern_city.png";
-import blackOrange from "../../assets/new_frame/black_orange.png";
-import patternSunset from "../../assets/new_frame/pattern_sunset.png";
+import patternChan from "../../assets/new_frame/pattern_chan.webp";
+import deepblue from "../../assets/new_frame/deepblue.webp";
+import patternCity from "../../assets/new_frame/pattern_city.webp";
+import blackOrange from "../../assets/new_frame/black_orange.webp";
+import patternSunset from "../../assets/new_frame/pattern_sunset.webp";
 import Button from "../button/Button";
 import { useState } from "react";
 import GuideModal from "../modal/GuideModal";
-import { useDispatch } from "react-redux";
-import { __mainTopFrame } from "../../redux/modules/photoSlice";
+// import { useDispatch } from "react-redux";
+// import { __mainTopFrame } from "../../redux/modules/photoSlice";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [guideModal, setGuideModal] = useState(false);
 
@@ -35,11 +36,11 @@ export const MainSlider = () => {
         pauseOnHover: true,
     };
 
-    useEffect(() => {
-        dispatch(__mainTopFrame())
-            .then((res) => console.log("main res?", res))
-            .catch((err) => console.log(err));
-    });
+    // useEffect(() => {
+    //     dispatch(__mainTopFrame())
+    //         .then((res) => console.log("main res?", res))
+    //         .catch((err) => console.log(err));
+    // });
 
     const guideModalHandler = () => {
         setGuideModal(true);
@@ -86,51 +87,51 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group.png"
+                                    src="/image/group.webp"
                                     alt="group"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group.png"
+                                    src="/image/group.webp"
                                     alt="group"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group.png"
+                                    src="/image/group.webp"
                                     alt="group"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.png"
+                                    src="/image/group2.webp"
                                     alt="group2"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.png"
+                                    src="/image/group2.webp"
                                     alt="group2"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.png"
+                                    src="/image/group2.webp"
                                     alt="group2"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.png"
+                                    src="/image/group3.webp"
                                     alt="group3"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.png"
+                                    src="/image/group3.webp"
                                     alt="group3"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.png"
+                                    src="/image/group3.webp"
                                     alt="group3"
                                 />
                             </div>
