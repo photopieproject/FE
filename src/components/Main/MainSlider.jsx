@@ -1,6 +1,5 @@
 import Slider from "react-slick";
-import React from "react";
-// import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled, { css } from "styled-components";
@@ -39,6 +38,11 @@ export const MainSlider = () => {
         autoplaySpeed: 8000,
         pauseOnHover: true,
     };
+
+    useEffect(() => {
+        const img = new Image();
+        img.src = group;
+    }, []);
 
     // useEffect(() => {
     //     dispatch(__mainTopFrame())
