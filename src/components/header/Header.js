@@ -48,7 +48,18 @@ const Header = () => {
             <Toaster />
             <StDiv navMain>
                 <Span onClick={() => navigate("/")}>
-                    <StImg src={logo} alt="logo" width="100px" />
+                    <picture>
+                        <source
+                            type="image/webp"
+                            srcset="../../images/photopie_logo_1.webp"
+                        />
+                        <source
+                            type="image/png"
+                            srcset="../../images/photopie_logo_1.png"
+                        />
+                        <StImg src={logo} alt="logo" width="100px" />
+                    </picture>
+                    {/* <StImg src={logo} alt="logo" width="100px" /> */}
                 </Span>
                 <StDiv logSign>
                     {nickname ? (
