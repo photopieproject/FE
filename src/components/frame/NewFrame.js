@@ -1,19 +1,19 @@
-import blackOrange from "../../assets/new_frame/black_orange.webp";
-import deepblue from "../../assets/new_frame/deepblue.webp";
-import mint from "../../assets/new_frame/mint.webp";
-import pupple from "../../assets/new_frame/pupple.webp";
-import white from "../../assets/new_frame/white.webp";
+import blackOrange from "../../assets/new_frame/black_orange.avif";
+import deepblue from "../../assets/new_frame/deepblue.avif";
+import mint from "../../assets/new_frame/mint.avif";
+import pupple from "../../assets/new_frame/pupple.avif";
+import white from "../../assets/new_frame/white.avif";
 
-import patternChan from "../../assets/new_frame/pattern_chan.webp";
-import patternAurora from "../../assets/new_frame/pattern_aurora.webp";
-import patternCity from "../../assets/new_frame/pattern_city.webp";
-import patternflower from "../../assets/new_frame/pattern_flower.webp";
-import patternForest from "../../assets/new_frame/pattern_forest.webp";
-import patternhigh from "../../assets/new_frame/pattern_high.webp";
-import patternSea from "../../assets/new_frame/pattern_sea.webp";
-import patternSnow from "../../assets/new_frame/pattern_snow.webp";
-import patternSunset from "../../assets/new_frame/pattern_sunset.webp";
-import patternTulip from "../../assets/new_frame/pattern_tulip.webp";
+import patternChan from "../../assets/new_frame/pattern_chan.avif";
+import patternAurora from "../../assets/new_frame/pattern_aurora.avif";
+import patternCity from "../../assets/new_frame/pattern_city.avif";
+import patternflower from "../../assets/new_frame/pattern_flower.avif";
+import patternForest from "../../assets/new_frame/pattern_forest.avif";
+import patternhigh from "../../assets/new_frame/pattern_high.avif";
+import patternSea from "../../assets/new_frame/pattern_sea.avif";
+import patternSnow from "../../assets/new_frame/pattern_snow.avif";
+import patternSunset from "../../assets/new_frame/pattern_sunset.avif";
+import patternTulip from "../../assets/new_frame/pattern_tulip.avif";
 
 export const maxCounter = [
     {

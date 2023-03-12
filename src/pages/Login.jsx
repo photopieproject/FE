@@ -53,14 +53,14 @@ const Login = () => {
                         <StDiv social_login>
                             <a href={KAKAO_AUTH}>
                                 <img
-                                    src="/image/kakao_login2.webp"
+                                    src="/image/kakao_login2.avif"
                                     alt="kakao_login2"
                                     style={{ width: "195px" }}
                                 />
                             </a>
                             <a href={GOOGLE_AUTH}>
                                 <img
-                                    src="/image/google_login.webp"
+                                    src="/image/google_login.avif"
                                     alt="google_login"
                                     style={{ width: "200px" }}
                                 />
