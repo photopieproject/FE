@@ -26,7 +26,6 @@ export const MainSlider = () => {
     // const dispatch = useDispatch();
 
     console.log(process.env.PUBLIC_URL);
-
     const [guideModal, setGuideModal] = useState(false);
 
     const settings = {
@@ -92,28 +91,19 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group.webp"
-                                    }
+                                    src={group}
                                     alt="group"
                                     width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group.webp"
-                                    }
+                                    src={group}
                                     alt="group"
                                     width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group.webp"
-                                    }
+                                    src={group}
                                     alt="group"
                                     width="200px"
                                 />
@@ -121,28 +111,19 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group2.webp"
-                                    }
+                                    src={group2}
                                     alt="group2"
                                     width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group2.webp"
-                                    }
+                                    src={group2}
                                     alt="group2"
                                     width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group2.webp"
-                                    }
+                                    src={group2}
                                     alt="group2"
                                     width="200px"
                                 />
@@ -150,28 +131,19 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group3.webp"
-                                    }
+                                    src={group3}
                                     alt="group3"
                                     width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group3.webp"
-                                    }
+                                    src={group3}
                                     alt="group3"
                                     width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.PUBLIC_URL +
-                                        "./images/group3.webp"
-                                    }
+                                    src={group3}
                                     alt="group3"
                                     width="200px"
                                 />
@@ -299,10 +271,7 @@ export const MainSlider = () => {
                                         <StP main3SubTit>Bridge</StP>
                                         <StImg
                                             framePhoto
-                                            src={
-                                                process.env.PUBLIC_URL +
-                                                "./images/new_frame/pattern_chan.webp"
-                                            }
+                                            src={patternChan}
                                             alt="Bridge"
                                             width="200px"
                                         />
@@ -312,10 +281,7 @@ export const MainSlider = () => {
                                         <StP main3SubTit>Deep Blue</StP>
                                         <StImg
                                             framePhoto
-                                            src={
-                                                process.env.PUBLIC_URL +
-                                                "./images/new_frame/deepblue.webp"
-                                            }
+                                            src={deepblue}
                                             alt="Deep Blue"
                                             width="200px"
                                         />
@@ -325,10 +291,7 @@ export const MainSlider = () => {
                                         <StP main3SubTit>City</StP>
                                         <StImg
                                             framePhoto
-                                            src={
-                                                process.env.PUBLIC_URL +
-                                                "./images/new_frame/pattern_city.webp"
-                                            }
+                                            src={patternCity}
                                             alt="City"
                                             width="200px"
                                         />
@@ -338,10 +301,7 @@ export const MainSlider = () => {
                                         <StP main3SubTit>Black Orange</StP>
                                         <StImg
                                             framePhoto
-                                            src={
-                                                process.env.PUBLIC_URL +
-                                                "./images/new_frame/black_orange.webp"
-                                            }
+                                            src={blackOrange}
                                             alt="Black Orange"
                                             width="200px"
                                         />
@@ -351,10 +311,7 @@ export const MainSlider = () => {
                                         <StP main3SubTit>Sunset</StP>
                                         <StImg
                                             framePhoto
-                                            src={
-                                                process.env.PUBLIC_URL +
-                                                "./images/new_frame/pattern_sunset.webp"
-                                            }
+                                            src={patternSunset}
                                             alt="Sunset"
                                             width="200px"
                                         />
