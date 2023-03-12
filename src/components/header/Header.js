@@ -47,7 +47,7 @@ const Header = () => {
             <Toaster />
             <StDiv navMain>
                 <Span onClick={() => navigate("/")}>
-                    <StImg src="/image/photopie_logo_1.avif" alt="logo" />
+                    <StImg src="/photopie_logo_1.avif" alt="logo" />
                 </Span>
                 <StDiv logSign>
                     {nickname ? (

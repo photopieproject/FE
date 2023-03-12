@@ -87,51 +87,51 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group.avif"
+                                    src="/group.avif"
                                     alt="group"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group.avif"
+                                    src="/group.avif"
                                     alt="group"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group.avif"
+                                    src="/group.avif"
                                     alt="group"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.avif"
+                                    src="/group2.avif"
                                     alt="group2"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.avif"
+                                    src="/group2.avif"
                                     alt="group2"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.avif"
+                                    src="/group2.avif"
                                     alt="group2"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.avif"
+                                    src="/group3.avif"
                                     alt="group3"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.avif"
+                                    src="/group3.avif"
                                     alt="group3"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.avif"
+                                    src="/group3.avif"
                                     alt="group3"
                                 />
                             </div>
