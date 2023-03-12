@@ -97,19 +97,19 @@ export const MainSlider = () => {
                                     main1Photo
                                     src={group}
                                     alt="group"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group}
                                     alt="group"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group}
                                     alt="group"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                             <div>
@@ -117,19 +117,19 @@ export const MainSlider = () => {
                                     main1Photo
                                     src={group2}
                                     alt="group2"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group2}
                                     alt="group2"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group2}
                                     alt="group2"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                             <div>
@@ -137,19 +137,19 @@ export const MainSlider = () => {
                                     main1Photo
                                     src={group3}
                                     alt="group3"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group3}
                                     alt="group3"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group3}
                                     alt="group3"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                         </StDiv>
@@ -277,7 +277,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternChan}
                                             alt="Bridge"
-                                            style={{ width: "200px" }}
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -287,7 +290,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={deepblue}
                                             alt="Deep Blue"
-                                            style={{ width: "200px" }}
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -297,7 +303,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternCity}
                                             alt="City"
-                                            style={{ width: "200px" }}
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -307,7 +316,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={blackOrange}
                                             alt="Black Orange"
-                                            style={{ width: "200px" }}
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -317,7 +329,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternSunset}
                                             alt="Sunset"
-                                            style={{ width: "200px" }}
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                 </StUl>
