@@ -108,7 +108,11 @@ const Frame = () => {
                                 checked={frameNum === `${kind.frameNum}`}
                                 onChange={setFrameNum}
                             />
-                            <StImg src={kind.img} alt={kind.name} />
+                            <StImg
+                                src={kind.img}
+                                alt={kind.name}
+                                width="200px"
+                            />
                         </StDiv>
                     </label>
                 ))}
@@ -127,7 +131,11 @@ const Frame = () => {
                                 checked={frameNum === `${kind.frameNum}`}
                                 onChange={setFrameNum}
                             />
-                            <StImg src={kind.img} alt={kind.name} />
+                            <StImg
+                                src={kind.img}
+                                alt={kind.name}
+                                width="200px"
+                            />
                         </StDiv>
                     </label>
                 ))}

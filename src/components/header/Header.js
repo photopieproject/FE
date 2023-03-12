@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Span from "../button/Span";
 import toast, { Toaster } from "react-hot-toast";
+import logo from "../../images/photopie_logo_1.webp";
 // import MyPageModal from "../modal/MyPageModal";
 // import { useState } from "react";
 
@@ -47,7 +48,7 @@ const Header = () => {
             <Toaster />
             <StDiv navMain>
                 <Span onClick={() => navigate("/")}>
-                    <StImg src="/photopie_logo_1.avif" alt="logo" />
+                    <StImg src={logo} alt="logo" width="100px" />
                 </Span>
                 <StDiv logSign>
                     {nickname ? (
