@@ -4,8 +4,8 @@ import { useInput } from "../lib/utils/useInput";
 import { __postLogin } from "../redux/modules/loginSlice";
 import toast, { Toaster } from "react-hot-toast";
 import Button from "../components/button/Button";
-import kakaoBtn from "../images/kakao_login2.png";
-import googleBtn from "../images/google_login.png";
+import kakaoBtn from "../images/login/kakao_login2.png";
+import googleBtn from "../images/login/google_login.png";
 
 const Login = () => {
     const navigate = useNavigate();
