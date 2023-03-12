@@ -7,11 +7,14 @@ import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Span from "../button/Span";
-import patternChan from "../../assets/new_frame/pattern_chan.avif";
-import deepblue from "../../assets/new_frame/deepblue.avif";
-import patternCity from "../../assets/new_frame/pattern_city.avif";
-import blackOrange from "../../assets/new_frame/black_orange.avif";
-import patternSunset from "../../assets/new_frame/pattern_sunset.avif";
+import patternChan from "../../images/new_frame/pattern_chan.webp";
+import deepblue from "../../images/new_frame/deepblue.webp";
+import patternCity from "../../images/new_frame/pattern_city.webp";
+import blackOrange from "../../images/new_frame/black_orange.webp";
+import patternSunset from "../../images/new_frame/pattern_sunset.webp";
+import group from "../../images/group.webp";
+import group2 from "../../images/group2.webp";
+import group3 from "../../images/group3.webp";
 import Button from "../button/Button";
 import { useState } from "react";
 import GuideModal from "../modal/GuideModal";
@@ -87,52 +90,61 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/group.avif"
+                                    src={group}
                                     alt="group"
+                                    width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/group.avif"
+                                    src={group}
                                     alt="group"
+                                    width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/group.avif"
+                                    src={group}
                                     alt="group"
+                                    width="200px"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/group2.avif"
+                                    src={group2}
                                     alt="group2"
+                                    width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/group2.avif"
+                                    src={group2}
                                     alt="group2"
+                                    width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/group2.avif"
+                                    src={group2}
                                     alt="group2"
+                                    width="200px"
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/group3.avif"
+                                    src={group3}
                                     alt="group3"
+                                    width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/group3.avif"
+                                    src={group3}
                                     alt="group3"
+                                    width="200px"
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/group3.avif"
+                                    src={group3}
                                     alt="group3"
+                                    width="200px"
                                 />
                             </div>
                         </StDiv>
@@ -260,6 +272,7 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternChan}
                                             alt="Bridge"
+                                            width="200px"
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -269,6 +282,7 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={deepblue}
                                             alt="Deep Blue"
+                                            width="200px"
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -278,6 +292,7 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternCity}
                                             alt="City"
+                                            width="200px"
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -287,6 +302,7 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={blackOrange}
                                             alt="Black Orange"
+                                            width="200px"
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -296,6 +312,7 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternSunset}
                                             alt="Sunset"
+                                            width="200px"
                                         />
                                     </StLi>
                                 </StUl>
