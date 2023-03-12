@@ -7,14 +7,14 @@ import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Span from "../button/Span";
-import patternChan from "../../images/new_frame/pattern_chan.webp";
-import deepblue from "../../images/new_frame/deepblue.webp";
-import patternCity from "../../images/new_frame/pattern_city.webp";
-import blackOrange from "../../images/new_frame/black_orange.webp";
-import patternSunset from "../../images/new_frame/pattern_sunset.webp";
-import group from "../../images/group.webp";
-import group2 from "../../images/group2.webp";
-import group3 from "../../images/group3.webp";
+import patternChan from "../../images/new_frame/pattern_chan.png";
+import deepblue from "../../images/new_frame/deepblue.png";
+import patternCity from "../../images/new_frame/pattern_city.png";
+import blackOrange from "../../images/new_frame/black_orange.png";
+import patternSunset from "../../images/new_frame/pattern_sunset.png";
+import group from "../../images/group.png";
+import group2 from "../../images/group2.png";
+import group3 from "../../images/group3.png";
 import Button from "../button/Button";
 import { useState } from "react";
 import GuideModal from "../modal/GuideModal";
@@ -91,10 +91,7 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src={
-                                        process.env.REACT_APP_BASE_URL +
-                                        "/images/photopielogo.webp"
-                                    }
+                                    src={group}
                                     alt="group"
                                     width="200px"
                                 />
