@@ -2,9 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Span from "../button/Span";
 import toast, { Toaster } from "react-hot-toast";
-import logo from "../../images/photopie_logo_1.png";
-import logo2 from "../../images/photopie_logo_2.webp";
-import logoWebp from "../../images/photopie_logo_1.webp";
+import logo from "../../images/logo/photopie_logo_1.png";
+import logoWebp from "../../images/logo/photopie_logo_1.webp";
 // import MyPageModal from "../modal/MyPageModal";
 // import { useState } from "react";
 
@@ -50,11 +49,19 @@ const Header = () => {
             <Toaster />
             <StDiv navMain>
                 <Span onClick={() => navigate("/")}>
-                    {/* <picture>
-                        <source type="image/webp" srcset={logoWebp} />
-                        <StImg src={logo} alt="logo" width="100px" />
-                    </picture> */}
-                    <StImg src={logo2} alt="logo" style={{ width: "100px" }} />
+                    <picture>
+                        <source
+                            type="image/webp"
+                            srcset={logoWebp}
+                            style={{ width: "100px" }}
+                        />
+                        <StImg
+                            src={logo}
+                            alt="logo"
+                            style={{ width: "100px" }}
+                        />
+                    </picture>
+                    {/* <StImg src={logo2} alt="logo" style={{ width: "100px" }} /> */}
                 </Span>
                 <StDiv logSign>
                     {nickname ? (
