@@ -93,7 +93,7 @@ export const MainSlider = () => {
                                     main1Photo
                                     src={
                                         process.env.REACT_APP_BASE_URL +
-                                        "/images/photoielogo.webp"
+                                        "/images/photopielogo.webp"
                                     }
                                     alt="group"
                                     width="200px"
