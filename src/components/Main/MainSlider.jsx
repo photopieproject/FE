@@ -91,7 +91,10 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src={group}
+                                    src={
+                                        process.env.REACT_APP_BASE_URL +
+                                        "./images/photoielogo.webp"
+                                    }
                                     alt="group"
                                     width="200px"
                                 />
