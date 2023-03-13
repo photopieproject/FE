@@ -93,19 +93,19 @@ export const MainSlider = () => {
                                     main1Photo
                                     src={group}
                                     alt="group"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group}
                                     alt="group"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group}
                                     alt="group"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                             <div>
@@ -113,19 +113,19 @@ export const MainSlider = () => {
                                     main1Photo
                                     src={group2}
                                     alt="group2"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group2}
                                     alt="group2"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group2}
                                     alt="group2"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                             <div>
@@ -133,19 +133,19 @@ export const MainSlider = () => {
                                     main1Photo
                                     src={group3}
                                     alt="group3"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group3}
                                     alt="group3"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
                                     src={group3}
                                     alt="group3"
-                                    // style={{ width: "200px", height: "300px" }}
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                         </StDiv>
@@ -587,13 +587,11 @@ const StImg = styled.img`
     ${(props) =>
         props.main1Photo &&
         css`
-            width: 200px;
             margin-top: 30px;
         `}
     ${(props) =>
         props.framePhoto &&
         css`
-            width: 200px;
             margin-top: 10px;
             @media (max-width: 1919px) {
                 width: 120px;
