@@ -51,7 +51,7 @@ const Header = () => {
                     <StImg
                         src={logoWebp}
                         alt="logo"
-                        style={{ width: "100px", height: "80px" }}
+                        // style={{ width: "100px", height: "80px" }}
                     />
                 </Span>
                 <StDiv logSign>
@@ -142,6 +142,7 @@ const StDiv = styled.div`
 `;
 
 const StImg = styled.img`
+    width: 100px;
     margin: 10px;
 `;
 
