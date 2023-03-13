@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Span from "../button/Span";
 import toast, { Toaster } from "react-hot-toast";
-import logoWebp from "../../images/logo/photopie_logo_1.webp";
+import logoWebp from "../../images/logo/photopie_logo_1.png";
 // import MyPageModal from "../modal/MyPageModal";
 // import { useState } from "react";
 
