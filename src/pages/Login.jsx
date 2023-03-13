@@ -4,8 +4,8 @@ import { useInput } from "../lib/utils/useInput";
 import { __postLogin } from "../redux/modules/loginSlice";
 import toast, { Toaster } from "react-hot-toast";
 import Button from "../components/button/Button";
-import kakaoBtn from "../images/login/kakao_login2.png";
-import googleBtn from "../images/login/google_login.png";
+import kakaoBtn from "../images/login/kakao_login2.webp";
+import googleBtn from "../images/login/google_login.webp";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -57,14 +57,14 @@ const Login = () => {
                                 <img
                                     src={kakaoBtn}
                                     alt="kakao_login2"
-                                    style={{ width: "195px" }}
+                                    style={{ width: "195px", height: "48px" }}
                                 />
                             </a>
                             <a href={GOOGLE_AUTH}>
                                 <img
                                     src={googleBtn}
                                     alt="google_login"
-                                    style={{ width: "200px" }}
+                                    style={{ width: "200px", height: "48px" }}
                                 />
                             </a>
                         </StDiv>
