@@ -1,26 +1,31 @@
 import Slider from "react-slick";
-import React, { useEffect } from "react";
+import React from "react";
+// import React, { useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Span from "../button/Span";
-import patternChan from "../../assets/new_frame/pattern_chan.png";
-import deepblue from "../../assets/new_frame/deepblue.png";
-import patternCity from "../../assets/new_frame/pattern_city.png";
-import blackOrange from "../../assets/new_frame/black_orange.png";
-import patternSunset from "../../assets/new_frame/pattern_sunset.png";
+import patternChan from "../../images/new_frame/pattern_chan.webp";
+import deepblue from "../../images/new_frame/deepblue.webp";
+import patternCity from "../../images/new_frame/pattern_city.webp";
+import blackOrange from "../../images/new_frame/black_orange.webp";
+import patternSunset from "../../images/new_frame/pattern_sunset.webp";
+import group from "../../images/main/group.webp";
+import group2 from "../../images/main/group2.webp";
+import group3 from "../../images/main/group3.webp";
 import Button from "../button/Button";
 import { useState } from "react";
 import GuideModal from "../modal/GuideModal";
-import { useDispatch } from "react-redux";
-import { __mainTopFrame } from "../../redux/modules/photoSlice";
+// import { useDispatch } from "react-redux";
+// import { __mainTopFrame } from "../../redux/modules/photoSlice";
 
 export const MainSlider = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
+    console.log(process.env.PUBLIC_URL);
     const [guideModal, setGuideModal] = useState(false);
 
     const settings = {
@@ -35,11 +40,11 @@ export const MainSlider = () => {
         pauseOnHover: true,
     };
 
-    useEffect(() => {
-        dispatch(__mainTopFrame())
-            .then((res) => console.log("main res?", res))
-            .catch((err) => console.log(err));
-    });
+    // useEffect(() => {
+    //     dispatch(__mainTopFrame())
+    //         .then((res) => console.log("main res?", res))
+    //         .catch((err) => console.log(err));
+    // });
 
     const guideModalHandler = () => {
         setGuideModal(true);
@@ -86,52 +91,61 @@ export const MainSlider = () => {
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group.png"
+                                    src={group}
                                     alt="group"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group.png"
+                                    src={group}
                                     alt="group"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group.png"
+                                    src={group}
                                     alt="group"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.png"
+                                    src={group2}
                                     alt="group2"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.png"
+                                    src={group2}
                                     alt="group2"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group2.png"
+                                    src={group2}
                                     alt="group2"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                             <div>
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.png"
+                                    src={group3}
                                     alt="group3"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.png"
+                                    src={group3}
                                     alt="group3"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                                 <StImg
                                     main1Photo
-                                    src="/image/group3.png"
+                                    src={group3}
                                     alt="group3"
+                                    style={{ width: "200px", height: "300px" }}
                                 />
                             </div>
                         </StDiv>
@@ -259,6 +273,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternChan}
                                             alt="Bridge"
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -268,6 +286,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={deepblue}
                                             alt="Deep Blue"
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -277,6 +299,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternCity}
                                             alt="City"
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -286,6 +312,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={blackOrange}
                                             alt="Black Orange"
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                     <StLi main3Li>
@@ -295,6 +325,10 @@ export const MainSlider = () => {
                                             framePhoto
                                             src={patternSunset}
                                             alt="Sunset"
+                                            style={{
+                                                width: "200px",
+                                                height: "300px",
+                                            }}
                                         />
                                     </StLi>
                                 </StUl>
@@ -553,18 +587,11 @@ const StImg = styled.img`
     ${(props) =>
         props.main1Photo &&
         css`
-            width: 200px;
             margin-top: 30px;
-        `}
-    ${(props) =>
-        props.Frame3 &&
-        css`
-            height: 600px;
         `}
     ${(props) =>
         props.framePhoto &&
         css`
-            width: 200px;
             margin-top: 10px;
             @media (max-width: 1919px) {
                 width: 120px;

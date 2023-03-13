@@ -22,6 +22,9 @@
         <meta property="og:image" content="%PUBLIC_URL%/metaImg.png" />
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/photopielogo.png" />
         <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <link rel="preconnect" href="https://photo-pie.store/" />
+        <link rel="dns-prefetch" href="https://photo-pie.store/" />
+        <link rel="preload" as="font" />
         <title>Photo-Pie</title>
         <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
         <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -40,20 +43,15 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
+            rel="preload"
+            as="style"
+            onload="this.rel = 'stylesheet'"
             href="https://fonts.googleapis.com/css2?family=Belleza&display=swap"
-            rel="stylesheet"
         />
-        <!-- Belleza-->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap"
-            rel="stylesheet"
-        />
-        <!--Nanum Myeongjo-->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap"
-            rel="stylesheet"
-        />
-        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script
+            src="https://developers.kakao.com/sdk/js/kakao.js"
+            defer
+        ></script>
     </head>
     <body style="color: #3a3232; background-color: #fffaf2">
         <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -108,7 +108,11 @@ const Frame = () => {
                                 checked={frameNum === `${kind.frameNum}`}
                                 onChange={setFrameNum}
                             />
-                            <StImg src={kind.img} alt={kind.name} />
+                            <StImg
+                                src={kind.img}
+                                alt={kind.name}
+                                style={{ width: "200px", height: "300px" }}
+                            />
                         </StDiv>
                     </label>
                 ))}
@@ -127,7 +131,11 @@ const Frame = () => {
                                 checked={frameNum === `${kind.frameNum}`}
                                 onChange={setFrameNum}
                             />
-                            <StImg src={kind.img} alt={kind.name} />
+                            <StImg
+                                src={kind.img}
+                                alt={kind.name}
+                                style={{ width: "200px", height: "300px" }}
+                            />
                         </StDiv>
                     </label>
                 ))}
@@ -183,7 +191,6 @@ const StH3 = styled.h3`
 `;
 
 const StImg = styled.img`
-    width: 200px;
     margin: 5px;
     cursor: pointer;
 `;
