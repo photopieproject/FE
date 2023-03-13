@@ -111,7 +111,7 @@ const Frame = () => {
                             <StImg
                                 src={kind.img}
                                 alt={kind.name}
-                                // style={{ width: "200px", height: "300px" }}
+                                style={{ width: "200px", height: "300px" }}
                             />
                         </StDiv>
                     </label>
@@ -134,7 +134,7 @@ const Frame = () => {
                             <StImg
                                 src={kind.img}
                                 alt={kind.name}
-                                // style={{ width: "200px", height: "300px" }}
+                                style={{ width: "200px", height: "300px" }}
                             />
                         </StDiv>
                     </label>
@@ -191,7 +191,6 @@ const StH3 = styled.h3`
 `;
 
 const StImg = styled.img`
-    width: 200px;
     margin: 5px;
     cursor: pointer;
 `;

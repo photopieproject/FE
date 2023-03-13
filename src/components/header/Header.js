@@ -51,7 +51,7 @@ const Header = () => {
                     <StImg
                         src={logoWebp}
                         alt="logo"
-                        // style={{ width: "100px", height: "80px" }}
+                        style={{ width: "100px", height: "80px" }}
                     />
                 </Span>
                 <StDiv logSign>
